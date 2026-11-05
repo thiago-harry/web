@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tema "Azul Tático & Gelo" (escuro). Valores HSL sem hsl() para aceitar opacidade no Tailwind. */
+@layer base {
+  :root {
+    --background: 222 47% 7%;
+    --foreground: 210 40% 96%;
+    --card: 222 40% 10%;
+    --muted: 220 30% 18%;
+    --muted-foreground: 215 20% 65%;
+    --border: 220 30% 20%;
+    --input: 220 30% 20%;
+    --ring: 205 90% 60%;
+    --primary: 205 90% 60%;
+    --primary-foreground: 222 47% 7%;
+    --destructive: 0 78% 58%;
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+    --priority-5: 0 84% 60%;
+    --priority-4: 25 95% 55%;
+    --priority-3: 45 93% 50%;
+    --priority-2: 217 91% 60%;
+    --priority-1: 220 9% 70%;
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}

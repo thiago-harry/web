@@ -1,24 +1,36 @@
 # Cronograma Inteligente · Mentorias 2G
 
-Página de apresentação interna da proposta de cronograma de estudos priorizado por dados.
+Pitch interno do cronograma de estudos priorizado (TRT4 Técnico 2026 como exemplo).
+App em **Vite + React 18 + TypeScript + Tailwind CSS v3**.
 
-- **Camada 1 · Dossiê do concurso:** edital + perfil da banca + provas anteriores → prioridade de 1 a 5 por assunto (retorno esperado por hora de estudo).
-- **Camada 2 · Nivelamento:** simulado diagnóstico ajusta as horas de cada assunto para o aluno.
-- **Camada 3 · Prazo:** data da prova e horas disponíveis definem o que entra, o que fica parcial e o que fica de fora.
+> Pesos da banca e horas por tópico são **ilustrativos** (demo).
 
-A página inclui um simulador com **dados fictícios**, só para demonstrar a mecânica.
+## Rodar local
 
-## Arquivos
+```bash
+npm install
+npm run dev
+```
 
-- `index.html` — página completa (HTML, CSS e JS num arquivo só, sem dependências externas).
-- Dados do simulador: bloco `DISCIPLINAS` / `ASSUNTOS` no início do `<script>` em `index.html`.
-- Parâmetros do modelo no mesmo bloco: `MULT` (multiplicadores do nivelamento), `CORTES` (faixas P5–P1) e `RESERVA` (fração para revisão).
+## Publicar (GitHub Pages)
 
-## Publicação (GitHub Pages)
+O build sai em `docs/` e é versionado. Depois de qualquer mudança:
 
-Settings → Pages → Source: *Deploy from a branch* → `main` / `/ (root)`.
-O repositório é público: a página também fica pública.
+```bash
+npm run build
+```
 
-## Ver localmente
+Depois, faça commit da pasta `docs/` junto com o código.
 
-Abrir `index.html` no navegador. Não precisa de servidor.
+GitHub → Settings → Pages → *Deploy from a branch* → branch deste código, pasta `/docs`.
+Endereço: `https://thiago-harry.github.io/web/`. O repositório é público, então a página também é.
+
+A proposta anterior (página estática com o método completo) fica em `public/proposta.html` → `https://thiago-harry.github.io/web/proposta.html`.
+
+## Estrutura
+
+- `src/data/editalTRT4Tecnico2026.ts` — 10 matérias, 99 tópicos do edital.
+- `src/lib/pitch-planner.ts` — pesos, horas, seleção por pontos/hora, resumo por nível e roteiro diário.
+- `src/pages/PitchCronograma.tsx` — a página.
+- `src/components/ui/slider.tsx` — slider (Radix, estilo shadcn).
+- `src/index.css` + `tailwind.config.ts` — tema escuro "Azul Tático & Gelo".
