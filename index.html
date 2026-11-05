@@ -1,0 +1,1338 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cronograma Inteligente 2G</title>
+<meta name="description" content="Proposta interna da Mentorias 2G: cronograma de estudos priorizado por banca, provas anteriores, nível do aluno e prazo até a prova.">
+<script>
+  try { var t = localStorage.getItem("tema"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f9f9f7;
+    --surface: #fcfcfb;
+    --surface-2: #f0efec;
+    --ink: #0b0b0b;
+    --ink-2: #52514e;
+    --muted: #898781;
+    --line: #e1e0d9;
+    --axis: #c3c2b7;
+    --border: rgba(11, 11, 11, 0.10);
+    --accent: #2a78d6;
+    --accent-ink: #1c5cab;
+    --accent-wash: rgba(42, 120, 214, 0.10);
+    --series-plan: #2a78d6;
+    --series-base: #898781;
+    --p1: #86b6ef; --p1-ink: #0b0b0b;
+    --p2: #5598e7; --p2-ink: #0b0b0b;
+    --p3: #2a78d6; --p3-ink: #ffffff;
+    --p4: #1c5cab; --p4-ink: #ffffff;
+    --p5: #104281; --p5-ink: #ffffff;
+    --good-text: #006300;
+    --shadow: 0 1px 2px rgba(11, 11, 11, 0.04), 0 4px 16px rgba(11, 11, 11, 0.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #0d0d0d;
+      --surface: #1a1a19;
+      --surface-2: #232321;
+      --ink: #f0efec;
+      --ink-2: #c3c2b7;
+      --muted: #898781;
+      --line: #2c2c2a;
+      --axis: #383835;
+      --border: rgba(255, 255, 255, 0.10);
+      --accent: #3987e5;
+      --accent-ink: #6da7ec;
+      --accent-wash: rgba(57, 135, 229, 0.12);
+      --series-plan: #3987e5;
+      --series-base: #898781;
+      --p1: #184f95; --p1-ink: #ffffff;
+      --p2: #256abf; --p2-ink: #ffffff;
+      --p3: #3987e5; --p3-ink: #0b0b0b;
+      --p4: #6da7ec; --p4-ink: #0b0b0b;
+      --p5: #9ec5f4; --p5-ink: #0b0b0b;
+      --good-text: #0ca30c;
+      --shadow: none;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0d0d0d;
+    --surface: #1a1a19;
+    --surface-2: #232321;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --line: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.10);
+    --accent: #3987e5;
+    --accent-ink: #6da7ec;
+    --accent-wash: rgba(57, 135, 229, 0.12);
+    --series-plan: #3987e5;
+    --series-base: #898781;
+    --p1: #184f95; --p1-ink: #ffffff;
+    --p2: #256abf; --p2-ink: #ffffff;
+    --p3: #3987e5; --p3-ink: #0b0b0b;
+    --p4: #6da7ec; --p4-ink: #0b0b0b;
+    --p5: #9ec5f4; --p5-ink: #0b0b0b;
+    --good-text: #0ca30c;
+    --shadow: none;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent-ink); }
+  h1, h2, h3, h4 { line-height: 1.2; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+  p { margin: 0; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 720px) { .wrap { padding: 0 24px; } }
+
+  /* Topbar */
+  .topbar {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar .wrap { display: flex; align-items: center; gap: 16px; height: 56px; }
+  .brand { font-weight: 700; white-space: nowrap; text-decoration: none; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+  .brand-mark { width: 24px; height: 24px; border-radius: 6px; background: var(--p5); color: var(--p5-ink); display: grid; place-items: center; font-size: 12px; font-weight: 800; }
+  .nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { color: var(--ink-2); text-decoration: none; font-size: 14px; padding: 6px 10px; border-radius: 6px; white-space: nowrap; }
+  .nav a:hover { background: var(--surface-2); color: var(--ink); }
+  .theme-btn {
+    flex: none; width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--ink); cursor: pointer; display: grid; place-items: center;
+  }
+
+  /* Hero */
+  .hero { padding: 72px 0 56px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); }
+  .hero h1 { font-size: clamp(2rem, 5.2vw, 3.4rem); margin: 14px 0 18px; max-width: 18ch; }
+  .lead { font-size: clamp(1.05rem, 2vw, 1.25rem); color: var(--ink-2); max-width: 62ch; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 8px;
+    font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid var(--border);
+    background: var(--surface); color: var(--ink);
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  :root[data-theme="dark"] .btn.primary { color: #0b0b0b; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.primary { color: #0b0b0b; } }
+  .hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 48px; }
+  .hero-note { font-size: 13px; color: var(--ink-2); margin-top: 10px; }
+
+  /* Sections */
+  section.block { padding: 72px 0; border-top: 1px solid var(--line); }
+  .sec-head { margin-bottom: 32px; max-width: 70ch; }
+  .sec-num { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .sec-head h2 { font-size: clamp(1.6rem, 3.6vw, 2.3rem); margin: 8px 0 12px; }
+  .sec-head p { color: var(--ink-2); font-size: 1.05rem; }
+  h3 { font-size: 1.2rem; margin-bottom: 10px; }
+  .sub { margin-top: 48px; }
+  .sub > h3 { margin-bottom: 16px; }
+
+  .grid { display: grid; gap: 16px; }
+  .grid > * { min-width: 0; }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px; box-shadow: var(--shadow);
+  }
+  .card h3 { font-size: 1.05rem; }
+  .card p { color: var(--ink-2); }
+  .card .kicker { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+
+  .callout {
+    border-left: 3px solid var(--accent); background: var(--accent-wash);
+    padding: 16px 20px; border-radius: 0 10px 10px 0; margin-top: 24px;
+  }
+  .callout strong { display: block; margin-bottom: 4px; }
+  .callout p { color: var(--ink); }
+
+  /* Stat tile */
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; box-shadow: var(--shadow); }
+  .stat .label { font-size: 13px; color: var(--ink-2); }
+  .stat .value { font-size: 28px; font-weight: 650; margin-top: 4px; line-height: 1.15; }
+  .stat .detail { font-size: 13px; color: var(--ink-2); margin-top: 4px; }
+  .stat .delta { color: var(--good-text); font-weight: 600; }
+  .stat.hero-stat .value { font-size: 40px; }
+
+  /* Flow (3 camadas) */
+  .flow { display: grid; grid-template-columns: 1fr; gap: 8px; align-items: stretch; }
+  .flow .arrow { display: grid; place-items: center; color: var(--muted); font-size: 22px; transform: rotate(90deg); height: 28px; }
+  @media (min-width: 860px) {
+    .flow { grid-template-columns: 1fr 32px 1fr 32px 1fr; }
+    .flow .arrow { transform: none; height: auto; }
+  }
+  .layer { display: flex; flex-direction: column; gap: 12px; }
+  .layer .tag { display: inline-flex; align-self: flex-start; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: var(--surface-2); color: var(--ink-2); }
+  .layer h3 { font-size: 1.15rem; margin: 0; }
+  .layer dl { margin: 0; display: grid; gap: 8px; font-size: 14px; }
+  .layer dt { font-weight: 600; color: var(--ink); }
+  .layer dd { margin: 0; color: var(--ink-2); }
+
+  /* Tiers */
+  .tiers { display: grid; gap: 10px; }
+  .tier { display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .tier .w { font-size: 22px; font-weight: 700; text-align: center; }
+  .tier .w small { display: block; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .tier h4 { font-size: 1rem; margin-bottom: 2px; }
+  .tier p { color: var(--ink-2); font-size: 14px; }
+  .tier-bar { height: 6px; border-radius: 3px; background: var(--accent); margin-top: 8px; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; font-weight: 600; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.04em; background: var(--surface-2); white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .profile td:first-child { font-weight: 600; white-space: nowrap; }
+  .profile td { color: var(--ink-2); }
+  .profile td:first-child { color: var(--ink); }
+
+  /* Formula */
+  .formula { display: grid; gap: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .formula .row { display: grid; grid-template-columns: 1fr; gap: 6px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+  .formula .row:last-child { border-bottom: none; }
+  @media (min-width: 720px) { .formula .row { grid-template-columns: 200px 1fr; gap: 20px; align-items: baseline; } }
+  .formula .name { font-weight: 600; }
+  .formula .expr { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 15px; }
+  .formula .expr em { font-style: normal; color: var(--accent-ink); font-weight: 600; }
+  .formula .hint { grid-column: 1 / -1; font-size: 14px; color: var(--ink-2); }
+  @media (min-width: 720px) { .formula .hint { grid-column: 2; } }
+
+  /* Priority pill */
+  .pill { display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 22px; padding: 0 7px; border-radius: 6px; font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .pill.p1 { background: var(--p1); color: var(--p1-ink); }
+  .pill.p2 { background: var(--p2); color: var(--p2-ink); }
+  .pill.p3 { background: var(--p3); color: var(--p3-ink); }
+  .pill.p4 { background: var(--p4); color: var(--p4-ink); }
+  .pill.p5 { background: var(--p5); color: var(--p5-ink); }
+  .shift { font-size: 12px; color: var(--ink-2); margin-left: 6px; white-space: nowrap; }
+
+  /* Segmented bars (faixas) */
+  .seg-row { display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 14px; }
+  @media (min-width: 640px) { .seg-row { grid-template-columns: 140px 1fr; gap: 16px; align-items: center; } }
+  .seg-label { font-size: 14px; font-weight: 600; }
+  .seg { display: flex; gap: 2px; height: 28px; }
+  .seg > div { height: 100%; border-radius: 4px; display: flex; align-items: center; padding: 0 8px; font-size: 12px; font-weight: 700; white-space: nowrap; overflow: visible; min-width: 0; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--ink-2); margin-top: 6px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  .key-line { width: 16px; height: 2px; border-radius: 1px; display: inline-block; }
+
+  /* Lists */
+  .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .checks li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; color: var(--ink-2); }
+  .checks li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin: 9px 0 0 6px; }
+  .checks strong { color: var(--ink); }
+
+  .steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  .steps li { counter-increment: s; display: grid; grid-template-columns: 36px 1fr; gap: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .steps li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; background: var(--surface-2); color: var(--ink); font-weight: 700; display: grid; place-items: center; font-size: 14px; }
+  .steps h4 { font-size: 1rem; margin-bottom: 2px; }
+  .steps p { color: var(--ink-2); font-size: 15px; }
+
+  .mult { display: grid; gap: 10px; }
+  .mult .m { display: grid; grid-template-columns: 76px 64px 1fr; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+  .mult .m b { font-size: 15px; }
+  .mult .m .x { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 700; font-size: 18px; }
+  .mult .m span { color: var(--ink-2); font-size: 14px; }
+
+  details.more { margin-top: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; }
+  details.more summary { cursor: pointer; font-weight: 600; font-size: 14px; }
+  details.more p { margin-top: 10px; color: var(--ink-2); font-size: 14px; }
+  details.more code { font-size: 14px; }
+
+  /* Simulador */
+  .demo-note { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--ink-2); background: var(--surface-2); border-radius: 10px; padding: 12px 14px; margin-bottom: 20px; }
+  .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .ctrl label { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .ctrl output { font-variant-numeric: tabular-nums; color: var(--accent-ink); }
+  .ctrl input[type=range] { width: 100%; accent-color: var(--accent); }
+  .ctrl label.toggle { display: flex; justify-content: flex-start; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 0; }
+  .toggle input { width: 18px; height: 18px; accent-color: var(--accent); }
+  .toggle-hint { font-size: 13px; color: var(--ink-2); font-weight: 400; margin-top: 4px; }
+  .presets { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; grid-column: 1 / -1; align-items: center; }
+  .presets span { font-size: 13px; color: var(--ink-2); margin-right: 4px; }
+  .chip { border: 1px solid var(--border); background: var(--surface-2); color: var(--ink); border-radius: 999px; padding: 5px 12px; font-size: 13px; cursor: pointer; font-family: inherit; }
+  .chip:hover { border-color: var(--accent); }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 16px 0; }
+  @media (max-width: 560px) { .brand-text { display: none; } .stat .value { font-size: 24px; } .stat.hero-stat .value { font-size: 32px; } }
+
+  .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px 12px; }
+  .chart-card h3 { font-size: 1rem; margin-bottom: 2px; }
+  .chart-card .chart-sub { font-size: 13px; color: var(--ink-2); }
+  .chart { position: relative; margin-top: 10px; outline: none; }
+  .chart:focus-visible { box-shadow: 0 0 0 2px var(--accent); border-radius: 6px; }
+  .chart svg { display: block; width: 100%; overflow: visible; }
+  .chart .grid line { stroke: var(--line); stroke-width: 1; }
+  .chart .axis-line { stroke: var(--axis); stroke-width: 1; }
+  .chart .tick { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .chart .axis-title { fill: var(--ink-2); font-size: 12px; }
+  .chart .area { fill: var(--series-plan); opacity: 0.10; }
+  .chart .line-plan { fill: none; stroke: var(--series-plan); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .chart .line-base { fill: none; stroke: var(--series-base); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .chart .cut { stroke: var(--ink-2); stroke-width: 1; }
+  .chart .cut-label { fill: var(--ink); font-size: 12px; font-weight: 600; }
+  .chart .dot-plan { fill: var(--series-plan); stroke: var(--surface); stroke-width: 2; }
+  .chart .dot-base { fill: var(--series-base); stroke: var(--surface); stroke-width: 2; }
+  .chart .val { fill: var(--ink); font-size: 12px; font-weight: 700; }
+  .chart .cross { stroke: var(--muted); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 10px; font-size: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    min-width: 180px; max-width: 240px; display: none; z-index: 2;
+  }
+  .tooltip .tt-head { color: var(--ink-2); margin-bottom: 4px; }
+  .tooltip .tt-row { display: flex; align-items: center; gap: 8px; }
+  .tooltip .tt-row b { font-size: 14px; min-width: 40px; font-variant-numeric: tabular-nums; }
+  .tooltip .tt-row span { color: var(--ink-2); }
+  .tooltip .tt-foot { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--line); color: var(--ink-2); }
+
+  .sim-table { margin-top: 16px; }
+  .sim-table table { min-width: 860px; }
+  .sim-table th, .sim-table td { padding: 8px 10px; }
+  .sim-table td { white-space: nowrap; }
+  .sim-table tr.out td { color: var(--ink-2); }
+  .sim-table tr.out td.topic { text-decoration: line-through; text-decoration-color: var(--muted); }
+  .sim-table tr.cutline td { background: var(--surface-2); font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-2); text-align: center; padding: 6px 12px; }
+  .status { white-space: nowrap; font-weight: 600; }
+  .status.in { color: var(--ink); }
+  .status.part { color: var(--accent-ink); }
+  .status.out { color: var(--muted); font-weight: 500; }
+  .tag-new { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--accent); color: var(--accent-ink); margin-left: 6px; vertical-align: 1px; }
+  .lvl { font-size: 13px; white-space: nowrap; }
+
+  /* Roadmap */
+  .phases { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .phase .when { font-size: 12px; font-weight: 700; color: var(--accent-ink); text-transform: uppercase; letter-spacing: 0.05em; }
+  .phase h4 { font-size: 1.05rem; margin: 4px 0 8px; }
+  .phase p { font-size: 14px; color: var(--ink-2); }
+  .phase .gate { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-2); }
+  .phase .gate b { color: var(--ink); }
+
+  .risk { display: grid; gap: 4px; }
+  .risk h4 { font-size: 1rem; }
+  .risk p { font-size: 14px; color: var(--ink-2); }
+  .risk .fix { color: var(--ink); }
+  .flag { font-size: 12px; color: var(--muted); }
+
+  .questions { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .questions li { background: var(--surface); border: 1px dashed var(--axis); border-radius: 10px; padding: 14px 16px; font-weight: 600; }
+  .questions li span { display: block; font-weight: 400; font-size: 14px; color: var(--ink-2); margin-top: 4px; }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 0 48px; font-size: 13px; color: var(--ink-2); }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media print { .topbar, .controls .presets, .theme-btn { display: none; } section.block { break-inside: avoid-page; } }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#topo"><span class="brand-mark">2G</span><span class="brand-text">Cronograma Inteligente</span></a>
+    <nav class="nav" aria-label="Seções">
+      <a href="#problema">Problema</a>
+      <a href="#proposta">Proposta</a>
+      <a href="#dossie">Dossiê</a>
+      <a href="#nivelamento">Nivelamento</a>
+      <a href="#prazo">Prazo</a>
+      <a href="#simulador">Simulador</a>
+      <a href="#validacao">Validação</a>
+      <a href="#implementacao">Implementação</a>
+      <a href="#riscos">Riscos</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Alternar tema claro/escuro">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="topo">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Mentorias 2G · Proposta interna · v0.1</div>
+      <h1>O cronograma que estuda a banca antes do aluno</h1>
+      <p class="lead">Edital, perfil da banca e provas anteriores viram uma prioridade de 1 a 5 para cada assunto. Depois, o plano se ajusta ao nível de cada aluno e ao tempo que ele tem até a prova.</p>
+      <div class="cta">
+        <a class="btn primary" href="#simulador">Testar o simulador</a>
+        <a class="btn" href="#proposta">Ver a proposta</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="label">Assuntos P5 e P4 no concurso-exemplo</div>
+          <div class="value" id="heroPareto">—</div>
+          <div class="detail" id="heroParetoDetail">—</div>
+        </div>
+        <div class="stat">
+          <div class="label">Aluno com 2 h/dia, 6 dias/semana, 16 semanas</div>
+          <div class="value" id="heroCob">—</div>
+          <div class="detail" id="heroCobDetail">—</div>
+        </div>
+      </div>
+      <p class="hero-note">Números calculados sobre um concurso fictício, usado só para mostrar a mecânica (seção 06).</p>
+    </div>
+  </section>
+
+  <!-- 01 PROBLEMA -->
+  <section class="block" id="problema">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-num">01 · O problema</div>
+        <h2>Cronogramas tratam todo o edital como igual. A prova não trata.</h2>
+      </div>
+      <div class="grid g3">
+        <div class="card">
+          <h3>O edital diz o que pode cair, não o que cai</h3>
+          <p>Seguir a ordem do edital dá o mesmo peso a um assunto que rende meia questão e a outro que rende cinco.</p>
+        </div>
+        <div class="card">
+          <h3>Tempo é o recurso escasso</h3>
+          <p>Quem estuda 2 h por dia não vai ver tudo. Sem critério, o corte acontece por acaso: fica de fora o que estava no fim da lista.</p>
+        </div>
+        <div class="card">
+          <h3>Cada aluno parte de um ponto diferente</h3>
+          <p>Um plano único gasta horas onde o aluno já é forte e economiza onde ele mais precisa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 PROPOSTA -->
+  <section class="block" id="proposta">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-num">02 · A proposta</div>
+        <h2>Três camadas, cada uma refinando a anterior</h2>
+        <p>A primeira descreve o concurso. As outras duas descrevem o aluno.</p>
+      </div>
+      <div class="flow">
+        <div class="card layer">
+          <span class="tag">Camada 1</span>
+          <h3>Dossiê do concurso</h3>
+          <p>O que a banca cobra e quanto cada assunto vale.</p>
+          <dl>
+            <div><dt>Entra</dt><dd>Edital, provas anteriores da banca, perfil da banca</dd></div>
+            <div><dt>Sai</dt><dd>Prioridade de 1 a 5 por assunto e método de estudo sugerido</dd></div>
+            <div><dt>Frequência</dt><dd>Uma vez por concurso, vale para todos os alunos</dd></div>
+          </dl>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="card layer">
+          <span class="tag">Camada 2</span>
+          <h3>Nivelamento</h3>
+          <p>Onde o aluno está hoje, assunto por assunto.</p>
+          <dl>
+            <div><dt>Entra</dt><dd>Simulado diagnóstico com questões da banca</dd></div>
+            <div><dt>Sai</dt><dd>Horas ajustadas por assunto (menos onde é forte, mais onde é fraco)</dd></div>
+            <div><dt>Frequência</dt><dd>Uma vez por aluno, ajuste leve</dd></div>
+          </dl>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="card layer">
+          <span class="tag">Camada 3</span>
+          <h3>Prazo e disponibilidade</h3>
+          <p>O que cabe até o dia da prova.</p>
+          <dl>
+            <div><dt>Entra</dt><dd>Data da prova, horas por dia da semana</dd></div>
+            <div><dt>Sai</dt><dd>Plano semanal, lista do que fica de fora e % dos pontos cobertos</dd></div>
+            <div><dt>Frequência</dt><dd>Por aluno, recalculado toda semana</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Por que escala</strong>
+        <p>O trabalho pesado, o dossiê, é feito uma vez por concurso e atende todos os alunos daquele concurso. A personalização é cálculo, com custo quase zero por aluno. E a base de questões classificadas cresce a cada concurso: vira um ativo da 2G.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 DOSSIÊ -->
+  <section class="block" id="dossie">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-num">03 · Camada 1</div>
+        <h2>Dossiê do concurso</h2>
+        <p>O edital diz o que pode cair. O histórico da banca diz o que costuma cair e com que frequência. O dossiê junta os dois e devolve uma prioridade por assunto.</p>
+      </div>
+
+      <div class="grid g2">
+        <div>
+          <h3>Fontes, por ordem de confiança</h3>
+          <div class="tiers">
+            <div class="tier">
+              <div class="w">3<small>peso</small></div>
+              <div><h4>Mesmo cargo, mesma banca</h4><p>O sinal mais direto. Pesa mais.</p><div class="tier-bar" style="width:100%"></div></div>
+            </div>
+            <div class="tier">
+              <div class="w">1,5<small>peso</small></div>
+              <div><h4>Cargos parecidos, mesma banca</h4><p>Amplia a amostra quando o cargo tem poucas edições.</p><div class="tier-bar" style="width:50%"></div></div>
+            </div>
+            <div class="tier">
+              <div class="w">0,5<small>peso</small></div>
+              <div><h4>Perfil geral da banca</h4><p>Estilo e preferências que valem para qualquer cargo.</p><div class="tier-bar" style="width:17%"></div></div>
+            </div>
+          </div>
+          <p class="hero-note">Provas recentes valem mais: o peso cai ×0,85 a cada ano de idade da prova. Pesos iniciais, a calibrar no backtest (seção 07).</p>
+        </div>
+        <div>
+          <h3>Perfil da banca: muda o <em>como</em>, não só o <em>quê</em></h3>
+          <div class="table-wrap">
+            <table class="profile">
+              <thead><tr><th>Dimensão</th><th>Para que serve no plano</th></tr></thead>
+              <tbody>
+                <tr><td>Formato e penalidade</td><td>Certo/Errado com desconto por erro muda o limiar do diagnóstico e a estratégia de chute.</td></tr>
+                <tr><td>Fonte da cobrança</td><td>Lei seca, doutrina ou jurisprudência definem o método de estudo do assunto.</td></tr>
+                <tr><td>Estilo do enunciado</td><td>Curto e literal ou longo e interpretativo muda a proporção entre teoria e questões.</td></tr>
+                <tr><td>Distribuição por assunto</td><td>Base da incidência de cada assunto.</td></tr>
+                <tr><td>Repetição de temas</td><td>Assuntos recorrentes ganham revisão extra.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3>A conta</h3>
+        <div class="formula">
+          <div class="row">
+            <div class="name">Pontos em jogo</div>
+            <div class="expr">Questões da disciplina × Peso × <em>Incidência do assunto</em></div>
+            <div class="hint">Questões e peso vêm do edital (dado certo). Incidência é a fatia das questões da disciplina que caiu no assunto, no histórico ponderado pelas fontes acima.</div>
+          </div>
+          <div class="row">
+            <div class="name">Retorno por hora</div>
+            <div class="expr">Pontos em jogo ÷ <em>Horas para dominar o assunto</em></div>
+            <div class="hint">Horas vêm de uma tabela-padrão por assunto, mantida pelos mentores e calibrada com o tempo real dos alunos.</div>
+          </div>
+          <div class="row">
+            <div class="name">Prioridade 1 a 5</div>
+            <div class="expr">Ordenar por retorno → acumular pontos → P5 até 40% · P4 até 65% · P3 até 85% · P2 até 95% · P1 o resto</div>
+            <div class="hint">A escala responde à pergunta do aluno sem tempo: "se eu parar aqui, quanto da prova eu cobri?".</div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>Ajuste em relação à ideia original: prioridade por retorno por hora, não só por chance de cair</strong>
+          <p>No concurso-exemplo, Licitações tem mais questões que Poderes administrativos, mas custa 24 h contra 6 h. Para quem tem pouco tempo, Poderes vem antes. A chance de cair continua sendo a base; o custo de estudar entra na conta.</p>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3>Resultado no concurso-exemplo: poucas horas concentram muitos pontos</h3>
+        <div id="faixas"></div>
+        <div class="legend" id="faixasLegend"></div>
+        <div class="table-wrap" style="margin-top:16px">
+          <table>
+            <thead><tr><th>Prioridade</th><th class="num">Assuntos</th><th class="num">Horas</th><th class="num">Pontos esperados</th><th class="num">Horas acumuladas</th><th class="num">Pontos acumulados</th></tr></thead>
+            <tbody id="faixasTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3>Ajustes finos</h3>
+        <div class="grid g2">
+          <div class="card">
+            <h3>Pouco histórico</h3>
+            <p>Com poucas provas do cargo, a incidência é puxada para o perfil geral da banca. Uma prova isolada não decide o plano.</p>
+            <details class="more">
+              <summary>Fórmula</summary>
+              <p><code>Inc = (n × Inc_cargo + k × Inc_banca) ÷ (n + k)</code></p>
+              <p>n = questões da disciplina observadas para o cargo (ponderadas). k ≈ 30, a calibrar. Com muitas provas do cargo, vale o histórico do cargo; com poucas, vale a banca.</p>
+            </details>
+          </div>
+          <div class="card">
+            <h3>Novidade no edital</h3>
+            <p>Assunto novo ou lei recente não tem histórico. Recebe a incidência média da banca para assuntos parecidos e +1 nível de prioridade, porque bancas tendem a cobrar novidades (hipótese a validar no backtest).</p>
+          </div>
+          <div class="card">
+            <h3>Pré-requisitos</h3>
+            <p>Assuntos-base entram antes na sequência, mesmo com prioridade menor. Exemplo: princípios antes de atos administrativos.</p>
+          </div>
+          <div class="card">
+            <h3>Nota mínima por disciplina</h3>
+            <p>Se o edital elimina quem zera ou fica abaixo do mínimo em uma disciplina, o plano garante cobertura mínima de cada uma antes de otimizar o resto.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 NIVELAMENTO -->
+  <section class="block" id="nivelamento">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-num">04 · Camada 2</div>
+        <h2>Nivelamento</h2>
+        <p>Um simulado diagnóstico curto, com questões da própria banca, mede onde o aluno está. O resultado ajusta as horas de cada assunto. A prioridade da prova não muda: o que a banca cobra é o mesmo para todos.</p>
+      </div>
+      <div class="grid g2">
+        <div>
+          <h3>Como funciona</h3>
+          <ul class="checks">
+            <li><span><strong>60 a 90 questões da banca, 2 a 3 horas.</strong> Foco nos assuntos P3 a P5: não vale gastar diagnóstico em P1.</span></li>
+            <li><span><strong>Resultado por disciplina</strong> e, quando há pelo menos 4 questões, por assunto. Abaixo disso o sinal é ruído.</span></li>
+            <li><span><strong>Limiar respeita o formato da banca.</strong> No Certo/Errado, 50% de acerto é chute; o limiar é outro e considera a penalidade.</span></li>
+            <li><span><strong>Depois: nivelamento contínuo.</strong> Cada bloco de questões resolvido durante o cronograma atualiza o nível. O simulado inicial vira só o ponto de partida.</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Efeito no plano: ajuste leve, com teto</h3>
+          <div class="mult">
+            <div class="m"><b>Forte</b><span class="x">×0,5</span><span>horas do assunto: vira revisão e questões</span></div>
+            <div class="m"><b>Médio</b><span class="x">×1,0</span><span>sem ajuste</span></div>
+            <div class="m"><b>Fraco</b><span class="x">×1,3</span><span>base teórica e reforço</span></div>
+          </div>
+          <p class="hero-note">Multiplicadores iniciais, a calibrar. O diagnóstico é ruidoso, por isso mexe pouco.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>O que sai primeiro do plano</strong>
+        <p>Assunto pouco cobrado e caro para aquele aluno. Fraqueza em assunto muito cobrado não sai: continua no plano, com mais horas.</p>
+      </div>
+      <div class="sub">
+        <h3>Aluno-exemplo usado no simulador</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Disciplina</th><th class="num">Acerto no diagnóstico</th><th>Nível</th><th>Exceções por assunto</th></tr></thead>
+            <tbody id="diagTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 PRAZO -->
+  <section class="block" id="prazo">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-num">05 · Camada 3</div>
+        <h2>Prazo e disponibilidade</h2>
+        <p>Com data da prova e horas disponíveis, o problema vira de encaixe: fazer caber o máximo de pontos esperados nas horas que existem.</p>
+      </div>
+      <ol class="steps">
+        <li><div><h4>Capacidade</h4><p>Soma das horas até a prova, por dia da semana (segunda 2 h, sábado 6 h…), descontando folgas e compromissos.</p></div></li>
+        <li><div><h4>Reserva para revisão</h4><p>30% das horas ficam para revisões espaçadas (D+1, D+7, D+30), questões e simulados. As últimas 2 a 3 semanas são só revisão e simulados.</p></div></li>
+        <li><div><h4>Seleção</h4><p>Primeiro garante o mínimo de cada disciplina. Depois preenche por retorno por hora até acabar o tempo. O último assunto pode entrar parcial.</p></div></li>
+        <li><div><h4>Saída</h4><p>Lista estudar / parcial / fora, percentual dos pontos esperados cobertos e calendário semanal com blocos de 1 a 2 h, alternando 2 ou 3 disciplinas por dia.</p></div></li>
+        <li><div><h4>Replanejamento semanal</h4><p>O aluno marca o que fez; o plano recalcula com as horas que restam. Atraso não quebra o cronograma, só move a linha de corte.</p></div></li>
+      </ol>
+      <div class="callout">
+        <strong>Sem edital publicado ainda?</strong>
+        <p>Mesmo motor, sem linha de corte: o plano vira um ciclo de estudos na ordem de prioridade, com base no edital anterior. Quando sai o edital com a data, o corte é aplicado.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 SIMULADOR -->
+  <section class="block" id="simulador">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-num">06 · Simulador</div>
+        <h2>As três camadas funcionando juntas</h2>
+        <p>Mude o tempo disponível e veja onde cai a linha de corte, quanto da prova fica coberto e quanto isso rende a mais que seguir a ordem do edital.</p>
+      </div>
+      <div class="demo-note">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v6M12 16v1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span><strong>Dados fictícios.</strong> Concurso-exemplo com 6 disciplinas, 60 questões e 38 assuntos. Incidências e horas foram inventadas para mostrar a mecânica; não representam nenhum concurso real.</span>
+      </div>
+
+      <div class="controls">
+        <div class="ctrl">
+          <label for="inHoras">Horas por dia <output id="outHoras" for="inHoras"></output></label>
+          <input type="range" id="inHoras" min="1" max="10" step="0.5" value="2">
+        </div>
+        <div class="ctrl">
+          <label for="inDias">Dias por semana <output id="outDias" for="inDias"></output></label>
+          <input type="range" id="inDias" min="3" max="7" step="1" value="6">
+        </div>
+        <div class="ctrl">
+          <label for="inSemanas">Semanas até a prova <output id="outSemanas" for="inSemanas"></output></label>
+          <input type="range" id="inSemanas" min="2" max="52" step="1" value="16">
+        </div>
+        <div class="ctrl">
+          <label class="toggle" for="inNivel"><input type="checkbox" id="inNivel"> Aplicar nivelamento</label>
+          <div class="toggle-hint">Usa o diagnóstico do aluno-exemplo (seção 04).</div>
+        </div>
+        <div class="presets">
+          <span>Perfis:</span>
+          <button class="chip" type="button" data-h="2" data-d="6" data-s="16">Trabalha e estuda · 2 h/dia</button>
+          <button class="chip" type="button" data-h="4" data-d="6" data-s="16">Meio período · 4 h/dia</button>
+          <button class="chip" type="button" data-h="8" data-d="6" data-s="12">Dedicação integral · 8 h/dia</button>
+          <button class="chip" type="button" data-h="2" data-d="5" data-s="6">Edital saiu agora · 6 semanas</button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="label">Horas até a prova</div><div class="value" id="sTotal">—</div><div class="detail" id="sTotalD"></div></div>
+        <div class="stat"><div class="label">Horas para conteúdo novo</div><div class="value" id="sCont">—</div><div class="detail">70%; o resto é revisão e simulados</div></div>
+        <div class="stat"><div class="label">Edital completo exige</div><div class="value" id="sEdital">—</div><div class="detail" id="sEditalD"></div></div>
+        <div class="stat hero-stat"><div class="label">Pontos esperados cobertos</div><div class="value" id="sCob">—</div><div class="detail" id="sCobD"></div></div>
+      </div>
+
+      <div class="chart-card">
+        <h3>Pontos esperados acumulados por hora de estudo</h3>
+        <div class="chart-sub">Quanto da prova fica coberto a cada hora investida, seguindo o plano priorizado ou a ordem do edital.</div>
+        <div class="legend" style="margin-top:10px">
+          <span><i class="key-line" style="background:var(--series-plan)"></i>Plano priorizado</span>
+          <span><i class="key-line" style="background:var(--series-base)"></i>Ordem do edital</span>
+          <span><i class="key-line" style="background:var(--ink-2);height:10px;width:1px"></i>Seu tempo para conteúdo</span>
+        </div>
+        <div class="chart" id="chart" tabindex="0" role="img" aria-label="Gráfico de pontos esperados acumulados por hora de estudo. Use as setas para percorrer."></div>
+      </div>
+
+      <div class="sim-table">
+        <h3 style="margin:24px 0 12px">Plano gerado, na ordem de estudo</h3>
+        <div class="table-wrap">
+          <table>
+            <thead id="simHead"></thead>
+            <tbody id="simBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 VALIDAÇÃO -->
+  <section class="block" id="validacao">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-num">07 · Validação</div>
+        <h2>Como provar que funciona antes de vender</h2>
+        <p>O método é testável com dados que já existem: provas passadas.</p>
+      </div>
+      <div class="grid g3">
+        <div class="card">
+          <div class="kicker">Teste principal</div>
+          <h3>Backtest</h3>
+          <p>Monta o dossiê só com provas até o ano N−1 e mede na prova do ano N: quanto dos pontos caiu em assuntos P5 e P4? Repete em 3 a 5 edições e compara com a ordem do edital.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Meta proposta</div>
+          <h3>P5 + P4 ≥ 60% dos pontos com ≤ 40% das horas</h3>
+          <p>Na prova real, não no histórico. Se não bater, o problema está nos pesos das fontes ou na classificação das questões, e os dois são ajustáveis.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Métricas de produto</div>
+          <h3>O que acompanhar com alunos</h3>
+          <p>Aderência semanal ao plano, evolução nos simulados e nota final dos mentorados comparada com turmas anteriores.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 IMPLEMENTAÇÃO -->
+  <section class="block" id="implementacao">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-num">08 · Implementação</div>
+        <h2>Automatizar o que é repetitivo, revisar o que é crítico</h2>
+        <p>O gargalo é classificar cada questão antiga em um assunto do edital. Hoje um modelo de linguagem faz isso em escala; o mentor revisa por amostragem.</p>
+      </div>
+      <ol class="steps">
+        <li><div><h4>Edital → estrutura</h4><p>LLM extrai do PDF as disciplinas, assuntos, número de questões e pesos para uma planilha.</p></div></li>
+        <li><div><h4>Provas → questões classificadas</h4><p>PDFs oficiais de provas e gabaritos das bancas; cada questão é extraída e classificada em um assunto do edital.</p></div></li>
+        <li><div><h4>Revisão humana por amostragem</h4><p>Mentor confere cerca de 10% das classificações e mede a concordância. Abaixo da meta, revisa o lote.</p></div></li>
+        <li><div><h4>Cálculo</h4><p>Planilha calcula incidência, retorno por hora e prioridade. Sai o dossiê.</p></div></li>
+        <li><div><h4>Plano do aluno</h4><p>Formulário com disponibilidade e diagnóstico → n8n gera o plano → planilha, PDF ou Google Agenda. Check-in semanal dispara o replanejamento.</p></div></li>
+      </ol>
+      <p class="hero-note">Stack do MVP: n8n + API de LLM + Google Sheets. Banco de dados só quando o volume passar de alguns concursos.</p>
+
+      <div class="sub">
+        <h3>Roteiro</h3>
+        <div class="phases">
+          <div class="card phase">
+            <div class="when">Fase 0 · 2 a 3 semanas</div>
+            <h4>Piloto manual</h4>
+            <p>Um concurso, o que tem mais alunos na 2G. Dossiê em planilha, classificação com LLM e revisão manual. Backtest.</p>
+            <div class="gate"><b>Segue se:</b> o ranking acerta a última prova e bate com a leitura dos mentores.</div>
+          </div>
+          <div class="card phase">
+            <div class="when">Fase 1</div>
+            <h4>Prazo com 5 a 10 alunos</h4>
+            <p>Camada 3 em planilha, operada pelos mentores. Replanejamento semanal manual.</p>
+            <div class="gate"><b>Segue se:</b> aderência ao plano e feedback de alunos e mentores.</div>
+          </div>
+          <div class="card phase">
+            <div class="when">Fase 2</div>
+            <h4>Automação e nivelamento</h4>
+            <p>Pipeline de provas no n8n. Simulado diagnóstico por disciplina.</p>
+            <div class="gate"><b>Segue se:</b> um dossiê novo sai em dias, não semanas.</div>
+          </div>
+          <div class="card phase">
+            <div class="when">Fase 3</div>
+            <h4>Produto para o aluno</h4>
+            <p>Replanejamento automático, nivelamento contínuo e entrega direta ao aluno.</p>
+            <div class="gate"><b>Segue se:</b> resultado dos mentorados melhora em relação às turmas anteriores.</div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>A ordem de construção não é a ordem da ideia</strong>
+          <p>Prazo (camada 3) vem antes de nivelamento (camada 2): é mais simples, entrega mais valor e não depende de um banco de questões de diagnóstico. Nivelamento tem sinal ruidoso e custo de conteúdo maior.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 RISCOS -->
+  <section class="block" id="riscos">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-num">09 · Riscos e decisões</div>
+        <h2>O que pode dar errado e o que precisamos decidir</h2>
+      </div>
+      <div class="grid g2">
+        <div class="card risk">
+          <h4>Acesso aos dados</h4>
+          <p>Plataformas de questões já classificam por banca e assunto, mas extração automática pode violar os termos de uso.</p>
+          <p class="fix">Usar PDFs oficiais das bancas com classificação própria, ou negociar licença.</p>
+          <span class="flag">Termos de uso de cada plataforma: não verificados.</span>
+        </div>
+        <div class="card risk">
+          <h4>Classificação errada</h4>
+          <p>Erro na classificação das questões contamina todo o dossiê.</p>
+          <p class="fix">Revisão por amostragem, meta de concordância e taxonomia única por edital.</p>
+        </div>
+        <div class="card risk">
+          <h4>Concurso trocou de banca</h4>
+          <p>O histórico do cargo foi feito por outra banca, com outro estilo.</p>
+          <p class="fix">Histórico do cargo pesa menos; perfil da nova banca pesa mais.</p>
+        </div>
+        <div class="card risk">
+          <h4>P1 não significa "não cai"</h4>
+          <p>Significa menor retorno esperado. A banca pode mudar o padrão.</p>
+          <p class="fix">Comunicar ao aluno como probabilidade, nunca como garantia. O corte é decisão do plano, não do aluno.</p>
+        </div>
+        <div class="card risk">
+          <h4>Horas-padrão por assunto</h4>
+          <p>São estimativa dos mentores. Erro aqui distorce o retorno por hora.</p>
+          <p class="fix">Calibrar com o tempo real registrado pelos alunos no replanejamento.</p>
+        </div>
+        <div class="card risk">
+          <h4>Discursiva e redação</h4>
+          <p>Ficam fora do histórico de questões objetivas.</p>
+          <p class="fix">Entram como bloco de horas próprio, definido pelo mentor.</p>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3>Decisões para o time</h3>
+        <ul class="questions">
+          <li>Qual concurso piloto?<span>Critério sugerido: mais alunos ativos e pelo menos 3 provas da mesma banca para o cargo.</span></li>
+          <li>Ferramenta do mentor ou produto do aluno?<span>Sugestão: começar como ferramenta do mentor.</span></li>
+          <li>Fonte das questões?<span>Montar a partir das bancas, licenciar ou fazer parceria.</span></li>
+          <li>Quem cuida da tabela de horas por assunto?<span>Precisa de um responsável por área.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Mentorias 2G · Cronograma Inteligente · rascunho v0.1 para discussão interna. Todos os números do simulador são fictícios.</div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ===== Dados fictícios do concurso-exemplo =====
+     q = questões da disciplina na prova; peso = peso da disciplina;
+     inc = fatia das questões da disciplina que cai no assunto (soma 1 por disciplina);
+     h = horas-padrão para dominar o assunto; nivel/acerto = diagnóstico do aluno-exemplo. */
+  var DISCIPLINAS = [
+    { id: "lp",  nome: "Língua Portuguesa",      q: 15, peso: 1, nivel: "forte", acerto: 78 },
+    { id: "dc",  nome: "Direito Constitucional", q: 10, peso: 1, nivel: "medio", acerto: 58 },
+    { id: "da",  nome: "Direito Administrativo", q: 15, peso: 2, nivel: "medio", acerto: 55 },
+    { id: "rl",  nome: "Raciocínio Lógico",      q: 5,  peso: 1, nivel: "fraco", acerto: 35 },
+    { id: "ap",  nome: "Administração Pública",  q: 10, peso: 2, nivel: "fraco", acerto: 40 },
+    { id: "leg", nome: "Ética e Legislação",     q: 5,  peso: 1, nivel: "medio", acerto: 60 }
+  ];
+  function A(d, nome, inc, h, extra) { var o = { d: d, nome: nome, inc: inc, h: h }; if (extra) for (var k in extra) o[k] = extra[k]; return o; }
+  var ASSUNTOS = [
+    A("lp", "Interpretação de texto", 0.30, 18),
+    A("lp", "Concordância verbal e nominal", 0.12, 7),
+    A("lp", "Regência e crase", 0.12, 8),
+    A("lp", "Pontuação", 0.10, 4),
+    A("lp", "Classes de palavras", 0.10, 12),
+    A("lp", "Coesão, coerência e reescrita", 0.14, 9),
+    A("lp", "Ortografia e acentuação", 0.04, 4),
+    A("lp", "Semântica", 0.08, 4),
+    A("dc", "Princípios fundamentais", 0.10, 4),
+    A("dc", "Direitos e garantias fundamentais", 0.30, 20),
+    A("dc", "Organização do Estado", 0.12, 15),
+    A("dc", "Administração Pública (arts. 37 a 41)", 0.22, 8),
+    A("dc", "Poder Legislativo", 0.10, 15),
+    A("dc", "Poder Judiciário e funções essenciais", 0.10, 14),
+    A("dc", "Controle de constitucionalidade", 0.06, 18),
+    A("da", "Poderes administrativos", 0.10, 6),
+    A("da", "Atos administrativos", 0.16, 12),
+    A("da", "Licitações (Lei 14.133/2021)", 0.18, 24, { nivel: "fraco", acerto: 30 }),
+    A("da", "Contratos administrativos", 0.08, 12),
+    A("da", "Agentes públicos (Lei 8.112/1990)", 0.18, 18),
+    A("da", "Improbidade administrativa", 0.10, 7),
+    A("da", "Responsabilidade civil do Estado", 0.08, 6),
+    A("da", "Processo administrativo (Lei 9.784/1999)", 0.07, 7),
+    A("da", "Controle da Administração", 0.05, 9),
+    A("rl", "Lógica proposicional", 0.40, 15),
+    A("rl", "Análise combinatória e probabilidade", 0.25, 18),
+    A("rl", "Porcentagem, razão e proporção", 0.25, 7),
+    A("rl", "Sequências e argumentação", 0.10, 7),
+    A("ap", "Gestão de pessoas por competências", 0.18, 9),
+    A("ap", "Planejamento estratégico", 0.18, 7, { nivel: "medio", acerto: 60 }),
+    A("ap", "Gestão de processos e qualidade", 0.14, 7),
+    A("ap", "Governança e gestão de riscos", 0.12, 9),
+    A("ap", "Orçamento público (noções)", 0.14, 15),
+    A("ap", "Gestão de projetos", 0.10, 9),
+    A("ap", "Governo digital e LGPD", 0.14, 6, { novo: true }),
+    A("leg", "Código de Ética (Decreto 1.171/1994)", 0.40, 4),
+    A("leg", "Regimento interno do órgão", 0.35, 12),
+    A("leg", "Lei de Acesso à Informação", 0.25, 4)
+  ];
+  var MULT = { forte: 0.5, medio: 1.0, fraco: 1.3 };
+  var NIVEL_LABEL = { forte: "Forte", medio: "Médio", fraco: "Fraco" };
+  var CORTES = [0.40, 0.65, 0.85, 0.95];
+  var P_NOME = { 5: "Essencial", 4: "Alta", 3: "Média", 2: "Baixa", 1: "Por último" };
+  var RESERVA = 0.30;
+  var DISC = {};
+  DISCIPLINAS.forEach(function (d) { DISC[d.id] = d; });
+
+  /* ===== Motor ===== */
+  function calcular(opts) {
+    var lista = ASSUNTOS.map(function (a, i) {
+      var d = DISC[a.d];
+      var nivel = opts.nivelamento ? (a.nivel || d.nivel) : null;
+      var horas = a.h * (nivel ? MULT[nivel] : 1);
+      var pts = d.q * d.peso * a.inc;
+      return { idx: i, d: a.d, nome: a.nome, inc: a.inc, novo: !!a.novo, nivel: nivel, horas: horas, pts: pts, roi: pts / horas };
+    });
+    var total = sum(lista, "pts");
+    var horasEdital = sum(lista, "horas");
+
+    var porRoi = lista.slice().sort(function (a, b) { return b.roi - a.roi || a.idx - b.idx; });
+    var acc = 0;
+    porRoi.forEach(function (a) {
+      var s = acc / total;
+      a.p = s < CORTES[0] ? 5 : s < CORTES[1] ? 4 : s < CORTES[2] ? 3 : s < CORTES[3] ? 2 : 1;
+      acc += a.pts;
+    });
+
+    // Nota mínima: o melhor assunto de cada disciplina entra primeiro.
+    var minimos = DISCIPLINAS.map(function (d) { return porRoi.filter(function (a) { return a.d === d.id; })[0]; })
+      .sort(function (a, b) { return b.roi - a.roi; });
+    minimos.forEach(function (a) { a.minimo = true; });
+    var plano = minimos.concat(porRoi.filter(function (a) { return !a.minimo; }));
+
+    var hTotal = opts.horasDia * opts.diasSemana * opts.semanas;
+    var hConteudo = hTotal * (1 - RESERVA);
+    var resta = hConteudo, ptsPlano = 0;
+    plano.forEach(function (a, ordem) {
+      a.ordem = ordem + 1;
+      var usa = Math.min(a.horas, Math.max(resta, 0));
+      a.usado = usa;
+      resta -= usa;
+      a.status = usa >= a.horas - 1e-9 ? "in" : usa > 0 ? "part" : "out";
+      ptsPlano += a.pts * (usa / a.horas);
+    });
+
+    return {
+      lista: lista, plano: plano, total: total, horasEdital: horasEdital,
+      hTotal: hTotal, hConteudo: hConteudo,
+      cobertura: ptsPlano / total,
+      coberturaEdital: curveAt(cumulative(lista, total), hConteudo),
+      curvaPlano: cumulative(plano, total),
+      curvaEdital: cumulative(lista, total)
+    };
+  }
+  function sum(arr, k) { return arr.reduce(function (s, a) { return s + a[k]; }, 0); }
+  function cumulative(seq, total) {
+    var pts = [{ x: 0, y: 0, item: null }], h = 0, p = 0;
+    seq.forEach(function (a) { h += a.horas; p += a.pts; pts.push({ x: h, y: p / total, item: a }); });
+    return pts;
+  }
+  function curveAt(curve, x) {
+    if (x <= 0) return 0;
+    for (var i = 1; i < curve.length; i++) {
+      if (x <= curve[i].x) {
+        var a = curve[i - 1], b = curve[i];
+        return a.y + (b.y - a.y) * ((x - a.x) / (b.x - a.x));
+      }
+    }
+    return 1;
+  }
+  function itemAt(curve, x) {
+    for (var i = 1; i < curve.length; i++) if (x <= curve[i].x) return curve[i].item;
+    return null;
+  }
+
+  /* ===== Formatação ===== */
+  var nf0 = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 0 });
+  var nf1 = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
+  var nf2 = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  function pct(v) { return nf0.format(v * 100) + "%"; }
+  function hrs(v) { return nf0.format(v) + " h"; }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function pill(p) { var s = el("span", "pill p" + p, "P" + p); s.title = "Prioridade " + p + " · " + P_NOME[p]; return s; }
+
+  /* ===== Base (sem nivelamento) ===== */
+  var base = calcular({ horasDia: 2, diasSemana: 6, semanas: 16, nivelamento: false });
+  var baseP = {};
+  base.lista.forEach(function (a) { baseP[a.idx] = a.p; });
+
+  function faixas(r) {
+    var out = [];
+    for (var p = 5; p >= 1; p--) {
+      var itens = r.lista.filter(function (a) { return a.p === p; });
+      out.push({ p: p, n: itens.length, h: sum(itens, "horas"), pts: sum(itens, "pts") });
+    }
+    return out;
+  }
+
+  /* Hero */
+  (function hero() {
+    var f = faixas(base);
+    var h = (f[0].h + f[1].h) / base.horasEdital, p = (f[0].pts + f[1].pts) / base.total;
+    document.getElementById("heroPareto").textContent = pct(p) + " dos pontos";
+    document.getElementById("heroParetoDetail").textContent = "com " + pct(h) + " das horas do edital (" + (f[0].n + f[1].n) + " de " + base.lista.length + " assuntos)";
+    document.getElementById("heroCob").textContent = pct(base.cobertura) + " dos pontos";
+    document.getElementById("heroCobDetail").textContent = "seguindo o plano priorizado; pela ordem do edital, " + pct(base.coberturaEdital);
+  })();
+
+  /* Faixas de prioridade (seção 03) */
+  (function renderFaixas() {
+    var f = faixas(base);
+    var host = document.getElementById("faixas");
+    [["Horas de estudo", "h", base.horasEdital], ["Pontos esperados", "pts", base.total]].forEach(function (row) {
+      var r = el("div", "seg-row");
+      r.appendChild(el("div", "seg-label", row[0]));
+      var bar = el("div", "seg");
+      bar.setAttribute("role", "img");
+      bar.setAttribute("aria-label", row[0] + " por prioridade: " + f.map(function (x) { return "P" + x.p + " " + pct(x[row[1]] / row[2]); }).join(", "));
+      f.forEach(function (x) {
+        var share = x[row[1]] / row[2];
+        var seg = el("div");
+        seg.style.flex = share + " 1 0";
+        seg.style.background = "var(--p" + x.p + ")";
+        seg.style.color = "var(--p" + x.p + "-ink)";
+        seg.title = "P" + x.p + " · " + pct(share);
+        if (share >= 0.09) seg.textContent = pct(share);
+        bar.appendChild(seg);
+      });
+      r.appendChild(bar);
+      host.appendChild(r);
+    });
+    var lg = document.getElementById("faixasLegend");
+    f.forEach(function (x) {
+      var s = el("span");
+      var sw = el("i", "sw"); sw.style.background = "var(--p" + x.p + ")";
+      s.appendChild(sw); s.appendChild(document.createTextNode("P" + x.p + " · " + P_NOME[x.p]));
+      lg.appendChild(s);
+    });
+    var tb = document.getElementById("faixasTable"), ah = 0, ap = 0;
+    f.forEach(function (x) {
+      ah += x.h; ap += x.pts;
+      var tr = el("tr");
+      var td = el("td"); td.appendChild(pill(x.p)); td.appendChild(el("span", "shift", P_NOME[x.p])); tr.appendChild(td);
+      tr.appendChild(el("td", "num", String(x.n)));
+      tr.appendChild(el("td", "num", hrs(x.h)));
+      tr.appendChild(el("td", "num", nf1.format(x.pts)));
+      tr.appendChild(el("td", "num", pct(ah / base.horasEdital)));
+      tr.appendChild(el("td", "num", pct(ap / base.total)));
+      tb.appendChild(tr);
+    });
+  })();
+
+  /* Diagnóstico do aluno-exemplo (seção 04) */
+  (function renderDiag() {
+    var tb = document.getElementById("diagTable");
+    DISCIPLINAS.forEach(function (d) {
+      var tr = el("tr");
+      tr.appendChild(el("td", null, d.nome));
+      tr.appendChild(el("td", "num", d.acerto + "%"));
+      tr.appendChild(el("td", null, NIVEL_LABEL[d.nivel] + " (×" + nf1.format(MULT[d.nivel]) + ")"));
+      var exc = ASSUNTOS.filter(function (a) { return a.d === d.id && a.nivel; })
+        .map(function (a) { return a.nome + ": " + NIVEL_LABEL[a.nivel].toLowerCase() + " (" + a.acerto + "%)"; });
+      tr.appendChild(el("td", null, exc.length ? exc.join("; ") : "—"));
+      tb.appendChild(tr);
+    });
+  })();
+
+  /* ===== Simulador ===== */
+  var inHoras = document.getElementById("inHoras");
+  var inDias = document.getElementById("inDias");
+  var inSemanas = document.getElementById("inSemanas");
+  var inNivel = document.getElementById("inNivel");
+  var current = null;
+
+  function update() {
+    var o = { horasDia: +inHoras.value, diasSemana: +inDias.value, semanas: +inSemanas.value, nivelamento: inNivel.checked };
+    document.getElementById("outHoras").textContent = nf1.format(o.horasDia) + " h";
+    document.getElementById("outDias").textContent = o.diasSemana + (o.diasSemana === 1 ? " dia" : " dias");
+    document.getElementById("outSemanas").textContent = o.semanas + " semanas";
+    var r = calcular(o);
+    current = r;
+
+    document.getElementById("sTotal").textContent = hrs(r.hTotal);
+    document.getElementById("sTotalD").textContent = nf1.format(o.horasDia * o.diasSemana) + " h por semana";
+    document.getElementById("sCont").textContent = hrs(r.hConteudo);
+    document.getElementById("sEdital").textContent = hrs(r.horasEdital);
+    var falta = r.horasEdital - r.hConteudo;
+    document.getElementById("sEditalD").textContent = falta > 0
+      ? "faltam " + hrs(falta) + " para ver tudo"
+      : "tempo suficiente; sobram " + hrs(-falta) + " para revisão extra";
+    document.getElementById("sCob").textContent = pct(r.cobertura);
+    var cobD = document.getElementById("sCobD");
+    cobD.textContent = "";
+    var diff = Math.round(r.cobertura * 100) - Math.round(r.coberturaEdital * 100);
+    if (diff > 0) {
+      cobD.appendChild(el("span", "delta", "+" + diff + " p.p."));
+      cobD.appendChild(document.createTextNode(" vs ordem do edital (" + pct(r.coberturaEdital) + ")"));
+    } else {
+      cobD.textContent = "igual à ordem do edital: o tempo cobre tudo";
+    }
+
+    renderTable(r, o.nivelamento);
+    renderChart(r);
+  }
+
+  function renderTable(r, niv) {
+    var head = document.getElementById("simHead");
+    head.textContent = "";
+    var trh = el("tr");
+    var cols = [["#", "num"], ["Prior."], ["Assunto"], ["Disciplina"]];
+    if (niv) cols.push(["Nível"]);
+    cols = cols.concat([["Incid.", "num"], ["Pontos", "num"], ["Horas", "num"], ["Pts/h", "num"], ["Situação"]]);
+    cols.forEach(function (c) { trh.appendChild(el("th", c[1] || null, c[0])); });
+    head.appendChild(trh);
+
+    var body = document.getElementById("simBody");
+    body.textContent = "";
+    var cutDone = false;
+    r.plano.forEach(function (a) {
+      if (!cutDone && a.status === "out") {
+        cutDone = true;
+        var cl = el("tr", "cutline");
+        var c = el("td", null, "Linha de corte · o tempo acaba aqui · " + r.plano.filter(function (x) { return x.status === "out"; }).length + " assuntos ficam de fora");
+        c.colSpan = cols.length;
+        cl.appendChild(c);
+        body.appendChild(cl);
+      }
+      var tr = el("tr", a.status === "out" ? "out" : null);
+      tr.appendChild(el("td", "num", String(a.ordem)));
+      var tdp = el("td"); tdp.appendChild(pill(a.p));
+      if (niv && baseP[a.idx] !== a.p) {
+        var up = a.p > baseP[a.idx];
+        var sh = el("span", "shift", (up ? "↑" : "↓") + " era P" + baseP[a.idx]);
+        tdp.appendChild(sh);
+      }
+      tr.appendChild(tdp);
+      var tdn = el("td", "topic", a.nome);
+      if (a.novo) { var t = el("span", "tag-new", "novo"); t.title = "Novidade no edital: sem histórico, incidência estimada pelo perfil da banca"; tdn.appendChild(t); }
+      if (a.minimo) tdn.title = "Entra cedo para garantir a nota mínima da disciplina";
+      tr.appendChild(tdn);
+      tr.appendChild(el("td", null, DISC[a.d].nome));
+      if (niv) tr.appendChild(el("td", "lvl", NIVEL_LABEL[a.nivel] + " ×" + nf1.format(MULT[a.nivel])));
+      tr.appendChild(el("td", "num", pct(a.inc)));
+      tr.appendChild(el("td", "num", nf1.format(a.pts)));
+      tr.appendChild(el("td", "num", nf1.format(a.horas)));
+      tr.appendChild(el("td", "num", nf2.format(a.roi)));
+      var st = a.status === "in" ? ["in", "✓ Estudar"]
+             : a.status === "part" ? ["part", "◐ Parcial " + nf0.format(a.usado) + "/" + nf0.format(a.horas) + " h"]
+             : ["out", "— Fora"];
+      var tds = el("td"); tds.appendChild(el("span", "status " + st[0], st[1])); tr.appendChild(tds);
+      body.appendChild(tr);
+    });
+  }
+
+  /* ===== Gráfico ===== */
+  var chartEl = document.getElementById("chart");
+  var SVGNS = "http://www.w3.org/2000/svg";
+  var tooltip = el("div", "tooltip");
+  chartEl.appendChild(tooltip);
+  var geo = null, hoverX = null;
+
+  function s(tag, attrs, cls) {
+    var n = document.createElementNS(SVGNS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (cls) n.setAttribute("class", cls);
+    return n;
+  }
+  function niceStep(max) {
+    var raw = max / 5, mag = Math.pow(10, Math.floor(Math.log10(raw))), n = raw / mag;
+    return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * mag;
+  }
+
+  function renderChart(r) {
+    var W = chartEl.clientWidth || 600;
+    var H = W < 520 ? 260 : 320;
+    var m = { t: 28, r: 16, b: 40, l: 44 };
+    var iw = W - m.l - m.r, ih = H - m.t - m.b;
+    var maxX = r.horasEdital;
+    var X = function (v) { return m.l + (v / maxX) * iw; };
+    var Y = function (v) { return m.t + (1 - v) * ih; };
+    geo = { r: r, X: X, Y: Y, m: m, iw: iw, ih: ih, maxX: maxX, W: W, H: H };
+
+    var old = chartEl.querySelector("svg");
+    if (old) old.remove();
+    var svg = s("svg", { viewBox: "0 0 " + W + " " + H, height: H, "aria-hidden": "true" });
+
+    var g = s("g", {}, "grid");
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (v) {
+      g.appendChild(s("line", { x1: m.l, x2: m.l + iw, y1: Y(v), y2: Y(v) }));
+      var t = s("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end" }, "tick");
+      t.textContent = Math.round(v * 100) + "%";
+      svg.appendChild(t);
+    });
+    svg.appendChild(g);
+    svg.appendChild(s("line", { x1: m.l, x2: m.l + iw, y1: Y(0), y2: Y(0) }, "axis-line"));
+    var step = niceStep(maxX);
+    for (var v = 0; v <= maxX + 1e-9; v += step) {
+      var t = s("text", { x: X(v), y: Y(0) + 18, "text-anchor": "middle" }, "tick");
+      t.textContent = nf0.format(v) + " h";
+      svg.appendChild(t);
+    }
+    var at = s("text", { x: m.l + iw, y: H - 4, "text-anchor": "end" }, "axis-title");
+    at.textContent = "horas de conteúdo, acumuladas";
+    svg.appendChild(at);
+
+    var pathOf = function (c) { return c.map(function (p, i) { return (i ? "L" : "M") + X(p.x).toFixed(1) + "," + Y(p.y).toFixed(1); }).join(""); };
+    var dPlan = pathOf(r.curvaPlano);
+    svg.appendChild(s("path", { d: dPlan + "L" + X(maxX) + "," + Y(0) + "L" + X(0) + "," + Y(0) + "Z" }, "area"));
+    svg.appendChild(s("path", { d: pathOf(r.curvaEdital) }, "line-base"));
+    svg.appendChild(s("path", { d: dPlan }, "line-plan"));
+
+    // Linha do tempo disponível
+    var cx = Math.min(r.hConteudo, maxX);
+    var cutX = X(cx);
+    svg.appendChild(s("line", { x1: cutX, x2: cutX, y1: m.t - 6, y2: Y(0) }, "cut"));
+    var cl = s("text", { x: cutX, y: m.t - 12, "text-anchor": cutX > m.l + iw * 0.75 ? "end" : cutX < m.l + iw * 0.25 ? "start" : "middle" }, "cut-label");
+    cl.textContent = r.hConteudo > maxX ? "Seu tempo: " + hrs(r.hConteudo) + " (sobra)" : "Seu tempo: " + hrs(r.hConteudo);
+    svg.appendChild(cl);
+
+    var yP = curveAt(r.curvaPlano, cx), yE = curveAt(r.curvaEdital, cx);
+    svg.appendChild(s("circle", { cx: cutX, cy: Y(yE), r: 4.5 }, "dot-base"));
+    svg.appendChild(s("circle", { cx: cutX, cy: Y(yP), r: 4.5 }, "dot-plan"));
+    var leftSide = cutX > m.l + iw * 0.8;
+    var anchor = leftSide ? "end" : "start", dx = leftSide ? -10 : 10;
+    if (Math.abs(Y(yP) - Y(yE)) >= 16) {
+      var lp = s("text", { x: cutX + dx, y: Y(yP) - 6, "text-anchor": anchor }, "val"); lp.textContent = pct(yP); svg.appendChild(lp);
+      var le = s("text", { x: cutX + dx, y: Y(yE) + 16, "text-anchor": anchor }, "val"); le.textContent = pct(yE); svg.appendChild(le);
+    } else {
+      var lb = s("text", { x: cutX + dx, y: Math.max(Y(yP), Y(yE)) + 18, "text-anchor": anchor }, "val"); lb.textContent = pct(yP); svg.appendChild(lb);
+    }
+
+    // Camada de hover
+    var cross = s("line", { x1: 0, x2: 0, y1: m.t, y2: Y(0), visibility: "hidden" }, "cross");
+    svg.appendChild(cross);
+    var hp = s("circle", { r: 4.5, visibility: "hidden" }, "dot-plan");
+    var he = s("circle", { r: 4.5, visibility: "hidden" }, "dot-base");
+    svg.appendChild(he); svg.appendChild(hp);
+    geo.cross = cross; geo.hp = hp; geo.he = he;
+
+    chartEl.insertBefore(svg, tooltip);
+    if (hoverX != null) showAt(hoverX);
+  }
+
+  function showAt(x) {
+    if (!geo) return;
+    x = Math.max(0, Math.min(geo.maxX, x));
+    hoverX = x;
+    var r = geo.r, px = geo.X(x);
+    var yP = curveAt(r.curvaPlano, x), yE = curveAt(r.curvaEdital, x);
+    geo.cross.setAttribute("x1", px); geo.cross.setAttribute("x2", px); geo.cross.setAttribute("visibility", "visible");
+    geo.hp.setAttribute("cx", px); geo.hp.setAttribute("cy", geo.Y(yP)); geo.hp.setAttribute("visibility", "visible");
+    geo.he.setAttribute("cx", px); geo.he.setAttribute("cy", geo.Y(yE)); geo.he.setAttribute("visibility", "visible");
+
+    tooltip.textContent = "";
+    tooltip.appendChild(el("div", "tt-head", hrs(x) + " de conteúdo"));
+    [[yP, "Plano priorizado", "var(--series-plan)"], [yE, "Ordem do edital", "var(--series-base)"]].forEach(function (row) {
+      var d = el("div", "tt-row");
+      var k = el("i", "key-line"); k.style.background = row[2];
+      d.appendChild(k); d.appendChild(el("b", null, pct(row[0]))); d.appendChild(el("span", null, row[1]));
+      tooltip.appendChild(d);
+    });
+    var it = itemAt(r.curvaPlano, x);
+    if (it) tooltip.appendChild(el("div", "tt-foot", "Plano estudando: " + it.nome));
+    tooltip.style.display = "block";
+    var tw = tooltip.offsetWidth;
+    var left = px + 14;
+    if (left + tw > geo.W) left = px - tw - 14;
+    tooltip.style.left = Math.max(0, left) + "px";
+    tooltip.style.top = (geo.m.t + 4) + "px";
+  }
+  function hide() {
+    hoverX = null;
+    tooltip.style.display = "none";
+    if (geo) ["cross", "hp", "he"].forEach(function (k) { geo[k].setAttribute("visibility", "hidden"); });
+  }
+  chartEl.addEventListener("pointermove", function (e) {
+    if (!geo) return;
+    var rect = chartEl.getBoundingClientRect();
+    var sx = (e.clientX - rect.left) * (geo.W / rect.width);
+    if (sx < geo.m.l - 10 || sx > geo.m.l + geo.iw + 10) { hide(); return; }
+    showAt(((sx - geo.m.l) / geo.iw) * geo.maxX);
+  });
+  chartEl.addEventListener("pointerleave", hide);
+  chartEl.addEventListener("focus", function () { if (geo) showAt(Math.min(geo.r.hConteudo, geo.maxX)); });
+  chartEl.addEventListener("blur", hide);
+  chartEl.addEventListener("keydown", function (e) {
+    if (!geo) return;
+    var stepH = geo.maxX / 40;
+    if (e.key === "ArrowRight") { showAt((hoverX || 0) + stepH); e.preventDefault(); }
+    if (e.key === "ArrowLeft") { showAt((hoverX || 0) - stepH); e.preventDefault(); }
+    if (e.key === "Escape") hide();
+  });
+
+  [inHoras, inDias, inSemanas, inNivel].forEach(function (i) { i.addEventListener("input", update); });
+  Array.prototype.forEach.call(document.querySelectorAll(".chip[data-h]"), function (b) {
+    b.addEventListener("click", function () {
+      inHoras.value = b.dataset.h; inDias.value = b.dataset.d; inSemanas.value = b.dataset.s;
+      update();
+    });
+  });
+  if (window.ResizeObserver) {
+    var lastW = 0;
+    new ResizeObserver(function () {
+      var w = chartEl.clientWidth;
+      if (current && Math.abs(w - lastW) > 2) { lastW = w; renderChart(current); }
+    }).observe(chartEl);
+  } else {
+    window.addEventListener("resize", function () { if (current) renderChart(current); });
+  }
+
+  /* Tema */
+  document.getElementById("themeBtn").addEventListener("click", function () {
+    var root = document.documentElement;
+    var dark = root.dataset.theme ? root.dataset.theme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var novo = dark ? "light" : "dark";
+    root.dataset.theme = novo;
+    try { localStorage.setItem("tema", novo); } catch (e) {}
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>
