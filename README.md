@@ -9,6 +9,9 @@ npm run dev      # http://localhost:5173
 npm run build    # gera dist/
 ```
 
+**No ar:** https://thiago-harry.github.io/web/ — publicado pelo GitHub Pages a cada push no `main`
+(`.github/workflows/deploy.yml`). Requer, uma vez, *Settings → Pages → Source: GitHub Actions*.
+
 ## Regras implementadas
 
 | Fase | Entrada | Cálculo |
