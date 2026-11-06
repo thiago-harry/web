@@ -35,6 +35,10 @@ Roteiro da Semana: blocos de até 2h com horário, assunto e tipo (Teoria / Ques
 Assuntos de teoria seguem rodízio ponderado pela prioridade; revisões puxam assuntos estudados em semanas anteriores.
 Nos últimos 14 dias (reta final), 70% da teoria migra para questões e revisão.
 
+**Exportar PDF** (Roteiro da Semana): arquivo A4 para entregar ao aluno, com parâmetros, horas por disciplina,
+assuntos descartados e todas as semanas em tabela com caixa "Feito" por bloco. Nome do aluno opcional.
+jsPDF + jspdf-autotable carregam só no clique. Na prévia do claude.ai o download é bloqueado; o botão aponta para o site.
+
 ## Premissas do protótipo
 
 - Edital, banca e simulado são **dados de exemplo** (`RAW_DISCIPLINES` em `src/App.jsx`). Trocar por dados reais é editar esse array.
