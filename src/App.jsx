@@ -21,6 +21,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Coffee,
+  ExternalLink,
+  FileDown,
   Flag,
   ListChecks,
   Minus,
@@ -139,7 +141,12 @@ const EXAM = {
   banca: "Banca-modelo",
   provas: 6,
   periodo: "2019–2025",
+  exemplo: true,
 };
+
+const SITE_URL = "https://thiago-harry.github.io/web/mvp/";
+// Na prévia publicada no claude.ai (build com __ARTIFACT__ definido) downloads são bloqueados.
+const CAN_DOWNLOAD = typeof __ARTIFACT__ === "undefined";
 
 // [assunto, incidência % nas provas anteriores da banca, dentro da disciplina]
 const RAW_DISCIPLINES = [
@@ -199,9 +206,13 @@ const RAW_DISCIPLINES = [
   },
 ];
 
+// Mesmas cores dos tokens --s1…--s7 (tema claro), usadas no PDF.
+const SERIES_LIGHT = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6"];
+
 const DISCIPLINES = RAW_DISCIPLINES.map((d, i) => ({
   ...d,
   cor: `var(--s${i + 1})`,
+  hex: SERIES_LIGHT[i],
   assuntos: d.assuntos.map(([nome, incidencia], j) => ({ id: `${d.id}-${j + 1}`, nome, incidencia })),
 }));
 const DISC_BY_ID = Object.fromEntries(DISCIPLINES.map((d) => [d.id, d]));
@@ -469,7 +480,9 @@ function distribute(days, queues, rank, startMin) {
   }
 }
 
-function buildWeek({ dossier, plan, levels, tb, week, today }) {
+// Simula as semanas 1..to (o arrasto de arredondamento e o rodízio dependem das anteriores)
+// e devolve as semanas from..to já distribuídas nos dias.
+function buildWeeks({ dossier, plan, levels, tb, from, to, today }) {
   const discs = dossier
     .filter((d) => plan.byId[d.id].share > 0)
     .map((d) => ({
@@ -484,7 +497,8 @@ function buildWeek({ dossier, plan, levels, tb, week, today }) {
     discs.map((x) => [x.id, { carry: 0, typeCarry: [0, 0, 0], rrT: {}, rrQ: {}, rrR: {}, studied: new Map(), tick: 0 }])
   );
 
-  for (let w = 1; w <= week; w++) {
+  const out = [];
+  for (let w = 1; w <= to; w++) {
     const weekStart = addDays(today, (w - 1) * 7);
     const days = Array.from({ length: 7 }, (_, i) => {
       const date = addDays(weekStart, i);
@@ -533,13 +547,14 @@ function buildWeek({ dossier, plan, levels, tb, week, today }) {
       for (const t of theory) if (!s.studied.has(t.id)) s.studied.set(t.id, { topic: t, last: 0 });
     });
 
-    if (w === week) {
+    if (w >= from) {
       distribute(days, queues, rank, tb.startMin);
       const totals = discs
         .map((x, i) => ({ id: x.id, slots: alloc[i] }))
         .filter((t) => t.slots > 0)
         .sort((a, b) => b.slots - a.slots || rank[a.id] - rank[b.id]);
-      return {
+      out.push({
+        week: w,
         days,
         weekStart,
         weekEnd: addDays(weekStart, 6),
@@ -547,10 +562,291 @@ function buildWeek({ dossier, plan, levels, tb, week, today }) {
         capacity,
         totals,
         blocks: days.reduce((s, d) => s + d.blocks.length, 0),
-      };
+      });
     }
   }
-  return null;
+  return out;
+}
+
+const buildWeek = ({ week, ...rest }) => buildWeeks({ ...rest, from: week, to: week })[0] ?? null;
+
+/* ───────────────────────────── Exportação PDF ───────────────────────────── */
+
+const PDF_COLORS = {
+  ink: [15, 23, 41],
+  ink2: [70, 80, 104],
+  muted: [99, 108, 130],
+  line: [214, 220, 229],
+  sunken: [242, 244, 248],
+  accent: [29, 63, 168],
+  accentSoft: [230, 235, 249],
+};
+const hexToRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+// Fontes padrão do PDF cobrem Latin-1: troca símbolos fora dessa faixa.
+const pdfText = (v) =>
+  String(v).replace(/[–—−]/g, "-").replace(/≥/g, ">=").replace(/≤/g, "<=").replace(/→/g, "->").replace(/[“”]/g, '"');
+const slugify = (v) =>
+  v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const DIAS_LABEL = { 5: "5 (seg a sex)", 6: "6 (seg a sáb)", 7: "7 (todos os dias)" };
+
+async function exportSchedulePdf({ snap, today, aluno }) {
+  const [{ jsPDF }, { autoTable }] = await Promise.all([import("jspdf"), import("jspdf-autotable")]);
+  const { c, d: dossier, t: tb, p: plan } = snap;
+  const C = PDF_COLORS;
+  const weeks = buildWeeks({ dossier, plan, levels: c.levels, tb, from: 1, to: tb.weeks, today });
+  const nome = aluno.trim();
+  const now = new Date();
+
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const W = doc.internal.pageSize.getWidth();
+  const H = doc.internal.pageSize.getHeight();
+  const M = 14;
+  const margin = { left: M, right: M, top: 16, bottom: 16 };
+  doc.setProperties({
+    title: `Cronograma Estratégico${nome ? ` - ${pdfText(nome)}` : ""}`,
+    author: "Mentoria 2G",
+    creator: "Cronograma Inteligente 2G",
+  });
+
+  // Bolinha da disciplina dentro da célula (célula com raw.disc).
+  const discCell = (id, content) => ({ content: pdfText(content), disc: id });
+  const padDisc = { top: 1.8, bottom: 1.8, left: 5.2, right: 1.8 };
+  const hooks = {
+    didParseCell: (data) => {
+      if (data.section === "body" && data.cell.raw?.disc) data.cell.styles.cellPadding = padDisc;
+    },
+    didDrawCell: (data) => {
+      if (data.section !== "body") return;
+      const raw = data.cell.raw;
+      const cy = data.cell.y + data.cell.height / 2;
+      if (raw?.disc) {
+        doc.setFillColor(...hexToRgb(DISC_BY_ID[raw.disc].hex));
+        doc.circle(data.cell.x + 2.6, cy, 1.1, "F");
+      }
+      if (raw?.check) {
+        const cx = data.cell.x + data.cell.width / 2;
+        doc.setDrawColor(...C.ink2);
+        doc.setLineWidth(0.3);
+        doc.rect(cx - 1.75, cy - 1.75, 3.5, 3.5);
+      }
+    },
+  };
+  // Título de seção; `need` = altura mínima (mm) que precisa caber abaixo dele na mesma página.
+  const section = (title, sub, need = 30) => {
+    let y = doc.lastAutoTable.finalY + 9;
+    if (y + 8 + need > H - margin.bottom) {
+      doc.addPage();
+      y = 18;
+    }
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11.5);
+    doc.setTextColor(...C.ink);
+    doc.text(pdfText(title), M, y);
+    if (!sub) return y + 3;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8.5);
+    doc.setTextColor(...C.muted);
+    doc.text(pdfText(sub), M, y + 4.5);
+    return y + 7;
+  };
+
+  // Cabeçalho
+  doc.setFillColor(...C.accent);
+  doc.roundedRect(M, 12, 11, 11, 1.5, 1.5, "F");
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.text("2G", M + 5.5, 19.1, { align: "center" });
+  doc.setTextColor(...C.muted);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8.5);
+  doc.text("Mentoria 2G", M + 14, 15.6);
+  doc.text(`Gerado em ${fmtDMY(now)}`, W - M, 15.6, { align: "right" });
+  doc.setTextColor(...C.ink);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.text("Cronograma Estratégico", M + 14, 21.8);
+
+  let y = 32;
+  doc.setFontSize(10.5);
+  doc.text("Aluno:", M, y);
+  doc.setFont("helvetica", "normal");
+  if (nome) doc.text(pdfText(nome), M + 13.5, y);
+  else {
+    doc.setDrawColor(...C.line);
+    doc.setLineWidth(0.3);
+    doc.line(M + 13.5, y + 0.8, M + 105, y + 0.8);
+  }
+  doc.setFontSize(9);
+  doc.setTextColor(...C.ink2);
+  doc.text(pdfText(`${EXAM.cargo} · ${EXAM.banca} · ${TOTAL_QUESTOES} questões · ${TOTAL_PONTOS} pontos`), M, y + 5.5);
+
+  // Parâmetros
+  autoTable(doc, {
+    startY: y + 9,
+    margin,
+    theme: "plain",
+    styles: { fontSize: 9, cellPadding: { top: 1.7, bottom: 1.7, left: 3, right: 3 }, textColor: C.ink, fillColor: C.sunken },
+    columnStyles: { 0: { textColor: C.muted, cellWidth: 36 }, 1: { fontStyle: "bold" }, 2: { textColor: C.muted, cellWidth: 46 }, 3: { fontStyle: "bold" } },
+    body: [
+      ["Data da prova", fmtDMY(tb.exam), "Horas líquidas até a prova", fmtH(tb.totalHours)],
+      ["Dias até a prova", String(tb.daysUntil), "Semanas de estudo", String(tb.weeks)],
+      ["Horas por dia", fmtH(tb.hoursPerDay), "Dias de estudo por semana", DIAS_LABEL[tb.daysPerWeek]],
+      ["Início dos estudos", fmtClock(tb.startMin), "Reta final a partir de", fmtDMY(tb.retaFinal)],
+    ],
+  });
+
+  // Distribuição por disciplina
+  y = section(
+    "Distribuição de horas por disciplina",
+    "Prioridade do edital × histórico da banca, ajustada pelo nível do simulado. Mix = % de teoria, questões e revisão."
+  );
+  const dist = dossier
+    .filter((d) => plan.byId[d.id].horas > 0)
+    .sort((a, b) => plan.byId[b.id].horas - plan.byId[a.id].horas)
+    .map((d) => {
+      const r = plan.byId[d.id];
+      const lvl = LEVEL_BY_ID[c.levels[d.id]];
+      return [
+        discCell(d.id, d.nome),
+        `${FAIXA_LABEL[faixa(d.prioridade)]} (P${d.prioridade})`,
+        lvl.label,
+        `${d.simulado}%`,
+        fmtH(r.horas),
+        fmtPct(r.share, 0),
+        `${Math.round(lvl.mix.T * 100)} / ${Math.round(lvl.mix.Q * 100)} / ${Math.round(lvl.mix.R * 100)}`,
+      ];
+    });
+  autoTable(doc, {
+    startY: y,
+    margin,
+    theme: "grid",
+    head: [["Disciplina", "Prioridade", "Nível", "Simulado", "Horas", "% horas", "Mix T / Q / R"]],
+    body: dist,
+    styles: { fontSize: 8.5, cellPadding: 1.8, lineColor: C.line, lineWidth: 0.2, textColor: C.ink, valign: "middle" },
+    headStyles: { fillColor: C.sunken, textColor: C.ink2, fontStyle: "bold", fontSize: 8 },
+    columnStyles: {
+      1: { cellWidth: 23 },
+      2: { cellWidth: 24 },
+      3: { cellWidth: 18, halign: "right" },
+      4: { cellWidth: 17, halign: "right", fontStyle: "bold" },
+      5: { cellWidth: 17, halign: "right" },
+      6: { cellWidth: 26, halign: "center" },
+    },
+    ...hooks,
+  });
+
+  // Descarte estratégico
+  const descartados = dossier.flatMap((d) => d.topics.filter((t) => !t.ativo).map((t) => ({ d, t })));
+  if (descartados.length) {
+    const pts = descartados.reduce((s, x) => s + x.t.esperado, 0);
+    y = section(
+      "Assuntos fora do cronograma (descarte estratégico)",
+      `${descartados.length} assuntos de baixa incidência na banca, ${fmtPct(pts / TOTAL_PONTOS)} dos pontos esperados da prova.`
+    );
+    autoTable(doc, {
+      startY: y,
+      margin,
+      theme: "grid",
+      head: [["Disciplina", "Assunto", "Incidência", "Pontos esperados"]],
+      body: descartados.map(({ d, t }) => [discCell(d.id, d.curto), pdfText(t.nome), `${t.incidencia}%`, nf1.format(t.esperado)]),
+      styles: { fontSize: 8.5, cellPadding: 1.8, lineColor: C.line, lineWidth: 0.2, textColor: C.ink2, valign: "middle" },
+      headStyles: { fillColor: C.sunken, textColor: C.ink2, fontStyle: "bold", fontSize: 8 },
+      columnStyles: { 0: { cellWidth: 40 }, 2: { halign: "right", cellWidth: 22 }, 3: { halign: "right", cellWidth: 30 } },
+      ...hooks,
+    });
+  }
+
+  // Roteiro semana a semana
+  const weekBody = (wk) => {
+    const body = [];
+    for (const day of wk.days) {
+      if (day.status === "after") continue;
+      const label = { content: `${WEEKDAYS[day.date.getDay()]} ${fmtDM(day.date)}`, styles: { fontStyle: "bold", valign: "top" } };
+      if (day.status === "rest") {
+        body.push([label, { content: "Descanso", colSpan: 6, styles: { textColor: C.muted, fontStyle: "italic" } }]);
+      } else if (day.status === "exam") {
+        body.push([label, { content: "Dia da prova", colSpan: 6, styles: { textColor: C.accent, fontStyle: "bold", fillColor: C.accentSoft } }]);
+      } else {
+        day.blocks.forEach((b, j) => {
+          const row = j === 0 ? [{ ...label, rowSpan: day.blocks.length }] : [];
+          row.push(
+            `${fmtClock(b.start)}-${fmtClock(b.end)}`,
+            discCell(b.discId, DISC_BY_ID[b.discId].curto),
+            pdfText(b.topic.nome),
+            TYPES[b.type].label,
+            fmtSlots(b.slots),
+            { content: "", check: true }
+          );
+          body.push(row);
+        });
+      }
+    }
+    return body;
+  };
+  const bodies = weeks.map(weekBody);
+  const usable = H - margin.top - margin.bottom;
+  const estHeight = (body) => Math.min(usable, 16 + body.length * 6.8); // cabeçalho + linhas, com folga
+
+  y = section(
+    "Roteiro semana a semana",
+    "Marque a caixa ao concluir cada bloco. Revisões retomam assuntos estudados em semanas anteriores.",
+    bodies.length ? estHeight(bodies[0]) : 30
+  );
+  weeks.forEach((wk, i) => {
+    let startY = y;
+    if (i > 0) {
+      startY = doc.lastAutoTable.finalY + 7;
+      if (startY + estHeight(bodies[i]) > H - margin.bottom) {
+        doc.addPage();
+        startY = margin.top + 2;
+      }
+    }
+    const title = [
+      `Semana ${wk.week} de ${tb.weeks}`,
+      `${fmtDM(wk.weekStart)} a ${fmtDM(wk.weekEnd)}`,
+      wk.retaFinal ? "Reta final" : "Fase base",
+      fmtSlots(wk.capacity),
+    ].join("  ·  ");
+    autoTable(doc, {
+      startY,
+      margin,
+      theme: "grid",
+      rowPageBreak: "avoid",
+      head: [
+        [{ content: title, colSpan: 7, styles: { fillColor: C.accent, textColor: [255, 255, 255], fontStyle: "bold", fontSize: 9.5, halign: "left" } }],
+        ["Dia", "Horário", "Disciplina", "Assunto", "Tipo", "Duração", "Feito"],
+      ],
+      body: bodies[i],
+      styles: { fontSize: 8.5, cellPadding: 1.6, lineColor: C.line, lineWidth: 0.2, textColor: C.ink, valign: "middle" },
+      headStyles: { fillColor: C.sunken, textColor: C.ink2, fontStyle: "bold", fontSize: 8 },
+      columnStyles: {
+        0: { cellWidth: 19 },
+        1: { cellWidth: 21 },
+        2: { cellWidth: 34 },
+        4: { cellWidth: 18 },
+        5: { cellWidth: 15 },
+        6: { cellWidth: 11, halign: "center" },
+      },
+      ...hooks,
+    });
+  });
+
+  // Rodapé
+  const pages = doc.getNumberOfPages();
+  const footer = pdfText(
+    `Mentoria 2G · Cronograma Inteligente${nome ? ` · ${nome}` : ""}${EXAM.exemplo ? " · edital-modelo (dados de exemplo)" : ""}`
+  );
+  for (let i = 1; i <= pages; i++) {
+    doc.setPage(i);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7.5);
+    doc.setTextColor(...C.muted);
+    doc.text(footer, M, H - 8);
+    doc.text(`Página ${i} de ${pages}`, W - M, H - 8, { align: "right" });
+  }
+
+  doc.save(`cronograma-2g${nome ? `-${slugify(nome)}` : ""}-${toISO(now)}.pdf`);
 }
 
 /* ───────────────────────────── Estado inicial ───────────────────────────── */
@@ -1092,7 +1388,7 @@ function DayColumn({ day }) {
   );
 }
 
-function RoadmapPanel({ sectionRef, schedule, snapInfo, week, setWeek, stale, canGenerate, onGenerate }) {
+function RoadmapPanel({ sectionRef, schedule, snapInfo, week, setWeek, stale, canGenerate, onGenerate, exportBar }) {
   if (!schedule) return null;
   const { weeks } = snapInfo;
   return (
@@ -1154,6 +1450,8 @@ function RoadmapPanel({ sectionRef, schedule, snapInfo, week, setWeek, stale, ca
         </div>
       ) : null}
 
+      {exportBar}
+
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
         <p className="text-sm cg-ink2">
           <b className="cg-ink cg-num">{fmtSlots(schedule.capacity)}</b> na semana · <b className="cg-ink cg-num">{schedule.blocks}</b> blocos
@@ -1178,6 +1476,61 @@ function RoadmapPanel({ sectionRef, schedule, snapInfo, week, setWeek, stale, ca
         ))}
       </div>
     </section>
+  );
+}
+
+function ExportBar({ aluno, setAluno, onExport, exporting, error, stale, summary }) {
+  const label = exporting ? "Gerando PDF…" : "Exportar cronograma completo (PDF)";
+  return (
+    <div className="cg-surface flex flex-wrap items-end gap-3 rounded-xl border cg-line p-3">
+      <div className="flex min-w-0 flex-1 flex-col gap-1.5" style={{ minWidth: 200 }}>
+        <label htmlFor="aluno" className="text-xs font-semibold cg-ink2">
+          Nome do aluno no PDF (opcional)
+        </label>
+        <input
+          id="aluno"
+          type="text"
+          value={aluno}
+          onChange={(e) => setAluno(e.target.value)}
+          maxLength={80}
+          autoComplete="off"
+          placeholder="Deixe vazio para preencher à mão"
+          className="cg-input h-10 w-full rounded-lg px-3 text-sm"
+        />
+      </div>
+      {CAN_DOWNLOAD ? (
+        <button
+          type="button"
+          onClick={onExport}
+          disabled={stale || exporting}
+          className="cg-btn-primary inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-bold transition-colors"
+        >
+          <FileDown className="h-4 w-4" aria-hidden="true" />
+          {label}
+        </button>
+      ) : (
+        <a
+          href={SITE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="cg-btn-primary inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-bold transition-colors"
+        >
+          <ExternalLink className="h-4 w-4" aria-hidden="true" />
+          Exportar PDF no site
+        </a>
+      )}
+      <p className="w-full text-xs cg-muted" aria-live="polite">
+        {error ? (
+          <span className="font-medium cg-error">{error}</span>
+        ) : !CAN_DOWNLOAD ? (
+          "Esta prévia não permite downloads. O PDF é gerado no site."
+        ) : stale ? (
+          "Gere o roteiro novamente para exportar a versão com os parâmetros atuais."
+        ) : (
+          summary
+        )}
+      </p>
+    </div>
   );
 }
 
@@ -1221,6 +1574,9 @@ export default function App() {
   const [expanded, setExpanded] = useState(() => new Set(["dadm"]));
   const [snapshot, setSnapshot] = useState(() => ({ config: defaults, at: new Date() }));
   const [week, setWeekState] = useState(1);
+  const [aluno, setAluno] = useState("");
+  const [exporting, setExporting] = useState(false);
+  const [exportError, setExportError] = useState(null);
   const roadmapRef = useRef(null);
 
   const config = useMemo(() => ({ levels, included, ...form }), [levels, included, form]);
@@ -1270,6 +1626,20 @@ export default function App() {
     setWeekState(1);
     const reduce = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     requestAnimationFrame(() => roadmapRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }));
+  };
+
+  const exportPdf = async () => {
+    if (!snap || stale || exporting) return;
+    setExporting(true);
+    setExportError(null);
+    try {
+      if (typeof __ARTIFACT__ === "undefined") await exportSchedulePdf({ snap, today, aluno });
+    } catch (err) {
+      console.error(err);
+      setExportError("Não foi possível gerar o PDF. Tente novamente.");
+    } finally {
+      setExporting(false);
+    }
   };
 
   const nav = [
@@ -1356,6 +1726,17 @@ export default function App() {
             stale={stale}
             canGenerate={canGenerate}
             onGenerate={generate}
+            exportBar={
+              <ExportBar
+                aluno={aluno}
+                setAluno={setAluno}
+                onExport={exportPdf}
+                exporting={exporting}
+                error={exportError}
+                stale={stale}
+                summary={`${weeks} semanas · ${fmtH(snap.t.totalHours)} · todas as semanas em um arquivo A4`}
+              />
+            }
           />
         ) : null}
 

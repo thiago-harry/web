@@ -1,8 +1,9 @@
 name: Deploy GitHub Pages
 
+# Disparo só manual: hoje o Pages do repositório publica o branch do pitch (pasta /docs).
+# Para o main virar a fonte, mude Settings → Pages → Source para "GitHub Actions"
+# e volte a incluir `push: branches: [main]` aqui.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
