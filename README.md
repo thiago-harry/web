@@ -48,5 +48,6 @@ jsPDF + jspdf-autotable carregam só no clique. Na prévia do claude.ai o downlo
 
 ## Próxima geração: `app/`
 
-`app/` contém a engine do **Cronograma Direcionado** (content packs por concurso, scoring em três
-quadros, alocação determinística). Fase 1 concluída; ver `app/README.md`.
+`app/` é o **Cronograma Direcionado**: content packs por concurso, scoring em três quadros,
+alocação determinística e UI em 5 telas, sem build step. No ar em
+https://thiago-harry.github.io/web/app/ · detalhes em `app/README.md`.
