@@ -1,0 +1,31 @@
+{
+  "pack_version": "0.1.0",
+  "concurso": {
+    "id": "fixture-builder",
+    "nome": "Concurso Fixture Builder",
+    "orgao": "TRT da 99ª Região (fictício)",
+    "banca": "BANCA-FIXTURE",
+    "cargo": "Técnico Judiciário - Área Administrativa",
+    "data_prova": "2027-03-14",
+    "fonte_edital": "fixture://edital",
+    "curado_em": "2026-11-10"
+  },
+  "status": "rascunho",
+  "descricao": "Pack de teste do pack builder.",
+  "estrutura_prova": {
+    "total_questoes": 7,
+    "tipo": "multipla_escolha_5",
+    "penalidade_erro": false,
+    "nota_corte_estimada": 0.6,
+    "materias": [
+      { "id": "port", "nome": "Língua Portuguesa", "aliases": ["LÍNGUA PORTUGUESA", "PORTUGUÊS"], "questoes": 3, "peso": 1, "eliminatoria": false, "min_acertos": null, "tipo_default": "pratica" },
+      { "id": "dadm", "nome": "Noções de Direito Administrativo", "aliases": ["DIREITO ADMINISTRATIVO"], "questoes": 4, "peso": 2, "eliminatoria": true, "min_acertos": 2, "tipo_default": "lei_seca" }
+    ]
+  },
+  "edital": { "pdf": "input/edital.txt", "secao_inicio": "TÉCNICO JUDICIÁRIO – ÁREA ADMINISTRATIVA", "secao_fim": "ANALISTA JUDICIÁRIO" },
+  "provas": [
+    { "key": "fixture-2025", "tipo": "cargo", "ano": 2025, "caderno": "input/caderno.txt", "gabarito": "input/gabarito.txt", "fonte": "fixture://prova-2025", "total_questoes": 7 }
+  ],
+  "notas_banca": { "estilo": ["literalidade alta"], "formato_questao": "assertiva única, 5 alternativas", "ratio_teoria_questoes_sugerido": null, "recomendacoes_estudo": [] },
+  "classificacao": { "modelo": "claude-opus-5-5", "lote": 10, "effort": "medium", "confianca_minima": 0.6 }
+}
