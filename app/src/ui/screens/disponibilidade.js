@@ -29,30 +29,8 @@ export function render(ctx) {
       { label: t.disponibilidade.titulo }
     ),
     h("p", { class: "hint" }, t.disponibilidade.modoDica),
-    h(
-      "div",
-      { class: "week-grid" },
-      DAY_ORDER.map((k) =>
-        h(
-          "label",
-          { class: "day-input" },
-          h("span", { class: "day-name" }, t.disponibilidade.dias[k]),
-          h("input", {
-            type: "number",
-            min: "0",
-            max: "24",
-            step: "0.5",
-            inputmode: "decimal",
-            value: String(hours[k] ?? 0),
-            id: `h-${k}`,
-            "data-focus": `avail:${k}`,
-            "aria-invalid": inputErrors[`/horas_por_dia_semana/${k}`] ? "true" : null,
-            onChange: (e) => actions.setModeHours(d.modo, k, e.target.value),
-          })
-        )
-      )
-    ),
-    h("p", { class: `small ${weekTotal ? "" : "field-error"}` }, t.disponibilidade.totalSemana(fmtH(weekTotal))),
+    renderSliders(d, hours, inputErrors, actions),
+    h("p", { class: `small week-total ${weekTotal ? "" : "field-error"}`, "data-week-total": "" }, t.disponibilidade.totalSemana(fmtH(weekTotal))),
     inputErrors["/horas_por_dia_semana"] ? h("p", { class: "field-error" }, inputErrors["/horas_por_dia_semana"]) : null
   );
   if (!WEEKDAY_KEYS.length) modeCard.append();
@@ -115,4 +93,65 @@ export function render(ctx) {
   root.append(prev);
   root.append(h("div", { class: "actions-row" }, btn(`${t.disponibilidade.continuar} →`, { kind: "primary", onClick: () => actions.go("diagnostico"), disabled: !r.ok })));
   return root;
+}
+
+/* ---------- sliders ---------- */
+
+const MAX_H = 12;
+const fmtSlider = (v) => (v === 0 ? "—" : fmtH(v));
+
+function renderSliders(d, hours, inputErrors, actions) {
+  const wrap = h("div", { class: "sliders" });
+  const updateTotal = () => {
+    const total = [...wrap.querySelectorAll("input[type=range]")].reduce((s, el) => s + Number(el.value), 0);
+    const el = wrap.parentElement?.querySelector("[data-week-total]");
+    if (el) el.textContent = t.disponibilidade.totalSemana(fmtH(total));
+  };
+  const quick = h(
+    "div",
+    { class: "slider-quick" },
+    h("span", { class: "small muted" }, t.disponibilidade.atalhoUteis),
+    [1, 2, 3, 4, 6].map((v) => h("button", { type: "button", class: "chip", onClick: () => actions.setModeDays(d.modo, ["seg", "ter", "qua", "qui", "sex"], v) }, fmtH(v))),
+    h("span", { class: "small muted" }, t.disponibilidade.atalhoFds),
+    [0, 2, 4, 6, 8].map((v) => h("button", { type: "button", class: "chip", onClick: () => actions.setModeDays(d.modo, ["sab", "dom"], v) }, v === 0 ? t.disponibilidade.folga : fmtH(v)))
+  );
+  wrap.append(quick);
+  for (const k of DAY_ORDER) {
+    const v = Number(hours[k] ?? 0);
+    const out = h("output", { class: "slider-val", for: `h-${k}` }, fmtSlider(v));
+    const fill = h("div", { class: "slider-fill", style: { width: `${(v / MAX_H) * 100}%` } });
+    const input = h("input", {
+      type: "range",
+      min: "0",
+      max: String(MAX_H),
+      step: "0.5",
+      value: String(v),
+      id: `h-${k}`,
+      "data-focus": `avail:${k}`,
+      "aria-label": `${t.disponibilidade.dias[k]}: horas de estudo`,
+      "aria-valuetext": fmtH(v),
+      "aria-invalid": inputErrors[`/horas_por_dia_semana/${k}`] ? "true" : null,
+      onInput: (e) => {
+        const nv = Number(e.target.value);
+        out.textContent = fmtSlider(nv);
+        fill.style.width = `${(nv / MAX_H) * 100}%`;
+        e.target.setAttribute("aria-valuetext", fmtH(nv));
+        updateTotal();
+      },
+      onChange: (e) => actions.setModeHours(d.modo, k, e.target.value),
+    });
+    const step = (delta) => actions.setModeHours(d.modo, k, Math.max(0, Math.min(MAX_H, v + delta)));
+    wrap.append(
+      h(
+        "div",
+        { class: `slider-row${["sab", "dom"].includes(k) ? " weekend" : ""}` },
+        h("label", { class: "slider-day", for: `h-${k}` }, t.disponibilidade.dias[k]),
+        h("button", { type: "button", class: "mini", "aria-label": `${t.disponibilidade.dias[k]}: menos 30 min`, onClick: () => step(-0.5), disabled: v <= 0 }, "−"),
+        h("div", { class: "slider-track" }, fill, input),
+        h("button", { type: "button", class: "mini", "aria-label": `${t.disponibilidade.dias[k]}: mais 30 min`, onClick: () => step(0.5), disabled: v >= MAX_H }, "+"),
+        out
+      )
+    );
+  }
+  return wrap;
 }

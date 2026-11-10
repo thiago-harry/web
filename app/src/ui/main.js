@@ -137,6 +137,12 @@ const actions = {
     app.state.disponibilidade = { ...app.state.disponibilidade, modos };
     commit();
   },
+  setModeDays(mode, days, value) {
+    const cur = { ...app.state.disponibilidade.modos[mode] };
+    for (const d of days) cur[d] = value;
+    app.state.disponibilidade = { ...app.state.disponibilidade, modos: { ...app.state.disponibilidade.modos, [mode]: cur } };
+    commit();
+  },
   setAvail(patch) {
     app.state.disponibilidade = { ...app.state.disponibilidade, ...patch };
     commit();
