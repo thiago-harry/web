@@ -1,0 +1,1377 @@
+{
+  "pack_version": "1.0.0",
+  "concurso": {
+    "id": "fixture-2027",
+    "nome": "Concurso Fixture 2027 (dados sintéticos)",
+    "orgao": "Órgão Fixture",
+    "banca": "BANCA-FIXTURE",
+    "cargo": "Cargo Fixture",
+    "data_prova": "2027-04-11",
+    "fonte_edital": "fixture://edital",
+    "curado_em": "2026-11-10"
+  },
+  "estrutura_prova": {
+    "total_questoes": 40,
+    "tipo": "multipla_escolha_5",
+    "penalidade_erro": false,
+    "nota_corte_estimada": 0.6,
+    "materias": [
+      {
+        "id": "mat_a",
+        "nome": "Matéria A (eliminatória)",
+        "questoes": 15,
+        "eliminatoria": true,
+        "min_acertos": 6,
+        "peso": 2
+      },
+      {
+        "id": "mat_b",
+        "nome": "Matéria B",
+        "questoes": 15,
+        "eliminatoria": false,
+        "min_acertos": null,
+        "peso": 2
+      },
+      {
+        "id": "mat_c",
+        "nome": "Matéria C",
+        "questoes": 10,
+        "eliminatoria": false,
+        "min_acertos": null,
+        "peso": 1
+      }
+    ]
+  },
+  "assuntos": [
+    {
+      "id": "mat_a.a1",
+      "materia_id": "mat_a",
+      "nome": "A1 Princípios",
+      "edital_literal": "1. Princípios gerais.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 4
+        },
+        {
+          "ano": 2025,
+          "questoes": 3
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "fixture-banca-2024",
+          "ano": 2024,
+          "questoes": 5
+        }
+      ],
+      "carga_horaria_base": 10,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "mat_a.a2",
+      "materia_id": "mat_a",
+      "nome": "A2 Direitos",
+      "edital_literal": "2. Direitos: 2.1 individuais; 2.2 coletivos; 2.3 sociais.",
+      "edital_profundidade": 3,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 5
+        },
+        {
+          "ano": 2025,
+          "questoes": 6
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "fixture-banca-2024",
+          "ano": 2024,
+          "questoes": 8
+        }
+      ],
+      "carga_horaria_base": 18,
+      "prereq": [
+        "mat_a.a1"
+      ],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "mat_a.a3",
+      "materia_id": "mat_a",
+      "nome": "A3 Organização",
+      "edital_literal": "3. Organização e competências.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 3
+        },
+        {
+          "ano": 2025,
+          "questoes": 3
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "fixture-banca-2024",
+          "ano": 2024,
+          "questoes": 4
+        }
+      ],
+      "carga_horaria_base": 12,
+      "prereq": [
+        "mat_a.a1"
+      ],
+      "tipo": "doutrina",
+      "volatil": false
+    },
+    {
+      "id": "mat_a.a4",
+      "materia_id": "mat_a",
+      "nome": "A4 Controle",
+      "edital_literal": "4. Controle.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        },
+        {
+          "ano": 2025,
+          "questoes": 2
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "fixture-banca-2024",
+          "ano": 2024,
+          "questoes": 2
+        }
+      ],
+      "carga_horaria_base": 8,
+      "prereq": [
+        "mat_a.a2",
+        "mat_a.a3"
+      ],
+      "tipo": "jurisprudencia",
+      "volatil": false
+    },
+    {
+      "id": "mat_b.b1",
+      "materia_id": "mat_b",
+      "nome": "B1 Lei X: disposições gerais",
+      "edital_literal": "1. Lei X: disposições gerais.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 3
+        },
+        {
+          "ano": 2025,
+          "questoes": 4
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "fixture-banca-2024",
+          "ano": 2024,
+          "questoes": 6
+        }
+      ],
+      "carga_horaria_base": 10,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "mat_b.b2",
+      "materia_id": "mat_b",
+      "nome": "B2 Lei X: procedimentos",
+      "edital_literal": "2. Lei X: procedimentos: 2.1 fases; 2.2 prazos; 2.3 recursos.",
+      "edital_profundidade": 3,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 6
+        },
+        {
+          "ano": 2025,
+          "questoes": 5
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "fixture-banca-2024",
+          "ano": 2024,
+          "questoes": 8
+        }
+      ],
+      "carga_horaria_base": 20,
+      "prereq": [
+        "mat_b.b1"
+      ],
+      "tipo": "lei_seca",
+      "volatil": true
+    },
+    {
+      "id": "mat_b.b3",
+      "materia_id": "mat_b",
+      "nome": "B3 Lei Y",
+      "edital_literal": "3. Lei Y.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 3
+        },
+        {
+          "ano": 2025,
+          "questoes": 2
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "fixture-banca-2024",
+          "ano": 2024,
+          "questoes": 4
+        }
+      ],
+      "carga_horaria_base": 12,
+      "prereq": [],
+      "tipo": "memorizacao",
+      "volatil": false
+    },
+    {
+      "id": "mat_b.b4",
+      "materia_id": "mat_b",
+      "nome": "B4 Lei Z (nova, sem histórico)",
+      "edital_literal": "4. Lei Z.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 8,
+      "prereq": [
+        "mat_b.b1"
+      ],
+      "tipo": "lei_seca",
+      "volatil": true
+    },
+    {
+      "id": "mat_c.c1",
+      "materia_id": "mat_c",
+      "nome": "C1 Lógica proposicional",
+      "edital_literal": "1. Lógica proposicional: 1.1 conectivos; 1.2 tabelas-verdade; 1.3 negações.",
+      "edital_profundidade": 3,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 3
+        },
+        {
+          "ano": 2025,
+          "questoes": 3
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "fixture-banca-2024",
+          "ano": 2024,
+          "questoes": 5
+        }
+      ],
+      "carga_horaria_base": 14,
+      "prereq": [],
+      "tipo": "calculo",
+      "volatil": false
+    },
+    {
+      "id": "mat_c.c2",
+      "materia_id": "mat_c",
+      "nome": "C2 Equivalências",
+      "edital_literal": "2. Equivalências lógicas.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 2
+        },
+        {
+          "ano": 2025,
+          "questoes": 3
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "fixture-banca-2024",
+          "ano": 2024,
+          "questoes": 4
+        }
+      ],
+      "carga_horaria_base": 10,
+      "prereq": [
+        "mat_c.c1"
+      ],
+      "tipo": "calculo",
+      "volatil": false
+    },
+    {
+      "id": "mat_c.c3",
+      "materia_id": "mat_c",
+      "nome": "C3 Porcentagem e proporção",
+      "edital_literal": "3. Porcentagem, razão e proporção.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 2
+        },
+        {
+          "ano": 2025,
+          "questoes": 2
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "fixture-banca-2024",
+          "ano": 2024,
+          "questoes": 3
+        }
+      ],
+      "carga_horaria_base": 10,
+      "prereq": [],
+      "tipo": "calculo",
+      "volatil": false
+    },
+    {
+      "id": "mat_c.c4",
+      "materia_id": "mat_c",
+      "nome": "C4 Análise combinatória",
+      "edital_literal": "4. Análise combinatória.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        },
+        {
+          "ano": 2025,
+          "questoes": 0
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "fixture-banca-2024",
+          "ano": 2024,
+          "questoes": 1
+        }
+      ],
+      "carga_horaria_base": 8,
+      "prereq": [],
+      "tipo": "calculo",
+      "volatil": false
+    }
+  ],
+  "provas_historico": [
+    {
+      "ano": 2023,
+      "total_questoes": 40,
+      "fonte": "fixture://prova-2023"
+    },
+    {
+      "ano": 2025,
+      "total_questoes": 40,
+      "fonte": "fixture://prova-2025"
+    }
+  ],
+  "provas_banca": [
+    {
+      "concurso": "fixture-banca-2024",
+      "ano": 2024,
+      "total_questoes": 50,
+      "fonte": "fixture://banca-2024"
+    }
+  ],
+  "nivelamento": {
+    "modo": "hibrido",
+    "itens": [
+      {
+        "id": "mat_a.a1.q1",
+        "assunto_id": "mat_a.a1",
+        "enunciado": "[Sintética 1] Sobre A1 Princípios, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Princípios",
+          "Alternativa B sobre Princípios",
+          "Alternativa C sobre Princípios",
+          "Alternativa D sobre Princípios",
+          "Alternativa E sobre Princípios"
+        ],
+        "gabarito": 0,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a1.q2",
+        "assunto_id": "mat_a.a1",
+        "enunciado": "[Sintética 2] Sobre A1 Princípios, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Princípios",
+          "Alternativa B sobre Princípios",
+          "Alternativa C sobre Princípios",
+          "Alternativa D sobre Princípios",
+          "Alternativa E sobre Princípios"
+        ],
+        "gabarito": 2,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a1.q3",
+        "assunto_id": "mat_a.a1",
+        "enunciado": "[Sintética 3] Sobre A1 Princípios, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Princípios",
+          "Alternativa B sobre Princípios",
+          "Alternativa C sobre Princípios",
+          "Alternativa D sobre Princípios",
+          "Alternativa E sobre Princípios"
+        ],
+        "gabarito": 4,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a1.q4",
+        "assunto_id": "mat_a.a1",
+        "enunciado": "[Sintética 4] Sobre A1 Princípios, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Princípios",
+          "Alternativa B sobre Princípios",
+          "Alternativa C sobre Princípios",
+          "Alternativa D sobre Princípios",
+          "Alternativa E sobre Princípios"
+        ],
+        "gabarito": 1,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a1.q5",
+        "assunto_id": "mat_a.a1",
+        "enunciado": "[Sintética 5] Sobre A1 Princípios, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Princípios",
+          "Alternativa B sobre Princípios",
+          "Alternativa C sobre Princípios",
+          "Alternativa D sobre Princípios",
+          "Alternativa E sobre Princípios"
+        ],
+        "gabarito": 3,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a2.q1",
+        "assunto_id": "mat_a.a2",
+        "enunciado": "[Sintética 1] Sobre A2 Direitos, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Direitos",
+          "Alternativa B sobre Direitos",
+          "Alternativa C sobre Direitos",
+          "Alternativa D sobre Direitos",
+          "Alternativa E sobre Direitos"
+        ],
+        "gabarito": 0,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a2.q2",
+        "assunto_id": "mat_a.a2",
+        "enunciado": "[Sintética 2] Sobre A2 Direitos, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Direitos",
+          "Alternativa B sobre Direitos",
+          "Alternativa C sobre Direitos",
+          "Alternativa D sobre Direitos",
+          "Alternativa E sobre Direitos"
+        ],
+        "gabarito": 2,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a2.q3",
+        "assunto_id": "mat_a.a2",
+        "enunciado": "[Sintética 3] Sobre A2 Direitos, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Direitos",
+          "Alternativa B sobre Direitos",
+          "Alternativa C sobre Direitos",
+          "Alternativa D sobre Direitos",
+          "Alternativa E sobre Direitos"
+        ],
+        "gabarito": 4,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a2.q4",
+        "assunto_id": "mat_a.a2",
+        "enunciado": "[Sintética 4] Sobre A2 Direitos, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Direitos",
+          "Alternativa B sobre Direitos",
+          "Alternativa C sobre Direitos",
+          "Alternativa D sobre Direitos",
+          "Alternativa E sobre Direitos"
+        ],
+        "gabarito": 1,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a2.q5",
+        "assunto_id": "mat_a.a2",
+        "enunciado": "[Sintética 5] Sobre A2 Direitos, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Direitos",
+          "Alternativa B sobre Direitos",
+          "Alternativa C sobre Direitos",
+          "Alternativa D sobre Direitos",
+          "Alternativa E sobre Direitos"
+        ],
+        "gabarito": 3,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a3.q1",
+        "assunto_id": "mat_a.a3",
+        "enunciado": "[Sintética 1] Sobre A3 Organização, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Organização",
+          "Alternativa B sobre Organização",
+          "Alternativa C sobre Organização",
+          "Alternativa D sobre Organização",
+          "Alternativa E sobre Organização"
+        ],
+        "gabarito": 0,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a3.q2",
+        "assunto_id": "mat_a.a3",
+        "enunciado": "[Sintética 2] Sobre A3 Organização, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Organização",
+          "Alternativa B sobre Organização",
+          "Alternativa C sobre Organização",
+          "Alternativa D sobre Organização",
+          "Alternativa E sobre Organização"
+        ],
+        "gabarito": 2,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a3.q3",
+        "assunto_id": "mat_a.a3",
+        "enunciado": "[Sintética 3] Sobre A3 Organização, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Organização",
+          "Alternativa B sobre Organização",
+          "Alternativa C sobre Organização",
+          "Alternativa D sobre Organização",
+          "Alternativa E sobre Organização"
+        ],
+        "gabarito": 4,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a3.q4",
+        "assunto_id": "mat_a.a3",
+        "enunciado": "[Sintética 4] Sobre A3 Organização, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Organização",
+          "Alternativa B sobre Organização",
+          "Alternativa C sobre Organização",
+          "Alternativa D sobre Organização",
+          "Alternativa E sobre Organização"
+        ],
+        "gabarito": 1,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a3.q5",
+        "assunto_id": "mat_a.a3",
+        "enunciado": "[Sintética 5] Sobre A3 Organização, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Organização",
+          "Alternativa B sobre Organização",
+          "Alternativa C sobre Organização",
+          "Alternativa D sobre Organização",
+          "Alternativa E sobre Organização"
+        ],
+        "gabarito": 3,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a4.q1",
+        "assunto_id": "mat_a.a4",
+        "enunciado": "[Sintética 1] Sobre A4 Controle, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Controle",
+          "Alternativa B sobre Controle",
+          "Alternativa C sobre Controle",
+          "Alternativa D sobre Controle",
+          "Alternativa E sobre Controle"
+        ],
+        "gabarito": 0,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a4.q2",
+        "assunto_id": "mat_a.a4",
+        "enunciado": "[Sintética 2] Sobre A4 Controle, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Controle",
+          "Alternativa B sobre Controle",
+          "Alternativa C sobre Controle",
+          "Alternativa D sobre Controle",
+          "Alternativa E sobre Controle"
+        ],
+        "gabarito": 2,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a4.q3",
+        "assunto_id": "mat_a.a4",
+        "enunciado": "[Sintética 3] Sobre A4 Controle, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Controle",
+          "Alternativa B sobre Controle",
+          "Alternativa C sobre Controle",
+          "Alternativa D sobre Controle",
+          "Alternativa E sobre Controle"
+        ],
+        "gabarito": 4,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a4.q4",
+        "assunto_id": "mat_a.a4",
+        "enunciado": "[Sintética 4] Sobre A4 Controle, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Controle",
+          "Alternativa B sobre Controle",
+          "Alternativa C sobre Controle",
+          "Alternativa D sobre Controle",
+          "Alternativa E sobre Controle"
+        ],
+        "gabarito": 1,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_a.a4.q5",
+        "assunto_id": "mat_a.a4",
+        "enunciado": "[Sintética 5] Sobre A4 Controle, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Controle",
+          "Alternativa B sobre Controle",
+          "Alternativa C sobre Controle",
+          "Alternativa D sobre Controle",
+          "Alternativa E sobre Controle"
+        ],
+        "gabarito": 3,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b1.q1",
+        "assunto_id": "mat_b.b1",
+        "enunciado": "[Sintética 1] Sobre B1 Lei X: disposições gerais, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei X: disposições gerais",
+          "Alternativa B sobre Lei X: disposições gerais",
+          "Alternativa C sobre Lei X: disposições gerais",
+          "Alternativa D sobre Lei X: disposições gerais",
+          "Alternativa E sobre Lei X: disposições gerais"
+        ],
+        "gabarito": 0,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b1.q2",
+        "assunto_id": "mat_b.b1",
+        "enunciado": "[Sintética 2] Sobre B1 Lei X: disposições gerais, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei X: disposições gerais",
+          "Alternativa B sobre Lei X: disposições gerais",
+          "Alternativa C sobre Lei X: disposições gerais",
+          "Alternativa D sobre Lei X: disposições gerais",
+          "Alternativa E sobre Lei X: disposições gerais"
+        ],
+        "gabarito": 2,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b1.q3",
+        "assunto_id": "mat_b.b1",
+        "enunciado": "[Sintética 3] Sobre B1 Lei X: disposições gerais, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei X: disposições gerais",
+          "Alternativa B sobre Lei X: disposições gerais",
+          "Alternativa C sobre Lei X: disposições gerais",
+          "Alternativa D sobre Lei X: disposições gerais",
+          "Alternativa E sobre Lei X: disposições gerais"
+        ],
+        "gabarito": 4,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b1.q4",
+        "assunto_id": "mat_b.b1",
+        "enunciado": "[Sintética 4] Sobre B1 Lei X: disposições gerais, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei X: disposições gerais",
+          "Alternativa B sobre Lei X: disposições gerais",
+          "Alternativa C sobre Lei X: disposições gerais",
+          "Alternativa D sobre Lei X: disposições gerais",
+          "Alternativa E sobre Lei X: disposições gerais"
+        ],
+        "gabarito": 1,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b1.q5",
+        "assunto_id": "mat_b.b1",
+        "enunciado": "[Sintética 5] Sobre B1 Lei X: disposições gerais, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei X: disposições gerais",
+          "Alternativa B sobre Lei X: disposições gerais",
+          "Alternativa C sobre Lei X: disposições gerais",
+          "Alternativa D sobre Lei X: disposições gerais",
+          "Alternativa E sobre Lei X: disposições gerais"
+        ],
+        "gabarito": 3,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b2.q1",
+        "assunto_id": "mat_b.b2",
+        "enunciado": "[Sintética 1] Sobre B2 Lei X: procedimentos, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei X: procedimentos",
+          "Alternativa B sobre Lei X: procedimentos",
+          "Alternativa C sobre Lei X: procedimentos",
+          "Alternativa D sobre Lei X: procedimentos",
+          "Alternativa E sobre Lei X: procedimentos"
+        ],
+        "gabarito": 0,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b2.q2",
+        "assunto_id": "mat_b.b2",
+        "enunciado": "[Sintética 2] Sobre B2 Lei X: procedimentos, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei X: procedimentos",
+          "Alternativa B sobre Lei X: procedimentos",
+          "Alternativa C sobre Lei X: procedimentos",
+          "Alternativa D sobre Lei X: procedimentos",
+          "Alternativa E sobre Lei X: procedimentos"
+        ],
+        "gabarito": 2,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b2.q3",
+        "assunto_id": "mat_b.b2",
+        "enunciado": "[Sintética 3] Sobre B2 Lei X: procedimentos, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei X: procedimentos",
+          "Alternativa B sobre Lei X: procedimentos",
+          "Alternativa C sobre Lei X: procedimentos",
+          "Alternativa D sobre Lei X: procedimentos",
+          "Alternativa E sobre Lei X: procedimentos"
+        ],
+        "gabarito": 4,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b2.q4",
+        "assunto_id": "mat_b.b2",
+        "enunciado": "[Sintética 4] Sobre B2 Lei X: procedimentos, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei X: procedimentos",
+          "Alternativa B sobre Lei X: procedimentos",
+          "Alternativa C sobre Lei X: procedimentos",
+          "Alternativa D sobre Lei X: procedimentos",
+          "Alternativa E sobre Lei X: procedimentos"
+        ],
+        "gabarito": 1,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b2.q5",
+        "assunto_id": "mat_b.b2",
+        "enunciado": "[Sintética 5] Sobre B2 Lei X: procedimentos, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei X: procedimentos",
+          "Alternativa B sobre Lei X: procedimentos",
+          "Alternativa C sobre Lei X: procedimentos",
+          "Alternativa D sobre Lei X: procedimentos",
+          "Alternativa E sobre Lei X: procedimentos"
+        ],
+        "gabarito": 3,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b3.q1",
+        "assunto_id": "mat_b.b3",
+        "enunciado": "[Sintética 1] Sobre B3 Lei Y, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei Y",
+          "Alternativa B sobre Lei Y",
+          "Alternativa C sobre Lei Y",
+          "Alternativa D sobre Lei Y",
+          "Alternativa E sobre Lei Y"
+        ],
+        "gabarito": 0,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b3.q2",
+        "assunto_id": "mat_b.b3",
+        "enunciado": "[Sintética 2] Sobre B3 Lei Y, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei Y",
+          "Alternativa B sobre Lei Y",
+          "Alternativa C sobre Lei Y",
+          "Alternativa D sobre Lei Y",
+          "Alternativa E sobre Lei Y"
+        ],
+        "gabarito": 2,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b3.q3",
+        "assunto_id": "mat_b.b3",
+        "enunciado": "[Sintética 3] Sobre B3 Lei Y, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei Y",
+          "Alternativa B sobre Lei Y",
+          "Alternativa C sobre Lei Y",
+          "Alternativa D sobre Lei Y",
+          "Alternativa E sobre Lei Y"
+        ],
+        "gabarito": 4,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b3.q4",
+        "assunto_id": "mat_b.b3",
+        "enunciado": "[Sintética 4] Sobre B3 Lei Y, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei Y",
+          "Alternativa B sobre Lei Y",
+          "Alternativa C sobre Lei Y",
+          "Alternativa D sobre Lei Y",
+          "Alternativa E sobre Lei Y"
+        ],
+        "gabarito": 1,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b3.q5",
+        "assunto_id": "mat_b.b3",
+        "enunciado": "[Sintética 5] Sobre B3 Lei Y, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei Y",
+          "Alternativa B sobre Lei Y",
+          "Alternativa C sobre Lei Y",
+          "Alternativa D sobre Lei Y",
+          "Alternativa E sobre Lei Y"
+        ],
+        "gabarito": 3,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b4.q1",
+        "assunto_id": "mat_b.b4",
+        "enunciado": "[Sintética 1] Sobre B4 Lei Z (nova, sem histórico), assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei Z (nova, sem histórico)",
+          "Alternativa B sobre Lei Z (nova, sem histórico)",
+          "Alternativa C sobre Lei Z (nova, sem histórico)",
+          "Alternativa D sobre Lei Z (nova, sem histórico)",
+          "Alternativa E sobre Lei Z (nova, sem histórico)"
+        ],
+        "gabarito": 0,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b4.q2",
+        "assunto_id": "mat_b.b4",
+        "enunciado": "[Sintética 2] Sobre B4 Lei Z (nova, sem histórico), assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei Z (nova, sem histórico)",
+          "Alternativa B sobre Lei Z (nova, sem histórico)",
+          "Alternativa C sobre Lei Z (nova, sem histórico)",
+          "Alternativa D sobre Lei Z (nova, sem histórico)",
+          "Alternativa E sobre Lei Z (nova, sem histórico)"
+        ],
+        "gabarito": 2,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b4.q3",
+        "assunto_id": "mat_b.b4",
+        "enunciado": "[Sintética 3] Sobre B4 Lei Z (nova, sem histórico), assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei Z (nova, sem histórico)",
+          "Alternativa B sobre Lei Z (nova, sem histórico)",
+          "Alternativa C sobre Lei Z (nova, sem histórico)",
+          "Alternativa D sobre Lei Z (nova, sem histórico)",
+          "Alternativa E sobre Lei Z (nova, sem histórico)"
+        ],
+        "gabarito": 4,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b4.q4",
+        "assunto_id": "mat_b.b4",
+        "enunciado": "[Sintética 4] Sobre B4 Lei Z (nova, sem histórico), assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei Z (nova, sem histórico)",
+          "Alternativa B sobre Lei Z (nova, sem histórico)",
+          "Alternativa C sobre Lei Z (nova, sem histórico)",
+          "Alternativa D sobre Lei Z (nova, sem histórico)",
+          "Alternativa E sobre Lei Z (nova, sem histórico)"
+        ],
+        "gabarito": 1,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_b.b4.q5",
+        "assunto_id": "mat_b.b4",
+        "enunciado": "[Sintética 5] Sobre B4 Lei Z (nova, sem histórico), assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lei Z (nova, sem histórico)",
+          "Alternativa B sobre Lei Z (nova, sem histórico)",
+          "Alternativa C sobre Lei Z (nova, sem histórico)",
+          "Alternativa D sobre Lei Z (nova, sem histórico)",
+          "Alternativa E sobre Lei Z (nova, sem histórico)"
+        ],
+        "gabarito": 3,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c1.q1",
+        "assunto_id": "mat_c.c1",
+        "enunciado": "[Sintética 1] Sobre C1 Lógica proposicional, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lógica proposicional",
+          "Alternativa B sobre Lógica proposicional",
+          "Alternativa C sobre Lógica proposicional",
+          "Alternativa D sobre Lógica proposicional",
+          "Alternativa E sobre Lógica proposicional"
+        ],
+        "gabarito": 0,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c1.q2",
+        "assunto_id": "mat_c.c1",
+        "enunciado": "[Sintética 2] Sobre C1 Lógica proposicional, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lógica proposicional",
+          "Alternativa B sobre Lógica proposicional",
+          "Alternativa C sobre Lógica proposicional",
+          "Alternativa D sobre Lógica proposicional",
+          "Alternativa E sobre Lógica proposicional"
+        ],
+        "gabarito": 2,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c1.q3",
+        "assunto_id": "mat_c.c1",
+        "enunciado": "[Sintética 3] Sobre C1 Lógica proposicional, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lógica proposicional",
+          "Alternativa B sobre Lógica proposicional",
+          "Alternativa C sobre Lógica proposicional",
+          "Alternativa D sobre Lógica proposicional",
+          "Alternativa E sobre Lógica proposicional"
+        ],
+        "gabarito": 4,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c1.q4",
+        "assunto_id": "mat_c.c1",
+        "enunciado": "[Sintética 4] Sobre C1 Lógica proposicional, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lógica proposicional",
+          "Alternativa B sobre Lógica proposicional",
+          "Alternativa C sobre Lógica proposicional",
+          "Alternativa D sobre Lógica proposicional",
+          "Alternativa E sobre Lógica proposicional"
+        ],
+        "gabarito": 1,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c1.q5",
+        "assunto_id": "mat_c.c1",
+        "enunciado": "[Sintética 5] Sobre C1 Lógica proposicional, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Lógica proposicional",
+          "Alternativa B sobre Lógica proposicional",
+          "Alternativa C sobre Lógica proposicional",
+          "Alternativa D sobre Lógica proposicional",
+          "Alternativa E sobre Lógica proposicional"
+        ],
+        "gabarito": 3,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c2.q1",
+        "assunto_id": "mat_c.c2",
+        "enunciado": "[Sintética 1] Sobre C2 Equivalências, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Equivalências",
+          "Alternativa B sobre Equivalências",
+          "Alternativa C sobre Equivalências",
+          "Alternativa D sobre Equivalências",
+          "Alternativa E sobre Equivalências"
+        ],
+        "gabarito": 0,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c2.q2",
+        "assunto_id": "mat_c.c2",
+        "enunciado": "[Sintética 2] Sobre C2 Equivalências, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Equivalências",
+          "Alternativa B sobre Equivalências",
+          "Alternativa C sobre Equivalências",
+          "Alternativa D sobre Equivalências",
+          "Alternativa E sobre Equivalências"
+        ],
+        "gabarito": 2,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c2.q3",
+        "assunto_id": "mat_c.c2",
+        "enunciado": "[Sintética 3] Sobre C2 Equivalências, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Equivalências",
+          "Alternativa B sobre Equivalências",
+          "Alternativa C sobre Equivalências",
+          "Alternativa D sobre Equivalências",
+          "Alternativa E sobre Equivalências"
+        ],
+        "gabarito": 4,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c2.q4",
+        "assunto_id": "mat_c.c2",
+        "enunciado": "[Sintética 4] Sobre C2 Equivalências, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Equivalências",
+          "Alternativa B sobre Equivalências",
+          "Alternativa C sobre Equivalências",
+          "Alternativa D sobre Equivalências",
+          "Alternativa E sobre Equivalências"
+        ],
+        "gabarito": 1,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c2.q5",
+        "assunto_id": "mat_c.c2",
+        "enunciado": "[Sintética 5] Sobre C2 Equivalências, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Equivalências",
+          "Alternativa B sobre Equivalências",
+          "Alternativa C sobre Equivalências",
+          "Alternativa D sobre Equivalências",
+          "Alternativa E sobre Equivalências"
+        ],
+        "gabarito": 3,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c3.q1",
+        "assunto_id": "mat_c.c3",
+        "enunciado": "[Sintética 1] Sobre C3 Porcentagem e proporção, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Porcentagem e proporção",
+          "Alternativa B sobre Porcentagem e proporção",
+          "Alternativa C sobre Porcentagem e proporção",
+          "Alternativa D sobre Porcentagem e proporção",
+          "Alternativa E sobre Porcentagem e proporção"
+        ],
+        "gabarito": 0,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c3.q2",
+        "assunto_id": "mat_c.c3",
+        "enunciado": "[Sintética 2] Sobre C3 Porcentagem e proporção, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Porcentagem e proporção",
+          "Alternativa B sobre Porcentagem e proporção",
+          "Alternativa C sobre Porcentagem e proporção",
+          "Alternativa D sobre Porcentagem e proporção",
+          "Alternativa E sobre Porcentagem e proporção"
+        ],
+        "gabarito": 2,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c3.q3",
+        "assunto_id": "mat_c.c3",
+        "enunciado": "[Sintética 3] Sobre C3 Porcentagem e proporção, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Porcentagem e proporção",
+          "Alternativa B sobre Porcentagem e proporção",
+          "Alternativa C sobre Porcentagem e proporção",
+          "Alternativa D sobre Porcentagem e proporção",
+          "Alternativa E sobre Porcentagem e proporção"
+        ],
+        "gabarito": 4,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c3.q4",
+        "assunto_id": "mat_c.c3",
+        "enunciado": "[Sintética 4] Sobre C3 Porcentagem e proporção, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Porcentagem e proporção",
+          "Alternativa B sobre Porcentagem e proporção",
+          "Alternativa C sobre Porcentagem e proporção",
+          "Alternativa D sobre Porcentagem e proporção",
+          "Alternativa E sobre Porcentagem e proporção"
+        ],
+        "gabarito": 1,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c3.q5",
+        "assunto_id": "mat_c.c3",
+        "enunciado": "[Sintética 5] Sobre C3 Porcentagem e proporção, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Porcentagem e proporção",
+          "Alternativa B sobre Porcentagem e proporção",
+          "Alternativa C sobre Porcentagem e proporção",
+          "Alternativa D sobre Porcentagem e proporção",
+          "Alternativa E sobre Porcentagem e proporção"
+        ],
+        "gabarito": 3,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c4.q1",
+        "assunto_id": "mat_c.c4",
+        "enunciado": "[Sintética 1] Sobre C4 Análise combinatória, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Análise combinatória",
+          "Alternativa B sobre Análise combinatória",
+          "Alternativa C sobre Análise combinatória",
+          "Alternativa D sobre Análise combinatória",
+          "Alternativa E sobre Análise combinatória"
+        ],
+        "gabarito": 0,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c4.q2",
+        "assunto_id": "mat_c.c4",
+        "enunciado": "[Sintética 2] Sobre C4 Análise combinatória, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Análise combinatória",
+          "Alternativa B sobre Análise combinatória",
+          "Alternativa C sobre Análise combinatória",
+          "Alternativa D sobre Análise combinatória",
+          "Alternativa E sobre Análise combinatória"
+        ],
+        "gabarito": 2,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c4.q3",
+        "assunto_id": "mat_c.c4",
+        "enunciado": "[Sintética 3] Sobre C4 Análise combinatória, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Análise combinatória",
+          "Alternativa B sobre Análise combinatória",
+          "Alternativa C sobre Análise combinatória",
+          "Alternativa D sobre Análise combinatória",
+          "Alternativa E sobre Análise combinatória"
+        ],
+        "gabarito": 4,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c4.q4",
+        "assunto_id": "mat_c.c4",
+        "enunciado": "[Sintética 4] Sobre C4 Análise combinatória, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Análise combinatória",
+          "Alternativa B sobre Análise combinatória",
+          "Alternativa C sobre Análise combinatória",
+          "Alternativa D sobre Análise combinatória",
+          "Alternativa E sobre Análise combinatória"
+        ],
+        "gabarito": 1,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      },
+      {
+        "id": "mat_c.c4.q5",
+        "assunto_id": "mat_c.c4",
+        "enunciado": "[Sintética 5] Sobre C4 Análise combinatória, assinale a alternativa correta.",
+        "alternativas": [
+          "Alternativa A sobre Análise combinatória",
+          "Alternativa B sobre Análise combinatória",
+          "Alternativa C sobre Análise combinatória",
+          "Alternativa D sobre Análise combinatória",
+          "Alternativa E sobre Análise combinatória"
+        ],
+        "gabarito": 3,
+        "fonte": "fixture://sintetica",
+        "ano": 2025,
+        "desatualizada": false
+      }
+    ]
+  },
+  "notas_banca": {
+    "estilo": [
+      "literalidade alta",
+      "cobra exceção de artigo"
+    ],
+    "formato_questao": "assertiva única, 5 alternativas",
+    "ratio_teoria_questoes_sugerido": null,
+    "recomendacoes_estudo": [
+      "priorizar lei seca sobre doutrina"
+    ]
+  }
+}
