@@ -250,3 +250,23 @@ details.card ul { margin: 8px 0 0; padding-left: 18px; }
   .check-cell { text-align: center; font-size: 14px; }
   .muted { color: #777; }
 }
+
+/* availability sliders */
+.sliders { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+.slider-quick { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-bottom: 6px; }
+.slider-quick .chip { padding: 3px 9px; }
+.slider-row { display: grid; grid-template-columns: 40px 28px minmax(0, 1fr) 28px 56px; gap: 8px; align-items: center; padding: 4px 0; }
+.slider-row.weekend .slider-day { color: var(--accent-ink); }
+.slider-day { font-weight: 700; font-size: 13px; }
+.slider-val { font-family: var(--mono); font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+.slider-track { position: relative; height: 28px; display: flex; align-items: center; }
+.slider-track::before { content: ""; position: absolute; left: 0; right: 0; height: 8px; border-radius: 999px; background: var(--track); }
+.slider-fill { position: absolute; left: 0; height: 8px; border-radius: 999px; background: var(--accent); pointer-events: none; }
+.slider-track input[type="range"] { position: relative; width: 100%; margin: 0; background: transparent; -webkit-appearance: none; appearance: none; height: 28px; cursor: pointer; }
+.slider-track input[type="range"]::-webkit-slider-runnable-track { background: transparent; height: 8px; }
+.slider-track input[type="range"]::-moz-range-track { background: transparent; height: 8px; }
+.slider-track input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: -7px; border-radius: 50%; background: var(--surface); border: 3px solid var(--accent); box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+.slider-track input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--surface); border: 3px solid var(--accent); }
+.slider-track input[type="range"]:focus-visible { outline: none; }
+.slider-track input[type="range"]:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--accent); outline-offset: 2px; }
+.week-total { margin-top: 8px; font-weight: 600; }
