@@ -45,3 +45,8 @@ jsPDF + jspdf-autotable carregam só no clique. Na prévia do claude.ai o downlo
 - Sem backend e sem persistência: o estado vive na sessão do navegador.
 - A semana 1 começa hoje; o dia da prova não recebe estudo.
 - O componente usa só classes utilitárias padrão do Tailwind para layout; cores vêm de tokens CSS injetados pelo próprio componente (tema claro e escuro).
+
+## Próxima geração: `app/`
+
+`app/` contém a engine do **Cronograma Direcionado** (content packs por concurso, scoring em três
+quadros, alocação determinística). Fase 1 concluída; ver `app/README.md`.
