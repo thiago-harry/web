@@ -76,14 +76,10 @@ cd app && python3 -m http.server 8787   # ou qualquer servidor estático
 
 ## Publicação
 
-O GitHub Pages do repositório serve `/docs` do branch `claude/funny-edison-whtbw7`. O app é copiado
-para `docs/app/` e `public/app/` desse branch (como o MVP em `/mvp/`). Para republicar:
-
-```bash
-# no branch claude/funny-edison-whtbw7
-rm -rf docs/app public/app && mkdir -p docs/app public/app
-cp -r app/index.html app/src app/packs docs/app/ && cp -r app/index.html app/src app/packs public/app/
-```
+Automática: a cada push no `main`, `.github/workflows/publish.yml` copia `app/index.html`, `app/src`
+e `app/packs` para `docs/app/` e `public/app/` do branch que o GitHub Pages serve
+(`claude/funny-edison-whtbw7`). Também pode ser disparado à mão em Actions → "Publish to GitHub
+Pages branch".
 
 ## Próximo passo sugerido: pack builder (Fase 4)
 

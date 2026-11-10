@@ -12,16 +12,9 @@ npm run build    # gera dist/
 **No ar:** https://thiago-harry.github.io/web/mvp/
 
 O GitHub Pages deste repositório publica a pasta `/docs` do branch `claude/funny-edison-whtbw7`
-(o pitch fica em `/web/`). O MVP é servido de `docs/mvp/` desse branch, com cópia em `public/mvp/`
-para sobreviver ao build do pitch. Para atualizar o MVP no ar:
-
-```bash
-npm run build
-# copiar dist/ para docs/mvp/ e public/mvp/ no branch claude/funny-edison-whtbw7, commit e push
-```
-
-`.github/workflows/deploy.yml` (disparo manual) fica pronto para quando o `main` virar a fonte do Pages
-(*Settings → Pages → Source: GitHub Actions*).
+(o pitch fica em `/web/`). A cada push no `main`, `.github/workflows/publish.yml` reconstrói o MVP,
+copia `dist/` para `docs/mvp/` e `app/` para `docs/app/` nesse branch e faz o push. Nenhuma
+configuração manual do Pages é necessária.
 
 ## Regras implementadas
 
