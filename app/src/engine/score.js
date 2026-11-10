@@ -64,18 +64,37 @@ function rawBancaShare(pack, refYear, lambda) {
   return raw;
 }
 
-/** Quadro B: materia share of the exam × depth share inside the materia. */
+export const materiaPoints = (m) => m.questoes * (m.peso ?? 1);
+
+/** Quadro B: materia share of the exam points (questões × peso) × depth share inside the materia. */
 function rawEditalWeight(pack) {
-  const total = pack.estrutura_prova.total_questoes;
   const materias = byId(pack.estrutura_prova.materias);
+  const totalPoints = pack.estrutura_prova.materias.reduce((s, m) => s + materiaPoints(m), 0);
   const depthSum = {};
   for (const a of pack.assuntos) depthSum[a.materia_id] = (depthSum[a.materia_id] ?? 0) + a.edital_profundidade;
   const raw = {};
   for (const a of pack.assuntos) {
     const m = materias[a.materia_id];
-    raw[a.id] = (m.questoes / total) * (a.edital_profundidade / depthSum[a.materia_id]);
+    raw[a.id] = totalPoints > 0 ? (materiaPoints(m) / totalPoints) * (a.edital_profundidade / depthSum[a.materia_id]) : 0;
   }
   return raw;
+}
+
+/** 5-level band from a ratio in [0, 1] (value / max). 5 = muito alta … 1 = muito baixa. */
+export const LEVEL_THRESHOLDS = Object.freeze([0.8, 0.6, 0.4, 0.2]);
+export function levelOf(ratio) {
+  if (!(ratio > 0)) return 1;
+  for (let i = 0; i < LEVEL_THRESHOLDS.length; i++) if (ratio >= LEVEL_THRESHOLDS[i] - 1e-12) return 5 - i;
+  return 1;
+}
+
+function rankBy(ids, valueOf) {
+  const sorted = [...ids].sort((x, y) => valueOf(y) - valueOf(x) || (x < y ? -1 : x > y ? 1 : 0));
+  const rank = {};
+  sorted.forEach((id, i) => {
+    rank[id] = i + 1;
+  });
+  return rank;
 }
 
 /**
@@ -163,14 +182,53 @@ export function score({ pack, nivelamento = {}, options = {} }) {
     };
   }
 
-  const ranking = pack.assuntos
-    .map((a) => a.id)
-    .sort((x, y) => result[y].P - result[x].P || (x < y ? -1 : x > y ? 1 : 0));
+  const ids = pack.assuntos.map((a) => a.id);
+  const ranking = [...ids].sort((x, y) => result[y].P - result[x].P || (x < y ? -1 : x > y ? 1 : 0));
+  const rankHist = rankBy(ids, (id) => weights.wF * result[id].F + weights.wB * result[id].B);
+  const rankEdital = rankBy(ids, (id) => result[id].E);
+  const rankBase = rankBy(ids, (id) => result[id].base);
+  const maxP = Math.max(0, ...ids.map((id) => result[id].P));
+  const maxHist = Math.max(0, ...ids.map((id) => weights.wF * result[id].F + weights.wB * result[id].B));
   ranking.forEach((id, i) => {
-    result[id].rank = i + 1;
+    const r = result[id];
+    r.rank = i + 1;
+    r.rank_hist = rankHist[id];
+    r.rank_edital = rankEdital[id];
+    r.rank_base = rankBase[id];
+    r.nivel = levelOf(maxP > 0 ? r.P / maxP : 0);
+    r.nivel_hist = levelOf(maxHist > 0 ? (weights.wF * r.F + weights.wB * r.B) / maxHist : 0);
+    r.nivel_edital = levelOf(r.E);
   });
   const totalP = ranking.reduce((s, id) => s + result[id].P, 0);
   for (const id of ranking) result[id].share = totalP > 0 ? result[id].P / totalP : 0;
 
-  return { byId: result, ranking, weights, refYear, totalP, config: cfg };
+  // per-matéria aggregates (for the diagnosis screen)
+  const totalPoints = pack.estrutura_prova.materias.reduce((s, m) => s + materiaPoints(m), 0);
+  const materiasOut = {};
+  for (const m of pack.estrutura_prova.materias) {
+    const topics = pack.assuntos.filter((a) => a.materia_id === m.id);
+    const pTotal = topics.reduce((s, a) => s + result[a.id].P, 0);
+    materiasOut[m.id] = {
+      id: m.id,
+      nome: m.nome,
+      questoes: m.questoes,
+      peso: m.peso ?? 1,
+      pontos: materiaPoints(m),
+      share_prova: totalPoints > 0 ? materiaPoints(m) / totalPoints : 0,
+      eliminatoria: m.eliminatoria,
+      min_acertos: m.min_acertos,
+      P_total: pTotal,
+      share_P: totalP > 0 ? pTotal / totalP : 0,
+      horas_base: topics.reduce((s, a) => s + a.carga_horaria_base, 0),
+      assuntos: topics.map((a) => a.id).sort((x, y) => result[y].P - result[x].P || (x < y ? -1 : x > y ? 1 : 0)),
+    };
+  }
+  const maxMateria = Math.max(0, ...Object.values(materiasOut).map((m) => m.P_total));
+  const materiaRanking = Object.keys(materiasOut).sort((x, y) => materiasOut[y].P_total - materiasOut[x].P_total || (x < y ? -1 : 1));
+  materiaRanking.forEach((id, i) => {
+    materiasOut[id].rank = i + 1;
+    materiasOut[id].nivel = levelOf(maxMateria > 0 ? materiasOut[id].P_total / maxMateria : 0);
+  });
+
+  return { byId: result, ranking, materias: materiasOut, materiaRanking, weights, refYear, totalP, totalPoints, config: cfg };
 }

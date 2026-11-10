@@ -122,6 +122,10 @@
                 "type": "integer",
                 "minimum": 0
               },
+              "peso": {
+                "type": "number",
+                "minimum": 0
+              },
               "eliminatoria": {
                 "type": "boolean"
               },
@@ -423,6 +427,14 @@
         },
         "fonte": {
           "type": "string"
+        },
+        "ano": {
+          "type": "integer",
+          "minimum": 1990,
+          "maximum": 2100
+        },
+        "desatualizada": {
+          "type": "boolean"
         }
       }
     }

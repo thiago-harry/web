@@ -47,7 +47,8 @@ function assertScheduleInvariants(result, { blocoMin = 30, blocoMax = 90 } = {})
       }
     }
     const relaxed = result.avisos.some((a) => a.codigo === "cap_novos_relaxado" && a.semana === week.numero);
-    if (!relaxed) assert.ok(week.novos_assuntos.length <= ALLOCATION_DEFAULTS.max_new_per_week, `semana ${week.numero}: ${week.novos_assuntos.length} assuntos novos`);
+    assert.ok(week.teto_novos >= ALLOCATION_DEFAULTS.max_new_per_week);
+    if (!relaxed) assert.ok(week.novos_assuntos.length <= week.teto_novos, `semana ${week.numero}: ${week.novos_assuntos.length} assuntos novos (teto ${week.teto_novos})`);
     if (week.reta_final && week.dias.every((d) => d.reta_final)) assert.equal(week.novos_assuntos.length, 0, `assunto novo na reta final (semana ${week.numero})`);
     const revMin = week.dias.reduce((s, d) => s + d.blocos.filter((b) => b.atividade === "revisao").reduce((t, b) => t + b.minutos, 0), 0);
     const revOwn = week.capacidade_util_min * ALLOCATION_DEFAULTS.revision_week_cap;
@@ -282,4 +283,81 @@ test("determinismo: mesma entrada produz saída idêntica em 3 execuções", () 
   const c = run();
   assert.equal(a, b);
   assert.equal(b, c);
+});
+
+/* ---------- additions: peso, níveis, simulado ---------- */
+
+import { sampleQuiz, scoreQuiz } from "../src/engine/quiz.js";
+import { levelOf } from "../src/engine/score.js";
+
+test("peso por matéria entra em E (questões × peso)", () => {
+  const pack = loadFixture();
+  const s1 = score({ pack });
+  pack.estrutura_prova.materias.forEach((m) => (m.peso = 1));
+  const s2 = score({ pack });
+  // with pesos 2/2/1 matéria C topics weigh less than with equal pesos
+  assert.ok(s1.byId["mat_c.c1"].E < s2.byId["mat_c.c1"].E);
+  assert.equal(s1.materias.mat_a.pontos, 30);
+  assert.equal(s1.totalPoints, 70);
+  assert.ok(Math.abs(s1.materias.mat_a.share_prova - 30 / 70) < 1e-12);
+});
+
+test("níveis 1–5 por assunto e por matéria", () => {
+  assert.deepEqual([1, 0.8, 0.6, 0.4, 0.2, 0.19, 0].map(levelOf), [5, 5, 4, 3, 2, 1, 1]);
+  const s = score({ pack: loadFixture() });
+  assert.equal(s.byId[s.ranking[0]].nivel, 5);
+  assert.equal(s.byId[s.ranking[s.ranking.length - 1]].nivel, 1);
+  for (const id of s.ranking) assert.ok(s.byId[id].nivel >= 1 && s.byId[id].nivel <= 5);
+  assert.equal(s.materias[s.materiaRanking[0]].nivel, 5);
+  assert.ok(s.byId["mat_b.b4"].rank_hist > s.byId["mat_b.b4"].rank_edital, "sem histórico cai no quadro A e sobe no B");
+});
+
+test("simulado: 40 itens determinísticos, estratificados, cobrindo todos os assuntos com itens", () => {
+  const pack = loadFixture();
+  const a = sampleQuiz(pack);
+  const b = sampleQuiz(pack);
+  assert.equal(a.itens.length, 40);
+  assert.deepEqual(a.itens.map((i) => i.id), b.itens.map((i) => i.id));
+  assert.equal(new Set(a.itens.map((i) => i.id)).size, 40);
+  assert.equal(a.cobertos.length, pack.assuntos.length);
+  assert.deepEqual(a.sem_itens, []);
+  // heavier topics (matéria A/B, depth 3) get more questions than light ones
+  assert.ok(a.cotas["mat_b.b2"] >= a.cotas["mat_c.c4"]);
+  // another pack version -> another sample
+  const c = sampleQuiz({ ...pack, pack_version: "1.0.1" });
+  assert.notDeepEqual(a.itens.map((i) => i.id), c.itens.map((i) => i.id));
+  // fewer items than topics: heaviest first, one each
+  const small = sampleQuiz(pack, { n: 5 });
+  assert.equal(small.itens.length, 5);
+  assert.equal(new Set(small.itens.map((i) => i.assunto_id)).size, 5);
+});
+
+test("simulado: pontuação por assunto alimenta G com shrinkage", () => {
+  const pack = loadFixture();
+  const { itens } = sampleQuiz(pack);
+  const respostas = {};
+  itens.forEach((it, i) => (respostas[it.id] = i % 2 === 0 ? it.gabarito : (it.gabarito + 1) % it.alternativas.length));
+  const r = scoreQuiz(itens, respostas);
+  assert.equal(r.total.respondidas, 40);
+  assert.equal(r.total.acertos + r.total.erros, 40);
+  const s = score({ pack, nivelamento: { simulado: r.porAssunto } });
+  for (const id of Object.keys(r.porAssunto)) {
+    assert.equal(s.byId[id].gap_source, "simulado");
+    assert.ok(s.byId[id].G > 0 && s.byId[id].G < 1);
+  }
+});
+
+test("teto de novos sobe com o ritmo necessário (30 assuntos em 21 semanas)", () => {
+  const pack = loadFixture();
+  const extra = [];
+  for (let k = 0; k < 18; k++) {
+    const src = pack.assuntos[k % 12];
+    extra.push({ ...src, id: `${src.materia_id}.x${k}`, nome: `Extra ${k}`, prereq: [], carga_horaria_base: 4, incidencia_cargo: [], incidencia_banca: [] });
+  }
+  pack.assuntos.push(...extra);
+  pack.nivelamento.itens = [];
+  const r = generate({ pack, disponibilidade: SPEC_AVAILABILITY });
+  assertScheduleInvariants(r);
+  assert.equal(r.resumo.assuntos_nao_iniciados.length, 0);
+  assert.ok(r.cronograma.some((w) => w.teto_novos > 2));
 });

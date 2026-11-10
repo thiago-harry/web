@@ -359,9 +359,14 @@ function fillCalendar({ pack, scores, cal, budgets, order, cfg, input, mocks }) 
     ...explainStudy({ atividade, assunto: assuntos[id], score: scores.byId[id], total, pass: extra.pass, finalStretch: extra.finalStretch }),
   });
 
+  const lastContentWeek = Math.max(0, ...cal.weeks.filter((w) => w.days.some((d) => !d.final)).map((w) => w.numero));
+
   for (const week of cal.weeks) {
     let newCount = 0;
     const weekNew = [];
+    // spec: at most 2 new topics per week; raised to the pace needed to open every topic before the final stretch
+    const weeksLeft = Math.max(1, lastContentWeek - week.numero + 1);
+    const newCap = Math.max(cfg.max_new_per_week, Math.ceil((order.length - opened.length) / weeksLeft));
     // 15% of the week, strict; weeks too small for one block accumulate their share
     const revOwn = week.usable_min * cfg.revision_week_cap;
     const revAllowance = revOwn >= cfg.revision_minutes ? revOwn : revOwn + revCarry;
@@ -374,7 +379,7 @@ function fillCalendar({ pack, scores, cal, budgets, order, cfg, input, mocks }) 
     const mockMin = mock ? mock.minutes : 0;
 
     const tryOpen = (day, avoidMaterias, force) => {
-      if (!force && newCount >= cfg.max_new_per_week) return null;
+      if (!force && newCount >= newCap) return null;
       const ready = order.filter(isReady);
       if (!ready.length) return null;
       const pick = ready.find((id) => !avoidMaterias.has(st[id].materia_id)) ?? ready[0];
@@ -383,7 +388,7 @@ function fillCalendar({ pack, scores, cal, budgets, order, cfg, input, mocks }) 
       newCount += 1;
       weekNew.push(pick);
       if (force) {
-        warnings.push({ codigo: "cap_novos_relaxado", semana: week.numero, data: day.iso, assunto_id: pick, mensagem: "Limite de 2 assuntos novos por semana relaxado para não deixar o dia vazio." });
+        warnings.push({ codigo: "cap_novos_relaxado", semana: week.numero, data: day.iso, assunto_id: pick, mensagem: `Teto de ${newCap} assunto(s) novo(s) na semana relaxado para não deixar o dia vazio.` });
       }
       return pick;
     };
@@ -520,6 +525,7 @@ function fillCalendar({ pack, scores, cal, budgets, order, cfg, input, mocks }) 
       livre_min: week.usable_min - weekUsed,
       reta_final: week.days.some((d) => d.final),
       simulado: mockDay !== null,
+      teto_novos: newCap,
       novos_assuntos: weekNew,
       revisoes: sum(week.days, (d) => d.blocks.filter((b) => b.atividade === "revisao").length),
       dias: week.days.map((d) => ({
