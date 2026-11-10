@@ -1,0 +1,15 @@
+{
+  "packs": [
+    {
+      "id": "fixture-2027",
+      "arquivo": "_fixture.json",
+      "nome": "Concurso Fixture 2027",
+      "orgao": "Órgão Fixture",
+      "banca": "BANCA-FIXTURE",
+      "cargo": "Cargo Fixture",
+      "data_prova": "2027-04-11",
+      "status": "sintetico",
+      "descricao": "Pack de demonstração com dados sintéticos: 3 matérias, 12 assuntos, 60 questões fictícias."
+    }
+  ]
+}
