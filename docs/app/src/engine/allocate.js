@@ -67,9 +67,18 @@ export function normalizeAvailability(d, pack) {
     erros.push({ path: "/bloco_max_minutos", message: "deve ser múltiplo de bloco_min_minutos e maior ou igual a ele" });
   }
   if (start !== null && exam !== null && start >= exam) erros.push({ path: "/data_inicio", message: "deve ser anterior à data da prova" });
-  if (Object.values(perDay).every((v) => v === 0)) erros.push({ path: "/horas_por_dia_semana", message: "nenhuma hora disponível na semana" });
+  // per-date overrides: { "AAAA-MM-DD": horas } replace the weekday hours on that date
+  const excecoes = {};
+  for (const [iso, v] of Object.entries(d?.excecoes ?? {})) {
+    if (parseDate(iso) === null) erros.push({ path: `/excecoes/${iso}`, message: "data inválida (AAAA-MM-DD)" });
+    else if (!Number.isFinite(v) || v < 0 || v > 24) erros.push({ path: `/excecoes/${iso}`, message: "use um número de horas entre 0 e 24" });
+    else excecoes[iso] = v;
+  }
+  if (Object.values(perDay).every((v) => v === 0) && !Object.values(excecoes).some((v) => v > 0)) {
+    erros.push({ path: "/horas_por_dia_semana", message: "nenhuma hora disponível na semana" });
+  }
   if (erros.length) return { ok: false, erros };
-  return { ok: true, perDay, start, exam, blocoMin, blocoMax };
+  return { ok: true, perDay, excecoes, start, exam, blocoMin, blocoMax };
 }
 
 /* ------------------------------------------------------------------ */
@@ -77,14 +86,16 @@ export function normalizeAvailability(d, pack) {
 /* ------------------------------------------------------------------ */
 
 export function buildCalendar(input, cfg) {
-  const { start, exam, perDay, blocoMin } = input;
+  const { start, exam, perDay, blocoMin, excecoes = {} } = input;
   const nDays = diffDays(start, exam); // study days: start .. exam - 1
   const finalStart = nDays - Math.ceil(nDays * cfg.final_stretch_fraction);
   const days = [];
   for (let i = 0; i < nDays; i++) {
     const t = addDays(start, i);
     const wd = weekdayKey(t);
-    days.push({ index: i, date: t, iso: toISO(t), weekday: wd, cap_min: floorTo(perDay[wd] * 60, blocoMin), final: i >= finalStart, blocks: [], livre_min: 0 });
+    const iso = toISO(t);
+    const h = excecoes[iso] ?? perDay[wd];
+    days.push({ index: i, date: t, iso, weekday: wd, cap_min: floorTo(h * 60, blocoMin), final: i >= finalStart, blocks: [], livre_min: 0 });
   }
   const weeks = [];
   let carry = 0; // buffer rounding carried to the next week, so the 10% holds on average
