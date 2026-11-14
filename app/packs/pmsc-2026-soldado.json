@@ -107,7 +107,14 @@
       "carga_horaria_base": 4,
       "prereq": [],
       "tipo": "doutrina",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Teoria da Constituição e Poder Constituinte",
+          "url": "https://www.youtube.com/results?search_query=Teoria+da+Constitui%C3%A7%C3%A3o+e+Poder+Constituinte+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dconst.principios_fundamentais",
@@ -131,7 +138,14 @@
       "carga_horaria_base": 2,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Princípios fundamentais (CF, arts. 1º a 4º)",
+          "url": "https://www.youtube.com/results?search_query=Princ%C3%ADpios+fundamentais+%28CF%2C+arts.+1%C2%BA+a+4%C2%BA%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dconst.direitos_garantias",
@@ -155,7 +169,14 @@
       "carga_horaria_base": 10,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Direitos e garantias fundamentais (CF, arts. 5º a 17)",
+          "url": "https://www.youtube.com/results?search_query=Direitos+e+garantias+fundamentais+%28CF%2C+arts.+5%C2%BA+a+17%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dconst.organizacao_estado",
@@ -179,7 +200,26 @@
       "carga_horaria_base": 8,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "Direito Constitucional - Da Administração Pública (arts. 37 a 41, CF/88)",
+          "canal": "Prof. Eriksen Almerão",
+          "url": "https://www.youtube.com/watch?v=EGD2phq-x3g"
+        },
+        {
+          "tipo": "video",
+          "titulo": "DA ORGANIZAÇÃO POLÍTICO-ADMINISTRATIVA",
+          "canal": "Direito Constitucional | Concurso PM BA|Monster Concursos",
+          "url": "https://www.youtube.com/watch?v=uq7JwPRxApk"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Organização do Estado e Administração Pública (CF, arts. 18 a 42)",
+          "url": "https://www.youtube.com/results?search_query=Organiza%C3%A7%C3%A3o+do+Estado+e+Administra%C3%A7%C3%A3o+P%C3%BAblica+%28CF%2C+arts.+18+a+42%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dconst.poderes",
@@ -198,7 +238,14 @@
       "carga_horaria_base": 8,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Organização dos Poderes (CF, arts. 44 a 100)",
+          "url": "https://www.youtube.com/results?search_query=Organiza%C3%A7%C3%A3o+dos+Poderes+%28CF%2C+arts.+44+a+100%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dconst.justica_funcoes",
@@ -211,7 +258,14 @@
       "carga_horaria_base": 3,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Justiça Militar, Justiça dos Estados e funções essenciais (CF, arts. 122 a 135)",
+          "url": "https://www.youtube.com/results?search_query=Justi%C3%A7a+Militar%2C+Justi%C3%A7a+dos+Estados+e+fun%C3%A7%C3%B5es+essenciais+%28CF%2C+arts.+122+a+135%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dconst.seguranca_publica",
@@ -230,7 +284,14 @@
       "carga_horaria_base": 4,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Defesa do Estado e segurança pública (CF, arts. 136 a 144)",
+          "url": "https://www.youtube.com/results?search_query=Defesa+do+Estado+e+seguran%C3%A7a+p%C3%BAblica+%28CF%2C+arts.+136+a+144%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dconst.constituicao_sc",
@@ -243,7 +304,14 @@
       "carga_horaria_base": 5,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Constituição do Estado de Santa Catarina",
+          "url": "https://www.youtube.com/results?search_query=Constitui%C3%A7%C3%A3o+do+Estado+de+Santa+Catarina+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpenal.lei_penal",
@@ -261,7 +329,14 @@
       "carga_horaria_base": 4,
       "prereq": [],
       "tipo": "doutrina",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Lei penal: aplicação, tempo e espaço",
+          "url": "https://www.youtube.com/results?search_query=Lei+penal%3A+aplica%C3%A7%C3%A3o%2C+tempo+e+espa%C3%A7o+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpenal.teoria_crime",
@@ -281,7 +356,26 @@
         "dpenal.lei_penal"
       ],
       "tipo": "doutrina",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "Aula 3 - Da Imputabilidade - Culpabilidade - Soldado PMERJ",
+          "canal": "Jeferson Vicente PMERJ",
+          "url": "https://www.youtube.com/watch?v=y-HN5CMbU6g"
+        },
+        {
+          "tipo": "video",
+          "titulo": "CONCURSO PM/MA & PM/PI: Direito Penal",
+          "canal": "Com o Profº. Douglas França|Cursos do Portal",
+          "url": "https://www.youtube.com/watch?v=XqFhHs7JGZc"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Teoria geral do crime",
+          "url": "https://www.youtube.com/results?search_query=Teoria+geral+do+crime+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpenal.penas",
@@ -301,7 +395,14 @@
         "dpenal.teoria_crime"
       ],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Penas, concurso de crimes e medidas de segurança",
+          "url": "https://www.youtube.com/results?search_query=Penas%2C+concurso+de+crimes+e+medidas+de+seguran%C3%A7a+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpenal.extincao_punibilidade",
@@ -314,7 +415,14 @@
       "carga_horaria_base": 2,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Extinção da punibilidade",
+          "url": "https://www.youtube.com/results?search_query=Extin%C3%A7%C3%A3o+da+punibilidade+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpenal.crimes_pessoa",
@@ -332,7 +440,14 @@
       "carga_horaria_base": 5,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Crimes contra a pessoa",
+          "url": "https://www.youtube.com/results?search_query=Crimes+contra+a+pessoa+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpenal.crimes_patrimonio",
@@ -350,7 +465,14 @@
       "carga_horaria_base": 4,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Crimes contra o patrimônio",
+          "url": "https://www.youtube.com/results?search_query=Crimes+contra+o+patrim%C3%B4nio+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpenal.crimes_dignidade_sexual",
@@ -363,7 +485,14 @@
       "carga_horaria_base": 2,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Crimes contra a dignidade sexual",
+          "url": "https://www.youtube.com/results?search_query=Crimes+contra+a+dignidade+sexual+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpenal.crimes_fe_publica",
@@ -381,7 +510,14 @@
       "carga_horaria_base": 2,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Crimes contra a fé pública",
+          "url": "https://www.youtube.com/results?search_query=Crimes+contra+a+f%C3%A9+p%C3%BAblica+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpenal.crimes_adm_publica",
@@ -399,7 +535,14 @@
       "carga_horaria_base": 4,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Crimes contra a administração pública",
+          "url": "https://www.youtube.com/results?search_query=Crimes+contra+a+administra%C3%A7%C3%A3o+p%C3%BAblica+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpenal.principios",
@@ -412,7 +555,14 @@
       "carga_horaria_base": 2,
       "prereq": [],
       "tipo": "doutrina",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Princípios do Direito Penal",
+          "url": "https://www.youtube.com/results?search_query=Princ%C3%ADpios+do+Direito+Penal+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpenal.crimes_ambientais",
@@ -425,7 +575,14 @@
       "carga_horaria_base": 2,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Lei de Crimes Ambientais (Lei 9.605/1998)",
+          "url": "https://www.youtube.com/results?search_query=Lei+de+Crimes+Ambientais+%28Lei+9.605%2F1998%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpp.nocoes",
@@ -443,7 +600,14 @@
       "carga_horaria_base": 3,
       "prereq": [],
       "tipo": "doutrina",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Princípios, sistemas e lei processual penal",
+          "url": "https://www.youtube.com/results?search_query=Princ%C3%ADpios%2C+sistemas+e+lei+processual+penal+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpp.inquerito",
@@ -461,7 +625,26 @@
       "carga_horaria_base": 5,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "PROCESSO PENAL PARA CONCURSOS: Inquérito Policial E Ação penal",
+          "canal": "Com os Profº. Caynã Gazel|Cursos do Portal",
+          "url": "https://www.youtube.com/watch?v=XDMHc58W49g"
+        },
+        {
+          "tipo": "video",
+          "titulo": "Concurso PM AL - Noções de Direito Processual Penal - Inquérito e ação Penal",
+          "canal": "Monster Concursos",
+          "url": "https://www.youtube.com/watch?v=WGuEgdQjQwE"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Inquérito policial, investigação e ANPP",
+          "url": "https://www.youtube.com/results?search_query=Inqu%C3%A9rito+policial%2C+investiga%C3%A7%C3%A3o+e+ANPP+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpp.acao_penal",
@@ -474,7 +657,20 @@
       "carga_horaria_base": 3,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "Concurso PM AL - Noções de Direito Processual Penal - Inquérito e ação Penal",
+          "canal": "Monster Concursos",
+          "url": "https://www.youtube.com/watch?v=WGuEgdQjQwE"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Ação penal e ação civil ex delicto",
+          "url": "https://www.youtube.com/results?search_query=A%C3%A7%C3%A3o+penal+e+a%C3%A7%C3%A3o+civil+ex+delicto+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpp.competencia",
@@ -487,7 +683,14 @@
       "carga_horaria_base": 3,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Jurisdição e competência criminal",
+          "url": "https://www.youtube.com/results?search_query=Jurisdi%C3%A7%C3%A3o+e+compet%C3%AAncia+criminal+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpp.provas",
@@ -500,7 +703,14 @@
       "carga_horaria_base": 5,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Provas",
+          "url": "https://www.youtube.com/results?search_query=Provas+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpp.prisoes",
@@ -515,7 +725,14 @@
         "dpp.nocoes"
       ],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Prisões, medidas cautelares e liberdade provisória",
+          "url": "https://www.youtube.com/results?search_query=Pris%C3%B5es%2C+medidas+cautelares+e+liberdade+provis%C3%B3ria+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpp.incidentes_assecuratorias",
@@ -528,7 +745,14 @@
       "carga_horaria_base": 2,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Questões e processos incidentes; medidas assecuratórias",
+          "url": "https://www.youtube.com/results?search_query=Quest%C3%B5es+e+processos+incidentes%3B+medidas+assecurat%C3%B3rias+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpp.sujeitos_procedimentos",
@@ -541,7 +765,14 @@
       "carga_horaria_base": 3,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Sujeitos do processo, comunicação dos atos e procedimentos",
+          "url": "https://www.youtube.com/results?search_query=Sujeitos+do+processo%2C+comunica%C3%A7%C3%A3o+dos+atos+e+procedimentos+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpp.nulidades_recursos",
@@ -554,7 +785,14 @@
       "carga_horaria_base": 4,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Nulidades, sentença e recursos",
+          "url": "https://www.youtube.com/results?search_query=Nulidades%2C+senten%C3%A7a+e+recursos+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpp.leis_especiais",
@@ -567,7 +805,14 @@
       "carga_horaria_base": 3,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Prisão temporária, Juizados Especiais Criminais e interceptação telefônica",
+          "url": "https://www.youtube.com/results?search_query=Pris%C3%A3o+tempor%C3%A1ria%2C+Juizados+Especiais+Criminais+e+intercepta%C3%A7%C3%A3o+telef%C3%B4nica+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpm.aplicacao_crime_militar",
@@ -580,7 +825,26 @@
       "carga_horaria_base": 4,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "Artigo 9º Código Penal Militar, em 18 minutos! pmpb pmpa pmerj pmmg",
+          "canal": "Direito no Mel! - Prof. J. Pinheiro",
+          "url": "https://www.youtube.com/watch?v=3Tq024t1K9s"
+        },
+        {
+          "tipo": "video",
+          "titulo": "Artigo 9º do Código Penal Militar - Crimes Militares - Trilogia Parte 1",
+          "canal": "CONCEITO A - CONCURSOS",
+          "url": "https://www.youtube.com/watch?v=J2Jnj1BAhV8"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: CPM: aplicação da lei penal militar e crime militar (Título I)",
+          "url": "https://www.youtube.com/results?search_query=CPM%3A+aplica%C3%A7%C3%A3o+da+lei+penal+militar+e+crime+militar+%28T%C3%ADtulo+I%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpm.crime_imputabilidade",
@@ -595,7 +859,20 @@
         "dpm.aplicacao_crime_militar"
       ],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "Concurso PM BA - Soldado - Aula de Direito Penal Militar - AlfaCon",
+          "canal": "AlfaCon",
+          "url": "https://www.youtube.com/watch?v=gdARCyK6ym8"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: CPM: crime, imputabilidade e concurso de agentes (Títulos II a IV)",
+          "url": "https://www.youtube.com/results?search_query=CPM%3A+crime%2C+imputabilidade+e+concurso+de+agentes+%28T%C3%ADtulos+II+a+IV%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpm.penas",
@@ -608,7 +885,14 @@
       "carga_horaria_base": 3,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: CPM: penas, aplicação e extinção da punibilidade (Títulos V a VIII)",
+          "url": "https://www.youtube.com/results?search_query=CPM%3A+penas%2C+aplica%C3%A7%C3%A3o+e+extin%C3%A7%C3%A3o+da+punibilidade+%28T%C3%ADtulos+V+a+VIII%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpm.crimes_autoridade_servico",
@@ -621,7 +905,14 @@
       "carga_horaria_base": 4,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Crimes contra a autoridade, a disciplina e o serviço militar",
+          "url": "https://www.youtube.com/results?search_query=Crimes+contra+a+autoridade%2C+a+disciplina+e+o+servi%C3%A7o+militar+aula+concurso"
+        }
+      ]
     },
     {
       "id": "dpm.outros_crimes_militares",
@@ -634,7 +925,14 @@
       "carga_horaria_base": 4,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Demais crimes militares (Parte Especial, Títulos I e IV a VIII)",
+          "url": "https://www.youtube.com/results?search_query=Demais+crimes+militares+%28Parte+Especial%2C+T%C3%ADtulos+I+e+IV+a+VIII%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "legesp.hediondos",
@@ -647,7 +945,14 @@
       "carga_horaria_base": 2,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Crimes hediondos (Lei 8.072/1990)",
+          "url": "https://www.youtube.com/results?search_query=Crimes+hediondos+%28Lei+8.072%2F1990%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "legesp.racismo",
@@ -660,7 +965,14 @@
       "carga_horaria_base": 1,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Crimes de preconceito de raça ou cor (Lei 7.716/1989)",
+          "url": "https://www.youtube.com/results?search_query=Crimes+de+preconceito+de+ra%C3%A7a+ou+cor+%28Lei+7.716%2F1989%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "legesp.tortura",
@@ -673,7 +985,14 @@
       "carga_horaria_base": 1.5,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Crimes de tortura (Lei 9.455/1997)",
+          "url": "https://www.youtube.com/results?search_query=Crimes+de+tortura+%28Lei+9.455%2F1997%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "legesp.crime_organizado",
@@ -686,7 +1005,14 @@
       "carga_horaria_base": 2.5,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Organizações criminosas (Lei 12.850/2013)",
+          "url": "https://www.youtube.com/results?search_query=Organiza%C3%A7%C3%B5es+criminosas+%28Lei+12.850%2F2013%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "legesp.drogas",
@@ -699,7 +1025,20 @@
       "carga_horaria_base": 3,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "Carreira Policial: Aulão de Legislação Extravagante com Diego Fontes",
+          "canal": "Gran Cursos Online",
+          "url": "https://www.youtube.com/watch?v=dfDMZn4vfjc"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Lei de Drogas (Lei 11.343/2006)",
+          "url": "https://www.youtube.com/results?search_query=Lei+de+Drogas+%28Lei+11.343%2F2006%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "legesp.abuso_autoridade",
@@ -712,7 +1051,20 @@
       "carga_horaria_base": 2.5,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "LEIS PENAIS ESPECIAIS - LEI DE ABUSO DE AUTORIDADE (PROFESSOR CENOURA)",
+          "canal": "Professor Cenoura | Direito Penal",
+          "url": "https://www.youtube.com/watch?v=eDeH-O7bfD8"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Abuso de autoridade (Lei 13.869/2019)",
+          "url": "https://www.youtube.com/results?search_query=Abuso+de+autoridade+%28Lei+13.869%2F2019%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "legesp.desarmamento",
@@ -725,7 +1077,20 @@
       "carga_horaria_base": 2.5,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "AULA GRATUITA: Estatuto do Desarmamento (Lei nº 10.826/03) - Legislação Penal Especial",
+          "canal": "Dedicação Delta",
+          "url": "https://www.youtube.com/watch?v=6WqqpOA5qKs"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Estatuto do Desarmamento (Lei 10.826/2003)",
+          "url": "https://www.youtube.com/results?search_query=Estatuto+do+Desarmamento+%28Lei+10.826%2F2003%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "legesp.maria_da_penha",
@@ -738,7 +1103,20 @@
       "carga_horaria_base": 2.5,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "Carreira Policial: Aulão de Legislação Extravagante com Diego Fontes",
+          "canal": "Gran Cursos Online",
+          "url": "https://www.youtube.com/watch?v=dfDMZn4vfjc"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Lei Maria da Penha (Lei 11.340/2006)",
+          "url": "https://www.youtube.com/results?search_query=Lei+Maria+da+Penha+%28Lei+11.340%2F2006%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "legesp.eca",
@@ -751,7 +1129,14 @@
       "carga_horaria_base": 3,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Estatuto da Criança e do Adolescente (Lei 8.069/1990)",
+          "url": "https://www.youtube.com/results?search_query=Estatuto+da+Crian%C3%A7a+e+do+Adolescente+%28Lei+8.069%2F1990%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "legesp.idoso",
@@ -764,7 +1149,14 @@
       "carga_horaria_base": 1.5,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Estatuto da Pessoa Idosa (Lei 10.741/2003)",
+          "url": "https://www.youtube.com/results?search_query=Estatuto+da+Pessoa+Idosa+%28Lei+10.741%2F2003%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "legesp.identificacao_criminal",
@@ -777,7 +1169,14 @@
       "carga_horaria_base": 1,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Identificação criminal (Lei 12.037/2009)",
+          "url": "https://www.youtube.com/results?search_query=Identifica%C3%A7%C3%A3o+criminal+%28Lei+12.037%2F2009%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "transito.disposicoes_snt",
@@ -790,7 +1189,14 @@
       "carga_horaria_base": 1.5,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: CTB: disposições preliminares e Sistema Nacional de Trânsito",
+          "url": "https://www.youtube.com/results?search_query=CTB%3A+disposi%C3%A7%C3%B5es+preliminares+e+Sistema+Nacional+de+Tr%C3%A2nsito+aula+concurso"
+        }
+      ]
     },
     {
       "id": "transito.normas_circulacao",
@@ -803,7 +1209,20 @@
       "carga_horaria_base": 3,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "Curso Completo de Legislação de Trânsito para Concursos - Prof. Hugo Garotinho",
+          "canal": "Estratégia Concursos",
+          "url": "https://www.youtube.com/watch?v=hU_4FzEr2sA"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: CTB: normas gerais de circulação e conduta",
+          "url": "https://www.youtube.com/results?search_query=CTB%3A+normas+gerais+de+circula%C3%A7%C3%A3o+e+conduta+aula+concurso"
+        }
+      ]
     },
     {
       "id": "transito.sinalizacao",
@@ -816,7 +1235,14 @@
       "carga_horaria_base": 1,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: CTB: sinalização de trânsito",
+          "url": "https://www.youtube.com/results?search_query=CTB%3A+sinaliza%C3%A7%C3%A3o+de+tr%C3%A2nsito+aula+concurso"
+        }
+      ]
     },
     {
       "id": "transito.veiculos",
@@ -829,7 +1255,14 @@
       "carga_horaria_base": 1,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: CTB: veículos",
+          "url": "https://www.youtube.com/results?search_query=CTB%3A+ve%C3%ADculos+aula+concurso"
+        }
+      ]
     },
     {
       "id": "transito.registro_habilitacao",
@@ -842,7 +1275,14 @@
       "carga_horaria_base": 3,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: CTB: registro, licenciamento e habilitação",
+          "url": "https://www.youtube.com/results?search_query=CTB%3A+registro%2C+licenciamento+e+habilita%C3%A7%C3%A3o+aula+concurso"
+        }
+      ]
     },
     {
       "id": "transito.infracoes_penalidades",
@@ -855,7 +1295,20 @@
       "carga_horaria_base": 3,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "Das Infrações - Legislação de Trânsito para concursos com Ubirajara Martel",
+          "canal": "CPC Concursos",
+          "url": "https://www.youtube.com/watch?v=v3EzU1d2zTQ"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: CTB: infrações, penalidades, medidas administrativas e autuação",
+          "url": "https://www.youtube.com/results?search_query=CTB%3A+infra%C3%A7%C3%B5es%2C+penalidades%2C+medidas+administrativas+e+autua%C3%A7%C3%A3o+aula+concurso"
+        }
+      ]
     },
     {
       "id": "transito.crimes",
@@ -868,7 +1321,20 @@
       "carga_horaria_base": 2.5,
       "prereq": [],
       "tipo": "lei_seca",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "Legislação de Trânsito - Crimes de Trânsito I - CTB - Lei 9.503/97 - PRF",
+          "canal": "Professor Soares",
+          "url": "https://www.youtube.com/watch?v=YjnQegetL-o"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: CTB: crimes de trânsito",
+          "url": "https://www.youtube.com/results?search_query=CTB%3A+crimes+de+tr%C3%A2nsito+aula+concurso"
+        }
+      ]
     },
     {
       "id": "inst.estatuto_pmsc",
@@ -886,7 +1352,26 @@
       "carga_horaria_base": 5,
       "prereq": [],
       "tipo": "memorizacao",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "Estatuto dos Militares de SC (Lei 6.218/1983)",
+          "canal": "Aula Completa Concurso PMSC 2026 - Parte 1|Monster Concursos",
+          "url": "https://www.youtube.com/watch?v=6GuvBwQOURE"
+        },
+        {
+          "tipo": "video",
+          "titulo": "Estatuto PMSC Arts  1º ao 41 - Parte I - Aula 01",
+          "canal": "Matheus Perfoll",
+          "url": "https://www.youtube.com/watch?v=ITOSMtcrRiM"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Estatuto dos Policiais Militares de SC (Lei 6.218/1983)",
+          "url": "https://www.youtube.com/results?search_query=Estatuto+dos+Policiais+Militares+de+SC+%28Lei+6.218%2F1983%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "inst.pad",
@@ -904,7 +1389,14 @@
       "carga_horaria_base": 2.5,
       "prereq": [],
       "tipo": "memorizacao",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Regulamento do Processo Administrativo Disciplinar da PMSC (Portaria 009/2001)",
+          "url": "https://www.youtube.com/results?search_query=Regulamento+do+Processo+Administrativo+Disciplinar+da+PMSC+%28Portaria+009%2F2001%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "inst.lei_organica_nacional",
@@ -922,7 +1414,20 @@
       "carga_horaria_base": 3,
       "prereq": [],
       "tipo": "memorizacao",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "Concurso Soldado PMSC: Aula Completa de Legislação Institucional",
+          "canal": "Rico Domingues Concursos",
+          "url": "https://www.youtube.com/watch?v=j9HLr3faTvc"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Lei Orgânica Nacional das PMs e CBMs (Lei 14.751/2023)",
+          "url": "https://www.youtube.com/results?search_query=Lei+Org%C3%A2nica+Nacional+das+PMs+e+CBMs+%28Lei+14.751%2F2023%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "inst.ingresso",
@@ -935,7 +1440,14 @@
       "carga_horaria_base": 1.5,
       "prereq": [],
       "tipo": "memorizacao",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Ingresso nas carreiras militares de SC (LC 587/2013)",
+          "url": "https://www.youtube.com/results?search_query=Ingresso+nas+carreiras+militares+de+SC+%28LC+587%2F2013%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "inst.promocao_pracas",
@@ -948,7 +1460,14 @@
       "carga_horaria_base": 2,
       "prereq": [],
       "tipo": "memorizacao",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Promoção das praças (LC 801/2022)",
+          "url": "https://www.youtube.com/results?search_query=Promo%C3%A7%C3%A3o+das+pra%C3%A7as+%28LC+801%2F2022%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "inst.remuneracao",
@@ -966,7 +1485,14 @@
       "carga_horaria_base": 1.5,
       "prereq": [],
       "tipo": "memorizacao",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Regime remuneratório dos militares estaduais (LC 765/2020)",
+          "url": "https://www.youtube.com/results?search_query=Regime+remunerat%C3%B3rio+dos+militares+estaduais+%28LC+765%2F2020%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "inst.organizacao_basica",
@@ -984,7 +1510,14 @@
       "carga_horaria_base": 2,
       "prereq": [],
       "tipo": "memorizacao",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Organização Básica da PMSC (Decreto 1.601/2021)",
+          "url": "https://www.youtube.com/results?search_query=Organiza%C3%A7%C3%A3o+B%C3%A1sica+da+PMSC+%28Decreto+1.601%2F2021%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "inst.conselho_disciplina",
@@ -997,7 +1530,14 @@
       "carga_horaria_base": 1.5,
       "prereq": [],
       "tipo": "memorizacao",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Conselho de Disciplina da PMSC (Lei 5.209/1976)",
+          "url": "https://www.youtube.com/results?search_query=Conselho+de+Disciplina+da+PMSC+%28Lei+5.209%2F1976%29+aula+concurso"
+        }
+      ]
     },
     {
       "id": "port.interpretacao",
@@ -1021,7 +1561,26 @@
       "carga_horaria_base": 6,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "AOCP: NÃO CAIA NAS PEGADINHAS! Aprenda como realizar questões de INTERPRETAÇÃO DE TEXTO em",
+          "canal": "Tatiana das Merces",
+          "url": "https://www.youtube.com/watch?v=bAe0D-OUPSU"
+        },
+        {
+          "tipo": "video",
+          "titulo": "LIVE #290 - PORTUGUÊS INSTITUTO AOCP: Os Tópicos Essenciais para Sua Aprovação!",
+          "canal": "Professora Grasiela Cabral",
+          "url": "https://www.youtube.com/watch?v=wSGRyTT9Yw8"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Compreensão e interpretação de textos, tipologias e gêneros",
+          "url": "https://www.youtube.com/results?search_query=Compreens%C3%A3o+e+interpreta%C3%A7%C3%A3o+de+textos%2C+tipologias+e+g%C3%AAneros+aula+concurso"
+        }
+      ]
     },
     {
       "id": "port.semantica",
@@ -1039,7 +1598,14 @@
       "carga_horaria_base": 2.5,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Semântica e significação das palavras",
+          "url": "https://www.youtube.com/results?search_query=Sem%C3%A2ntica+e+significa%C3%A7%C3%A3o+das+palavras+aula+concurso"
+        }
+      ]
     },
     {
       "id": "port.morfologia",
@@ -1058,7 +1624,14 @@
       "carga_horaria_base": 4,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Morfologia, ortografia, acentuação e classes de palavras",
+          "url": "https://www.youtube.com/results?search_query=Morfologia%2C+ortografia%2C+acentua%C3%A7%C3%A3o+e+classes+de+palavras+aula+concurso"
+        }
+      ]
     },
     {
       "id": "port.sintaxe",
@@ -1082,7 +1655,14 @@
       "carga_horaria_base": 4,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Sintaxe da oração e do período",
+          "url": "https://www.youtube.com/results?search_query=Sintaxe+da+ora%C3%A7%C3%A3o+e+do+per%C3%ADodo+aula+concurso"
+        }
+      ]
     },
     {
       "id": "port.concordancia",
@@ -1101,7 +1681,14 @@
       "carga_horaria_base": 2.5,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Concordância nominal e verbal",
+          "url": "https://www.youtube.com/results?search_query=Concord%C3%A2ncia+nominal+e+verbal+aula+concurso"
+        }
+      ]
     },
     {
       "id": "port.regencia_crase",
@@ -1114,7 +1701,14 @@
       "carga_horaria_base": 2.5,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Regência e crase",
+          "url": "https://www.youtube.com/results?search_query=Reg%C3%AAncia+e+crase+aula+concurso"
+        }
+      ]
     },
     {
       "id": "port.reescrita",
@@ -1138,7 +1732,14 @@
       "carga_horaria_base": 2.5,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Reescrita de frases e parágrafos",
+          "url": "https://www.youtube.com/results?search_query=Reescrita+de+frases+e+par%C3%A1grafos+aula+concurso"
+        }
+      ]
     },
     {
       "id": "port.pontuacao",
@@ -1162,7 +1763,14 @@
       "carga_horaria_base": 2,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Pontuação",
+          "url": "https://www.youtube.com/results?search_query=Pontua%C3%A7%C3%A3o+aula+concurso"
+        }
+      ]
     },
     {
       "id": "port.coesao",
@@ -1186,7 +1794,20 @@
       "carga_horaria_base": 2.5,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "COESÃO E COERÊNCIA - Anáfora, catáfora e muito mais!",
+          "canal": "Prof. Álvaro Ferreira",
+          "url": "https://www.youtube.com/watch?v=f1vCAm294i8"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Coesão e função textual dos vocábulos",
+          "url": "https://www.youtube.com/results?search_query=Coes%C3%A3o+e+fun%C3%A7%C3%A3o+textual+dos+voc%C3%A1bulos+aula+concurso"
+        }
+      ]
     },
     {
       "id": "info.hardware_software",
@@ -1205,7 +1826,14 @@
       "carga_horaria_base": 2,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Hardware, software e conceitos básicos",
+          "url": "https://www.youtube.com/results?search_query=Hardware%2C+software+e+conceitos+b%C3%A1sicos+aula+concurso"
+        }
+      ]
     },
     {
       "id": "info.libreoffice",
@@ -1229,7 +1857,32 @@
       "carga_horaria_base": 4,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "video",
+          "titulo": "10 Questões Libreoffice (Writer, Calc e Impress) para a PMPE 2023 - Banca Instituto AOCP",
+          "canal": "Prof. Vimerson Dantas",
+          "url": "https://www.youtube.com/watch?v=Mdv1uhYkKSA"
+        },
+        {
+          "tipo": "video",
+          "titulo": "LibreOffice Calc para concursos 2023 - Aula 1 de informática",
+          "canal": "Edital Concurso",
+          "url": "https://www.youtube.com/watch?v=Edezi_MB2R0"
+        },
+        {
+          "tipo": "video",
+          "titulo": "LibreOffice Writer para concursos 2020 - Aula 1 de informática",
+          "canal": "Edital Concurso",
+          "url": "https://www.youtube.com/watch?v=2sMk2MgVxZo"
+        },
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: LibreOffice 7: textos, planilhas e apresentações",
+          "url": "https://www.youtube.com/results?search_query=LibreOffice+7%3A+textos%2C+planilhas+e+apresenta%C3%A7%C3%B5es+aula+concurso"
+        }
+      ]
     },
     {
       "id": "info.windows11",
@@ -1248,7 +1901,14 @@
       "carga_horaria_base": 2,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Windows 11",
+          "url": "https://www.youtube.com/results?search_query=Windows+11+aula+concurso"
+        }
+      ]
     },
     {
       "id": "info.nuvem_lgpd",
@@ -1267,7 +1927,14 @@
       "carga_horaria_base": 1.5,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Nuvem, colaboração e LGPD",
+          "url": "https://www.youtube.com/results?search_query=Nuvem%2C+colabora%C3%A7%C3%A3o+e+LGPD+aula+concurso"
+        }
+      ]
     },
     {
       "id": "info.navegadores_email",
@@ -1291,7 +1958,14 @@
       "carga_horaria_base": 1.5,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Navegadores, internet e correio eletrônico",
+          "url": "https://www.youtube.com/results?search_query=Navegadores%2C+internet+e+correio+eletr%C3%B4nico+aula+concurso"
+        }
+      ]
     },
     {
       "id": "info.seguranca",
@@ -1315,7 +1989,14 @@
       "carga_horaria_base": 1.5,
       "prereq": [],
       "tipo": "pratica",
-      "volatil": false
+      "volatil": false,
+      "materiais": [
+        {
+          "tipo": "busca_video",
+          "titulo": "Buscar aulas no YouTube: Segurança: vírus, worms e antivírus",
+          "url": "https://www.youtube.com/results?search_query=Seguran%C3%A7a%3A+v%C3%ADrus%2C+worms+e+antiv%C3%ADrus+aula+concurso"
+        }
+      ]
     }
   ],
   "provas_historico": [
