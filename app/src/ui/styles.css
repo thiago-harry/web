@@ -1,4 +1,4 @@
-/* Cronograma Direcionado · tokens + layout. Light/dark follow the system. */
+/* Cronograma Personalizado para Você · tokens + layout. Light/dark follow the system. */
 :root {
   --bg: #f3f5f9; --surface: #ffffff; --sunken: #eef1f6; --track: #e2e7ef;
   --ink: #0f1729; --ink-2: #465068; --muted: #636c82;
@@ -52,8 +52,8 @@ main.wrap { padding-block: 24px 40px; }
 .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-weight: 800; font-size: 13px; flex: none; }
 .brand-small { font-size: 11px; color: var(--muted); line-height: 1.2; }
-.brand-name { font-weight: 700; font-size: 14px; }
-.brand-pack { color: var(--muted); font-weight: 500; }
+.brand-name { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; }
+.brand-pack { color: var(--muted); font-weight: 500; font-size: 12px; line-height: 1.2; }
 .steps ol { list-style: none; margin: 0; padding: 0; display: flex; gap: 2px; flex-wrap: wrap; }
 .steps a { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 8px; text-decoration: none; color: var(--ink-2); font-size: 12px; font-weight: 600; }
 .steps a:hover { background: var(--sunken); color: var(--ink); }
