@@ -139,6 +139,7 @@ export const PACK_SCHEMA = {
         prereq: { type: "array", items: { type: "string" } },
         tipo: { type: "string", enum: TOPIC_TYPES },
         volatil: { type: "boolean" },
+        materiais: { type: "array", items: { $ref: "#/$defs/material" } },
       },
     },
     prova_cargo: {
@@ -175,6 +176,19 @@ export const PACK_SCHEMA = {
         fonte: { type: "string" },
         ano: { type: "integer", minimum: 1990, maximum: 2100 },
         desatualizada: { type: "boolean" },
+        origem: { type: "string", enum: ["prova", "gerada_ia"] },
+      },
+    },
+    material: {
+      type: "object",
+      required: ["tipo", "titulo", "url"],
+      additionalProperties: false,
+      properties: {
+        tipo: { type: "string", enum: ["video", "busca_video", "leitura", "questoes"] },
+        titulo: { type: "string", minLength: 1 },
+        url: { type: "string", pattern: "^https://" },
+        canal: { type: "string" },
+        duracao_min: { type: "integer", minimum: 1 },
       },
     },
   },

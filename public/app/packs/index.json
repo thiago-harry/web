@@ -10,6 +10,17 @@
       "data_prova": "2027-04-11",
       "status": "sintetico",
       "descricao": "Pack de demonstração com dados sintéticos: 3 matérias, 12 assuntos, 60 questões fictícias."
+    },
+    {
+      "id": "pmsc-2026-soldado",
+      "arquivo": "pmsc-2026-soldado.json",
+      "nome": "PMSC 2026 · Soldado",
+      "orgao": "Polícia Militar de Santa Catarina",
+      "banca": "Instituto AOCP",
+      "cargo": "Soldado do Quadro de Praças Policial Militar (QPPM)",
+      "data_prova": "2026-12-13",
+      "status": "rascunho",
+      "descricao": "Soldado QPPM · Instituto AOCP · prova objetiva com 60 questões. Caso de estudo: dossiê montado a partir do edital 002/CCP/2026, da prova PMSC 2023 (Cebraspe) e de prova AOCP de Soldado (PM-PE 2024)."
     }
   ]
 }
