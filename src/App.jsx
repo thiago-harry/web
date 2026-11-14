@@ -91,6 +91,8 @@ const DEFAULTS = {
   simDate: null,
   scope: "top80",
   aluno: "",
+  applied: null, // leveling snapshot used by the plan: { strengths, q: { attempt, answers } | null }
+  excecoes: {}, // per-date hours the student added or removed in the agenda
 };
 
 /* ───────────────────────────── Formatação ───────────────────────────── */
@@ -101,6 +103,7 @@ const fmtHr = (h) => `${Math.round(h)}h`;
 const fmtPct = (x) => `${Math.round(x * 100)}%`;
 const fmtDMY = (iso) => (iso ? iso.split("-").reverse().join("/") : "—");
 const fmtDM = (iso) => `${iso.slice(8, 10)}/${iso.slice(5, 7)}`;
+const weekdayOf = (iso) => ["dom", "seg", "ter", "qua", "qui", "sex", "sab"][new Date(`${iso}T12:00:00Z`).getUTCDay()];
 
 function itemSource(it) {
   if (it.origem === "gerada_ia") return { label: "Gerada por IA", ia: true };
@@ -857,6 +860,135 @@ function QuizPanel({ quiz, items, score, onStart, onAnswer, onGo, onFinish, onRe
   );
 }
 
+/* ───────────────────────────── Ajuste ao nível ───────────────────────────── */
+
+function ApplyBar({ applied, pending, marked, quizDone, onApply }) {
+  const status = !applied
+    ? "Marque as matérias e/ou faça o simulado. Depois, reajuste: as horas por assunto mudam e você recebe a carga sugerida para cobrir o top 80%."
+    : pending
+      ? "Você alterou o nivelamento. Reajuste para atualizar prioridades, carga sugerida e agenda."
+      : `Cronograma ajustado ao seu nível (${marked} matéria${marked === 1 ? "" : "s"} marcada${marked === 1 ? "" : "s"}${quizDone ? " + simulado" : ""}).`;
+  return (
+    <div className={`${applied && !pending ? "cg-surface border cg-line" : "cg-warn"} flex flex-wrap items-center justify-between gap-3 rounded-xl px-4 py-3`} role="status">
+      <p className="min-w-0 max-w-2xl text-sm">{status}</p>
+      <button type="button" onClick={onApply} className="cg-btn-primary inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-bold">
+        <RotateCcw className="h-4 w-4" aria-hidden="true" />
+        Reajustar cronograma ao meu nível
+      </button>
+    </div>
+  );
+}
+
+function SuggestionCard({ suggestion, examISO, inUse, onUse, dates, onSimDate }) {
+  const h = suggestion.hours;
+  const days = [
+    ["Seg–Sex", h.seg],
+    ["Sáb", h.sab],
+    ["Dom", h.dom],
+  ];
+  return (
+    <Card className="lg:col-span-2">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="min-w-0 max-w-2xl">
+          <p className="cg-eyebrow">Sugestão para o seu nível</p>
+          <p className="mt-1 text-lg font-extrabold tracking-tight">
+            {suggestion.feasible ? `Para cobrir o top 80% até ${fmtDMY(examISO)}: ` : `Até ${fmtDMY(examISO)} não dá para cobrir o top 80%. Carga máxima: `}
+            <span className="cg-num">{fmtH(suggestion.weekly)} por semana</span>
+          </p>
+          <ul className="mt-2 flex flex-wrap gap-2" aria-label="Carga sugerida por dia">
+            {days.map(([label, v]) => (
+              <li key={label} className="cg-sunken rounded-md px-2.5 py-1 text-xs">
+                <span className="cg-ink2">{label} </span>
+                <b className="cg-num">{v ? fmtH(v) : "folga"}</b>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-sm cg-ink2">
+            {suggestion.feasible
+              ? `${fmtHr(suggestion.raw)} até a prova, ${fmtHr(suggestion.content)} para conteúdo novo; o resto vai para revisões, simulados e reta final.`
+              : `Com essa carga você cobre ${fmtPct(suggestion.cov)} do top 80%.${dates.top ? ` ${inUse ? "Com ela" : "Com a sua carga atual"}, o top 80% fica completo em ${fmtDMY(dates.top)}.` : ""}`}
+          </p>
+        </div>
+        <div className="flex flex-col items-start gap-2">
+          {inUse ? (
+            <span className="cg-good-bg rounded-md px-2.5 py-1 text-xs font-bold">Em uso na agenda</span>
+          ) : (
+            <button type="button" onClick={onUse} className="cg-btn-primary inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-bold">
+              <CalendarCheck className="h-4 w-4" aria-hidden="true" />
+              Usar sugestão
+            </button>
+          )}
+          {!suggestion.feasible && dates.top ? (
+            <button type="button" onClick={() => onSimDate(dates.top)} className="cg-btn-ghost inline-flex h-9 items-center rounded-lg px-3 text-xs font-semibold">
+              Simular prova em {fmtDMY(dates.top)}
+            </button>
+          ) : null}
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+/** Live answer to "how much of the top 80% does my schedule cover?". */
+function CoverageBar({ cov, topPts, needH, weekly, raw, suggestion, manual, onUndoManual, sticky = false }) {
+  const done = cov.cov >= 0.999;
+  const dW = suggestion ? weekly - suggestion.weekly : 0;
+  const dRaw = suggestion ? raw - suggestion.raw : 0;
+  const sign = (v) => (v > 0 ? "+" : v < 0 ? "−" : "±");
+  return (
+    <div
+      className={`cg-surface rounded-xl border cg-line px-4 py-3 ${sticky ? "sticky z-30 shadow-sm" : ""}`}
+      style={sticky ? { top: "calc(env(safe-area-inset-top, 0px) + 61px)" } : undefined}
+      aria-live="polite"
+    >
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+        <div className="flex items-baseline gap-2">
+          <span className="text-xs font-semibold cg-ink2">Top 80% coberto</span>
+          <span className={`text-2xl font-extrabold tracking-tight cg-num ${done ? "cg-good" : ""}`}>{fmtPct(cov.cov)}</span>
+          <span className={`${done ? "cg-good-bg" : "cg-pill-final"} rounded px-1.5 py-0.5 text-[11px] font-bold`}>{done ? "completo" : "parcial"}</span>
+        </div>
+        <div className="cg-track relative h-2 min-w-32 flex-1 overflow-hidden rounded-full" role="img" aria-label={`${fmtPct(cov.cov)} do top 80% coberto`}>
+          <div className="h-full" style={{ width: `${cov.cov * 100}%`, background: done ? "var(--good)" : "var(--accent)", borderRadius: "0 4px 4px 0" }} />
+        </div>
+        <p className="text-xs cg-ink2 cg-num">
+          ≈ <b className="cg-ink">{Math.round(cov.pts)}</b> de {Math.round(topPts)} questões · {fmtHr(cov.hours)} de {fmtHr(needH)} de conteúdo
+        </p>
+      </div>
+      {suggestion || manual.add || manual.del ? (
+        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 border-t cg-line pt-2 text-xs cg-ink2">
+          {suggestion ? (
+            <span className="cg-num">
+              Sua carga <b className="cg-ink">{fmtH(weekly)}/sem</b> · sugestão {fmtH(suggestion.weekly)}/sem
+              {Math.abs(dRaw) >= 0.5 ? (
+                <>
+                  {" "}
+                  ·{" "}
+                  <b className={dRaw < 0 ? "cg-error" : "cg-good"}>
+                    {sign(dRaw)}
+                    {fmtH(Math.abs(dRaw))} até a prova
+                  </b>{" "}
+                  {Math.abs(dW) >= 0.5 ? `(${sign(dW)}${fmtH(Math.abs(dW))}/sem)` : "(ajustes por dia)"}
+                </>
+              ) : (
+                " · igual à sugestão"
+              )}
+            </span>
+          ) : null}
+          {manual.add || manual.del ? (
+            <span className="inline-flex items-center gap-2 cg-num">
+              Ajustes em dias: {manual.add ? <b className="cg-good">+{plan.fmtMin(manual.add)}</b> : null}
+              {manual.del ? <b className="cg-error">−{plan.fmtMin(manual.del)}</b> : null}
+              <button type="button" onClick={onUndoManual} className="cg-link font-semibold">
+                desfazer
+              </button>
+            </span>
+          ) : null}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 /* ───────────────────────────── 3 · Prazo ───────────────────────────── */
 
 function HourSlider({ day, value, onChange }) {
@@ -884,26 +1016,43 @@ function HourSlider({ day, value, onChange }) {
   );
 }
 
-function TimePanel({ state, set, setHour, weekly, cap, need, dates, topCount }) {
+function TimePanel({ state, set, setHour, hours, weekly, cap, need, cov, dates, topCount, suggestion, coverageBar }) {
   const examISO = state.simulate && state.simDate ? state.simDate : EXAM_OFFICIAL;
   const minSim = plan.addDaysISO(TODAY, 14);
   const weeks = Math.max(2, Math.round(plan.diffDaysISO(TODAY, examISO) / 7));
-  const fit = (h) => (h > 0 ? Math.min(1, cap.content / h) : 1);
+  const full = (x) => (x >= 0.999 ? "cg-good" : "cg-error");
   return (
     <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+      {suggestion ? (
+        <SuggestionCard
+          suggestion={suggestion}
+          examISO={examISO}
+          inUse={state.mode === "sugestao"}
+          onUse={() => set({ mode: "sugestao" })}
+          dates={dates}
+          onSimDate={(iso) => set({ simulate: true, simDate: iso })}
+        />
+      ) : null}
+      <div className="lg:col-span-2">{coverageBar}</div>
       <Card>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm font-bold">Horas por dia</p>
           <Segmented
             label="Ritmo"
             value={state.mode}
-            onChange={(v) => (v === "custom" ? set({ mode: v }) : set({ mode: v, hours: { ...plan.MODES[v].hours } }))}
-            options={[...Object.entries(plan.MODES).map(([k, m]) => ({ value: k, label: m.label })), { value: "custom", label: "Personalizado" }]}
+            onChange={(v) =>
+              v === "sugestao" ? set({ mode: v }) : v === "custom" ? set({ mode: v, hours: { ...hours } }) : set({ mode: v, hours: { ...plan.MODES[v].hours } })
+            }
+            options={[
+              ...(suggestion ? [{ value: "sugestao", label: "Sugestão" }] : []),
+              ...Object.entries(plan.MODES).map(([k, m]) => ({ value: k, label: m.label })),
+              { value: "custom", label: "Personalizado" },
+            ]}
           />
         </div>
         <div className="mt-4 flex flex-col gap-1.5">
           {plan.DAY_KEYS.map((d) => (
-            <HourSlider key={d} day={d} value={state.hours[d] ?? 0} onChange={(v) => setHour(d, v)} />
+            <HourSlider key={d} day={d} value={hours[d] ?? 0} onChange={(v) => setHour(d, v)} />
           ))}
         </div>
         <div className="mt-4 flex flex-wrap items-end justify-between gap-3 border-t cg-line pt-3">
@@ -990,13 +1139,13 @@ function TimePanel({ state, set, setHour, weekly, cap, need, dates, topCount }) 
           <div className="cg-surface p-3">
             <dt className="text-xs cg-ink2">Top 80% precisa</dt>
             <dd className="font-bold cg-num">
-              {fmtHr(need.top)} · <span className={fit(need.top) >= 1 ? "cg-good" : "cg-error"}>cabe {fmtPct(fit(need.top))}</span>
+              {fmtHr(need.top)} · <span className={full(cov.cov)}>cobre {fmtPct(cov.cov)}</span>
             </dd>
           </div>
           <div className="cg-surface p-3">
             <dt className="text-xs cg-ink2">Edital completo precisa</dt>
             <dd className="font-bold cg-num">
-              {fmtHr(need.all)} · <span className={fit(need.all) >= 1 ? "cg-good" : "cg-error"}>cabe {fmtPct(fit(need.all))}</span>
+              {fmtHr(need.all)} · <span className={full(cov.examPct)}>cobre {fmtPct(Math.min(1, cov.examPct))}</span>
             </dd>
           </div>
         </dl>
@@ -1055,16 +1204,32 @@ function BlockCard({ b }) {
   );
 }
 
-function DayColumn({ d }) {
+function DayColumn({ d, edited, onAdjust, onReset }) {
   const total = d.blocks.reduce((s, b) => s + b.minutos, 0);
+  const label = `${plan.DAY_LABEL[d.dia_semana]} ${fmtDM(d.data)}`;
   return (
-    <div className="cg-sunken flex min-w-0 flex-col gap-2 rounded-xl p-2">
-      <div className="flex items-baseline justify-between gap-2 px-1 pt-0.5">
-        <p className="text-sm font-bold">
+    <div className="cg-sunken flex min-w-0 flex-col gap-2 rounded-xl p-2" data-edited={edited || undefined}>
+      <div className="flex items-center justify-between gap-1 px-1 pt-0.5">
+        <p className="min-w-0 truncate whitespace-nowrap text-sm font-bold">
           {plan.DAY_LABEL[d.dia_semana]} <span className="cg-mono text-xs font-normal cg-muted">{fmtDM(d.data)}</span>
         </p>
-        {total ? <span className="cg-mono text-xs font-semibold cg-ink2">{plan.fmtMin(total)}</span> : null}
+        <div className="flex shrink-0 items-center gap-0.5">
+          <button type="button" onClick={() => onAdjust(-0.5)} disabled={!d.capacidade_min} aria-label={`Tirar 30 min de ${label}`} className="cg-btn-ghost grid h-6 w-6 place-items-center rounded text-sm font-bold leading-none">
+            −
+          </button>
+          <span className={`cg-mono w-10 text-center text-xs font-semibold cg-num ${edited ? "cg-accent-ink" : "cg-ink2"}`} title="Tempo disponível neste dia">
+            {d.capacidade_min ? plan.fmtMin(d.capacidade_min) : "0h"}
+          </span>
+          <button type="button" onClick={() => onAdjust(0.5)} aria-label={`Adicionar 30 min em ${label}`} className="cg-btn-ghost grid h-6 w-6 place-items-center rounded text-sm font-bold leading-none">
+            +
+          </button>
+        </div>
       </div>
+      {edited ? (
+        <button type="button" onClick={onReset} className="cg-link self-start px-1 text-[11px] font-semibold">
+          ajustado · voltar ao padrão
+        </button>
+      ) : null}
       {!d.blocks.length ? (
         <div className="flex items-center gap-2 rounded-lg border border-dashed cg-line px-3 py-4 text-xs cg-muted">
           <Coffee className="h-4 w-4" aria-hidden="true" />
@@ -1074,7 +1239,7 @@ function DayColumn({ d }) {
       {d.blocks.map((b, i) => (
         <BlockCard key={i} b={b} />
       ))}
-      {d.blocks.length && d.capacidade_min - total >= 15 ? (
+      {d.blocks.length > 0 && d.capacidade_min - total >= 15 ? (
         <div className="rounded-lg border border-dashed cg-line px-2.5 py-2 text-xs cg-muted">
           <span className="cg-mono cg-num">{plan.fmtMin(d.capacidade_min - total)}</span> de margem para imprevistos
         </div>
@@ -1083,7 +1248,7 @@ function DayColumn({ d }) {
   );
 }
 
-function SchedulePanel({ weeks, week, setWeek, result, examISO, dates, onSimTop, exportBar }) {
+function SchedulePanel({ weeks, week, setWeek, result, examISO, dates, onSimTop, exportBar, coverageBar, dayProps }) {
   if (!weeks.length) return null;
   const w = weeks[Math.min(week, weeks.length) - 1];
   const totals = Object.fromEntries(ACT_KEYS.map((k) => [k, 0]));
@@ -1094,7 +1259,7 @@ function SchedulePanel({ weeks, week, setWeek, result, examISO, dates, onSimTop,
       <SectionHead
         step="4 · Cronograma"
         title="Sua agenda, semana a semana"
-        desc="Cada assunto vira videoaula + leitura (proporção pelo tipo do assunto) e depois exercícios. Revisões em 1, 7, 21 e 60 dias; simulados completos a cada 4 semanas."
+        desc="Cada assunto começa com videoaula, segue com leitura e depois exercícios. Use − e + em cada dia para tirar ou incluir tempo: a agenda e a cobertura do top 80% se recalculam na hora."
         right={
           <div className="flex items-center gap-2">
             <button type="button" onClick={() => setWeek(week - 1)} disabled={week <= 1} aria-label="Semana anterior" className="cg-btn-ghost grid h-9 w-9 place-items-center rounded-lg">
@@ -1115,6 +1280,7 @@ function SchedulePanel({ weeks, week, setWeek, result, examISO, dates, onSimTop,
           </div>
         }
       />
+      {coverageBar}
       {result.cobertura_parcial ? (
         <div role="status" className="cg-warn flex flex-wrap items-center justify-between gap-3 rounded-lg px-4 py-3 text-sm">
           <span className="inline-flex items-start gap-2">
@@ -1145,7 +1311,7 @@ function SchedulePanel({ weeks, week, setWeek, result, examISO, dates, onSimTop,
       </ul>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
         {days.map((d) => (
-          <DayColumn key={d.data} d={d} />
+          <DayColumn key={d.data} d={d} {...dayProps(d)} />
         ))}
       </div>
     </section>
@@ -1235,7 +1401,6 @@ export default function App() {
   }, [state]);
 
   const set = (patch) => setState((s) => ({ ...s, ...patch }));
-  const setHour = (d, v) => setState((s) => ({ ...s, mode: "custom", hours: { ...s.hours, [d]: v } }));
 
   // leveling
   const quizItems = useMemo(() => (state.quiz ? plan.sampleQuiz(pack, { n: QUIZ_N, seed: `${pack.concurso.id}|${state.quiz.attempt}` }).itens : null), [state.quiz?.attempt]);
@@ -1251,32 +1416,92 @@ export default function App() {
     }
     return out;
   }, [quizScore]);
-  const nivelamento = useMemo(() => plan.nivelamentoInput(pack, state.strengths, quizScore), [state.strengths, quizScore]);
+  // the plan follows the leveling the student applied with "Reajustar", not every click
+  const levelNow = { strengths: state.strengths, q: state.quiz?.done ? { attempt: state.quiz.attempt, answers: state.quiz.answers } : null };
+  const pending = !state.applied || JSON.stringify(state.applied) !== JSON.stringify(levelNow);
+  const appliedKey = JSON.stringify(state.applied);
+  const nivelamento = useMemo(() => {
+    const a = state.applied;
+    if (!a) return {};
+    const q = a.q ? plan.scoreQuiz(plan.sampleQuiz(pack, { n: QUIZ_N, seed: `${pack.concurso.id}|${a.q.attempt}` }).itens, a.q.answers) : null;
+    return plan.nivelamentoInput(pack, a.strengths, q);
+  }, [appliedKey]);
   const scores = useMemo(() => plan.score({ pack, nivelamento }), [nivelamento]);
   const par = useMemo(() => plan.pareto(pack, scores), [scores]);
   const cmp = useMemo(() => plan.compare(pack, scores), [scores]);
 
   // time
   const examISO = state.simulate && state.simDate ? state.simDate : EXAM_OFFICIAL;
-  const weekly = plan.DAY_KEYS.reduce((s, k) => s + (state.hours[k] ?? 0), 0);
+  const nTopics = state.scope === "top80" ? par.topCount : N_ASSUNTOS;
+  const excecoes = useMemo(() => Object.fromEntries(Object.entries(state.excecoes ?? {}).filter(([iso]) => iso >= TODAY && iso < examISO)), [state.excecoes, examISO]);
+  const suggestion = useMemo(
+    () => (state.applied ? plan.suggestLoad({ pack, par, cmp, start: TODAY, exam: examISO, nTopics }) : null),
+    [appliedKey, par, cmp, examISO, nTopics]
+  );
+  const mode = state.mode === "sugestao" && !suggestion ? "custom" : state.mode;
+  const hours = mode === "sugestao" ? suggestion.hours : state.hours;
+  const weekly = plan.weeklyOf(hours);
+  const setHour = (d, v) => setState((s) => ({ ...s, mode: "custom", hours: { ...hours, [d]: v } }));
   const scoped = useMemo(() => (state.scope === "top80" ? plan.scopePack(pack, par.top) : pack), [state.scope, par]);
+  const hasHours = weekly > 0 || Object.values(excecoes).some((v) => v > 0);
   const result = useMemo(
-    () => (weekly > 0 ? plan.buildPlan({ pack: scoped, nivelamento, hours: state.hours, start: TODAY, exam: examISO }) : { ok: false, erros: [{ message: "Sem horas na semana" }] }),
-    [scoped, nivelamento, state.hours, examISO, weekly]
+    () =>
+      hasHours
+        ? plan.buildPlan({ pack: scoped, nivelamento, hours, start: TODAY, exam: examISO, excecoes })
+        : { ok: false, erros: [{ message: "Sem horas na semana" }] },
+    [scoped, nivelamento, hours, examISO, excecoes, hasHours, weekly]
   );
   const weeks = useMemo(() => (result.ok && result.cronograma ? plan.displayWeeks(result, pack, { inicio: state.inicio, inicioFds: state.inicioFds }) : []), [result, state.inicio, state.inicioFds]);
   const dates = useMemo(
     () => ({
-      top: plan.dateToCover(pack, state.hours, TODAY, par.topHours, par.topCount),
-      all: plan.dateToCover(pack, state.hours, TODAY, par.totalHours, N_ASSUNTOS),
+      top: plan.dateToCover(pack, hours, TODAY, par.topHours, par.topCount),
+      all: plan.dateToCover(pack, hours, TODAY, par.totalHours, N_ASSUNTOS),
     }),
-    [state.hours, par]
+    [hours, par]
   );
   const cap = {
     raw: result.ok ? result.capacidade.horas_brutas : 0,
     content: result.ok ? result.capacidade.horas_para_conteudo : 0,
   };
   const need = { top: par.topHours, all: par.totalHours };
+  const cov = plan.topCoverage(par, cmp, cap.content);
+  // minutes the student added/removed on specific dates, against the weekday hours
+  const manual = { add: 0, del: 0 };
+  for (const [iso, h] of Object.entries(excecoes)) {
+    const diff = Math.round((h - (hours[weekdayOf(iso)] ?? 0)) * 60);
+    if (diff > 0) manual.add += diff;
+    else manual.del -= diff;
+  }
+  const adjustDay = (iso, delta) =>
+    setState((s) => {
+      const base = hours[weekdayOf(iso)] ?? 0;
+      const cur = s.excecoes?.[iso] ?? base;
+      const next = Math.min(12, Math.max(0, cur + delta));
+      const ex = { ...(s.excecoes ?? {}) };
+      if (Math.abs(next - base) < 1e-9) delete ex[iso];
+      else ex[iso] = next;
+      return { ...s, excecoes: ex };
+    });
+  const resetDay = (iso) =>
+    setState((s) => {
+      const ex = { ...(s.excecoes ?? {}) };
+      delete ex[iso];
+      return { ...s, excecoes: ex };
+    });
+  const applyLevel = () => {
+    set({ applied: levelNow, mode: "sugestao" });
+    requestAnimationFrame(() => document.getElementById("prazo")?.scrollIntoView({ block: "start" }));
+  };
+  const coverageProps = {
+    cov,
+    topPts: par.topPts,
+    needH: par.topHours,
+    weekly,
+    raw: cap.raw,
+    suggestion,
+    manual,
+    onUndoManual: () => set({ excecoes: {} }),
+  };
   const nums = {
     genAt: plan.coverageAt(cmp.generic, cap.content),
     persAt: plan.coverageAt(cmp.personalized, cap.content),
@@ -1308,7 +1533,7 @@ export default function App() {
 
   const materiasInfo = Object.fromEntries(Object.values(MAT).map((m) => [m.id, { nome: m.nome, curto: m.curto, hex: m.hex }]));
   const scopeLabel = state.scope === "top80" ? `Top 80% (${par.topCount} de ${N_ASSUNTOS} assuntos)` : `Edital completo (${N_ASSUNTOS} assuntos)`;
-  const modeLabel = state.mode === "custom" ? "Personalizado" : plan.MODES[state.mode].label;
+  const modeLabel = mode === "custom" ? "Personalizado" : mode === "sugestao" ? "Sugerido para o top 80%" : plan.MODES[mode].label;
 
   const exportPdf = async () => {
     if (busy || !weeks.length) return;
@@ -1321,7 +1546,7 @@ export default function App() {
         pack,
         weeks,
         materias: materiasInfo,
-        info: { examISO, simulated: state.simulate, modeLabel, weeklyH: weekly, rawH: cap.raw, contentH: cap.content, scopeLabel, startISO: TODAY, todayISO: TODAY },
+        info: { examISO, simulated: state.simulate, modeLabel, weeklyH: weekly, rawH: cap.raw, contentH: cap.content, scopeLabel, startISO: TODAY, todayISO: TODAY, coverage: cov.cov, manual },
         top: par.items.filter((x) => x.inTop).map((x, i) => ({ rank: i + 1, materia_id: x.assunto.materia_id, nome: x.assunto.nome, nivel: BASE_SCORES.byId[x.id].nivel, pts: x.pts, horas: x.horas })),
         cmp: nums,
         aluno: state.aluno,
@@ -1343,7 +1568,7 @@ export default function App() {
     ["#dossie", "Dossiê"],
     ["#top80", "Top 80%"],
     ["#nivelamento", "Nivelamento"],
-    ["#prazo", "Prazo"],
+    ["#prazo", "Carga"],
     ["#cronograma", "Agenda"],
     ["#comparativo", "Resultado"],
   ];
@@ -1387,11 +1612,7 @@ export default function App() {
           <div className="cg-hairlines grid grid-cols-2 gap-px overflow-hidden rounded-xl border cg-line lg:grid-cols-4">
             <StatTile label="Dias até a prova" value={daysLeft} sub={`${fmtDMY(examISO)}${state.simulate ? " (simulada)" : " (edital)"}`} />
             <StatTile label="Top 80% da prova" value={`${par.topCount} assuntos`} sub={`de ${N_ASSUNTOS} · ${fmtHr(par.topHours)} no seu nível`} />
-            <StatTile
-              label="Cabe até a prova"
-              value={fmtPct(Math.min(1, cap.content / Math.max(1, state.scope === "top80" ? need.top : need.all)))}
-              sub={`${fmtHr(cap.content)} de conteúdo · ${state.scope === "top80" ? "top 80%" : "edital"} pede ${fmtHr(state.scope === "top80" ? need.top : need.all)}`}
-            />
+            <StatTile label="Top 80% coberto" value={fmtPct(cov.cov)} sub={`com ${fmtH(weekly)}/semana até a prova · precisa ${fmtHr(need.top)} de conteúdo`} />
             <StatTile
               label="Economia vs. genérico"
               value={nums.gen80 ? `−${fmtHr(Math.max(0, nums.gen80 - nums.pers80))}` : "—"}
@@ -1448,11 +1669,29 @@ export default function App() {
             }
           />
           <QuizPanel quiz={state.quiz} items={quizItems} score={quizScore} {...quizActions} />
+          <ApplyBar applied={Boolean(state.applied)} pending={pending} marked={Object.keys(state.applied?.strengths ?? {}).length} quizDone={Boolean(state.applied?.q)} onApply={applyLevel} />
         </section>
 
         <section id="prazo" className="cg-anchor flex flex-col gap-4">
-          <SectionHead step="3 · Prazo e carga" title="Seu tempo até a prova" desc="Ajuste as horas de cada dia. Simule outra data para ver quanto tempo levaria para estudar o top 80% ou o edital inteiro." />
-          <TimePanel state={state} set={set} setHour={setHour} weekly={weekly} cap={cap} need={need} dates={dates} topCount={par.topCount} />
+          <SectionHead
+            step="3 · Carga horária"
+            title={suggestion ? "Carga sugerida e seus ajustes" : "Seu tempo até a prova"}
+            desc="Partimos da carga que cobre o top 80% até a prova. Mude as horas de cada dia ou a data: a cobertura do top 80% e a agenda se recalculam na hora."
+          />
+          <TimePanel
+            state={{ ...state, mode }}
+            set={set}
+            setHour={setHour}
+            hours={hours}
+            weekly={weekly}
+            cap={cap}
+            need={need}
+            cov={{ ...cov, examPct: state.scope === "top80" ? Math.min(cov.examPct, par.topPts / par.total) : cov.examPct }}
+            dates={dates}
+            topCount={par.topCount}
+            suggestion={suggestion}
+            coverageBar={<CoverageBar {...coverageProps} />}
+          />
         </section>
 
         {result.ok && weeks.length ? (
@@ -1464,6 +1703,8 @@ export default function App() {
             examISO={examISO}
             dates={dates}
             onSimTop={() => set({ simulate: true, simDate: dates.top })}
+            coverageBar={<CoverageBar {...coverageProps} sticky />}
+            dayProps={(d) => ({ edited: d.data in excecoes, onAdjust: (delta) => adjustDay(d.data, delta), onReset: () => resetDay(d.data) })}
             exportBar={
               <ExportBar
                 aluno={state.aluno}
@@ -1480,7 +1721,7 @@ export default function App() {
           <section id="cronograma" className="cg-anchor">
             <div role="status" className="cg-warn flex items-center gap-2 rounded-lg px-4 py-3 text-sm">
               <TriangleAlert className="cg-warn-icon h-4 w-4 shrink-0" aria-hidden="true" />
-              {weekly <= 0 ? "Defina ao menos um dia com horas de estudo." : `Não foi possível montar a agenda: ${result.erros?.[0]?.message ?? "verifique a data"}.`}
+              {!hasHours ? "Defina ao menos um dia com horas de estudo." : `Não foi possível montar a agenda: ${result.erros?.[0]?.message ?? "verifique a data"}.`}
             </div>
           </section>
         )}

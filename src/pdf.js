@@ -133,6 +133,12 @@ export async function exportPdf({ appName, pack, weeks, materias, info, top, cmp
       ["Ritmo", t(info.modeLabel), "Horas por semana", fmtH(info.weeklyH)],
       ["Horas até a prova", fmtH(info.rawH), "Horas para conteúdo novo", fmtH(info.contentH)],
       ["Escopo", t(info.scopeLabel), "Semanas", String(weeks.length)],
+      [
+        "Top 80% coberto",
+        fmtPct(info.coverage ?? 0),
+        "Ajustes em dias",
+        info.manual && (info.manual.add || info.manual.del) ? t(`+${fmtMin(info.manual.add)} / −${fmtMin(info.manual.del)}`) : "nenhum",
+      ],
     ],
   });
 

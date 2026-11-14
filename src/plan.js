@@ -54,11 +54,11 @@ export function nivelamentoInput(pack, strengths, quizScore) {
 
 /* ---------------- engine call ---------------- */
 
-export function buildPlan({ pack, nivelamento, hours, start, exam }) {
+export function buildPlan({ pack, nivelamento, hours, start, exam, excecoes = {} }) {
   return generate({
     pack,
     nivelamento,
-    disponibilidade: { horas_por_dia_semana: hours, data_inicio: start, data_prova: exam, bloco_min_minutos: 30, bloco_max_minutos: 90 },
+    disponibilidade: { horas_por_dia_semana: hours, data_inicio: start, data_prova: exam, bloco_min_minutos: 30, bloco_max_minutos: 90, excecoes },
     options: { allocate: { leftover: "second_pass", accept_cut: true } },
   });
 }
@@ -183,26 +183,61 @@ export function compare(pack, scores) {
   return { generic, personalized, total };
 }
 
-/** Hours the engine leaves for new content until `exam` (after buffer, final stretch, mocks and revisions). */
-export function contentHours(pack, hours, start, exam, nTopics = pack.assuntos.length) {
+/** Raw hours until `exam` and the hours the engine leaves for new content (after buffer, final stretch, mocks, revisions). */
+export function capacity(pack, hours, start, exam, nTopics = pack.assuntos.length, excecoes = {}) {
   const cfg = { ...ALLOCATION_DEFAULTS };
-  const input = normalizeAvailability({ horas_por_dia_semana: hours, data_inicio: start, data_prova: exam }, pack);
-  if (!input.ok) return 0;
+  const input = normalizeAvailability({ horas_por_dia_semana: hours, data_inicio: start, data_prova: exam, excecoes }, pack);
+  if (!input.ok) return { raw: 0, content: 0 };
   const cal = buildCalendar(input, cfg);
   const mocks = planMocks(cal, cfg, input, pack.estrutura_prova.total_questoes);
-  return estimateReserves(cal, cfg, input, mocks, nTopics).content_min / 60;
+  return { raw: cal.rawMin / 60, content: estimateReserves(cal, cfg, input, mocks, nTopics).content_min / 60 };
+}
+
+export const contentHours = (pack, hours, start, exam, nTopics, excecoes) => capacity(pack, hours, start, exam, nTopics, excecoes).content;
+
+/** Share of the top 80% that `contentH` hours of new content cover (points-weighted, best return first). */
+export function topCoverage(par, cmp, contentH) {
+  const share = par.total > 0 ? par.topPts / par.total : 1;
+  const examPct = coverageAt(cmp.personalized, contentH);
+  const cov = Math.min(1, examPct / share);
+  return { cov, examPct, pts: cov * par.topPts, hours: Math.min(contentH, par.topHours) };
+}
+
+// Ceiling for suggestions: 6h on weekdays, 10h on Saturday, 6h on Sunday.
+export const LOAD_CAP = Object.freeze({ weekday: 6, sab: 10, dom: 6 });
+const halfStep = (x) => Math.round(x * 2) / 2;
+const loadPattern = (x, dom) => ({ seg: x, ter: x, qua: x, qui: x, sex: x, sab: Math.min(LOAD_CAP.sab, halfStep(x * 1.5)), dom });
+export const weeklyOf = (hours) => DAY_KEYS.reduce((s, k) => s + (hours[k] ?? 0), 0);
+
+/**
+ * Lightest weekly load (weekdays x, Saturday 1.5x, Sunday off; Sunday only after weekdays hit the cap)
+ * whose content hours cover the whole top 80% by `exam`. When even the cap falls short, returns the cap
+ * with feasible = false and the coverage it reaches.
+ */
+export function suggestLoad({ pack, par, cmp, start, exam, nTopics, excecoes = {} }) {
+  const candidates = [];
+  for (let x = 0.5; x <= LOAD_CAP.weekday + 1e-9; x += 0.5) candidates.push(loadPattern(x, 0));
+  for (let dom = 1; dom <= LOAD_CAP.dom; dom += 1) candidates.push(loadPattern(LOAD_CAP.weekday, dom));
+  let pick = null;
+  for (const hours of candidates) {
+    const cap = capacity(pack, hours, start, exam, nTopics, excecoes);
+    const cov = topCoverage(par, cmp, cap.content);
+    pick = { hours, weekly: weeklyOf(hours), raw: cap.raw, content: cap.content, cov: cov.cov, feasible: cov.cov >= 0.999 };
+    if (pick.feasible) break;
+  }
+  return pick;
 }
 
 /** Earliest exam date whose content hours reach `needH` (binary search, up to 3 years). */
-export function dateToCover(pack, hours, start, needH, nTopics) {
+export function dateToCover(pack, hours, start, needH, nTopics, excecoes = {}) {
   const weekly = DAY_KEYS.reduce((s, k) => s + (hours[k] ?? 0), 0);
   if (weekly <= 0 || needH <= 0) return null;
   let lo = 7;
   let hi = 1095;
-  if (contentHours(pack, hours, start, addDaysISO(start, hi), nTopics) < needH) return null;
+  if (contentHours(pack, hours, start, addDaysISO(start, hi), nTopics, excecoes) < needH) return null;
   while (lo < hi) {
     const mid = (lo + hi) >> 1;
-    if (contentHours(pack, hours, start, addDaysISO(start, mid), nTopics) >= needH) hi = mid;
+    if (contentHours(pack, hours, start, addDaysISO(start, mid), nTopics, excecoes) >= needH) hi = mid;
     else lo = mid + 1;
   }
   return addDaysISO(start, lo);

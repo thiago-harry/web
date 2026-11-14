@@ -7,7 +7,7 @@
 //   nivelamento    = { autoavaliacao?: { [assunto_id]: 0..4 | "nunca" },
 //                      simulado?:      { [assunto_id]: { respondidas, erros } } }
 //   disponibilidade = { horas_por_dia_semana: { seg..dom }, data_inicio, data_prova?,
-//                       bloco_min_minutos?, bloco_max_minutos? }
+//                       bloco_min_minutos?, bloco_max_minutos?, excecoes?: { "AAAA-MM-DD": horas } }
 //   options        = { score?: {...SCORE_DEFAULTS, weights}, allocate?: {...ALLOCATION_DEFAULTS} }
 
 import { validatePack, PACK_SCHEMA, formatIssues } from "./schema.js";
