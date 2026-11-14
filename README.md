@@ -9,12 +9,12 @@ npm run dev      # http://localhost:5173
 npm run build    # gera dist/
 ```
 
-**No ar:** https://thiago-harry.github.io/web/mvp/
+**No ar:** https://thiago-harry.github.io/web/ (vira `/crono/` quando o repositório for renomeado)
 
-O GitHub Pages deste repositório publica a pasta `/docs` do branch `claude/funny-edison-whtbw7`
-(o pitch fica em `/web/`). A cada push no `main`, `.github/workflows/publish.yml` reconstrói o MVP,
-copia `dist/` para `docs/mvp/` e `app/` para `docs/app/` nesse branch e faz o push. Nenhuma
-configuração manual do Pages é necessária.
+O GitHub Pages deste repositório publica a pasta `/docs` do branch `claude/funny-edison-whtbw7`.
+A cada push no `main`, `.github/workflows/publish.yml` reconstrói o MVP e o publica na raiz do site
+(também em `/mvp/`, para links antigos) e copia `app/` para `/app/`. Nenhuma configuração manual do
+Pages é necessária.
 
 ## Regras implementadas
 
