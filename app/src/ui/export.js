@@ -63,7 +63,7 @@ const icsLocal = (iso, minOfDay) => {
 export function toICS({ result, pack, inicioHora, stamp }) {
   const nomes = Object.fromEntries(pack.assuntos.map((a) => [a.id, a.nome]));
   const materias = Object.fromEntries(pack.estrutura_prova.materias.map((m) => [m.id, m.nome]));
-  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Mentoria 2G//Cronograma Direcionado//PT", "CALSCALE:GREGORIAN", `X-WR-CALNAME:${icsEscape(`${t.app.nome} · ${pack.concurso.nome}`)}`];
+  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Cronograma Personalizado para Voce//PT", "CALSCALE:GREGORIAN", `X-WR-CALNAME:${icsEscape(`${t.app.nome} · ${pack.concurso.nome}`)}`];
   const dtstamp = stamp ?? "20260101T000000Z";
   for (const w of result.cronograma) {
     for (const d of w.dias) {
@@ -73,7 +73,7 @@ export function toICS({ result, pack, inicioHora, stamp }) {
         const summary = `[${t.cronograma.atividade[b.atividade]}] ${subject}`;
         lines.push(
           "BEGIN:VEVENT",
-          `UID:${pack.concurso.id}-${d.data}-${i}@cronograma-2g`,
+          `UID:${pack.concurso.id}-${d.data}-${i}@cronograma-personalizado`,
           `DTSTAMP:${dtstamp}`,
           `DTSTART:${icsLocal(d.data, times[i].start)}`,
           `DTEND:${icsLocal(d.data, times[i].end)}`,

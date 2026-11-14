@@ -53,6 +53,26 @@ jobs:
             rm -rf "site/$d"; mkdir -p "site/$d"; cp -r app/index.html app/src app/packs "site/$d/"
           done
 
+      - name: Root page opens the app (the pitch is retired; its files stay in git history)
+        run: |
+          set -euo pipefail
+          cat > site/docs/index.html <<'HTML'
+          <!doctype html>
+          <html lang="pt-BR">
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <meta name="robots" content="noindex, nofollow" />
+              <title>Cronograma Personalizado para Você</title>
+              <meta http-equiv="refresh" content="0; url=./app/" />
+              <link rel="canonical" href="./app/" />
+              <script>location.replace("./app/" + location.hash);</script>
+            </head>
+            <body><p><a href="./app/">Abrir o Cronograma Personalizado para Você</a></p></body>
+          </html>
+          HTML
+          sed -i 's/^          //' site/docs/index.html
+
       - name: Commit and push
         id: push
         working-directory: site
@@ -60,7 +80,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A docs/mvp public/mvp docs/app public/app
+          git add -A docs/mvp public/mvp docs/app public/app docs/index.html
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Nothing to publish."

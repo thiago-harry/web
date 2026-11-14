@@ -18,7 +18,7 @@ export const LEVELING_MODES = ["autoavaliacao", "simulado", "hibrido"];
 export const PACK_SCHEMA = {
   $schema: "https://json-schema.org/draft/2020-12/schema",
   $id: "cronograma-direcionado/pack.schema.json",
-  title: "Content pack - Cronograma Direcionado",
+  title: "Content pack - Cronograma Personalizado para Você",
   type: "object",
   required: ["pack_version", "concurso", "estrutura_prova", "assuntos", "provas_historico", "nivelamento", "notas_banca"],
   additionalProperties: false,

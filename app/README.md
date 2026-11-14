@@ -1,8 +1,8 @@
-# Cronograma Direcionado · `app/`
+# Cronograma Personalizado para Você · `app/`
 
 Evolução do MVP (`src/App.jsx`, publicado em `/web/mvp/`) para um gerador de cronogramas
 vendável. Vanilla JS, ES modules, sem build step, sem rede em runtime (só os JSONs do próprio
-site). Segue a spec "Cronograma Direcionado"; o MVP permanece intacto como referência.
+site). Segue a spec original ("Cronograma Direcionado"); o MVP permanece intacto como referência.
 
 **No ar:** https://thiago-harry.github.io/web/app/
 
