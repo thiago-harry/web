@@ -1,0 +1,316 @@
+{
+  "assuntos": {
+    "dconst.teoria_constituicao": {
+      "carga_horaria_base": 4,
+      "tipo": "doutrina"
+    },
+    "dconst.principios_fundamentais": {
+      "carga_horaria_base": 2,
+      "tipo": "lei_seca"
+    },
+    "dconst.direitos_garantias": {
+      "carga_horaria_base": 10,
+      "tipo": "lei_seca"
+    },
+    "dconst.organizacao_estado": {
+      "carga_horaria_base": 8,
+      "tipo": "lei_seca"
+    },
+    "dconst.poderes": {
+      "carga_horaria_base": 8,
+      "tipo": "lei_seca"
+    },
+    "dconst.justica_funcoes": {
+      "carga_horaria_base": 3,
+      "tipo": "lei_seca"
+    },
+    "dconst.seguranca_publica": {
+      "carga_horaria_base": 4,
+      "tipo": "lei_seca"
+    },
+    "dconst.constituicao_sc": {
+      "carga_horaria_base": 5,
+      "tipo": "lei_seca"
+    },
+    "dpenal.lei_penal": {
+      "carga_horaria_base": 4,
+      "tipo": "doutrina"
+    },
+    "dpenal.teoria_crime": {
+      "carga_horaria_base": 10,
+      "tipo": "doutrina",
+      "prereq": [
+        "dpenal.lei_penal"
+      ]
+    },
+    "dpenal.penas": {
+      "carga_horaria_base": 5,
+      "tipo": "lei_seca",
+      "prereq": [
+        "dpenal.teoria_crime"
+      ]
+    },
+    "dpenal.extincao_punibilidade": {
+      "carga_horaria_base": 2,
+      "tipo": "lei_seca"
+    },
+    "dpenal.crimes_pessoa": {
+      "carga_horaria_base": 5,
+      "tipo": "lei_seca"
+    },
+    "dpenal.crimes_patrimonio": {
+      "carga_horaria_base": 4,
+      "tipo": "lei_seca"
+    },
+    "dpenal.crimes_dignidade_sexual": {
+      "carga_horaria_base": 2,
+      "tipo": "lei_seca"
+    },
+    "dpenal.crimes_fe_publica": {
+      "carga_horaria_base": 2,
+      "tipo": "lei_seca"
+    },
+    "dpenal.crimes_adm_publica": {
+      "carga_horaria_base": 4,
+      "tipo": "lei_seca"
+    },
+    "dpenal.principios": {
+      "carga_horaria_base": 2,
+      "tipo": "doutrina"
+    },
+    "dpenal.crimes_ambientais": {
+      "carga_horaria_base": 2,
+      "tipo": "lei_seca"
+    },
+    "dpp.nocoes": {
+      "carga_horaria_base": 3,
+      "tipo": "doutrina"
+    },
+    "dpp.inquerito": {
+      "carga_horaria_base": 5,
+      "tipo": "lei_seca"
+    },
+    "dpp.acao_penal": {
+      "carga_horaria_base": 3,
+      "tipo": "lei_seca"
+    },
+    "dpp.competencia": {
+      "carga_horaria_base": 3,
+      "tipo": "lei_seca"
+    },
+    "dpp.provas": {
+      "carga_horaria_base": 5,
+      "tipo": "lei_seca"
+    },
+    "dpp.prisoes": {
+      "carga_horaria_base": 6,
+      "tipo": "lei_seca",
+      "prereq": [
+        "dpp.nocoes"
+      ]
+    },
+    "dpp.incidentes_assecuratorias": {
+      "carga_horaria_base": 2,
+      "tipo": "lei_seca"
+    },
+    "dpp.sujeitos_procedimentos": {
+      "carga_horaria_base": 3,
+      "tipo": "lei_seca"
+    },
+    "dpp.nulidades_recursos": {
+      "carga_horaria_base": 4,
+      "tipo": "lei_seca"
+    },
+    "dpp.leis_especiais": {
+      "carga_horaria_base": 3,
+      "tipo": "lei_seca"
+    },
+    "dpm.aplicacao_crime_militar": {
+      "carga_horaria_base": 4,
+      "tipo": "lei_seca"
+    },
+    "dpm.crime_imputabilidade": {
+      "carga_horaria_base": 4,
+      "tipo": "lei_seca",
+      "prereq": [
+        "dpm.aplicacao_crime_militar"
+      ]
+    },
+    "dpm.penas": {
+      "carga_horaria_base": 3,
+      "tipo": "lei_seca"
+    },
+    "dpm.crimes_autoridade_servico": {
+      "carga_horaria_base": 4,
+      "tipo": "lei_seca"
+    },
+    "dpm.outros_crimes_militares": {
+      "carga_horaria_base": 4,
+      "tipo": "lei_seca"
+    },
+    "legesp.hediondos": {
+      "carga_horaria_base": 2,
+      "tipo": "lei_seca"
+    },
+    "legesp.racismo": {
+      "carga_horaria_base": 1,
+      "tipo": "lei_seca"
+    },
+    "legesp.tortura": {
+      "carga_horaria_base": 1.5,
+      "tipo": "lei_seca"
+    },
+    "legesp.crime_organizado": {
+      "carga_horaria_base": 2.5,
+      "tipo": "lei_seca"
+    },
+    "legesp.drogas": {
+      "carga_horaria_base": 3,
+      "tipo": "lei_seca"
+    },
+    "legesp.abuso_autoridade": {
+      "carga_horaria_base": 2.5,
+      "tipo": "lei_seca"
+    },
+    "legesp.desarmamento": {
+      "carga_horaria_base": 2.5,
+      "tipo": "lei_seca"
+    },
+    "legesp.maria_da_penha": {
+      "carga_horaria_base": 2.5,
+      "tipo": "lei_seca"
+    },
+    "legesp.eca": {
+      "carga_horaria_base": 3,
+      "tipo": "lei_seca"
+    },
+    "legesp.idoso": {
+      "carga_horaria_base": 1.5,
+      "tipo": "lei_seca"
+    },
+    "legesp.identificacao_criminal": {
+      "carga_horaria_base": 1,
+      "tipo": "lei_seca"
+    },
+    "transito.disposicoes_snt": {
+      "carga_horaria_base": 1.5,
+      "tipo": "lei_seca"
+    },
+    "transito.normas_circulacao": {
+      "carga_horaria_base": 3,
+      "tipo": "lei_seca"
+    },
+    "transito.sinalizacao": {
+      "carga_horaria_base": 1,
+      "tipo": "lei_seca"
+    },
+    "transito.veiculos": {
+      "carga_horaria_base": 1,
+      "tipo": "lei_seca"
+    },
+    "transito.registro_habilitacao": {
+      "carga_horaria_base": 3,
+      "tipo": "lei_seca"
+    },
+    "transito.infracoes_penalidades": {
+      "carga_horaria_base": 3,
+      "tipo": "lei_seca"
+    },
+    "transito.crimes": {
+      "carga_horaria_base": 2.5,
+      "tipo": "lei_seca"
+    },
+    "inst.estatuto_pmsc": {
+      "carga_horaria_base": 5,
+      "tipo": "memorizacao"
+    },
+    "inst.pad": {
+      "carga_horaria_base": 2.5,
+      "tipo": "memorizacao"
+    },
+    "inst.lei_organica_nacional": {
+      "carga_horaria_base": 3,
+      "tipo": "memorizacao"
+    },
+    "inst.ingresso": {
+      "carga_horaria_base": 1.5,
+      "tipo": "memorizacao"
+    },
+    "inst.promocao_pracas": {
+      "carga_horaria_base": 2,
+      "tipo": "memorizacao"
+    },
+    "inst.remuneracao": {
+      "carga_horaria_base": 1.5,
+      "tipo": "memorizacao"
+    },
+    "inst.organizacao_basica": {
+      "carga_horaria_base": 2,
+      "tipo": "memorizacao"
+    },
+    "inst.conselho_disciplina": {
+      "carga_horaria_base": 1.5,
+      "tipo": "memorizacao"
+    },
+    "port.interpretacao": {
+      "carga_horaria_base": 6,
+      "tipo": "pratica"
+    },
+    "port.semantica": {
+      "carga_horaria_base": 2.5,
+      "tipo": "pratica"
+    },
+    "port.morfologia": {
+      "carga_horaria_base": 4,
+      "tipo": "pratica"
+    },
+    "port.sintaxe": {
+      "carga_horaria_base": 4,
+      "tipo": "pratica"
+    },
+    "port.concordancia": {
+      "carga_horaria_base": 2.5,
+      "tipo": "pratica"
+    },
+    "port.regencia_crase": {
+      "carga_horaria_base": 2.5,
+      "tipo": "pratica"
+    },
+    "port.reescrita": {
+      "carga_horaria_base": 2.5,
+      "tipo": "pratica"
+    },
+    "port.pontuacao": {
+      "carga_horaria_base": 2,
+      "tipo": "pratica"
+    },
+    "port.coesao": {
+      "carga_horaria_base": 2.5,
+      "tipo": "pratica"
+    },
+    "info.hardware_software": {
+      "carga_horaria_base": 2,
+      "tipo": "pratica"
+    },
+    "info.libreoffice": {
+      "carga_horaria_base": 4,
+      "tipo": "pratica"
+    },
+    "info.windows11": {
+      "carga_horaria_base": 2,
+      "tipo": "pratica"
+    },
+    "info.nuvem_lgpd": {
+      "carga_horaria_base": 1.5,
+      "tipo": "pratica"
+    },
+    "info.navegadores_email": {
+      "carga_horaria_base": 1.5,
+      "tipo": "pratica"
+    },
+    "info.seguranca": {
+      "carga_horaria_base": 1.5,
+      "tipo": "pratica"
+    }
+  }
+}

@@ -1,0 +1,407 @@
+[
+  {
+    "id": "ia-01",
+    "assunto_id": "dpm.aplicacao_crime_militar",
+    "enunciado": "Quanto ao tempo do crime, o Código Penal Militar (Decreto-Lei nº 1.001/1969) considera praticado o crime",
+    "alternativas": [
+      "no momento da ação ou omissão, ainda que outro seja o do resultado.",
+      "no momento do resultado, ainda que outro seja o da ação ou omissão.",
+      "tanto no momento da ação quanto no do resultado, à escolha do juiz.",
+      "no momento em que a autoridade militar toma conhecimento do fato.",
+      "no momento da instauração do inquérito policial militar."
+    ],
+    "gabarito": 0,
+    "fonte": "Gerada por IA a partir de CPM, art. 5º",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-02",
+    "assunto_id": "dpm.crime_imputabilidade",
+    "enunciado": "Quanto ao estado de necessidade, o Código Penal Militar prevê tanto o estado de necessidade que exclui o crime quanto o que exclui a culpabilidade. Por isso, diz-se que o CPM adota a teoria",
+    "alternativas": [
+      "unitária.",
+      "diferenciadora.",
+      "da actio libera in causa.",
+      "da equivalência dos antecedentes.",
+      "finalista pura, sem distinções."
+    ],
+    "gabarito": 1,
+    "fonte": "Gerada por IA a partir de CPM, arts. 39 e 43",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-03",
+    "assunto_id": "dpm.penas",
+    "enunciado": "Entre as penas principais previstas no Código Penal Militar, NÃO se inclui a pena de",
+    "alternativas": [
+      "reclusão.",
+      "detenção.",
+      "multa.",
+      "impedimento.",
+      "reforma."
+    ],
+    "gabarito": 2,
+    "fonte": "Gerada por IA a partir de CPM, art. 55",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-04",
+    "assunto_id": "dpm.crimes_autoridade_servico",
+    "enunciado": "Segundo o Código Penal Militar, comete o crime de deserção o militar que se ausenta, sem licença, da unidade em que serve ou do lugar em que deve permanecer por mais de",
+    "alternativas": [
+      "vinte e quatro horas.",
+      "três dias.",
+      "quinze dias.",
+      "oito dias.",
+      "trinta dias."
+    ],
+    "gabarito": 3,
+    "fonte": "Gerada por IA a partir de CPM, art. 187",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-05",
+    "assunto_id": "dpm.outros_crimes_militares",
+    "enunciado": "No Código Penal Militar, o crime de peculato está previsto entre os crimes contra",
+    "alternativas": [
+      "a pessoa.",
+      "o patrimônio.",
+      "a incolumidade pública.",
+      "a autoridade ou disciplina militar.",
+      "a administração militar."
+    ],
+    "gabarito": 4,
+    "fonte": "Gerada por IA a partir de CPM, Parte Especial, Título VII (art. 303)",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-06",
+    "assunto_id": "legesp.hediondos",
+    "enunciado": "Segundo a Lei nº 8.072/1990, os crimes hediondos, a prática da tortura, o tráfico ilícito de entorpecentes e o terrorismo são insuscetíveis de",
+    "alternativas": [
+      "anistia, graça, indulto e fiança.",
+      "progressão de regime.",
+      "liberdade provisória com ou sem fiança, apenas.",
+      "livramento condicional em qualquer hipótese.",
+      "substituição por pena restritiva de direitos, apenas."
+    ],
+    "gabarito": 0,
+    "fonte": "Gerada por IA a partir de Lei 8.072/1990, art. 2º, I e II",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-07",
+    "assunto_id": "legesp.drogas",
+    "enunciado": "Em relação a quem adquire, guarda ou traz consigo droga para consumo pessoal, a Lei nº 11.343/2006",
+    "alternativas": [
+      "prevê pena de detenção de 6 meses a 2 anos.",
+      "não prevê pena privativa de liberdade, apenas advertência, prestação de serviços à comunidade e medida educativa.",
+      "prevê pena de reclusão, convertida em multa.",
+      "equipara a conduta ao tráfico de drogas.",
+      "prevê prisão em flagrante obrigatória."
+    ],
+    "gabarito": 1,
+    "fonte": "Gerada por IA a partir de Lei 11.343/2006, art. 28",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-08",
+    "assunto_id": "legesp.abuso_autoridade",
+    "enunciado": "Os crimes previstos na Lei de Abuso de Autoridade (Lei nº 13.869/2019) são de ação penal",
+    "alternativas": [
+      "privada.",
+      "pública condicionada à representação do ofendido.",
+      "pública incondicionada.",
+      "pública condicionada à requisição do Ministro da Justiça.",
+      "privada personalíssima."
+    ],
+    "gabarito": 2,
+    "fonte": "Gerada por IA a partir de Lei 13.869/2019, art. 3º",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-09",
+    "assunto_id": "legesp.desarmamento",
+    "enunciado": "Pelo Estatuto do Desarmamento (Lei nº 10.826/2003), manter sob guarda arma de fogo de uso permitido, em desacordo com determinação legal, no interior da própria residência, configura o crime de",
+    "alternativas": [
+      "porte ilegal de arma de fogo de uso permitido.",
+      "posse ou porte ilegal de arma de fogo de uso restrito.",
+      "comércio ilegal de arma de fogo.",
+      "posse irregular de arma de fogo de uso permitido.",
+      "omissão de cautela."
+    ],
+    "gabarito": 3,
+    "fonte": "Gerada por IA a partir de Lei 10.826/2003, art. 12",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-10",
+    "assunto_id": "legesp.maria_da_penha",
+    "enunciado": "São formas de violência doméstica e familiar contra a mulher previstas expressamente no art. 7º da Lei Maria da Penha, EXCETO a violência",
+    "alternativas": [
+      "física.",
+      "psicológica.",
+      "patrimonial.",
+      "moral.",
+      "institucional."
+    ],
+    "gabarito": 4,
+    "fonte": "Gerada por IA a partir de Lei 11.340/2006, art. 7º",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-11",
+    "assunto_id": "legesp.eca",
+    "enunciado": "Para o Estatuto da Criança e do Adolescente, considera-se adolescente a pessoa",
+    "alternativas": [
+      "entre doze e dezoito anos de idade.",
+      "até doze anos de idade incompletos.",
+      "entre quatorze e vinte e um anos de idade.",
+      "entre dez e dezesseis anos de idade.",
+      "menor de dezesseis anos, em qualquer caso."
+    ],
+    "gabarito": 0,
+    "fonte": "Gerada por IA a partir de Lei 8.069/1990, art. 2º",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-12",
+    "assunto_id": "transito.infracoes_penalidades",
+    "enunciado": "Dirigir sob a influência de álcool ou de qualquer outra substância psicoativa que determine dependência, segundo o art. 165 do CTB, é infração",
+    "alternativas": [
+      "média, com multa.",
+      "gravíssima, com multa (dez vezes) e suspensão do direito de dirigir por 12 meses.",
+      "grave, com multa e retenção do veículo.",
+      "gravíssima, com multa simples e advertência por escrito.",
+      "leve, com advertência."
+    ],
+    "gabarito": 1,
+    "fonte": "Gerada por IA a partir de CTB, art. 165",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-13",
+    "assunto_id": "transito.crimes",
+    "enunciado": "Conduzir veículo automotor com capacidade psicomotora alterada em razão da influência de álcool é crime previsto no CTB, punido com",
+    "alternativas": [
+      "multa e cassação definitiva da habilitação, sem pena privativa de liberdade.",
+      "reclusão, de dois a cinco anos, apenas.",
+      "detenção, de seis meses a três anos, multa e suspensão ou proibição de obter a permissão ou a habilitação para dirigir.",
+      "detenção, de quinze dias a um mês.",
+      "advertência e frequência obrigatória a curso de reciclagem."
+    ],
+    "gabarito": 2,
+    "fonte": "Gerada por IA a partir de CTB, art. 306",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-14",
+    "assunto_id": "transito.registro_habilitacao",
+    "enunciado": "Ao candidato aprovado nos exames de habilitação, o CTB prevê a concessão de Permissão para Dirigir com validade de",
+    "alternativas": [
+      "seis meses.",
+      "cinco anos.",
+      "dois anos.",
+      "um ano.",
+      "dez anos."
+    ],
+    "gabarito": 3,
+    "fonte": "Gerada por IA a partir de CTB, art. 148, § 2º",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-15",
+    "assunto_id": "transito.normas_circulacao",
+    "enunciado": "Em interseção não sinalizada, quando veículos transitarem por fluxos que se cruzem, o CTB determina que tem preferência de passagem, no caso de apenas um fluxo proveniente de rodovia, aquele que estiver circulando por ela; nos demais casos, terá preferência o veículo que",
+    "alternativas": [
+      "estiver em maior velocidade.",
+      "for de maior porte.",
+      "sinalizar primeiro com luz alta.",
+      "vier pela esquerda do condutor.",
+      "vier pela direita do condutor."
+    ],
+    "gabarito": 4,
+    "fonte": "Gerada por IA a partir de CTB, art. 29, III",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-16",
+    "assunto_id": "transito.disposicoes_snt",
+    "enunciado": "Segundo o CTB, considera-se trânsito",
+    "alternativas": [
+      "a utilização das vias por pessoas, veículos e animais, isolados ou em grupos, conduzidos ou não, para fins de circulação, parada, estacionamento e operação de carga ou descarga.",
+      "apenas a circulação de veículos automotores em vias públicas.",
+      "somente o deslocamento de pedestres e ciclistas.",
+      "a utilização das vias rurais por veículos de carga.",
+      "o conjunto de normas de sinalização vertical e horizontal."
+    ],
+    "gabarito": 0,
+    "fonte": "Gerada por IA a partir de CTB, art. 1º, § 1º",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-17",
+    "assunto_id": "transito.infracoes_penalidades",
+    "enunciado": "No CTB, a infração de natureza grave computa, no prontuário do infrator,",
+    "alternativas": [
+      "3 pontos.",
+      "5 pontos.",
+      "4 pontos.",
+      "7 pontos.",
+      "10 pontos."
+    ],
+    "gabarito": 1,
+    "fonte": "Gerada por IA a partir de CTB, art. 259",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-18",
+    "assunto_id": "dpp.leis_especiais",
+    "enunciado": "Pela Lei nº 7.960/1989, nos crimes em geral, a prisão temporária terá o prazo de",
+    "alternativas": [
+      "24 horas, prorrogável uma vez.",
+      "10 dias, improrrogável.",
+      "5 dias, prorrogável por igual período em caso de extrema e comprovada necessidade.",
+      "30 dias, prorrogável por igual período.",
+      "prazo indeterminado, enquanto durar o inquérito."
+    ],
+    "gabarito": 2,
+    "fonte": "Gerada por IA a partir de Lei 7.960/1989, art. 2º",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-19",
+    "assunto_id": "dpp.prisoes",
+    "enunciado": "Após a Lei nº 13.964/2019 (Pacote Anticrime), a prisão preventiva, segundo o CPP,",
+    "alternativas": [
+      "pode ser decretada de ofício pelo juiz em qualquer fase.",
+      "pode ser decretada pelo delegado de polícia.",
+      "só pode ser decretada após a sentença condenatória.",
+      "depende de requerimento do Ministério Público, do querelante ou do assistente, ou de representação da autoridade policial.",
+      "é obrigatória nos crimes com pena superior a quatro anos."
+    ],
+    "gabarito": 3,
+    "fonte": "Gerada por IA a partir de CPP, art. 311",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-20",
+    "assunto_id": "dpp.competencia",
+    "enunciado": "Pelo CPP, a competência será, de regra, determinada",
+    "alternativas": [
+      "pelo domicílio do réu.",
+      "pelo domicílio da vítima.",
+      "pela natureza da infração, exclusivamente.",
+      "pela prevenção, sempre.",
+      "pelo lugar em que se consumar a infração."
+    ],
+    "gabarito": 4,
+    "fonte": "Gerada por IA a partir de CPP, art. 70",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-21",
+    "assunto_id": "dpp.acao_penal",
+    "enunciado": "Na ação penal privada, salvo disposição em contrário, o ofendido decai do direito de queixa se não o exercer dentro do prazo de",
+    "alternativas": [
+      "6 meses, contado do dia em que vier a saber quem é o autor do crime.",
+      "3 meses, contado do fato.",
+      "30 dias, contado do fato.",
+      "1 ano, contado da consumação.",
+      "2 anos, contado do dia em que vier a saber quem é o autor do crime."
+    ],
+    "gabarito": 0,
+    "fonte": "Gerada por IA a partir de CPP, art. 38",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-22",
+    "assunto_id": "dpp.leis_especiais",
+    "enunciado": "Para os efeitos da Lei nº 9.099/1995, consideram-se infrações penais de menor potencial ofensivo as contravenções penais e os crimes a que a lei comine pena máxima não superior a",
+    "alternativas": [
+      "1 ano.",
+      "2 anos.",
+      "3 anos.",
+      "4 anos.",
+      "8 anos."
+    ],
+    "gabarito": 1,
+    "fonte": "Gerada por IA a partir de Lei 9.099/1995, art. 61",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-23",
+    "assunto_id": "dpenal.principios",
+    "enunciado": "Para o reconhecimento do princípio da insignificância, o STF exige, entre outros vetores,",
+    "alternativas": [
+      "reincidência específica do agente.",
+      "que o crime tenha sido praticado com violência ou grave ameaça.",
+      "mínima ofensividade da conduta e inexpressividade da lesão jurídica provocada.",
+      "que a vítima renuncie expressamente à representação.",
+      "que o valor do bem seja superior a um salário mínimo."
+    ],
+    "gabarito": 2,
+    "fonte": "Gerada por IA a partir de Jurisprudência do STF",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-24",
+    "assunto_id": "dpenal.crimes_ambientais",
+    "enunciado": "Sobre a Lei de Crimes Ambientais (Lei nº 9.605/1998), é correto afirmar que",
+    "alternativas": [
+      "a pessoa jurídica não pode ser responsabilizada penalmente.",
+      "não prevê penas restritivas de direitos.",
+      "só se aplica a crimes contra a fauna.",
+      "as pessoas jurídicas serão responsabilizadas administrativa, civil e penalmente, conforme a lei.",
+      "exige sempre o dolo, não havendo crimes culposos."
+    ],
+    "gabarito": 3,
+    "fonte": "Gerada por IA a partir de Lei 9.605/1998, art. 3º",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-25",
+    "assunto_id": "dpenal.crimes_dignidade_sexual",
+    "enunciado": "Configura estupro de vulnerável, nos termos do art. 217-A do CP, ter conjunção carnal ou praticar outro ato libidinoso com menor de",
+    "alternativas": [
+      "12 anos.",
+      "21 anos.",
+      "16 anos.",
+      "18 anos.",
+      "14 anos."
+    ],
+    "gabarito": 4,
+    "fonte": "Gerada por IA a partir de CP, art. 217-A",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-26",
+    "assunto_id": "dpenal.extincao_punibilidade",
+    "enunciado": "São causas de extinção da punibilidade previstas no art. 107 do Código Penal, EXCETO",
+    "alternativas": [
+      "o arrependimento posterior.",
+      "a prescrição.",
+      "a anistia, a graça ou o indulto.",
+      "a morte do agente.",
+      "a retroatividade de lei que não mais considera o fato como criminoso."
+    ],
+    "gabarito": 0,
+    "fonte": "Gerada por IA a partir de CP, art. 107",
+    "origem": "gerada_ia"
+  },
+  {
+    "id": "ia-27",
+    "assunto_id": "port.regencia_crase",
+    "enunciado": "Assinale a alternativa em que o emprego do acento indicativo de crase está correto.",
+    "alternativas": [
+      "Os policiais saíram à pé.",
+      "Refiro-me à professora que chegou ontem.",
+      "Começou à chover forte.",
+      "Entregou o relatório à ela.",
+      "Estamos dispostos à colaborar."
+    ],
+    "gabarito": 1,
+    "fonte": "Gerada por IA a partir de Norma-padrão",
+    "origem": "gerada_ia"
+  }
+]

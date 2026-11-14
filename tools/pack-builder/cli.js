@@ -90,7 +90,9 @@ async function cmdExtract(dir) {
       log(`- ${rel}: copiado (texto)`);
       continue;
     }
-    const { text, backend } = await extractText(src, { backend: flags.backend ?? "auto" });
+    const prova = config.provas.find((p) => p.caderno === rel);
+    const isGabarito = config.provas.some((p) => p.gabarito === rel); // tables keep their rows only in layout mode
+    const { text, backend } = await extractText(src, { backend: flags.backend ?? "auto", columns: prova?.colunas ?? 1, layout: isGabarito });
     await writeFile(out, text);
     log(`- ${rel}: ${text.length} caracteres via ${backend} -> ${path.relative(root, out)}`);
   }
@@ -99,6 +101,8 @@ async function cmdExtract(dir) {
 async function cmdParse(dir) {
   const { root, work, config } = await loadWorkspace(dir);
   const materias = config.estrutura_prova.materias;
+  // sections the exam has but this cargo does not (their questions are kept out of the pack)
+  const parseMaterias = [...materias, ...(config.secoes_ignoradas?.length ? [{ id: "_fora", nome: "_fora", aliases: config.secoes_ignoradas }] : [])];
   const provas = [];
   for (const p of config.provas) {
     const cadPath = txtOf(work, p.caderno);
@@ -106,7 +110,7 @@ async function cmdParse(dir) {
       log(`- ${p.key}: texto do caderno ausente (rode extract)`);
       continue;
     }
-    const parsed = parseProva(await readFile(cadPath, "utf8"), { materias });
+    const parsed = parseProva(await readFile(cadPath, "utf8"), { materias: parseMaterias });
     let merged = { questoes: parsed.questoes.map((q) => ({ ...q, gabarito: null, anulada: false })), semGabarito: [] };
     let gab = null;
     if (p.gabarito && (await exists(txtOf(work, p.gabarito)))) {
@@ -166,7 +170,8 @@ async function cmdAssemble(dir) {
   if (!assuntos) throw new Error("work/assuntos.json ausente (rode parse)");
   const classification = await readJSON(path.join(work, "classification.json"), {});
   const overrides = await readJSON(path.join(root, "overrides.json"), { assuntos: {} });
-  const { pack, review } = assemblePack({ config, assuntos, provas, classification, overrides, options: { confiancaMinima: config.classificacao?.confianca_minima ?? 0.6 } });
+  const extraItems = await readJSON(path.join(root, "itens_extra.json"), []);
+  const { pack, review } = assemblePack({ config, assuntos, provas, classification, overrides, extraItems, options: { confiancaMinima: config.classificacao?.confianca_minima ?? 0.6 } });
   const v = validatePack(pack);
   const outPath = flags.out ? path.resolve(String(flags.out)) : path.join(repoRoot, "app", "packs", `${pack.concurso.id}.json`);
   await writeJSON(outPath, pack);
@@ -186,8 +191,35 @@ async function cmdAssemble(dir) {
   }
 }
 
-const COMMANDS = { init: cmdInit, extract: cmdExtract, parse: cmdParse, classify: cmdClassify, assemble: cmdAssemble };
+async function cmdFetch(dir) {
+  const { root, config } = await loadWorkspace(dir);
+  await mkdir(path.join(root, "input"), { recursive: true });
+  const jobs = [];
+  if (config.edital?.url) jobs.push([config.edital.pdf, config.edital.url]);
+  for (const p of config.provas) {
+    if (p.caderno_url) jobs.push([p.caderno, p.caderno_url]);
+    if (p.gabarito_url) jobs.push([p.gabarito, p.gabarito_url]);
+  }
+  const { execFile: ef } = await import("node:child_process");
+  const run = (args) => new Promise((res, rej) => ef("curl", args, (e, out) => (e ? rej(e) : res(out))));
+  for (const [rel, url] of jobs) {
+    const dest = path.join(root, rel);
+    if ((await exists(dest)) && !flags.force) {
+      log(`- ${rel}: já existe`);
+      continue;
+    }
+    try {
+      const out = await run(["-sS", "-L", "--fail", "--max-time", "120", "-o", dest, "-w", "%{http_code} %{size_download}", url]);
+      log(`- ${rel}: ${out}`);
+    } catch (err) {
+      log(`- ${rel}: falhou (${String(err.message ?? err).split("\n")[0]})`);
+    }
+  }
+}
+
+const COMMANDS = { fetch: cmdFetch, init: cmdInit, extract: cmdExtract, parse: cmdParse, classify: cmdClassify, assemble: cmdAssemble };
 COMMANDS.all = async (dir) => {
+  await cmdFetch(dir);
   await cmdExtract(dir);
   await cmdParse(dir);
   await cmdClassify(dir);
@@ -195,7 +227,7 @@ COMMANDS.all = async (dir) => {
 };
 
 if (!cmd || !COMMANDS[cmd] || !dirArg) {
-  console.log("uso: node tools/pack-builder/cli.js <init|extract|parse|classify|assemble|all> <workspace-dir> [--backend=pdftotext|pdfjs] [--force] [--dry-run] [--model=…] [--lote=10] [--effort=low|medium|high] [--no-index]");
+  console.log("uso: node tools/pack-builder/cli.js <init|fetch|extract|parse|classify|assemble|all> <workspace-dir> [--backend=pdftotext|pdfjs] [--force] [--dry-run] [--model=…] [--lote=10] [--effort=low|medium|high] [--no-index]");
   process.exit(cmd ? 1 : 0);
 }
 COMMANDS[cmd](dirArg).catch((err) => {

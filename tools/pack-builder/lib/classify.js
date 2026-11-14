@@ -75,7 +75,7 @@ export async function classifyQuestions({ provas, assuntos, existing = {}, onBat
   const usage = { input_tokens: 0, output_tokens: 0, batches: 0, erros: [] };
 
   for (const prova of provas) {
-    const pending = prova.questoes.filter((q) => !q.anulada && !(`${prova.key}#${q.numero}` in out));
+    const pending = prova.questoes.filter((q) => !q.anulada && q.materia_id !== "_fora" && !(`${prova.key}#${q.numero}` in out));
     // group by matéria hint to keep candidate lists short
     const groups = new Map();
     for (const q of pending) {

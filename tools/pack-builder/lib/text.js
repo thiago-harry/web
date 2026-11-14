@@ -33,11 +33,19 @@ export function materiaMatcher(materias) {
     for (const n of names) table.push({ key: n, id: m.id });
   }
   table.sort((a, b) => b.key.length - a.key.length);
+  // A header is the name itself, optionally with a couple of extra tokens ("LÍNGUA PORTUGUESA 1", "NOÇÕES DE … :").
+  // Long sentences that merely start with the name ("Redação incorrerá na …") are not headers.
   return (line) => {
-    const key = norm(line);
+    const raw = String(line ?? "").trim();
+    // headers start with a capital letter and do not end like a sentence ("… em português.")
+    if (!/^[A-ZÀ-Ý]/.test(raw) || /[.,;]$/.test(raw)) return null;
+    const key = norm(raw);
     if (!key || key.length > 80) return null;
+    const words = key.split(" ").length;
     for (const row of table) {
-      if (key === row.key || key.startsWith(row.key + " ") || key.endsWith(" " + row.key)) return row.id;
+      const rowWords = row.key.split(" ").length;
+      if (key === row.key) return row.id;
+      if (words <= rowWords + 2 && key.startsWith(row.key + " ")) return row.id;
     }
     return null;
   };

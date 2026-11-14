@@ -1,0 +1,602 @@
+[
+  {
+    "id": "dconst.teoria_constituicao",
+    "materia_id": "dconst",
+    "nome": "Teoria da Constituição e Poder Constituinte",
+    "edital_literal": "1. Constituição (conceito, estrutura, elementos e classificação). 2. Poder Constituinte.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dconst.principios_fundamentais",
+    "materia_id": "dconst",
+    "nome": "Princípios fundamentais (CF, arts. 1º a 4º)",
+    "edital_literal": "3. Constituição Federal de 1988: Art. 1º ao Art. 42 (Princípios Fundamentais, arts. 1º a 4º).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "dconst.direitos_garantias",
+    "materia_id": "dconst",
+    "nome": "Direitos e garantias fundamentais (CF, arts. 5º a 17)",
+    "edital_literal": "3. Constituição Federal de 1988: Art. 1º ao Art. 42 (Direitos e Garantias Fundamentais, arts. 5º a 17).",
+    "edital_profundidade": 3,
+    "subitens": 0
+  },
+  {
+    "id": "dconst.organizacao_estado",
+    "materia_id": "dconst",
+    "nome": "Organização do Estado e Administração Pública (CF, arts. 18 a 42)",
+    "edital_literal": "3. Constituição Federal de 1988: Art. 1º ao Art. 42 (Organização do Estado, arts. 18 a 42).",
+    "edital_profundidade": 3,
+    "subitens": 0
+  },
+  {
+    "id": "dconst.poderes",
+    "materia_id": "dconst",
+    "nome": "Organização dos Poderes (CF, arts. 44 a 100)",
+    "edital_literal": "3. Constituição Federal de 1988: Art. 44 ao Art. 100.",
+    "edital_profundidade": 3,
+    "subitens": 0
+  },
+  {
+    "id": "dconst.justica_funcoes",
+    "materia_id": "dconst",
+    "nome": "Justiça Militar, Justiça dos Estados e funções essenciais (CF, arts. 122 a 135)",
+    "edital_literal": "3. Constituição Federal de 1988: Art. 122 ao Art. 144 (arts. 122 a 135).",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dconst.seguranca_publica",
+    "materia_id": "dconst",
+    "nome": "Defesa do Estado e segurança pública (CF, arts. 136 a 144)",
+    "edital_literal": "3. Constituição Federal de 1988: Art. 122 ao Art. 144 (arts. 136 a 144).",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dconst.constituicao_sc",
+    "materia_id": "dconst",
+    "nome": "Constituição do Estado de Santa Catarina",
+    "edital_literal": "4. Constituição do Estado de Santa Catarina: Art. 1º ao Art. 40º; Art. 50 ao Art. 76; Art. 90; Art. 105 ao Art. 109-c.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpenal.lei_penal",
+    "materia_id": "dpenal",
+    "nome": "Lei penal: aplicação, tempo e espaço",
+    "edital_literal": "1. Lei penal: classificação, características, interpretação, analogia, vigência e aplicação; lei penal em branco; lei penal no tempo e no espaço; conflito aparente de leis penais; tempo e lugar do crime; territorialidade e extraterritorialidade; lei penal excepcional e temporária.",
+    "edital_profundidade": 3,
+    "subitens": 0
+  },
+  {
+    "id": "dpenal.teoria_crime",
+    "materia_id": "dpenal",
+    "nome": "Teoria geral do crime",
+    "edital_literal": "2. Teoria geral do crime: conceito, objeto e sujeitos do crime; fato típico; crime doloso, culposo e preterdoloso; erro de tipo e de proibição; iter criminis; consumação e tentativa; ilicitude e excludentes; culpabilidade; concurso de pessoas; crime e contravenção penal.",
+    "edital_profundidade": 3,
+    "subitens": 0
+  },
+  {
+    "id": "dpenal.penas",
+    "materia_id": "dpenal",
+    "nome": "Penas, concurso de crimes e medidas de segurança",
+    "edital_literal": "3. Das penas: privativa de liberdade, restritivas de direitos e multa; aplicação e limite das penas; concurso de crimes; suspensão condicional da pena; livramento condicional; efeitos da condenação; reabilitação e medidas de segurança.",
+    "edital_profundidade": 3,
+    "subitens": 0
+  },
+  {
+    "id": "dpenal.extincao_punibilidade",
+    "materia_id": "dpenal",
+    "nome": "Extinção da punibilidade",
+    "edital_literal": "4. Extinção da punibilidade.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "dpenal.crimes_pessoa",
+    "materia_id": "dpenal",
+    "nome": "Crimes contra a pessoa",
+    "edital_literal": "5. Crimes previstos na parte especial do Código Penal: crimes contra a pessoa.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpenal.crimes_patrimonio",
+    "materia_id": "dpenal",
+    "nome": "Crimes contra o patrimônio",
+    "edital_literal": "5. Crimes previstos na parte especial do Código Penal: crimes contra o patrimônio.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpenal.crimes_dignidade_sexual",
+    "materia_id": "dpenal",
+    "nome": "Crimes contra a dignidade sexual",
+    "edital_literal": "5. Crimes previstos na parte especial do Código Penal: crimes contra a dignidade sexual.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpenal.crimes_fe_publica",
+    "materia_id": "dpenal",
+    "nome": "Crimes contra a fé pública",
+    "edital_literal": "5. Crimes previstos na parte especial do Código Penal: crimes contra a fé pública.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpenal.crimes_adm_publica",
+    "materia_id": "dpenal",
+    "nome": "Crimes contra a administração pública",
+    "edital_literal": "5. Crimes previstos na parte especial do Código Penal: crimes contra a administração pública.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpenal.principios",
+    "materia_id": "dpenal",
+    "nome": "Princípios do Direito Penal",
+    "edital_literal": "6. Princípios aplicáveis ao Direito Penal.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "dpenal.crimes_ambientais",
+    "materia_id": "dpenal",
+    "nome": "Lei de Crimes Ambientais (Lei 9.605/1998)",
+    "edital_literal": "7. Legislação especial: Lei Federal nº 9.605/1998 - Lei dos Crimes Ambientais.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "dpp.nocoes",
+    "materia_id": "dpp",
+    "nome": "Princípios, sistemas e lei processual penal",
+    "edital_literal": "1. Noções introdutórias: princípios; sistemas processuais; lei processual penal no tempo, no espaço e em relação às pessoas; fontes; interpretação e integração.",
+    "edital_profundidade": 3,
+    "subitens": 0
+  },
+  {
+    "id": "dpp.inquerito",
+    "materia_id": "dpp",
+    "nome": "Inquérito policial, investigação e ANPP",
+    "edital_literal": "2. Investigação preliminar: inquérito policial e demais investigações preliminares; acordo de não persecução penal; controle externo da atividade policial.",
+    "edital_profundidade": 3,
+    "subitens": 0
+  },
+  {
+    "id": "dpp.acao_penal",
+    "materia_id": "dpp",
+    "nome": "Ação penal e ação civil ex delicto",
+    "edital_literal": "3. Ação penal e ação civil ex delicto.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "dpp.competencia",
+    "materia_id": "dpp",
+    "nome": "Jurisdição e competência criminal",
+    "edital_literal": "4. Jurisdição e competência criminal.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "dpp.provas",
+    "materia_id": "dpp",
+    "nome": "Provas",
+    "edital_literal": "5. Provas: teoria geral das provas; meios de prova e meios de obtenção de prova em espécie.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpp.prisoes",
+    "materia_id": "dpp",
+    "nome": "Prisões, medidas cautelares e liberdade provisória",
+    "edital_literal": "6. Medidas cautelares de natureza pessoal: aspectos gerais; prisões e medidas cautelares diversas da prisão. 7. Liberdade provisória.",
+    "edital_profundidade": 3,
+    "subitens": 0
+  },
+  {
+    "id": "dpp.incidentes_assecuratorias",
+    "materia_id": "dpp",
+    "nome": "Questões e processos incidentes; medidas assecuratórias",
+    "edital_literal": "8. Questões e processos incidentes. 9. Medidas cautelares de natureza real (medidas assecuratórias).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "dpp.sujeitos_procedimentos",
+    "materia_id": "dpp",
+    "nome": "Sujeitos do processo, comunicação dos atos e procedimentos",
+    "edital_literal": "10. Sujeitos do processo e comunicação dos atos processuais. 11. Procedimento comum: ordinário, sumário e sumaríssimo.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpp.nulidades_recursos",
+    "materia_id": "dpp",
+    "nome": "Nulidades, sentença e recursos",
+    "edital_literal": "12. Nulidades. 13. Sentença penal, recursos e ações autônomas de impugnação.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpp.leis_especiais",
+    "materia_id": "dpp",
+    "nome": "Prisão temporária, Juizados Especiais Criminais e interceptação telefônica",
+    "edital_literal": "14. Legislação especial: Lei 7.960/1989 (Prisão Temporária); Lei 9.099/1995 (Juizados Especiais Criminais); Lei 9.296/1996 (Interceptação de Comunicações Telefônicas).",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpm.aplicacao_crime_militar",
+    "materia_id": "dpm",
+    "nome": "CPM: aplicação da lei penal militar e crime militar (Título I)",
+    "edital_literal": "1. Decreto-Lei nº 1001 de 1969, Parte Geral (Título I: da aplicação da lei penal militar).",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpm.crime_imputabilidade",
+    "materia_id": "dpm",
+    "nome": "CPM: crime, imputabilidade e concurso de agentes (Títulos II a IV)",
+    "edital_literal": "1. Decreto-Lei nº 1001 de 1969, Parte Geral (Títulos II a IV).",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpm.penas",
+    "materia_id": "dpm",
+    "nome": "CPM: penas, aplicação e extinção da punibilidade (Títulos V a VIII)",
+    "edital_literal": "1. Decreto-Lei nº 1001 de 1969, Parte Geral (Títulos V a VIII).",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpm.crimes_autoridade_servico",
+    "materia_id": "dpm",
+    "nome": "Crimes contra a autoridade, a disciplina e o serviço militar",
+    "edital_literal": "1. Decreto-Lei nº 1001 de 1969, Parte Especial (Títulos II e III).",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "dpm.outros_crimes_militares",
+    "materia_id": "dpm",
+    "nome": "Demais crimes militares (Parte Especial, Títulos I e IV a VIII)",
+    "edital_literal": "1. Decreto-Lei nº 1001 de 1969, Parte Especial (Títulos I e IV a VIII).",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "legesp.hediondos",
+    "materia_id": "legesp",
+    "nome": "Crimes hediondos (Lei 8.072/1990)",
+    "edital_literal": "1. Lei nº 8.072/1990 e suas alterações (crimes hediondos).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "legesp.racismo",
+    "materia_id": "legesp",
+    "nome": "Crimes de preconceito de raça ou cor (Lei 7.716/1989)",
+    "edital_literal": "2. Lei nº 7.716/1989 e suas alterações (crimes resultantes de preconceitos de raça ou de cor).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "legesp.tortura",
+    "materia_id": "legesp",
+    "nome": "Crimes de tortura (Lei 9.455/1997)",
+    "edital_literal": "3. Lei nº 9.455/1997 e suas alterações (crimes de tortura).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "legesp.crime_organizado",
+    "materia_id": "legesp",
+    "nome": "Organizações criminosas (Lei 12.850/2013)",
+    "edital_literal": "4. Lei nº 12.850/2013, e alterações (crime organizado).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "legesp.drogas",
+    "materia_id": "legesp",
+    "nome": "Lei de Drogas (Lei 11.343/2006)",
+    "edital_literal": "5. Lei nº 11.343/2006 e suas alterações (Lei Antidrogas).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "legesp.abuso_autoridade",
+    "materia_id": "legesp",
+    "nome": "Abuso de autoridade (Lei 13.869/2019)",
+    "edital_literal": "6. Lei nº 13.869/2019 (Dispõe sobre os crimes de abuso de autoridade).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "legesp.desarmamento",
+    "materia_id": "legesp",
+    "nome": "Estatuto do Desarmamento (Lei 10.826/2003)",
+    "edital_literal": "7. Lei nº 10.826/2003 e suas alterações (Estatuto do Desarmamento).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "legesp.maria_da_penha",
+    "materia_id": "legesp",
+    "nome": "Lei Maria da Penha (Lei 11.340/2006)",
+    "edital_literal": "8. Lei nº 11.340/2006 e suas alterações (Lei Maria da Penha).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "legesp.eca",
+    "materia_id": "legesp",
+    "nome": "Estatuto da Criança e do Adolescente (Lei 8.069/1990)",
+    "edital_literal": "9. Lei nº 8.069/1990 e suas alterações (Estatuto da Criança e do Adolescente).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "legesp.idoso",
+    "materia_id": "legesp",
+    "nome": "Estatuto da Pessoa Idosa (Lei 10.741/2003)",
+    "edital_literal": "10. Lei nº 10.741/2003 e suas alterações (Estatuto do Idoso).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "legesp.identificacao_criminal",
+    "materia_id": "legesp",
+    "nome": "Identificação criminal (Lei 12.037/2009)",
+    "edital_literal": "11. Lei nº 12.037/2009 (Identificação criminal).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "transito.disposicoes_snt",
+    "materia_id": "transito",
+    "nome": "CTB: disposições preliminares e Sistema Nacional de Trânsito",
+    "edital_literal": "1. Lei nº 9.503/1997: Arts. 1º ao 4º; Art. 23.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "transito.normas_circulacao",
+    "materia_id": "transito",
+    "nome": "CTB: normas gerais de circulação e conduta",
+    "edital_literal": "1. Lei nº 9.503/1997: Arts. 26 ao 67.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "transito.sinalizacao",
+    "materia_id": "transito",
+    "nome": "CTB: sinalização de trânsito",
+    "edital_literal": "1. Lei nº 9.503/1997: Arts. 80 ao 90.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "transito.veiculos",
+    "materia_id": "transito",
+    "nome": "CTB: veículos",
+    "edital_literal": "1. Lei nº 9.503/1997: Arts. 96 a 102.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "transito.registro_habilitacao",
+    "materia_id": "transito",
+    "nome": "CTB: registro, licenciamento e habilitação",
+    "edital_literal": "1. Lei nº 9.503/1997: Arts. 114 ao 160.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "transito.infracoes_penalidades",
+    "materia_id": "transito",
+    "nome": "CTB: infrações, penalidades, medidas administrativas e autuação",
+    "edital_literal": "1. Lei nº 9.503/1997: Arts. 256 ao 279-A; Art. 280.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "transito.crimes",
+    "materia_id": "transito",
+    "nome": "CTB: crimes de trânsito",
+    "edital_literal": "1. Lei nº 9.503/1997: Arts. 291 a 312-B.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "inst.estatuto_pmsc",
+    "materia_id": "inst",
+    "nome": "Estatuto dos Policiais Militares de SC (Lei 6.218/1983)",
+    "edital_literal": "1. Lei nº 6.218, de 10 de fevereiro de 1983 - Estatuto dos Policiais Militares do Estado de Santa Catarina.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "inst.pad",
+    "materia_id": "inst",
+    "nome": "Regulamento do Processo Administrativo Disciplinar da PMSC (Portaria 009/2001)",
+    "edital_literal": "2. Portaria nº 009/2001 - Regulamento de Processo Administrativo Disciplinar (PAD) na Polícia Militar de Santa Catarina.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "inst.lei_organica_nacional",
+    "materia_id": "inst",
+    "nome": "Lei Orgânica Nacional das PMs e CBMs (Lei 14.751/2023)",
+    "edital_literal": "3. Lei nº 14.751, de 12 de dezembro de 2023 - Lei Orgânica Nacional das Polícias Militares e dos Corpos de Bombeiros Militares.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "inst.ingresso",
+    "materia_id": "inst",
+    "nome": "Ingresso nas carreiras militares de SC (LC 587/2013)",
+    "edital_literal": "4. Lei Complementar Estadual nº 587, de 14 de janeiro de 2013 (ingresso nas carreiras das instituições militares de SC).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "inst.promocao_pracas",
+    "materia_id": "inst",
+    "nome": "Promoção das praças (LC 801/2022)",
+    "edital_literal": "5. Lei Complementar nº 801, de 1º de julho de 2022 (promoção das praças militares estaduais).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "inst.remuneracao",
+    "materia_id": "inst",
+    "nome": "Regime remuneratório dos militares estaduais (LC 765/2020)",
+    "edital_literal": "6. Lei Complementar nº 765, de 07 de outubro de 2020 (Regime Remuneratório Especial dos Militares Estaduais).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "inst.organizacao_basica",
+    "materia_id": "inst",
+    "nome": "Organização Básica da PMSC (Decreto 1.601/2021)",
+    "edital_literal": "7. Decreto nº 1.601 de 3 de dezembro de 2021 - Regulamento da Organização Básica da PMSC.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "inst.conselho_disciplina",
+    "materia_id": "inst",
+    "nome": "Conselho de Disciplina da PMSC (Lei 5.209/1976)",
+    "edital_literal": "8. Lei Estadual nº 5.209/1976 - Lei do Conselho de Disciplina da PMSC.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "port.interpretacao",
+    "materia_id": "port",
+    "nome": "Compreensão e interpretação de textos, tipologias e gêneros",
+    "edital_literal": "1. Compreensão e interpretação de textos; tipologias e gêneros textuais; elementos da comunicação e funções da linguagem.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "port.semantica",
+    "materia_id": "port",
+    "nome": "Semântica e significação das palavras",
+    "edital_literal": "2. Semântica: denotação e conotação; significação de palavras e expressões; sinonímia e antonímia; figuras de linguagem. 12. Significação das palavras.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "port.morfologia",
+    "materia_id": "port",
+    "nome": "Morfologia, ortografia, acentuação e classes de palavras",
+    "edital_literal": "3. Morfologia: estrutura e formação das palavras; Ortografia oficial; Acentuação gráfica; Emprego das classes de palavras no texto.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "port.sintaxe",
+    "materia_id": "port",
+    "nome": "Sintaxe da oração e do período",
+    "edital_literal": "4. Sintaxe: termos da oração e relações sintático-semânticas. 6. Sintaxe da oração e do período.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "port.concordancia",
+    "materia_id": "port",
+    "nome": "Concordância nominal e verbal",
+    "edital_literal": "4. Concordância verbal ou nominal. 10. Concordância nominal e verbal.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "port.regencia_crase",
+    "materia_id": "port",
+    "nome": "Regência e crase",
+    "edital_literal": "4. Emprego do sinal indicativo de crase; regências nominal e verbal. 11. Regências nominal e verbal.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "port.reescrita",
+    "materia_id": "port",
+    "nome": "Reescrita de frases e parágrafos",
+    "edital_literal": "5. Reescrita de orações, períodos, frases e parágrafos.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "port.pontuacao",
+    "materia_id": "port",
+    "nome": "Pontuação",
+    "edital_literal": "7. Emprego dos sinais de Pontuação e sua função no texto.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "port.coesao",
+    "materia_id": "port",
+    "nome": "Coesão e função textual dos vocábulos",
+    "edital_literal": "8. Elementos de coesão e suas funções no texto. 9. Função textual dos vocábulos.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "info.hardware_software",
+    "materia_id": "info",
+    "nome": "Hardware, software e conceitos básicos",
+    "edital_literal": "1. Conceitos de Hardware e Software. 2. Conceitos básicos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos de informática.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "info.libreoffice",
+    "materia_id": "info",
+    "nome": "LibreOffice 7: textos, planilhas e apresentações",
+    "edital_literal": "3. Edição de textos, planilhas e apresentações com a suíte LibreOffice 7 em português.",
+    "edital_profundidade": 2,
+    "subitens": 0
+  },
+  {
+    "id": "info.windows11",
+    "materia_id": "info",
+    "nome": "Windows 11",
+    "edital_literal": "4. Sistema operacional Windows 11 em português.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "info.nuvem_lgpd",
+    "materia_id": "info",
+    "nome": "Nuvem, colaboração e LGPD",
+    "edital_literal": "5. Ferramentas de colaboração e armazenamento em nuvem e a LGPD (Lei 13.709/2018).",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "info.navegadores_email",
+    "materia_id": "info",
+    "nome": "Navegadores, internet e correio eletrônico",
+    "edital_literal": "6. Ferramentas e aplicativos de navegação Edge, Chrome e Firefox e correio eletrônico.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  },
+  {
+    "id": "info.seguranca",
+    "materia_id": "info",
+    "nome": "Segurança: vírus, worms e antivírus",
+    "edital_literal": "7. Noções básicas de segurança e proteção: vírus, worms e seus derivados e antivírus.",
+    "edital_profundidade": 1,
+    "subitens": 0
+  }
+]

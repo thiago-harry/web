@@ -1,0 +1,2811 @@
+{
+  "pack_version": "0.1.0",
+  "concurso": {
+    "id": "pmsc-2026-soldado",
+    "nome": "PMSC 2026 · Soldado",
+    "orgao": "Polícia Militar de Santa Catarina",
+    "banca": "Instituto AOCP",
+    "cargo": "Soldado do Quadro de Praças Policial Militar (QPPM)",
+    "data_prova": "2026-12-13",
+    "fonte_edital": "https://arquivos.qconcursos.com/regulamento/arquivo/102537/pm-sc-2026-soldado-edital-n-2-edital.pdf",
+    "curado_em": "2026-11-14"
+  },
+  "estrutura_prova": {
+    "total_questoes": 60,
+    "tipo": "multipla_escolha_5",
+    "penalidade_erro": false,
+    "nota_corte_estimada": 0.5,
+    "materias": [
+      {
+        "id": "dconst",
+        "nome": "Direito Constitucional",
+        "questoes": 8,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null
+      },
+      {
+        "id": "dpenal",
+        "nome": "Direito Penal Comum",
+        "questoes": 6,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null
+      },
+      {
+        "id": "dpp",
+        "nome": "Direito Processual Penal Comum",
+        "questoes": 6,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null
+      },
+      {
+        "id": "dpm",
+        "nome": "Direito Penal Militar",
+        "questoes": 6,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null
+      },
+      {
+        "id": "legesp",
+        "nome": "Legislação Especial",
+        "questoes": 6,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null
+      },
+      {
+        "id": "transito",
+        "nome": "Legislação de Trânsito",
+        "questoes": 5,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null
+      },
+      {
+        "id": "inst",
+        "nome": "Legislação Institucional",
+        "questoes": 10,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null
+      },
+      {
+        "id": "port",
+        "nome": "Língua Portuguesa",
+        "questoes": 8,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null
+      },
+      {
+        "id": "info",
+        "nome": "Informática",
+        "questoes": 5,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null
+      }
+    ]
+  },
+  "assuntos": [
+    {
+      "id": "dconst.teoria_constituicao",
+      "materia_id": "dconst",
+      "nome": "Teoria da Constituição e Poder Constituinte",
+      "edital_literal": "1. Constituição (conceito, estrutura, elementos e classificação). 2. Poder Constituinte.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 4,
+      "prereq": [],
+      "tipo": "doutrina",
+      "volatil": false
+    },
+    {
+      "id": "dconst.principios_fundamentais",
+      "materia_id": "dconst",
+      "nome": "Princípios fundamentais (CF, arts. 1º a 4º)",
+      "edital_literal": "3. Constituição Federal de 1988: Art. 1º ao Art. 42 (Princípios Fundamentais, arts. 1º a 4º).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 1
+        }
+      ],
+      "carga_horaria_base": 2,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dconst.direitos_garantias",
+      "materia_id": "dconst",
+      "nome": "Direitos e garantias fundamentais (CF, arts. 5º a 17)",
+      "edital_literal": "3. Constituição Federal de 1988: Art. 1º ao Art. 42 (Direitos e Garantias Fundamentais, arts. 5º a 17).",
+      "edital_profundidade": 3,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 2
+        }
+      ],
+      "carga_horaria_base": 10,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dconst.organizacao_estado",
+      "materia_id": "dconst",
+      "nome": "Organização do Estado e Administração Pública (CF, arts. 18 a 42)",
+      "edital_literal": "3. Constituição Federal de 1988: Art. 1º ao Art. 42 (Organização do Estado, arts. 18 a 42).",
+      "edital_profundidade": 3,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 4
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 3
+        }
+      ],
+      "carga_horaria_base": 8,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dconst.poderes",
+      "materia_id": "dconst",
+      "nome": "Organização dos Poderes (CF, arts. 44 a 100)",
+      "edital_literal": "3. Constituição Federal de 1988: Art. 44 ao Art. 100.",
+      "edital_profundidade": 3,
+      "incidencia_cargo": [],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 3
+        }
+      ],
+      "carga_horaria_base": 8,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dconst.justica_funcoes",
+      "materia_id": "dconst",
+      "nome": "Justiça Militar, Justiça dos Estados e funções essenciais (CF, arts. 122 a 135)",
+      "edital_literal": "3. Constituição Federal de 1988: Art. 122 ao Art. 144 (arts. 122 a 135).",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 3,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dconst.seguranca_publica",
+      "materia_id": "dconst",
+      "nome": "Defesa do Estado e segurança pública (CF, arts. 136 a 144)",
+      "edital_literal": "3. Constituição Federal de 1988: Art. 122 ao Art. 144 (arts. 136 a 144).",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 1
+        }
+      ],
+      "carga_horaria_base": 4,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dconst.constituicao_sc",
+      "materia_id": "dconst",
+      "nome": "Constituição do Estado de Santa Catarina",
+      "edital_literal": "4. Constituição do Estado de Santa Catarina: Art. 1º ao Art. 40º; Art. 50 ao Art. 76; Art. 90; Art. 105 ao Art. 109-c.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 5,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpenal.lei_penal",
+      "materia_id": "dpenal",
+      "nome": "Lei penal: aplicação, tempo e espaço",
+      "edital_literal": "1. Lei penal: classificação, características, interpretação, analogia, vigência e aplicação; lei penal em branco; lei penal no tempo e no espaço; conflito aparente de leis penais; tempo e lugar do crime; territorialidade e extraterritorialidade; lei penal excepcional e temporária.",
+      "edital_profundidade": 3,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 4,
+      "prereq": [],
+      "tipo": "doutrina",
+      "volatil": false
+    },
+    {
+      "id": "dpenal.teoria_crime",
+      "materia_id": "dpenal",
+      "nome": "Teoria geral do crime",
+      "edital_literal": "2. Teoria geral do crime: conceito, objeto e sujeitos do crime; fato típico; crime doloso, culposo e preterdoloso; erro de tipo e de proibição; iter criminis; consumação e tentativa; ilicitude e excludentes; culpabilidade; concurso de pessoas; crime e contravenção penal.",
+      "edital_profundidade": 3,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 2
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 10,
+      "prereq": [
+        "dpenal.lei_penal"
+      ],
+      "tipo": "doutrina",
+      "volatil": false
+    },
+    {
+      "id": "dpenal.penas",
+      "materia_id": "dpenal",
+      "nome": "Penas, concurso de crimes e medidas de segurança",
+      "edital_literal": "3. Das penas: privativa de liberdade, restritivas de direitos e multa; aplicação e limite das penas; concurso de crimes; suspensão condicional da pena; livramento condicional; efeitos da condenação; reabilitação e medidas de segurança.",
+      "edital_profundidade": 3,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 5,
+      "prereq": [
+        "dpenal.teoria_crime"
+      ],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpenal.extincao_punibilidade",
+      "materia_id": "dpenal",
+      "nome": "Extinção da punibilidade",
+      "edital_literal": "4. Extinção da punibilidade.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpenal.crimes_pessoa",
+      "materia_id": "dpenal",
+      "nome": "Crimes contra a pessoa",
+      "edital_literal": "5. Crimes previstos na parte especial do Código Penal: crimes contra a pessoa.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 5,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpenal.crimes_patrimonio",
+      "materia_id": "dpenal",
+      "nome": "Crimes contra o patrimônio",
+      "edital_literal": "5. Crimes previstos na parte especial do Código Penal: crimes contra o patrimônio.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 4,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpenal.crimes_dignidade_sexual",
+      "materia_id": "dpenal",
+      "nome": "Crimes contra a dignidade sexual",
+      "edital_literal": "5. Crimes previstos na parte especial do Código Penal: crimes contra a dignidade sexual.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpenal.crimes_fe_publica",
+      "materia_id": "dpenal",
+      "nome": "Crimes contra a fé pública",
+      "edital_literal": "5. Crimes previstos na parte especial do Código Penal: crimes contra a fé pública.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpenal.crimes_adm_publica",
+      "materia_id": "dpenal",
+      "nome": "Crimes contra a administração pública",
+      "edital_literal": "5. Crimes previstos na parte especial do Código Penal: crimes contra a administração pública.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 4,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpenal.principios",
+      "materia_id": "dpenal",
+      "nome": "Princípios do Direito Penal",
+      "edital_literal": "6. Princípios aplicáveis ao Direito Penal.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2,
+      "prereq": [],
+      "tipo": "doutrina",
+      "volatil": false
+    },
+    {
+      "id": "dpenal.crimes_ambientais",
+      "materia_id": "dpenal",
+      "nome": "Lei de Crimes Ambientais (Lei 9.605/1998)",
+      "edital_literal": "7. Legislação especial: Lei Federal nº 9.605/1998 - Lei dos Crimes Ambientais.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpp.nocoes",
+      "materia_id": "dpp",
+      "nome": "Princípios, sistemas e lei processual penal",
+      "edital_literal": "1. Noções introdutórias: princípios; sistemas processuais; lei processual penal no tempo, no espaço e em relação às pessoas; fontes; interpretação e integração.",
+      "edital_profundidade": 3,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 3
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 3,
+      "prereq": [],
+      "tipo": "doutrina",
+      "volatil": false
+    },
+    {
+      "id": "dpp.inquerito",
+      "materia_id": "dpp",
+      "nome": "Inquérito policial, investigação e ANPP",
+      "edital_literal": "2. Investigação preliminar: inquérito policial e demais investigações preliminares; acordo de não persecução penal; controle externo da atividade policial.",
+      "edital_profundidade": 3,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 4
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 5,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpp.acao_penal",
+      "materia_id": "dpp",
+      "nome": "Ação penal e ação civil ex delicto",
+      "edital_literal": "3. Ação penal e ação civil ex delicto.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 3,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpp.competencia",
+      "materia_id": "dpp",
+      "nome": "Jurisdição e competência criminal",
+      "edital_literal": "4. Jurisdição e competência criminal.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 3,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpp.provas",
+      "materia_id": "dpp",
+      "nome": "Provas",
+      "edital_literal": "5. Provas: teoria geral das provas; meios de prova e meios de obtenção de prova em espécie.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 5,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpp.prisoes",
+      "materia_id": "dpp",
+      "nome": "Prisões, medidas cautelares e liberdade provisória",
+      "edital_literal": "6. Medidas cautelares de natureza pessoal: aspectos gerais; prisões e medidas cautelares diversas da prisão. 7. Liberdade provisória.",
+      "edital_profundidade": 3,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 6,
+      "prereq": [
+        "dpp.nocoes"
+      ],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpp.incidentes_assecuratorias",
+      "materia_id": "dpp",
+      "nome": "Questões e processos incidentes; medidas assecuratórias",
+      "edital_literal": "8. Questões e processos incidentes. 9. Medidas cautelares de natureza real (medidas assecuratórias).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpp.sujeitos_procedimentos",
+      "materia_id": "dpp",
+      "nome": "Sujeitos do processo, comunicação dos atos e procedimentos",
+      "edital_literal": "10. Sujeitos do processo e comunicação dos atos processuais. 11. Procedimento comum: ordinário, sumário e sumaríssimo.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 3,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpp.nulidades_recursos",
+      "materia_id": "dpp",
+      "nome": "Nulidades, sentença e recursos",
+      "edital_literal": "12. Nulidades. 13. Sentença penal, recursos e ações autônomas de impugnação.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 4,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpp.leis_especiais",
+      "materia_id": "dpp",
+      "nome": "Prisão temporária, Juizados Especiais Criminais e interceptação telefônica",
+      "edital_literal": "14. Legislação especial: Lei 7.960/1989 (Prisão Temporária); Lei 9.099/1995 (Juizados Especiais Criminais); Lei 9.296/1996 (Interceptação de Comunicações Telefônicas).",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 3,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpm.aplicacao_crime_militar",
+      "materia_id": "dpm",
+      "nome": "CPM: aplicação da lei penal militar e crime militar (Título I)",
+      "edital_literal": "1. Decreto-Lei nº 1001 de 1969, Parte Geral (Título I: da aplicação da lei penal militar).",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 4,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpm.crime_imputabilidade",
+      "materia_id": "dpm",
+      "nome": "CPM: crime, imputabilidade e concurso de agentes (Títulos II a IV)",
+      "edital_literal": "1. Decreto-Lei nº 1001 de 1969, Parte Geral (Títulos II a IV).",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 4,
+      "prereq": [
+        "dpm.aplicacao_crime_militar"
+      ],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpm.penas",
+      "materia_id": "dpm",
+      "nome": "CPM: penas, aplicação e extinção da punibilidade (Títulos V a VIII)",
+      "edital_literal": "1. Decreto-Lei nº 1001 de 1969, Parte Geral (Títulos V a VIII).",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 3,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpm.crimes_autoridade_servico",
+      "materia_id": "dpm",
+      "nome": "Crimes contra a autoridade, a disciplina e o serviço militar",
+      "edital_literal": "1. Decreto-Lei nº 1001 de 1969, Parte Especial (Títulos II e III).",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 4,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "dpm.outros_crimes_militares",
+      "materia_id": "dpm",
+      "nome": "Demais crimes militares (Parte Especial, Títulos I e IV a VIII)",
+      "edital_literal": "1. Decreto-Lei nº 1001 de 1969, Parte Especial (Títulos I e IV a VIII).",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 4,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "legesp.hediondos",
+      "materia_id": "legesp",
+      "nome": "Crimes hediondos (Lei 8.072/1990)",
+      "edital_literal": "1. Lei nº 8.072/1990 e suas alterações (crimes hediondos).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "legesp.racismo",
+      "materia_id": "legesp",
+      "nome": "Crimes de preconceito de raça ou cor (Lei 7.716/1989)",
+      "edital_literal": "2. Lei nº 7.716/1989 e suas alterações (crimes resultantes de preconceitos de raça ou de cor).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 1,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "legesp.tortura",
+      "materia_id": "legesp",
+      "nome": "Crimes de tortura (Lei 9.455/1997)",
+      "edital_literal": "3. Lei nº 9.455/1997 e suas alterações (crimes de tortura).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 1.5,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "legesp.crime_organizado",
+      "materia_id": "legesp",
+      "nome": "Organizações criminosas (Lei 12.850/2013)",
+      "edital_literal": "4. Lei nº 12.850/2013, e alterações (crime organizado).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2.5,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "legesp.drogas",
+      "materia_id": "legesp",
+      "nome": "Lei de Drogas (Lei 11.343/2006)",
+      "edital_literal": "5. Lei nº 11.343/2006 e suas alterações (Lei Antidrogas).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 3,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "legesp.abuso_autoridade",
+      "materia_id": "legesp",
+      "nome": "Abuso de autoridade (Lei 13.869/2019)",
+      "edital_literal": "6. Lei nº 13.869/2019 (Dispõe sobre os crimes de abuso de autoridade).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2.5,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "legesp.desarmamento",
+      "materia_id": "legesp",
+      "nome": "Estatuto do Desarmamento (Lei 10.826/2003)",
+      "edital_literal": "7. Lei nº 10.826/2003 e suas alterações (Estatuto do Desarmamento).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2.5,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "legesp.maria_da_penha",
+      "materia_id": "legesp",
+      "nome": "Lei Maria da Penha (Lei 11.340/2006)",
+      "edital_literal": "8. Lei nº 11.340/2006 e suas alterações (Lei Maria da Penha).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2.5,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "legesp.eca",
+      "materia_id": "legesp",
+      "nome": "Estatuto da Criança e do Adolescente (Lei 8.069/1990)",
+      "edital_literal": "9. Lei nº 8.069/1990 e suas alterações (Estatuto da Criança e do Adolescente).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 3,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "legesp.idoso",
+      "materia_id": "legesp",
+      "nome": "Estatuto da Pessoa Idosa (Lei 10.741/2003)",
+      "edital_literal": "10. Lei nº 10.741/2003 e suas alterações (Estatuto do Idoso).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 1.5,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "legesp.identificacao_criminal",
+      "materia_id": "legesp",
+      "nome": "Identificação criminal (Lei 12.037/2009)",
+      "edital_literal": "11. Lei nº 12.037/2009 (Identificação criminal).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 1,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "transito.disposicoes_snt",
+      "materia_id": "transito",
+      "nome": "CTB: disposições preliminares e Sistema Nacional de Trânsito",
+      "edital_literal": "1. Lei nº 9.503/1997: Arts. 1º ao 4º; Art. 23.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 1.5,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "transito.normas_circulacao",
+      "materia_id": "transito",
+      "nome": "CTB: normas gerais de circulação e conduta",
+      "edital_literal": "1. Lei nº 9.503/1997: Arts. 26 ao 67.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 3,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "transito.sinalizacao",
+      "materia_id": "transito",
+      "nome": "CTB: sinalização de trânsito",
+      "edital_literal": "1. Lei nº 9.503/1997: Arts. 80 ao 90.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 1,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "transito.veiculos",
+      "materia_id": "transito",
+      "nome": "CTB: veículos",
+      "edital_literal": "1. Lei nº 9.503/1997: Arts. 96 a 102.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 1,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "transito.registro_habilitacao",
+      "materia_id": "transito",
+      "nome": "CTB: registro, licenciamento e habilitação",
+      "edital_literal": "1. Lei nº 9.503/1997: Arts. 114 ao 160.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 3,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "transito.infracoes_penalidades",
+      "materia_id": "transito",
+      "nome": "CTB: infrações, penalidades, medidas administrativas e autuação",
+      "edital_literal": "1. Lei nº 9.503/1997: Arts. 256 ao 279-A; Art. 280.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 3,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "transito.crimes",
+      "materia_id": "transito",
+      "nome": "CTB: crimes de trânsito",
+      "edital_literal": "1. Lei nº 9.503/1997: Arts. 291 a 312-B.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2.5,
+      "prereq": [],
+      "tipo": "lei_seca",
+      "volatil": false
+    },
+    {
+      "id": "inst.estatuto_pmsc",
+      "materia_id": "inst",
+      "nome": "Estatuto dos Policiais Militares de SC (Lei 6.218/1983)",
+      "edital_literal": "1. Lei nº 6.218, de 10 de fevereiro de 1983 - Estatuto dos Policiais Militares do Estado de Santa Catarina.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 5,
+      "prereq": [],
+      "tipo": "memorizacao",
+      "volatil": false
+    },
+    {
+      "id": "inst.pad",
+      "materia_id": "inst",
+      "nome": "Regulamento do Processo Administrativo Disciplinar da PMSC (Portaria 009/2001)",
+      "edital_literal": "2. Portaria nº 009/2001 - Regulamento de Processo Administrativo Disciplinar (PAD) na Polícia Militar de Santa Catarina.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2.5,
+      "prereq": [],
+      "tipo": "memorizacao",
+      "volatil": false
+    },
+    {
+      "id": "inst.lei_organica_nacional",
+      "materia_id": "inst",
+      "nome": "Lei Orgânica Nacional das PMs e CBMs (Lei 14.751/2023)",
+      "edital_literal": "3. Lei nº 14.751, de 12 de dezembro de 2023 - Lei Orgânica Nacional das Polícias Militares e dos Corpos de Bombeiros Militares.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 3,
+      "prereq": [],
+      "tipo": "memorizacao",
+      "volatil": false
+    },
+    {
+      "id": "inst.ingresso",
+      "materia_id": "inst",
+      "nome": "Ingresso nas carreiras militares de SC (LC 587/2013)",
+      "edital_literal": "4. Lei Complementar Estadual nº 587, de 14 de janeiro de 2013 (ingresso nas carreiras das instituições militares de SC).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 1.5,
+      "prereq": [],
+      "tipo": "memorizacao",
+      "volatil": false
+    },
+    {
+      "id": "inst.promocao_pracas",
+      "materia_id": "inst",
+      "nome": "Promoção das praças (LC 801/2022)",
+      "edital_literal": "5. Lei Complementar nº 801, de 1º de julho de 2022 (promoção das praças militares estaduais).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2,
+      "prereq": [],
+      "tipo": "memorizacao",
+      "volatil": false
+    },
+    {
+      "id": "inst.remuneracao",
+      "materia_id": "inst",
+      "nome": "Regime remuneratório dos militares estaduais (LC 765/2020)",
+      "edital_literal": "6. Lei Complementar nº 765, de 07 de outubro de 2020 (Regime Remuneratório Especial dos Militares Estaduais).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 1.5,
+      "prereq": [],
+      "tipo": "memorizacao",
+      "volatil": false
+    },
+    {
+      "id": "inst.organizacao_basica",
+      "materia_id": "inst",
+      "nome": "Organização Básica da PMSC (Decreto 1.601/2021)",
+      "edital_literal": "7. Decreto nº 1.601 de 3 de dezembro de 2021 - Regulamento da Organização Básica da PMSC.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2,
+      "prereq": [],
+      "tipo": "memorizacao",
+      "volatil": false
+    },
+    {
+      "id": "inst.conselho_disciplina",
+      "materia_id": "inst",
+      "nome": "Conselho de Disciplina da PMSC (Lei 5.209/1976)",
+      "edital_literal": "8. Lei Estadual nº 5.209/1976 - Lei do Conselho de Disciplina da PMSC.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 1.5,
+      "prereq": [],
+      "tipo": "memorizacao",
+      "volatil": false
+    },
+    {
+      "id": "port.interpretacao",
+      "materia_id": "port",
+      "nome": "Compreensão e interpretação de textos, tipologias e gêneros",
+      "edital_literal": "1. Compreensão e interpretação de textos; tipologias e gêneros textuais; elementos da comunicação e funções da linguagem.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 2
+        }
+      ],
+      "carga_horaria_base": 6,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "port.semantica",
+      "materia_id": "port",
+      "nome": "Semântica e significação das palavras",
+      "edital_literal": "2. Semântica: denotação e conotação; significação de palavras e expressões; sinonímia e antonímia; figuras de linguagem. 12. Significação das palavras.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 2
+        }
+      ],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2.5,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "port.morfologia",
+      "materia_id": "port",
+      "nome": "Morfologia, ortografia, acentuação e classes de palavras",
+      "edital_literal": "3. Morfologia: estrutura e formação das palavras; Ortografia oficial; Acentuação gráfica; Emprego das classes de palavras no texto.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 1
+        }
+      ],
+      "carga_horaria_base": 4,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "port.sintaxe",
+      "materia_id": "port",
+      "nome": "Sintaxe da oração e do período",
+      "edital_literal": "4. Sintaxe: termos da oração e relações sintático-semânticas. 6. Sintaxe da oração e do período.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 1
+        }
+      ],
+      "carga_horaria_base": 4,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "port.concordancia",
+      "materia_id": "port",
+      "nome": "Concordância nominal e verbal",
+      "edital_literal": "4. Concordância verbal ou nominal. 10. Concordância nominal e verbal.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 1
+        }
+      ],
+      "carga_horaria_base": 2.5,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "port.regencia_crase",
+      "materia_id": "port",
+      "nome": "Regência e crase",
+      "edital_literal": "4. Emprego do sinal indicativo de crase; regências nominal e verbal. 11. Regências nominal e verbal.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [],
+      "incidencia_banca": [],
+      "carga_horaria_base": 2.5,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "port.reescrita",
+      "materia_id": "port",
+      "nome": "Reescrita de frases e parágrafos",
+      "edital_literal": "5. Reescrita de orações, períodos, frases e parágrafos.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 1
+        }
+      ],
+      "carga_horaria_base": 2.5,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "port.pontuacao",
+      "materia_id": "port",
+      "nome": "Pontuação",
+      "edital_literal": "7. Emprego dos sinais de Pontuação e sua função no texto.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 1
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 1
+        }
+      ],
+      "carga_horaria_base": 2,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "port.coesao",
+      "materia_id": "port",
+      "nome": "Coesão e função textual dos vocábulos",
+      "edital_literal": "8. Elementos de coesão e suas funções no texto. 9. Função textual dos vocábulos.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 2
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 1
+        }
+      ],
+      "carga_horaria_base": 2.5,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "info.hardware_software",
+      "materia_id": "info",
+      "nome": "Hardware, software e conceitos básicos",
+      "edital_literal": "1. Conceitos de Hardware e Software. 2. Conceitos básicos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos de informática.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 2
+        }
+      ],
+      "carga_horaria_base": 2,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "info.libreoffice",
+      "materia_id": "info",
+      "nome": "LibreOffice 7: textos, planilhas e apresentações",
+      "edital_literal": "3. Edição de textos, planilhas e apresentações com a suíte LibreOffice 7 em português.",
+      "edital_profundidade": 2,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 2
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 2
+        }
+      ],
+      "carga_horaria_base": 4,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "info.windows11",
+      "materia_id": "info",
+      "nome": "Windows 11",
+      "edital_literal": "4. Sistema operacional Windows 11 em português.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 1
+        }
+      ],
+      "carga_horaria_base": 2,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "info.nuvem_lgpd",
+      "materia_id": "info",
+      "nome": "Nuvem, colaboração e LGPD",
+      "edital_literal": "5. Ferramentas de colaboração e armazenamento em nuvem e a LGPD (Lei 13.709/2018).",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 1
+        }
+      ],
+      "carga_horaria_base": 1.5,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "info.navegadores_email",
+      "materia_id": "info",
+      "nome": "Navegadores, internet e correio eletrônico",
+      "edital_literal": "6. Ferramentas e aplicativos de navegação Edge, Chrome e Firefox e correio eletrônico.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 3
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 1
+        }
+      ],
+      "carga_horaria_base": 1.5,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    },
+    {
+      "id": "info.seguranca",
+      "materia_id": "info",
+      "nome": "Segurança: vírus, worms e antivírus",
+      "edital_literal": "7. Noções básicas de segurança e proteção: vírus, worms e seus derivados e antivírus.",
+      "edital_profundidade": 1,
+      "incidencia_cargo": [
+        {
+          "ano": 2023,
+          "questoes": 2
+        }
+      ],
+      "incidencia_banca": [
+        {
+          "concurso": "pmpe-2024-soldado",
+          "ano": 2024,
+          "questoes": 1
+        }
+      ],
+      "carga_horaria_base": 1.5,
+      "prereq": [],
+      "tipo": "pratica",
+      "volatil": false
+    }
+  ],
+  "provas_historico": [
+    {
+      "ano": 2023,
+      "total_questoes": 58,
+      "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF"
+    }
+  ],
+  "provas_banca": [
+    {
+      "concurso": "pmpe-2024-soldado",
+      "ano": 2024,
+      "total_questoes": 60,
+      "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf"
+    }
+  ],
+  "nivelamento": {
+    "modo": "hibrido",
+    "itens": [
+      {
+        "id": "pmsc-2023-q1",
+        "assunto_id": "dconst.principios_fundamentais",
+        "enunciado": "Considerando os princípios fundamentais, os direitos de nacionalidade e a organização do Estado brasileiro, assinale a opção correta de acordo com a Constituição Federal de 1988 (CF).",
+        "alternativas": [
+          "Os entes da Federação, em seus três níveis — União, estados e municípios —, possuem soberania.",
+          "Para fins constitucionais, a população do Brasil é formada apenas por brasileiros natos.",
+          "A erradicação da pobreza e da marginalização é objetivo fundamental da República Federativa do Brasil.",
+          "A CF adota a separação rígida dos Poderes, de modo que cada Poder possui funções especializadas que os demais não podem exercer, ainda que excepcionalmente.",
+          "A CF expressamente elenca a orientação sexual entre os fatores com base nos quais não se admite tratamento jurídico diferenciado de pessoas."
+        ],
+        "gabarito": 2,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q2",
+        "assunto_id": "dconst.teoria_constituicao",
+        "enunciado": "A respeito da eficácia das normas constitucionais, assinale a opção correta.",
+        "alternativas": [
+          "Mesmo normas constitucionais programáticas possuem algum nível de eficácia.",
+          "Certas normas constitucionais são completamente destituídas de efeito.",
+          "A norma constitucional que define um plano de ação para os órgãos públicos é de eficácia plena.",
+          "A eficácia das normas constitucionais não pode, em nenhum caso, depender de normas hierarquicamente inferiores.",
+          "Apenas as normas constitucionais de eficácia plena produzem o efeito de condicionar aos seus preceitos novas normas criadas posteriormente pelo Poder Legislativo."
+        ],
+        "gabarito": 0,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q4",
+        "assunto_id": "dconst.direitos_garantias",
+        "enunciado": "No Brasil, os partidos políticos",
+        "alternativas": [
+          "têm direito de acesso gratuito ao rádio e à televisão, desde que sejam registrados na justiça eleitoral.",
+          "não são indispensáveis ao funcionamento do regime democrático.",
+          "não necessitam de autorização estatal prévia para se constituir.",
+          "integram a estrutura da administração pública.",
+          "podem ter qualquer finalidade e receber recursos de qualquer origem, em virtude do princípio da liberdade partidária."
+        ],
+        "gabarito": 2,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q5",
+        "assunto_id": "dconst.organizacao_estado",
+        "enunciado": "Na Federação brasileira, os estados",
+        "alternativas": [
+          "detêm soberania frente às decisões da União.",
+          "podem organizar-se livremente por meio de Constituição estadual, dispensada de observar as regras da Constituição Federal.",
+          "possuem a mesma estrutura de Poderes que os municípios.",
+          "têm Poder Legislativo organizado de forma bicameral, com dois órgãos legislativos, tal qual a União.",
+          "podem, apesar da autonomia municipal, intervir nos municípios, em algumas circunstâncias."
+        ],
+        "gabarito": 4,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q6",
+        "assunto_id": "dconst.organizacao_estado",
+        "enunciado": "Em relação aos municípios da Federação brasileira, assinale a opção correta.",
+        "alternativas": [
+          "Em todas as câmaras municipais, o controle externo será exercido com o auxílio do tribunal de contas dos municípios.",
+          "A lei orgânica dos municípios deve ser aprovada pela assembleia legislativa dos respectivos estados.",
+          "A lei orgânica dos municípios define livremente o número de vereadores das respectivas câmaras municipais, de acordo com a realidade e a decisão política de cada município.",
+          "Os prefeitos municipais que praticarem crime comum no exercício da função e em razão dela deverão ser julgados, em regra, pelo tribunal de justiça estadual.",
+          "No caso de divergência entre a orientação do Poder Executivo municipal e a do estadual, esta última deverá prevalecer."
+        ],
+        "gabarito": 3,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q7",
+        "assunto_id": "dconst.organizacao_estado",
+        "enunciado": "Considerando as disposições gerais da CF administração pública, assinale a opção correta. acerca da",
+        "alternativas": [
+          "Em razão do princípio da legalidade, todas as normas constitucionais devem ser objeto de lei ordinária para que a administração pública possa agir de forma legítima com base nelas.",
+          "Todos os princípios aplicáveis à administração pública devem estar expressos na CF, que não admite princípios implícitos.",
+          "Em regra, se não houver norma específica que imponha a publicidade de um ato administrativo, não é necessário torná-lo público.",
+          "Atos jurídicos da administração pública devem considerar apenas as regras jurídicas objetivas; considerações sobre moralidade, por exemplo, não interferem na validade desses atos.",
+          "Por força do princípio da impessoalidade, os atos da administração pública não são atribuídos à pessoa física que os pratica, mas ao órgão ou ente público que esta representa."
+        ],
+        "gabarito": 4,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q8",
+        "assunto_id": "dconst.organizacao_estado",
+        "enunciado": "Com base nas normas da CF acerca dos servidores públicos e de aspectos a eles relacionados, assinale a opção correta.",
+        "alternativas": [
+          "Em regra, é inadmitida a acumulação de cargos e empregos públicos.",
+          "Cada estado-membro e cada município, devido a sua autonomia, decidem livremente, em lei, o regime jurídico de seus servidores públicos.",
+          "O prazo de validade dos concursos públicos é, em regra, de quatro anos, prorrogável uma vez, por igual período.",
+          "Todo agente público é contratado por prazo indeterminado, não sendo admitidos no serviço público vínculos profissionais de caráter temporário.",
+          "Eventuais acréscimos pecuniários percebidos por servidor público serão computados para fins de concessão de acréscimos ulteriores."
+        ],
+        "gabarito": 0,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q9",
+        "assunto_id": "dpenal.lei_penal",
+        "enunciado": "Acerca da aplicação da lei penal, assinale a opção correta.",
+        "alternativas": [
+          "Compete ao juízo das execuções a aplicação da lei penal mais benéfica ao acusado, ainda que não transitada em julgado a sentença condenatória.",
+          "Sem prejuízo de convenções, tratados e regras de direito internacional, aplica-se a lei penal brasileira aos fatos ocorridos em aeronaves privadas estrangeiras durante seu voo sobre o território brasileiro.",
+          "A lei excepcional ou temporária, quando decorrido o período de sua duração ou cessadas as circunstâncias que a determinaram, não se aplica ao fato praticado durante sua vigência.",
+          "Para efeito de análise do local do crime, a legislação brasileira adota a teoria da atividade.",
+          "Na contagem dos prazos previstos no Código Penal (CP), exclui-se o dia do começo do prazo e inclui-se o do vencimento."
+        ],
+        "gabarito": 1,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q10",
+        "assunto_id": "dpenal.teoria_crime",
+        "enunciado": "Admite-se punição para a forma tentada de",
+        "alternativas": [
+          "contravenção penal.",
+          "crime habitual.",
+          "crime culposo.",
+          "crime praticado com dolo eventual.",
+          "crime omissivo próprio."
+        ],
+        "gabarito": 3,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q11",
+        "assunto_id": "dpenal.teoria_crime",
+        "enunciado": "Em relação ao concurso de pessoas, assinale a opção correta.",
+        "alternativas": [
+          "O ajuste, a determinação ou instigação e o auxílio, salvo disposição expressa em contrário, não são puníveis se o crime houver sido tentado.",
+          "O concurso de pessoas caracteriza-se pelo necessário ajuste prévio entre os colaboradores para a prática do delito.",
+          "Se a participação for de menor importância, o juiz poderá aplicar o perdão judicial.",
+          "Quem, de qualquer modo, concorre para o crime incide nas penas a este cominadas, na medida de sua personalidade.",
+          "Se a intenção de algum dos concorrentes fosse participar de crime menos grave, ser-lhe-á aplicada a pena deste, a qual será aumentada até a metade na hipótese de ter sido previsível o resultado mais grave."
+        ],
+        "gabarito": 4,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q12",
+        "assunto_id": "dpenal.crimes_pessoa",
+        "enunciado": "Nos termos do CP, a pena pelo crime de feminicídio é aumentada de um terço até a metade se o crime tiver sido praticado",
+        "alternativas": [
+          "enquanto a vítima estava gestante ou nos três meses posteriores ao parto.",
+          "em descumprimento de medida protetiva de urgência referente ao dever de pagar alimentos provisórios.",
+          "na presença física de terceiros.",
+          "na presença virtual de descendentes do acusado.",
+          "em descumprimento de medida protetiva de urgência referente ao dever de comparecimento do agressor a programas de recuperação e reeducação."
+        ],
+        "gabarito": 0,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q13",
+        "assunto_id": "dpenal.crimes_patrimonio",
+        "enunciado": "Caso um indivíduo seja preso em flagrante pela prática de furto a uma residência, ele será isento de pena se tiver cometido o crime em prejuízo de",
+        "alternativas": [
+          "sua namorada, desde que coabite com ela.",
+          "sua mãe, desde que ela tenha sessenta anos ou mais de idade.",
+          "seu irmão, desde que coabite com ele.",
+          "seu filho, desde que coabite com ele.",
+          "seu cônjuge, na constância da sociedade conjugal."
+        ],
+        "gabarito": 4,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q14",
+        "assunto_id": "dpenal.penas",
+        "enunciado": "Quando o agente, mediante mais de uma ação ou omissão, pratica dois ou mais crimes, idênticos ou não, aplicam-se cumulativamente as penas privativas de liberdade em que haja incorrido. Nessa hipótese, ocorre",
+        "alternativas": [
+          "crime continuado.",
+          "concurso formal imperfeito.",
+          "concurso formal.",
+          "concurso material.",
+          "crime multitudinário."
+        ],
+        "gabarito": 3,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q15",
+        "assunto_id": "dpenal.crimes_adm_publica",
+        "enunciado": "A conduta de funcionário público, fora do exercício de sua função, mas em razão dela, exigir o pagamento de uma vantagem indevida configura o crime de",
+        "alternativas": [
+          "extorsão.",
+          "prevaricação.",
+          "concussão.",
+          "corrupção passiva.",
+          "advocacia administrativa."
+        ],
+        "gabarito": 2,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q16",
+        "assunto_id": "dpenal.crimes_fe_publica",
+        "enunciado": "Segundo o entendimento jurisprudencial do Superior Tribunal de Justiça (STJ), inserir informação falsa em currículo Lattes configura",
+        "alternativas": [
+          "crime de falsificação de documento particular.",
+          "conduta atípica.",
+          "crime de falsidade ideológica.",
+          "crime de estelionato.",
+          "crime de falsificação de documento público."
+        ],
+        "gabarito": 1,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q17",
+        "assunto_id": "dpp.nocoes",
+        "enunciado": "No que se refere à aplicação da lei processual penal no tempo, assinale a opção correta.",
+        "alternativas": [
+          "Nova lei processual penal, mesmo que favorável ao agente de crime, é aplicável aos fatos anteriores a ela, ainda que já haja decisão a respeito desses fatos em sentença condenatória transitada em julgado.",
+          "Nova lei processual penal tem aplicação imediata em processos que já estejam em andamento.",
+          "A lei processual penal não admite interpretação extensiva nem aplicação analógica, por força do princípio da legalidade.",
+          "Nova lei processual penal tem aplicação imediata, o que impõe a necessidade de renovação dos atos praticados de acordo com a lei anterior, para que estejam em conformidade com a nova legislação.",
+          "A lei processual penal será aplicada exclusivamente aos processos iniciados durante sua vigência."
+        ],
+        "gabarito": 1,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q18",
+        "assunto_id": "dpp.nocoes",
+        "enunciado": "Assinale a opção correta acerca do processo penal constitucional.",
+        "alternativas": [
+          "Ninguém será considerado culpado até o seu julgamento em segunda instância.",
+          "Permite-se, excepcionalmente, a criação de juízo ou de tribunal especial para julgar crimes graves.",
+          "O princípio da inadmissibilidade das provas ilícitas será afastado quando a prova, ainda que obtida por meios ilícitos, for absolutamente necessária para estabelecer a verdade real dos fatos.",
+          "O princípio do contraditório constitui corolário do devido processo legal.",
+          "Por força do princípio da intranscendência, é terminantemente vedado estender aos sucessores do condenado a obrigação de reparar o dano por ele causado."
+        ],
+        "gabarito": 3,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q20",
+        "assunto_id": "dpp.nocoes",
+        "enunciado": "Segundo o princípio de vedação da autoincriminação (nemo tenetur se detegere), o acusado",
+        "alternativas": [
+          "é obrigado a fornecer padrões vocais necessários para subsidiar prova pericial de verificação de interlocutor.",
+          "é obrigado a fornecer material para exame grafotécnico, para fins de reconhecimento de escritos por comparação de letra.",
+          "é obrigado a participar da reconstituição do crime a ele imputado.",
+          "não pode mentir, sob pena de perjúrio.",
+          "tem direito ao silêncio, o que não implica direito de falsear a verdade quanto à identidade pessoal."
+        ],
+        "gabarito": 4,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q21",
+        "assunto_id": "dpp.inquerito",
+        "enunciado": "No tocante ao inquérito policial, julgue os itens seguintes, à luz do Código de Processo Penal (CPP). I Para repressão do crime de tráfico de pessoas, o membro do Ministério Público poderá requisitar diretamente às empresas prestadoras de serviço de telecomunicações que disponibilizem imediatamente os sinais que permitam a localização da vítima do delito em curso. II O policial militar que figure como investigado em inquérito policial cujo objeto seja a investigação de fatos relacionados ao uso de força letal no exercício profissional poderá constituir defensor. III O ofendido, ou seu representante legal, e o indiciado poderão requisitar qualquer diligência, que será realizada pela autoridade policial, em respeito ao princípio da isonomia. Assinale a opção correta.",
+        "alternativas": [
+          "Apenas o item I está certo.",
+          "Apenas o item II está certo.",
+          "Apenas os itens I e III estão certos.",
+          "Apenas os itens II e III estão certos.",
+          "Todos os itens estão certos."
+        ],
+        "gabarito": 1,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q22",
+        "assunto_id": "dpp.inquerito",
+        "enunciado": "João estava sendo investigado por um crime, no entanto, devido à falta de indícios suficientes de autoria, o inquérito policial foi arquivado mediante pedido do Ministério Público e determinação da autoridade judiciária competente. Passados dois anos, a polícia civil descobriu uma nova prova relevante que apontava para o possível envolvimento de João no crime em questão. Essa prova consistia em imagens de câmeras de segurança de residências, na vizinhança onde ocorrera o delito, captadas no momento exato da sua prática, mas cuja existência só foi descoberta posteriormente. Com base nessa nova evidência, o delegado responsável pelo caso pretende desarquivar o inquérito policial para retomar as investigações. Considerando a situação hipotética precedente, assinale a opção correta.",
+        "alternativas": [
+          "O inquérito policial não poderá ser reaberto, pois se operou a coisa julgada material.",
+          "A reabertura das investigações poderá decorrer de simples mudança de opinião ou reavaliação da situação, em razão do princípio da verdade real.",
+          "Dada a notícia de prova nova, é possível o desarquivamento do inquérito policial.",
+          "Não poderá haver o desarquivamento do inquérito, uma vez que as imagens foram captadas antes do seu arquivamento.",
+          "O arquivamento do inquérito por falta de justa causa poderia ter sido diretamente determinado pela autoridade policial, sem a necessidade de manifestação do Ministério Público ou do juiz."
+        ],
+        "gabarito": 2,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q23",
+        "assunto_id": "dpp.inquerito",
+        "enunciado": "O inquérito policial é um procedimento",
+        "alternativas": [
+          "de natureza inquisitiva.",
+          "indispensável.",
+          "público em todos os seus atos.",
+          "passível de ser presidido pelo Ministério Público.",
+          "não oficioso."
+        ],
+        "gabarito": 0,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q24",
+        "assunto_id": "dpp.inquerito",
+        "enunciado": "Uma vez instaurado pelo delegado de polícia, o inquérito policial deve ser concluído no prazo de",
+        "alternativas": [
+          "cinco dias, em caso de prisão em flagrante.",
+          "quinze dias, caso o investigado esteja solto.",
+          "dez dias, em caso de prisão preventiva.",
+          "trinta dias, em caso de crime hediondo.",
+          "dez dias, sendo prorrogável por igual período, em caso de prisão em flagrante."
+        ],
+        "gabarito": 2,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q25",
+        "assunto_id": "inst.estatuto_pmsc",
+        "enunciado": "José, aluno-oficial do primeiro ano do curso de formação de oficiais da Polícia Militar de Santa Catarina (PMSC), conheceu Maria, turista espanhola de passagem pelo Brasil. Embora soubesse que o curso exigia a condição de solteiro, José casou-se com Maria às escondidas. Após o casamento, o casal viajou por sete dias. Ao retornar, José informou à corporação que se casara e que estivera em lua de mel no referido período. Nessa situação hipotética, conforme o Estatuto dos Policiais Militares do Estado de Santa Catarina (Lei n.º 6.218/1983), José",
+        "alternativas": [
+          "deveria ter sido considerado desaparecido pela corporação policial militar no período em que se ausentou do curso de formação de oficiais.",
+          "tinha direito ao afastamento total do serviço por motivo de núpcias.",
+          "poderá permanecer, se for do interesse da corporação, na graduação de terceiro-sargento da PMSC, desde que tranque definitivamente sua matrícula no curso de formação de oficiais.",
+          "deve ser excluído da corporação, sem qualquer direito a remuneração ou indenização.",
+          "terá agido corretamente se, por ocasião de seu retorno, tiver apresentado documentação que justificasse sua ausência."
+        ],
+        "gabarito": 3,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q32",
+        "assunto_id": "inst.organizacao_basica",
+        "enunciado": "Em consonância com o Decreto n.º 1.601/2021, que aprova o regulamento da Lei n.º 6.217/1983, acerca da organização básica da PMSC, assinale a opção correta.",
+        "alternativas": [
+          "O planejamento, a coordenação e a direção da execução da polícia ostensiva e da preservação da ordem pública constituem uma das competências da PMSC.",
+          "Os pelotões são frações de tropa com dois ou mais grupos de policiais militares e podem ser incorporados, destacados ou independentes.",
+          "Os órgãos de execução são as organizações policiais militares que desenvolvem as atividades finalísticas da PMSC, podendo ser grandes comandos, unidades e subunidades.",
+          "São órgãos de direção setorial da PMSC a Diretoria de Pessoal, a Divisão de Inteligência, a Divisão Operacional e a Diretoria de Apoio Logístico e Finanças.",
+          "Os Comandos Regionais de Polícia Militar (CRPM) são grandes comandos responsáveis pela polícia ostensiva e pela preservação da ordem pública em circunscrições delimitadas às quais são subordinadas duas ou mais subunidades."
+        ],
+        "gabarito": 0,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q33",
+        "assunto_id": "port.interpretacao",
+        "enunciado": "A afirmação que inicia o texto 1A5-I é confirmada, entre outros fatores, por meio da",
+        "alternativas": [
+          "descrição de estudos sobre a aplicabilidade dos algoritmos.",
+          "indicação de que um algoritmo pode ter uma dezena de linhas de programação ou milhões delas.",
+          "informação de dados estatísticos do uso de algoritmos em diversas áreas.",
+          "apresentação de exemplos do uso dos algoritmos em diferentes setores da sociedade.",
+          "definição de que algoritmo é uma sequência de etapas para resolver um problema."
+        ],
+        "gabarito": 3,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q34",
+        "assunto_id": "port.semantica",
+        "enunciado": "Nos segmentos “atividades cotidianas prosaicas” e “objetos intangíveis” (primeiro período do segundo parágrafo), os vocábulos “prosaicas” e “intangíveis” poderiam ser respectivamente substituídos, sem prejuízo da coerência das ideias do texto 1A5-I, por",
+        "alternativas": [
+          "comuns e incompreensíveis.",
+          "banais e inatacáveis.",
+          "triviais e imprecisos.",
+          "práticas e inalcançáveis.",
+          "vulgares e incontestáveis."
+        ],
+        "gabarito": 0,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q35",
+        "assunto_id": "port.semantica",
+        "enunciado": "No terceiro período do primeiro parágrafo, o termo “ante” poderia ser substituído, sem prejuízo da correção gramatical e do sentido original do texto 1A5-I, por I diante de. II perante. III face à. Assinale a opção correta.",
+        "alternativas": [
+          "Apenas o item II está certo.",
+          "Apenas o item III está certo.",
+          "Apenas os itens I e II estão certos.",
+          "Apenas os itens I e III estão certos.",
+          "Todos os itens estão certos."
+        ],
+        "gabarito": 2,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q36",
+        "assunto_id": "port.sintaxe",
+        "enunciado": "No segundo parágrafo do texto 1A5-I, a oração introduzida pelo vocábulo “Embora” exprime, em relação à oração seguinte, circunstância de",
+        "alternativas": [
+          "condição.",
+          "concessão.",
+          "explicação.",
+          "conformidade.",
+          "comparação."
+        ],
+        "gabarito": 1,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q37",
+        "assunto_id": "port.pontuacao",
+        "enunciado": "Estariam mantidos os sentidos e a correção gramatical do texto1A5-I caso o travessão empregado no primeiro período do segundo parágrafo fosse substituído por",
+        "alternativas": [
+          "ponto final, pois as orações que seguem o travessão podem constituir um período isolado.",
+          "pelo vocábulo e, pois o travessão, no contexto em questão, é empregado para separar orações coordenadas aditivas.",
+          "ponto e vírgula, pois o travessão, no contexto em que se insere, separa ideias distintas e orações independentes.",
+          "vírgula, pois o travessão separa uma oração de sentido explicativo.",
+          "dois-pontos, pois o travessão introduz uma enumeração em relação à ideia anterior. Texto 1A5-II Um chatbot pode ser resumido em sua tradução — “robô de bate-papo”. Porém, atualmente, o ChatGPT, um tipo de chatbot, tem chamado atenção pela sua capacidade de manter a coesão e a coerência: “Ele funciona como um modelo de linguagem e consegue fazer uma redação com conteúdo e produção de sentido, de modo que não se sabe se aquele texto foi produzido por um humano ou por um robô”, explica o professor Rogério de Almeida da Faculdade de Educação da USP. O professor brinca e pergunta para o chatbot como ele vê a principal preocupação dos acadêmicos com o chat. O próprio ChatGPT pontua cinco questões: a primeira seria a existência de um viés, mediado pelos algoritmos, que pode reproduzir preconceitos; a segunda, ética, relacionada a como o chat seria utilizado; a terceira tem relação com a privacidade, já que ele funciona com o uso de diversos dados; a quarta está relacionada a controle, pois ele é imprevisível e é importante prezar pelo bem-estar das pessoas; a quinta, a transparência de como essa ferramenta funciona. Porém, o especialista não segue a linha de raciocínio dessa inteligência artificial: “Eu vou por outro caminho. O que eu acho que ele nos coloca é uma questão muito interessante daquilo que nós consideramos humano. Porque, de certa forma, a inteligência artificial aprende conosco, ela é treinada com os textos que nós produzimos. Isso nos coloca em xeque em relação à criatividade e ao pensamento crítico”. Internet: <jornal.usp.br> (com adaptações)."
+        ],
+        "gabarito": 3,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q38",
+        "assunto_id": "port.coesao",
+        "enunciado": "Estariam mantidos os sentidos e a correção gramatical do texto 1A5-II caso se substituísse a expressão “de modo que (último período do primeiro parágrafo) por",
+        "alternativas": [
+          "de forma à que.",
+          "na medida em que.",
+          "desde que.",
+          "ainda que.",
+          "de sorte que."
+        ],
+        "gabarito": 4,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q39",
+        "assunto_id": "port.reescrita",
+        "enunciado": "Assinale a opção em que a proposta de reescrita do último período do texto1A5-II preserva os seus sentidos e a correção gramatical.",
+        "alternativas": [
+          "Isso nos coloca no jogo de criatividade e pensamento crítico.",
+          "Isso nos coloca em situação duvidosa no que se refere à criatividade e ao pensamento crítico.",
+          "Isso nos coloca em dúvida a cerca da criatividade e do pensamento crítico.",
+          "O que nos coloca em perigo no que concerne a criatividade e ao pensamento crítico.",
+          "Fato que nos ameaça no tocante a criatividade e o pensamento crítico. Texto 1A5-III o OFÍCIO N 000/ano/siglas do setor Cidade-UF, data. Ao Senhor [Nome] Gerente dos Complexos Reguladores Endereço CEP Cidade/UF Assunto: Solicitação de senha. Senhor Gerente, Tenho o prazer de dirigir-me ao Senhor para solicitar senha de acesso ao sistema SISREG, perfil administrador, objetivando a implantação da Central de Regulação de Consultas e Exames do Município. Essa ação visa à humanização dos serviços, ao controle do fluxo e à otimização na utilização dos recursos. Agradecendo a colaboração, renovo protestos de estima, (espaço para assinatura) [NOME DO SIGNATÁRIO] Secretário Municipal de Saúde"
+        ],
+        "gabarito": 1,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q40",
+        "assunto_id": "port.coesao",
+        "enunciado": "Considerando que coesão e coerência, segundo o Manual de Redação da Presidência da República, são atributos que favorecem a conexão, a ligação e a harmonia entre os elementos de um texto, é correto afirmar que, no texto 1A5-III, a expressão “Essa ação” (segundo parágrafo do texto do documento) é empregada em relação",
+        "alternativas": [
+          "ao ofício em si.",
+          "à solicitação de senha.",
+          "ao acesso ao sistema SISREG.",
+          "à humanização dos serviços, ao controle do fluxo e à otimização na utilização dos recursos.",
+          "à implantação da Central de Regulação de Consultas e Exames do Município."
+        ],
+        "gabarito": 4,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q43",
+        "assunto_id": "info.navegadores_email",
+        "enunciado": "Considerando conceitos relacionados a Internet e intranet, assinale a opção correta.",
+        "alternativas": [
+          "SMTP (Simple Mail Transfer Protocol) é o protocolo padrão de navegação na Internet, responsável pela estruturação do conteúdo e pela apresentação de páginas da Web.",
+          "Nas redes, denomina-se hashtag qualquer conjunto formado por palavra-chave posposta ao sinal tipográfico da cerquilha (#), com o que se identificam conteúdos que se deseja ocultar.",
+          "Intranet é uma rede de equipamentos que permite acesso externo controlado, para negócios específicos ou propósitos educacionais, sendo uma extensão da rede local de uma organização, disponibilizada para usuários externos a ela.",
+          "O protocolo padrão da Internet é o TCP/IP (Transmission Control Protocol/Internet Protocol), responsável por fornecer uma base confiável e eficiente para a comunicação entre dispositivos em redes de computadores.",
+          "O protocolo padrão da Internet é o DHCP (Dynamic Host Configuration Protocol), responsável por fornecer uma base confiável e eficiente para a comunicação entre dispositivos em redes de computadores."
+        ],
+        "gabarito": 3,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q44",
+        "assunto_id": "info.libreoffice",
+        "enunciado": "No que se refere ao LibreOffice, assinale a opção correta.",
+        "alternativas": [
+          "O formato de arquivo nativo do LibreOffice é o OpenDocument (ODF), mas no programa também é possível abrir e salvar documentos em outros formatos.",
+          "O LibreOffice funciona em arquitetura específica de hardware e restrita a sistemas operacionais Windows.",
+          "A interface de usuário do LibreOffice, incluindo-se ortografia, hifenização e dicionário de sinônimos, está disponível somente em português, pois é uma suíte construída no Brasil.",
+          "No LibreOffice, não é possível abrir arquivos no formato HTML.",
+          "As ferramentas do LibreOffice não são integradas, então o corretor ortográfico, por exemplo, é exclusivo do LibreOffice Writer."
+        ],
+        "gabarito": 0,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q45",
+        "assunto_id": "info.libreoffice",
+        "enunciado": "A partir da figura anterior, que ilustra a caixa de diálogo Salvar como no LibreOffice em um computador hipotético, assinale a opção correta.",
+        "alternativas": [
+          "Nesse computador, os arquivos criados com o LibreOffice Writer só podem ser salvos na pasta Meus documentos.",
+          "Para proteger o Documento 1 e restringir o acesso ao seu conteúdo, deve-se utilizar a opção Salvar com senha.",
+          "Se o usuário clicar na opção Cancelar, o Documento 1 será deletado.",
+          "Nesse computador, os arquivos criados com o LibreOffice Draw serão gravados necessariamente na pasta Imagens.",
+          "A opção Extensão de arquivo automática, marcada na caixa de diálogo, tem a finalidade de autorizar o LibreOffice a salvar documentos automaticamente."
+        ],
+        "gabarito": 1,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q47",
+        "assunto_id": "info.navegadores_email",
+        "enunciado": "Assinale a opção em que é apresentada uma ferramenta de pesquisa na Internet.",
+        "alternativas": [
+          "Explorador de Arquivos do Windows",
+          "LibreOffice Math",
+          "ChatGPT",
+          "LibreOffice Draw",
+          "hiperlink"
+        ],
+        "gabarito": 2,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q48",
+        "assunto_id": "info.seguranca",
+        "enunciado": "No que se refere a ferramentas e aplicativos de navegação, bem como à segurança da informação, assinale a opção correta.",
+        "alternativas": [
+          "Hiperlink é um programa de computador que habilita os usuários a interagir com documentos virtuais na Internet, também conhecidos como páginas da Web.",
+          "Cookies são vírus que afetam arquivos executáveis e que funcionam apenas quando o usuário abre o arquivo infectado.",
+          "Plug-ins são módulos de código instalados no browser que permitem a apresentação de arquivos com formatos diferentes do HTML.",
+          "O uso do software TCP/IP evita a infecção de vírus ao se baixarem arquivos em páginas da Internet.",
+          "O IP de um computador é uma ferramenta de busca que permite acessar informações de vídeos e imagens."
+        ],
+        "gabarito": 2,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q49",
+        "assunto_id": "info.navegadores_email",
+        "enunciado": "Assinale a opção que corresponde a um exemplo correto de endereço de email de um soldado da Polícia Militar do Estado de Santa Catarina, considerando-se que, para que o endereço de email seja viável, o nome do soldado seja usado, sem espaços, no lugar do termo nomesoldado.",
+        "alternativas": [
+          "@nomesoldado.pm.sc.gov.br",
+          "https://www.pm.sc.gov.br@nomesoldado",
+          "pm.sc.gov.br@nomesoldado",
+          "https://www.pm.sc.gov.br/nomesoldado",
+          "nomesoldado@pm.sc.gov.br"
+        ],
+        "gabarito": 4,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "pmsc-2023-q50",
+        "assunto_id": "info.seguranca",
+        "enunciado": "Assinale a opção em que é indicado um tipo de malware projetado para coletar informações relativas à atividade do usuário sem o seu conhecimento ou consentimento.",
+        "alternativas": [
+          "spyware",
+          "cavalo de Troia (trojan)",
+          "adware",
+          "ransomware",
+          "vírus de arquivo"
+        ],
+        "gabarito": 0,
+        "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+        "ano": 2023,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q1",
+        "assunto_id": "port.interpretacao",
+        "enunciado": "A partir da leitura e do conteúdo apresentado no texto, assinale a alternativa correta.",
+        "alternativas": [
+          "A SpaceX lançou um foguete a bordo da sonda que compreenderá os mistérios do mundo metalizado: o asteroide Psyche.",
+          "Essa missão da Nasa é uma oportunidade singular de ver o núcleo do planeta Terra.",
+          "O asteroide Psyche faz parte do cinturão de asteroides que compõe as órbitas de Marte e Mercúrio.",
+          "A jornada inclui as ações de capturar imagens do asteroide, analisar sua composição e realizar medições de seu campo magnético.",
+          "A comunicação por rádio será substituída pela comunicação a laser nas missões futuras. Tipo 01 – Página 2 PMPE"
+        ],
+        "gabarito": 3,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q2",
+        "assunto_id": "port.interpretacao",
+        "enunciado": "“A Nasa lançou, nesta sexta-feira, 13, uma missão ao distante asteroide Psyche, um mundo feito de metal até então não estudado, que os cientistas acreditam que poderia ser o núcleo de um antigo corpo celeste.”. A partir desse trecho, assinale a alternativa correta quanto à tipologia que predomina.",
+        "alternativas": [
+          "O trecho exibe características expositivas, pois se trata de um enunciado que evidencia fenômenos objetivos, isto é, expõe o lançamento da missão e explica o que é o asteroide Psyche.",
+          "O trecho possui características narrativas, pois sequencia o trajeto percorrido pela sonda no espaço, em ordem cronológica.",
+          "O trecho contém características injuntivas, visto que propõe um passo a passo de condução da viagem, de quanto tempo deve durar e de como alcançar seu objetivo.",
+          "O trecho apresenta características descritivas, porque explica a composição e a estética da sonda e do Psyche.",
+          "O trecho mostra características argumentativas, pois apresenta um depoimento que deixa clara a opinião do autor em relação a essa viagem."
+        ],
+        "gabarito": 0,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q3",
+        "assunto_id": "port.reescrita",
+        "enunciado": "Assinale a alternativa que apresenta uma reescrita do excerto a seguir, cujos sentidos e norma-padrão sejam mantidos. “Graças à luz refletida em sua superfície, os cientistas sabem que Psyche é muito densa e feita de metal, além de algum outro material, talvez rochas.”.",
+        "alternativas": [
+          "“Graças à luz refletida em sua superfície, os cientistas sabem que Psyche é muito esparsa e feita de metal, além de algum outro material, talvez rochas.”.",
+          "“Graças à luz refletida em sua superfície, os cientistas sabem que Psyche é muito crassa e feita de metal, além de algum outro material, talvez rochas.”.",
+          "“Graças à clarão refletido em sua superfície, os cientistas sabem que Psyche é muito densa e feita de metal, além de algum outro material, talvez rochas.”.",
+          "“Graças à bruma refletida em sua superfície, os cientistas sabem que Psyche é muito densa e feita de metal, além de algum outro material, talvez rochas.”.",
+          "“Graças à luz refletida em sua superfície, os cientistas sabem que Psyche é muito rarefeita e constituída de metal, além de algum outro material, talvez rochas.”. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "gabarito": 1,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q4",
+        "assunto_id": "port.morfologia",
+        "enunciado": "Em relação aos elementos ortográficos da língua e considerando os termos em destaque, assinale a alternativa correta.",
+        "alternativas": [
+          "Em “A humanidade já visitou mundos feitos de rochas, gelo ou gás.”, acentuam-se as palavras destacadas por serem monossílabos terminados em “a”.",
+          "Em “A Nasa lançou, nesta sexta-feira, [...]”, emprega-se o hífen porque é um composto formado com advérbio, que, com a outra palavra, configura uma unidade sintagmática e semântica.",
+          "Em “A missão a Psyche é [...]”, o acento til é empregado pela mesma regra de uso do acento agudo em “A sonda permanecerá [...]”.",
+          "Em “Esses motores utilizam a eletricidade fornecida pelos painéis solares da sonda para obter íons de um gás nobre [...]”, as duas palavras destacadas são monossílabas.",
+          "Em “A sonda permanecerá em órbita ao redor de Psyche por pouco mais de dois anos para estudá-la [...]”, o acento agudo é empregado por se tratar de verbo terminado em “a” tônico seguido de pronome átono."
+        ],
+        "gabarito": 4,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q5",
+        "assunto_id": "port.pontuacao",
+        "enunciado": "Assinale a alternativa em que se apresenta uma sentença adaptada do texto, na qual se preserva o uso correto da pontuação.",
+        "alternativas": [
+          "“Alternando entre diversas altitudes, a sonda permanecerá em órbita ao redor de Psyche por pouco mais de dois anos para estudá-la.”.",
+          "“A humanidade já visitou mundos feitos de rochas, gelo ou gás, mas, ‘esta será a primeira vez que o fará em um mundo que tem uma superfície metálica’ [...]”.",
+          "“A Nasa lançou, uma missão ao distante asteroide Psyche, um mundo feito de metal até então não estudado, [...]”.",
+          "“Três instrumentos científicos, serão utilizados: imagens multiespectrais [...]”.",
+          "“A sonda também, utilizará propulsores de efeito Hall para se deslocar, uma novidade nas viagens interplanetárias.”. Tipo 01 – Página 3 PMPE"
+        ],
+        "gabarito": 0,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q6",
+        "assunto_id": "port.sintaxe",
+        "enunciado": "Analise o excerto a seguir: “Serão utilizados três instrumentos científicos: imagens multiespectrais para fotografá-lo, espectrômetros para determinar sua composição e magnetômetros para medir seu campo magnético.”. As orações iniciadas pelos destacados expressam valor conectivos",
+        "alternativas": [
+          "temporal.",
+          "modal.",
+          "final.",
+          "condicional.",
+          "comparativo."
+        ],
+        "gabarito": 2,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q8",
+        "assunto_id": "port.coesao",
+        "enunciado": "No trecho “[...] a sonda também utilizará propulsores de efeito Hall, uma novidade nas viagens interplanetárias. Esses motores utilizam a eletricidade fornecida pelos painéis solares da sonda para obter íons de um gás nobre (gás xenônio), que são acelerados pela passagem por um campo elétrico.”, os termos destacados referem-se, anaforicamente,",
+        "alternativas": [
+          "aos propulsores de efeito Hall.",
+          "às viagens interplanetárias.",
+          "aos painéis solares da sonda.",
+          "aos íons de um gás nobre.",
+          "a um campo elétrico."
+        ],
+        "gabarito": 0,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q9",
+        "assunto_id": "port.concordancia",
+        "enunciado": "Em relação à concordância verbal e nominal, analise as assertivas e assinale a alternativa que aponta a(s) correta(s). I. II. III. Em “A humanidade já visitou mundos feitos de rochas, gelo ou gás.”, o verbo destacado está na terceira pessoa do singular, concordando com o sujeito “a humanidade”, e refere-se a um evento do passado. Em “Costumo brincar que tem o formato de uma batata, porque as batatas têm vários formatos diferentes, então não estou errada”, os itens destacados tratam-se, respectivamente, de um verbo na terceira pessoa do plural e de um adjetivo uniforme. Em “A missão Psyche também testará um sistema de comunicação a laser, que deverá permitir a transmissão de mais dados do que comunicações por rádio.”, os itens destacados formam uma locução verbal, cujo sujeito é “a missão Psyche” e, por isso, está na terceira pessoa do singular.",
+        "alternativas": [
+          "Apenas I.",
+          "Apenas II.",
+          "Apenas III.",
+          "Apenas I e II.",
+          "Apenas I e III. Tipo 01 – Página 4 PMPE"
+        ],
+        "gabarito": 0,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q31",
+        "assunto_id": "info.navegadores_email",
+        "enunciado": "Durante uma operação da Polícia Militar de Pernambuco (PMPE), uma equipe de inteligência necessitou utilizar recursos da internet para coletar informações sobre um suspeito. A operação dependia do entendimento correto a respeito do que é a internet e de como ela funciona. Com base nesse cenário, assinale a alternativa correta em relação ao conceito de internet.",
+        "alternativas": [
+          "A internet é uma rede global de computadores que se conectam exclusivamente via satélite, permitindo a comunicação instantânea e o acesso a informações restritas a agências governamentais.",
+          "A internet é uma coleção de redes de computadores interconectadas que utilizam um conjunto padrão de protocolos (TCP/IP) para servir bilhões de usuários em todo o mundo, sendo acessível apenas por computadores pessoais desktop.",
+          "A internet é uma rede mundial de computadores que se conectam por meio de linhas telefônicas, cabos de fibra óptica, transmissões sem fio e outras tecnologias, permitindo a troca de informações e a comunicação em tempo real.",
+          "A internet é um sistema fechado de comunicação usado exclusivamente por organizações militares e de segurança para operações de inteligência e monitoramento.",
+          "A internet é uma rede que conecta apenas computadores pessoais e servidores, sendo utilizada principalmente para entretenimento, e não possui aplicabilidade em operações de inteligência. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "gabarito": 2,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q33",
+        "assunto_id": "info.seguranca",
+        "enunciado": "A PMPE está atualizando seu sistema de segurança cibernética. Durante uma reunião, os oficiais discutem estratégias para proteger suas redes e sistemas de computadores contra ameaças digitais. Com base em conceitos sobre proteção e segurança de computadores, assinale a alternativa que NÃO apresenta uma estratégia a ser adotada.",
+        "alternativas": [
+          "Instalação de firewalls de alta qualidade em todos os computadores, confiando na sua capacidade de bloquear todas as ameaças externas.",
+          "Uso de criptografia de ponta a ponta em comunicações consideradas críticas, enquanto outras comunicações permanecem sem criptografia para facilitar o acesso.",
+          "Implementação de um sistema Enterprise Resource Planning (ERP) que monitora e registra informações que interligam todos os dados e processos de uma organização em um único sistema.",
+          "Software antivírus, atualizando-o regularmente, mas sem investir em outras formas de segurança cibernética.",
+          "Adoção de uma política de segurança que exige autenticação de dois fatores."
+        ],
+        "gabarito": 2,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q34",
+        "assunto_id": "info.nuvem_lgpd",
+        "enunciado": "A PMPE está avaliando diferentes tecnologias para melhorar o armazenamento e a gestão de dados sensíveis. Considerando a necessidade de segurança, acessibilidade e eficiência, qual das seguintes opções é a mais adequada para o armazenamento de dados operacionais e de inteligência?",
+        "alternativas": [
+          "Utilização de drives USB criptografados para armazenamento de dados, com cópias de segurança mantidas em um local físico seguro.",
+          "Implementação de um sistema de armazenamento em nuvem privada, com criptografia de ponta a ponta e acesso restrito a usuários autorizados.",
+          "Uso de discos rígidos externos conectados diretamente aos computadores da rede interna, sem criptografia, para facilitar o acesso rápido aos dados.",
+          "Adoção de um sistema de armazenamento em rede (NAS) sem conexão à internet, limitando o acesso aos dados apenas a dispositivos conectados fisicamente.",
+          "Armazenamento de todos os dados em servidores locais dentro da instituição, para evitar riscos de vazamento de dados fora das políticas de recuperação de dados. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "gabarito": 1,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q36",
+        "assunto_id": "info.windows11",
+        "enunciado": "Em um ambiente corporativo, um técnico de TI precisa utilizar funcionalidades do Windows 10 em português para otimizar a gestão de sistemas e segurança. Qual das seguintes alternativas apresenta uma funcionalidade correta do Windows 10, em português, adequada para esse propósito?",
+        "alternativas": [
+          "O Windows 10 permite a criação de múltiplas contas de administrador com privilégios irrestritos, permitindo que qualquer usuário com essas contas instale software sem restrições de segurança.",
+          "A funcionalidade \"Bloqueio Dinâmico\" do Windows 10 utiliza reconhecimento facial para bloquear automaticamente o computador quando o usuário se afasta, sem a necessidade de hardware adicional.",
+          "O Windows 10 possui um recurso integrado que permite a execução automática de scripts de manutenção do sistema operacional em todas as máquinas da rede sem a necessidade de software adicional.",
+          "O recurso \"Área Restrita do Windows\" permite executar aplicativos em um ambiente isolado, protegendo o sistema operacional principal de potenciais ameaças de segurança.",
+          "O Windows 10 suporta nativamente a virtualização de sistemas operacionais Linux dentro do ambiente Windows, sem a necessidade de instalar software de terceiros. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "gabarito": 3,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q39",
+        "assunto_id": "info.libreoffice",
+        "enunciado": "Assinale a alternativa INCORRETA em relação às funcionalidades da ferramenta Calc do pacote LibreOffice 7 em português.",
+        "alternativas": [
+          "O Calc permite a importação e exportação de dados em formatos como CSV, XLSX e ODS.",
+          "O Calc suporta a utilização de funções de estatística e análise de dados.",
+          "No Calc, é possível criar gráficos dinâmicos que se atualizam automaticamente com a alteração dos dados.",
+          "O Calc oferece um recurso integrado de previsão de séries temporais com base em dados históricos.",
+          "O Calc permite a execução de scripts em linguagens de programação como Python e Java diretamente na planilha."
+        ],
+        "gabarito": 4,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q41",
+        "assunto_id": "dconst.direitos_garantias",
+        "enunciado": "Joaquim foi aprovado no concurso para Polícia Militar do Estado de Pernambuco e está frequentando o curso de formação. Durante a aula, vários direitos e deveres individuais e coletivos foram destacados pelo instrutor. Levando em consideração o disposto na Constituição da República Federativa do Brasil e a jurisprudência dominante dos Tribunais Superiores, é correto afirmar que",
+        "alternativas": [
+          "é plena a liberdade de associação para fins lícitos, inclusive a de caráter paramilitar.",
+          "a prática do racismo, da tortura e o tráfico ilícito de entorpecentes e drogas afins constituem crimes inafiançáveis e imprescritíveis, sujeitos à pena de reclusão, nos termos da lei.",
+          "constitui crime inafiançável e imprescritível a ação de grupos armados, civis ou militares, contra a ordem constitucional e o Estado Democrático.",
+          "é reconhecida a instituição do júri, com a organização que lhe der a lei, assegurada a competência para o julgamento dos crimes culposos contra a vida.",
+          "a Constituição da República Federativa do Brasil estendeu aos militares a garantia de remuneração não inferior ao salário mínimo, como o fez para outras categorias de trabalhadores. Tipo 01 – Página 13 PMPE"
+        ],
+        "gabarito": 2,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q42",
+        "assunto_id": "dconst.seguranca_publica",
+        "enunciado": "De acordo com o que prevê a Constituição da República Federativa do Brasil acerca da defesa do Estado e das instituições democráticas, é correto afirmar que",
+        "alternativas": [
+          "o Presidente da República pode decretar estado de sítio para preservar ou prontamente restabelecer, em locais restritos e determinados, a ordem pública ou a paz social ameaçadas por grave e iminente instabilidade institucional ou atingidas por calamidades de grandes proporções na natureza.",
+          "no caso de comoção grave de repercussão nacional, o estado de sítio não poderá ser decretado por mais de quinze dias, podendo ser prorrogado, de cada vez, por mais quinze dias.",
+          "para decretar o estado de defesa, o Presidente da República precisa solicitar autorização ao Congresso Nacional.",
+          "o Presidente da República pode decretar o estado de defesa nos casos de declaração de estado de guerra ou resposta à agressão armada estrangeira.",
+          "na vigência do estado de defesa, é vedada a incomunicabilidade do preso."
+        ],
+        "gabarito": 4,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q43",
+        "assunto_id": "dconst.organizacao_estado",
+        "enunciado": "Assinale a alternativa correta levando em consideração o disposto na Constituição da República Federativa do Brasil.",
+        "alternativas": [
+          "Os membros das Polícias Militares, Corpos de Bombeiros Militares e Forças Armadas, instituições organizadas com base na hierarquia e disciplina, são militares dos Estados, do Distrito Federal e dos Territórios.",
+          "O militar alistável é elegível. Se contar mais de dez anos de serviço, deverá afastar-se da atividade.",
+          "Como garantia prevista no art. 5º, LXVIII, é possível impetrar habeas corpus em relação a punições disciplinares militares.",
+          "O Policial Militar, enquanto em serviço ativo, não pode estar filiado a partidos políticos.",
+          "Ao Policial Militar é vedada a acumulação remunerada com um cargo público de professor, ainda que haja compatibilidade de horários. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "gabarito": 3,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q44",
+        "assunto_id": "dconst.principios_fundamentais",
+        "enunciado": "Conforme previsto nos quatro primeiros artigos da Constituição da República Federativa do Brasil, assinale a alternativa INCORRETA.",
+        "alternativas": [
+          "Os valores sociais do trabalho e da livre iniciativa são fundamentos da República Federativa do Brasil.",
+          "São Poderes da União, independentes e harmônicos entre si, o Legislativo, o Executivo e o Judiciário.",
+          "Constituem objetivos fundamentais da República Federativa do Brasil a autodeterminação dos povos e a cooperação entre os povos para o progresso da humanidade.",
+          "Construir uma sociedade livre, justa e solidária, bem como garantir o desenvolvimento nacional são objetivos fundamentais da República Federativa do Brasil.",
+          "A não intervenção, a igualdade entre os Estados, a defesa da paz e a solução pacífica dos conflitos são alguns dos princípios pelos quais a República Federativa do Brasil se rege nas suas relações internacionais."
+        ],
+        "gabarito": 2,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q45",
+        "assunto_id": "dconst.organizacao_estado",
+        "enunciado": "Marcos é Policial Militar no Estado de Pernambuco e foi indagado, por seu cunhado Pedro (Guarda Municipal) e sua irmã Silvia (Policial Civil), por qual motivo não é sindicalizado e não participa de greve. Diante dessa indagação e observado o disposto na Constituição da República Federativa do Brasil e o entendimento dos tribunais superiores, Marcos deve responder corretamente que",
+        "alternativas": [
+          "é assegurado o direito de greve, competindo aos trabalhadores e servidores, urbanos ou rurais, civis ou militares decidir sobre a oportunidade de exercê-lo e sobre os interesses que devem por meio dele defender.",
+          "é livre a sindicalização e o exercício do direito de greve ao Guarda Municipal, mas não ao militar.",
+          "o exercício do direito de greve é permitido aos Policiais Civis e a todos os servidores públicos que atuem diretamente na área de segurança pública, excetuando-se apenas os militares.",
+          "ao militar são proibidas a sindicalização e, também, a greve.",
+          "embora assegurada ao militar a sindicalização, ninguém será obrigado a filiar-se ou a manter-se filiado a sindicato. Tipo 01 – Página 14 PMPE"
+        ],
+        "gabarito": 3,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q46",
+        "assunto_id": "dconst.direitos_garantias",
+        "enunciado": "Diante da omissão do Congresso Nacional em editar a competente norma regulamentadora, Juan Carlos, brasileiro nato residente em Palmares/PE, está sendo impedido de exercer determinada prerrogativa inerente à cidadania. Nesse caso, segundo a Constituição Federal, a ação constitucional cabível a ser ajuizada por Juan Carlos é o(a)",
+        "alternativas": [
+          "mandado de segurança.",
+          "mandado de injunção.",
+          "ação popular.",
+          "habeas data.",
+          "ação direta de inconstitucionalidade por omissão."
+        ],
+        "gabarito": 1,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q47",
+        "assunto_id": "dconst.organizacao_estado",
+        "enunciado": "Assinale a alternativa correta no que diz respeito à organização do Estado.",
+        "alternativas": [
+          "Observados os demais requisitos constitucionais, a criação, a incorporação, a fusão e o desmembramento de Municípios dependem de consulta prévia às populações envolvidas, mediante referendo.",
+          "São bens dos Estados-membros, dentre outros previstos na Constituição, as terras tradicionalmente ocupadas pelos índios.",
+          "Compete privativamente à União legislar sobre trânsito e transporte, entretanto, lei complementar poderá autorizar os Estados a legislar sobre questões específicas da matéria.",
+          "Os subsídios do Governador, do Vice-Governador e dos Secretários de Estado serão fixados em cada legislatura para a subsequente, por lei de iniciativa do respectivo Poder Executivo.",
+          "As pessoas jurídicas de direito público e as de direito privado prestadoras de serviços públicos responderão pelos danos que seus agentes, nessa qualidade, causarem a terceiros, assegurado o direito de regresso contra o responsável, salvo nos casos de culpa. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "gabarito": 2,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q48",
+        "assunto_id": "dconst.poderes",
+        "enunciado": "Em relação ao processo legislativo, informe se é verdadeiro (V) ou falso (F) o que se afirma a seguir e assinale a alternativa com a sequência correta. De acordo com a Constituição Federal, são legitimados para proporem emenda à Constituição: ( ) o povo, mediante iniciativa popular proposta nos termos da lei; ( ) um quinto, no mínimo, dos membros da Câmara dos Deputados ou do Senado Federal; ( ) a Mesa da Câmara dos Deputados; ( ) o Procurador-Geral da República.",
+        "alternativas": [
+          "V – F – V – V.",
+          "V – V – F – F.",
+          "V – F – V – F.",
+          "F – V – F – V.",
+          "F – F – F – F."
+        ],
+        "gabarito": 4,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q49",
+        "assunto_id": "dconst.poderes",
+        "enunciado": "O Presidente da República do Brasil foi convidado para participar de evento do BRICS, que ocorrerá em Nova Delhi (Índia), para discutir o ingresso de outros países no bloco. Nesse caso, à luz da Constituição da República, considerando que será necessário que o Presidente se ausente do país por vinte dias corridos, é correto afirmar que, para que ele não seja eventualmente penalizado com a perda do cargo, deverá obter licença aprovada pelo(a)",
+        "alternativas": [
+          "Congresso Nacional.",
+          "Câmara dos Deputados.",
+          "Supremo Tribunal Federal.",
+          "Tribunal de Contas da União.",
+          "Controladoria-Geral da União. Tipo 01 – Página 15 PMPE"
+        ],
+        "gabarito": 0,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "id": "aocp-pmpe-2024-q50",
+        "assunto_id": "dconst.poderes",
+        "enunciado": "Segundo a Constituição Federal, assinale a alternativa INCORRETA acerca do Poder Judiciário.",
+        "alternativas": [
+          "O Supremo Tribunal Federal e os Tribunais Superiores têm jurisdição em todo o território nacional.",
+          "São órgãos do Poder Judiciário, entre outros, o Conselho Nacional de Justiça e os Tribunais e Juízes Militares.",
+          "O Superior Tribunal de Justiça compõe-se de, no mínimo, trinta e três Ministros.",
+          "Os Ministros do Supremo Tribunal Federal serão nomeados pelo Presidente da República, depois de aprovada a escolha pela maioria absoluta da Câmara dos Deputados.",
+          "As custas e emolumentos serão destinados exclusivamente ao custeio dos serviços afetos às atividades específicas da Justiça. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "gabarito": 3,
+        "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+        "ano": 2024,
+        "desatualizada": false,
+        "origem": "prova"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-01",
+        "assunto_id": "dpm.aplicacao_crime_militar",
+        "enunciado": "Quanto ao tempo do crime, o Código Penal Militar (Decreto-Lei nº 1.001/1969) considera praticado o crime",
+        "alternativas": [
+          "no momento da ação ou omissão, ainda que outro seja o do resultado.",
+          "no momento do resultado, ainda que outro seja o da ação ou omissão.",
+          "tanto no momento da ação quanto no do resultado, à escolha do juiz.",
+          "no momento em que a autoridade militar toma conhecimento do fato.",
+          "no momento da instauração do inquérito policial militar."
+        ],
+        "gabarito": 0,
+        "fonte": "Gerada por IA a partir de CPM, art. 5º"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-02",
+        "assunto_id": "dpm.crime_imputabilidade",
+        "enunciado": "Quanto ao estado de necessidade, o Código Penal Militar prevê tanto o estado de necessidade que exclui o crime quanto o que exclui a culpabilidade. Por isso, diz-se que o CPM adota a teoria",
+        "alternativas": [
+          "unitária.",
+          "diferenciadora.",
+          "da actio libera in causa.",
+          "da equivalência dos antecedentes.",
+          "finalista pura, sem distinções."
+        ],
+        "gabarito": 1,
+        "fonte": "Gerada por IA a partir de CPM, arts. 39 e 43"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-03",
+        "assunto_id": "dpm.penas",
+        "enunciado": "Entre as penas principais previstas no Código Penal Militar, NÃO se inclui a pena de",
+        "alternativas": [
+          "reclusão.",
+          "detenção.",
+          "multa.",
+          "impedimento.",
+          "reforma."
+        ],
+        "gabarito": 2,
+        "fonte": "Gerada por IA a partir de CPM, art. 55"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-04",
+        "assunto_id": "dpm.crimes_autoridade_servico",
+        "enunciado": "Segundo o Código Penal Militar, comete o crime de deserção o militar que se ausenta, sem licença, da unidade em que serve ou do lugar em que deve permanecer por mais de",
+        "alternativas": [
+          "vinte e quatro horas.",
+          "três dias.",
+          "quinze dias.",
+          "oito dias.",
+          "trinta dias."
+        ],
+        "gabarito": 3,
+        "fonte": "Gerada por IA a partir de CPM, art. 187"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-05",
+        "assunto_id": "dpm.outros_crimes_militares",
+        "enunciado": "No Código Penal Militar, o crime de peculato está previsto entre os crimes contra",
+        "alternativas": [
+          "a pessoa.",
+          "o patrimônio.",
+          "a incolumidade pública.",
+          "a autoridade ou disciplina militar.",
+          "a administração militar."
+        ],
+        "gabarito": 4,
+        "fonte": "Gerada por IA a partir de CPM, Parte Especial, Título VII (art. 303)"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-06",
+        "assunto_id": "legesp.hediondos",
+        "enunciado": "Segundo a Lei nº 8.072/1990, os crimes hediondos, a prática da tortura, o tráfico ilícito de entorpecentes e o terrorismo são insuscetíveis de",
+        "alternativas": [
+          "anistia, graça, indulto e fiança.",
+          "progressão de regime.",
+          "liberdade provisória com ou sem fiança, apenas.",
+          "livramento condicional em qualquer hipótese.",
+          "substituição por pena restritiva de direitos, apenas."
+        ],
+        "gabarito": 0,
+        "fonte": "Gerada por IA a partir de Lei 8.072/1990, art. 2º, I e II"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-07",
+        "assunto_id": "legesp.drogas",
+        "enunciado": "Em relação a quem adquire, guarda ou traz consigo droga para consumo pessoal, a Lei nº 11.343/2006",
+        "alternativas": [
+          "prevê pena de detenção de 6 meses a 2 anos.",
+          "não prevê pena privativa de liberdade, apenas advertência, prestação de serviços à comunidade e medida educativa.",
+          "prevê pena de reclusão, convertida em multa.",
+          "equipara a conduta ao tráfico de drogas.",
+          "prevê prisão em flagrante obrigatória."
+        ],
+        "gabarito": 1,
+        "fonte": "Gerada por IA a partir de Lei 11.343/2006, art. 28"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-08",
+        "assunto_id": "legesp.abuso_autoridade",
+        "enunciado": "Os crimes previstos na Lei de Abuso de Autoridade (Lei nº 13.869/2019) são de ação penal",
+        "alternativas": [
+          "privada.",
+          "pública condicionada à representação do ofendido.",
+          "pública incondicionada.",
+          "pública condicionada à requisição do Ministro da Justiça.",
+          "privada personalíssima."
+        ],
+        "gabarito": 2,
+        "fonte": "Gerada por IA a partir de Lei 13.869/2019, art. 3º"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-09",
+        "assunto_id": "legesp.desarmamento",
+        "enunciado": "Pelo Estatuto do Desarmamento (Lei nº 10.826/2003), manter sob guarda arma de fogo de uso permitido, em desacordo com determinação legal, no interior da própria residência, configura o crime de",
+        "alternativas": [
+          "porte ilegal de arma de fogo de uso permitido.",
+          "posse ou porte ilegal de arma de fogo de uso restrito.",
+          "comércio ilegal de arma de fogo.",
+          "posse irregular de arma de fogo de uso permitido.",
+          "omissão de cautela."
+        ],
+        "gabarito": 3,
+        "fonte": "Gerada por IA a partir de Lei 10.826/2003, art. 12"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-10",
+        "assunto_id": "legesp.maria_da_penha",
+        "enunciado": "São formas de violência doméstica e familiar contra a mulher previstas expressamente no art. 7º da Lei Maria da Penha, EXCETO a violência",
+        "alternativas": [
+          "física.",
+          "psicológica.",
+          "patrimonial.",
+          "moral.",
+          "institucional."
+        ],
+        "gabarito": 4,
+        "fonte": "Gerada por IA a partir de Lei 11.340/2006, art. 7º"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-11",
+        "assunto_id": "legesp.eca",
+        "enunciado": "Para o Estatuto da Criança e do Adolescente, considera-se adolescente a pessoa",
+        "alternativas": [
+          "entre doze e dezoito anos de idade.",
+          "até doze anos de idade incompletos.",
+          "entre quatorze e vinte e um anos de idade.",
+          "entre dez e dezesseis anos de idade.",
+          "menor de dezesseis anos, em qualquer caso."
+        ],
+        "gabarito": 0,
+        "fonte": "Gerada por IA a partir de Lei 8.069/1990, art. 2º"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-12",
+        "assunto_id": "transito.infracoes_penalidades",
+        "enunciado": "Dirigir sob a influência de álcool ou de qualquer outra substância psicoativa que determine dependência, segundo o art. 165 do CTB, é infração",
+        "alternativas": [
+          "média, com multa.",
+          "gravíssima, com multa (dez vezes) e suspensão do direito de dirigir por 12 meses.",
+          "grave, com multa e retenção do veículo.",
+          "gravíssima, com multa simples e advertência por escrito.",
+          "leve, com advertência."
+        ],
+        "gabarito": 1,
+        "fonte": "Gerada por IA a partir de CTB, art. 165"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-13",
+        "assunto_id": "transito.crimes",
+        "enunciado": "Conduzir veículo automotor com capacidade psicomotora alterada em razão da influência de álcool é crime previsto no CTB, punido com",
+        "alternativas": [
+          "multa e cassação definitiva da habilitação, sem pena privativa de liberdade.",
+          "reclusão, de dois a cinco anos, apenas.",
+          "detenção, de seis meses a três anos, multa e suspensão ou proibição de obter a permissão ou a habilitação para dirigir.",
+          "detenção, de quinze dias a um mês.",
+          "advertência e frequência obrigatória a curso de reciclagem."
+        ],
+        "gabarito": 2,
+        "fonte": "Gerada por IA a partir de CTB, art. 306"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-14",
+        "assunto_id": "transito.registro_habilitacao",
+        "enunciado": "Ao candidato aprovado nos exames de habilitação, o CTB prevê a concessão de Permissão para Dirigir com validade de",
+        "alternativas": [
+          "seis meses.",
+          "cinco anos.",
+          "dois anos.",
+          "um ano.",
+          "dez anos."
+        ],
+        "gabarito": 3,
+        "fonte": "Gerada por IA a partir de CTB, art. 148, § 2º"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-15",
+        "assunto_id": "transito.normas_circulacao",
+        "enunciado": "Em interseção não sinalizada, quando veículos transitarem por fluxos que se cruzem, o CTB determina que tem preferência de passagem, no caso de apenas um fluxo proveniente de rodovia, aquele que estiver circulando por ela; nos demais casos, terá preferência o veículo que",
+        "alternativas": [
+          "estiver em maior velocidade.",
+          "for de maior porte.",
+          "sinalizar primeiro com luz alta.",
+          "vier pela esquerda do condutor.",
+          "vier pela direita do condutor."
+        ],
+        "gabarito": 4,
+        "fonte": "Gerada por IA a partir de CTB, art. 29, III"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-16",
+        "assunto_id": "transito.disposicoes_snt",
+        "enunciado": "Segundo o CTB, considera-se trânsito",
+        "alternativas": [
+          "a utilização das vias por pessoas, veículos e animais, isolados ou em grupos, conduzidos ou não, para fins de circulação, parada, estacionamento e operação de carga ou descarga.",
+          "apenas a circulação de veículos automotores em vias públicas.",
+          "somente o deslocamento de pedestres e ciclistas.",
+          "a utilização das vias rurais por veículos de carga.",
+          "o conjunto de normas de sinalização vertical e horizontal."
+        ],
+        "gabarito": 0,
+        "fonte": "Gerada por IA a partir de CTB, art. 1º, § 1º"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-17",
+        "assunto_id": "transito.infracoes_penalidades",
+        "enunciado": "No CTB, a infração de natureza grave computa, no prontuário do infrator,",
+        "alternativas": [
+          "3 pontos.",
+          "5 pontos.",
+          "4 pontos.",
+          "7 pontos.",
+          "10 pontos."
+        ],
+        "gabarito": 1,
+        "fonte": "Gerada por IA a partir de CTB, art. 259"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-18",
+        "assunto_id": "dpp.leis_especiais",
+        "enunciado": "Pela Lei nº 7.960/1989, nos crimes em geral, a prisão temporária terá o prazo de",
+        "alternativas": [
+          "24 horas, prorrogável uma vez.",
+          "10 dias, improrrogável.",
+          "5 dias, prorrogável por igual período em caso de extrema e comprovada necessidade.",
+          "30 dias, prorrogável por igual período.",
+          "prazo indeterminado, enquanto durar o inquérito."
+        ],
+        "gabarito": 2,
+        "fonte": "Gerada por IA a partir de Lei 7.960/1989, art. 2º"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-19",
+        "assunto_id": "dpp.prisoes",
+        "enunciado": "Após a Lei nº 13.964/2019 (Pacote Anticrime), a prisão preventiva, segundo o CPP,",
+        "alternativas": [
+          "pode ser decretada de ofício pelo juiz em qualquer fase.",
+          "pode ser decretada pelo delegado de polícia.",
+          "só pode ser decretada após a sentença condenatória.",
+          "depende de requerimento do Ministério Público, do querelante ou do assistente, ou de representação da autoridade policial.",
+          "é obrigatória nos crimes com pena superior a quatro anos."
+        ],
+        "gabarito": 3,
+        "fonte": "Gerada por IA a partir de CPP, art. 311"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-20",
+        "assunto_id": "dpp.competencia",
+        "enunciado": "Pelo CPP, a competência será, de regra, determinada",
+        "alternativas": [
+          "pelo domicílio do réu.",
+          "pelo domicílio da vítima.",
+          "pela natureza da infração, exclusivamente.",
+          "pela prevenção, sempre.",
+          "pelo lugar em que se consumar a infração."
+        ],
+        "gabarito": 4,
+        "fonte": "Gerada por IA a partir de CPP, art. 70"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-21",
+        "assunto_id": "dpp.acao_penal",
+        "enunciado": "Na ação penal privada, salvo disposição em contrário, o ofendido decai do direito de queixa se não o exercer dentro do prazo de",
+        "alternativas": [
+          "6 meses, contado do dia em que vier a saber quem é o autor do crime.",
+          "3 meses, contado do fato.",
+          "30 dias, contado do fato.",
+          "1 ano, contado da consumação.",
+          "2 anos, contado do dia em que vier a saber quem é o autor do crime."
+        ],
+        "gabarito": 0,
+        "fonte": "Gerada por IA a partir de CPP, art. 38"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-22",
+        "assunto_id": "dpp.leis_especiais",
+        "enunciado": "Para os efeitos da Lei nº 9.099/1995, consideram-se infrações penais de menor potencial ofensivo as contravenções penais e os crimes a que a lei comine pena máxima não superior a",
+        "alternativas": [
+          "1 ano.",
+          "2 anos.",
+          "3 anos.",
+          "4 anos.",
+          "8 anos."
+        ],
+        "gabarito": 1,
+        "fonte": "Gerada por IA a partir de Lei 9.099/1995, art. 61"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-23",
+        "assunto_id": "dpenal.principios",
+        "enunciado": "Para o reconhecimento do princípio da insignificância, o STF exige, entre outros vetores,",
+        "alternativas": [
+          "reincidência específica do agente.",
+          "que o crime tenha sido praticado com violência ou grave ameaça.",
+          "mínima ofensividade da conduta e inexpressividade da lesão jurídica provocada.",
+          "que a vítima renuncie expressamente à representação.",
+          "que o valor do bem seja superior a um salário mínimo."
+        ],
+        "gabarito": 2,
+        "fonte": "Gerada por IA a partir de Jurisprudência do STF"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-24",
+        "assunto_id": "dpenal.crimes_ambientais",
+        "enunciado": "Sobre a Lei de Crimes Ambientais (Lei nº 9.605/1998), é correto afirmar que",
+        "alternativas": [
+          "a pessoa jurídica não pode ser responsabilizada penalmente.",
+          "não prevê penas restritivas de direitos.",
+          "só se aplica a crimes contra a fauna.",
+          "as pessoas jurídicas serão responsabilizadas administrativa, civil e penalmente, conforme a lei.",
+          "exige sempre o dolo, não havendo crimes culposos."
+        ],
+        "gabarito": 3,
+        "fonte": "Gerada por IA a partir de Lei 9.605/1998, art. 3º"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-25",
+        "assunto_id": "dpenal.crimes_dignidade_sexual",
+        "enunciado": "Configura estupro de vulnerável, nos termos do art. 217-A do CP, ter conjunção carnal ou praticar outro ato libidinoso com menor de",
+        "alternativas": [
+          "12 anos.",
+          "21 anos.",
+          "16 anos.",
+          "18 anos.",
+          "14 anos."
+        ],
+        "gabarito": 4,
+        "fonte": "Gerada por IA a partir de CP, art. 217-A"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-26",
+        "assunto_id": "dpenal.extincao_punibilidade",
+        "enunciado": "São causas de extinção da punibilidade previstas no art. 107 do Código Penal, EXCETO",
+        "alternativas": [
+          "o arrependimento posterior.",
+          "a prescrição.",
+          "a anistia, a graça ou o indulto.",
+          "a morte do agente.",
+          "a retroatividade de lei que não mais considera o fato como criminoso."
+        ],
+        "gabarito": 0,
+        "fonte": "Gerada por IA a partir de CP, art. 107"
+      },
+      {
+        "origem": "gerada_ia",
+        "id": "ia-27",
+        "assunto_id": "port.regencia_crase",
+        "enunciado": "Assinale a alternativa em que o emprego do acento indicativo de crase está correto.",
+        "alternativas": [
+          "Os policiais saíram à pé.",
+          "Refiro-me à professora que chegou ontem.",
+          "Começou à chover forte.",
+          "Entregou o relatório à ela.",
+          "Estamos dispostos à colaborar."
+        ],
+        "gabarito": 1,
+        "fonte": "Gerada por IA a partir de Norma-padrão"
+      }
+    ]
+  },
+  "notas_banca": {
+    "estilo": [
+      "AOCP: enunciados longos com 5 alternativas",
+      "cobra literalidade de lei e assinale a INCORRETA com frequência"
+    ],
+    "formato_questao": "múltipla escolha, 5 alternativas, 1 correta",
+    "ratio_teoria_questoes_sugerido": null,
+    "recomendacoes_estudo": [
+      "priorizar lei seca e questões da AOCP"
+    ]
+  }
+}

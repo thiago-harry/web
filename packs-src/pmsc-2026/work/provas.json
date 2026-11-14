@@ -1,0 +1,1969 @@
+[
+  {
+    "key": "pmsc-2023",
+    "tipo": "cargo",
+    "ano": 2023,
+    "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+    "total_questoes": 58,
+    "questoes": [
+      {
+        "numero": 1,
+        "materia_id": "dconst",
+        "materia_hint": "NOÇÕES DE DIREITO CONSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "Considerando os princípios fundamentais, os direitos de nacionalidade e a organização do Estado brasileiro, assinale a opção correta de acordo com a Constituição Federal de 1988 (CF).",
+        "alternativas": [
+          "Os entes da Federação, em seus três níveis — União, estados e municípios —, possuem soberania.",
+          "Para fins constitucionais, a população do Brasil é formada apenas por brasileiros natos.",
+          "A erradicação da pobreza e da marginalização é objetivo fundamental da República Federativa do Brasil.",
+          "A CF adota a separação rígida dos Poderes, de modo que cada Poder possui funções especializadas que os demais não podem exercer, ainda que excepcionalmente.",
+          "A CF expressamente elenca a orientação sexual entre os fatores com base nos quais não se admite tratamento jurídico diferenciado de pessoas."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 2,
+        "materia_id": "dconst",
+        "materia_hint": "NOÇÕES DE DIREITO CONSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "A respeito da eficácia das normas constitucionais, assinale a opção correta.",
+        "alternativas": [
+          "Mesmo normas constitucionais programáticas possuem algum nível de eficácia.",
+          "Certas normas constitucionais são completamente destituídas de efeito.",
+          "A norma constitucional que define um plano de ação para os órgãos públicos é de eficácia plena.",
+          "A eficácia das normas constitucionais não pode, em nenhum caso, depender de normas hierarquicamente inferiores.",
+          "Apenas as normas constitucionais de eficácia plena produzem o efeito de condicionar aos seus preceitos novas normas criadas posteriormente pelo Poder Legislativo."
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 3,
+        "materia_id": "dconst",
+        "materia_hint": "NOÇÕES DE DIREITO CONSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "No que se refere aos direitos e deveres individuais e coletivos, julgue os itens que se seguem. I Um integrante de uma associação poderá, por decisão da maioria de seus membros reunidos em assembleia, ficar proibido de desligar-se do quadro de sócios. II O direito de propriedade não tem natureza de direito absoluto. III Não é permitido ingressar na casa de alguém no período noturno, ainda que com mandado judicial. IV Em casos de urgência e de perigo à ordem pública, a polícia poderá realizar interceptação telefônica desde que previamente peça e obtenha, em até 48 horas, autorização do Ministério Público e do Poder Judiciário. Estão certos apenas os itens",
+        "alternativas": [
+          "I e II.",
+          "I e IV.",
+          "II e III.",
+          "I, III e IV.",
+          "II, III e IV. o correta, de acordo com o respectivo comando. Para as devidas para a correção das suas respostas. e(ou) tecnologia da informação, a menos que seja explicitamente cionados estão em configuração-padrão e que não há restrições de , arquivos, diretórios, recursos e equipamentos mencionados."
+        ],
+        "completa": true,
+        "gabarito": null,
+        "anulada": true
+      },
+      {
+        "numero": 4,
+        "materia_id": "dconst",
+        "materia_hint": "NOÇÕES DE DIREITO CONSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "No Brasil, os partidos políticos",
+        "alternativas": [
+          "têm direito de acesso gratuito ao rádio e à televisão, desde que sejam registrados na justiça eleitoral.",
+          "não são indispensáveis ao funcionamento do regime democrático.",
+          "não necessitam de autorização estatal prévia para se constituir.",
+          "integram a estrutura da administração pública.",
+          "podem ter qualquer finalidade e receber recursos de qualquer origem, em virtude do princípio da liberdade partidária."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 5,
+        "materia_id": "dconst",
+        "materia_hint": "NOÇÕES DE DIREITO CONSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "Na Federação brasileira, os estados",
+        "alternativas": [
+          "detêm soberania frente às decisões da União.",
+          "podem organizar-se livremente por meio de Constituição estadual, dispensada de observar as regras da Constituição Federal.",
+          "possuem a mesma estrutura de Poderes que os municípios.",
+          "têm Poder Legislativo organizado de forma bicameral, com dois órgãos legislativos, tal qual a União.",
+          "podem, apesar da autonomia municipal, intervir nos municípios, em algumas circunstâncias."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 6,
+        "materia_id": "dconst",
+        "materia_hint": "NOÇÕES DE DIREITO CONSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "Em relação aos municípios da Federação brasileira, assinale a opção correta.",
+        "alternativas": [
+          "Em todas as câmaras municipais, o controle externo será exercido com o auxílio do tribunal de contas dos municípios.",
+          "A lei orgânica dos municípios deve ser aprovada pela assembleia legislativa dos respectivos estados.",
+          "A lei orgânica dos municípios define livremente o número de vereadores das respectivas câmaras municipais, de acordo com a realidade e a decisão política de cada município.",
+          "Os prefeitos municipais que praticarem crime comum no exercício da função e em razão dela deverão ser julgados, em regra, pelo tribunal de justiça estadual.",
+          "No caso de divergência entre a orientação do Poder Executivo municipal e a do estadual, esta última deverá prevalecer."
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 7,
+        "materia_id": "dconst",
+        "materia_hint": "NOÇÕES DE DIREITO CONSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "Considerando as disposições gerais da CF administração pública, assinale a opção correta. acerca da",
+        "alternativas": [
+          "Em razão do princípio da legalidade, todas as normas constitucionais devem ser objeto de lei ordinária para que a administração pública possa agir de forma legítima com base nelas.",
+          "Todos os princípios aplicáveis à administração pública devem estar expressos na CF, que não admite princípios implícitos.",
+          "Em regra, se não houver norma específica que imponha a publicidade de um ato administrativo, não é necessário torná-lo público.",
+          "Atos jurídicos da administração pública devem considerar apenas as regras jurídicas objetivas; considerações sobre moralidade, por exemplo, não interferem na validade desses atos.",
+          "Por força do princípio da impessoalidade, os atos da administração pública não são atribuídos à pessoa física que os pratica, mas ao órgão ou ente público que esta representa."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 8,
+        "materia_id": "dconst",
+        "materia_hint": "NOÇÕES DE DIREITO CONSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "Com base nas normas da CF acerca dos servidores públicos e de aspectos a eles relacionados, assinale a opção correta.",
+        "alternativas": [
+          "Em regra, é inadmitida a acumulação de cargos e empregos públicos.",
+          "Cada estado-membro e cada município, devido a sua autonomia, decidem livremente, em lei, o regime jurídico de seus servidores públicos.",
+          "O prazo de validade dos concursos públicos é, em regra, de quatro anos, prorrogável uma vez, por igual período.",
+          "Todo agente público é contratado por prazo indeterminado, não sendo admitidos no serviço público vínculos profissionais de caráter temporário.",
+          "Eventuais acréscimos pecuniários percebidos por servidor público serão computados para fins de concessão de acréscimos ulteriores."
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 9,
+        "materia_id": "dpenal",
+        "materia_hint": "NOÇÕES DE DIREITO PENAL COMUM",
+        "contexto": null,
+        "enunciado": "Acerca da aplicação da lei penal, assinale a opção correta.",
+        "alternativas": [
+          "Compete ao juízo das execuções a aplicação da lei penal mais benéfica ao acusado, ainda que não transitada em julgado a sentença condenatória.",
+          "Sem prejuízo de convenções, tratados e regras de direito internacional, aplica-se a lei penal brasileira aos fatos ocorridos em aeronaves privadas estrangeiras durante seu voo sobre o território brasileiro.",
+          "A lei excepcional ou temporária, quando decorrido o período de sua duração ou cessadas as circunstâncias que a determinaram, não se aplica ao fato praticado durante sua vigência.",
+          "Para efeito de análise do local do crime, a legislação brasileira adota a teoria da atividade.",
+          "Na contagem dos prazos previstos no Código Penal (CP), exclui-se o dia do começo do prazo e inclui-se o do vencimento."
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 10,
+        "materia_id": "dpenal",
+        "materia_hint": "NOÇÕES DE DIREITO PENAL COMUM",
+        "contexto": null,
+        "enunciado": "Admite-se punição para a forma tentada de",
+        "alternativas": [
+          "contravenção penal.",
+          "crime habitual.",
+          "crime culposo.",
+          "crime praticado com dolo eventual.",
+          "crime omissivo próprio."
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 11,
+        "materia_id": "dpenal",
+        "materia_hint": "NOÇÕES DE DIREITO PENAL COMUM",
+        "contexto": null,
+        "enunciado": "Em relação ao concurso de pessoas, assinale a opção correta.",
+        "alternativas": [
+          "O ajuste, a determinação ou instigação e o auxílio, salvo disposição expressa em contrário, não são puníveis se o crime houver sido tentado.",
+          "O concurso de pessoas caracteriza-se pelo necessário ajuste prévio entre os colaboradores para a prática do delito.",
+          "Se a participação for de menor importância, o juiz poderá aplicar o perdão judicial.",
+          "Quem, de qualquer modo, concorre para o crime incide nas penas a este cominadas, na medida de sua personalidade.",
+          "Se a intenção de algum dos concorrentes fosse participar de crime menos grave, ser-lhe-á aplicada a pena deste, a qual será aumentada até a metade na hipótese de ter sido previsível o resultado mais grave."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 12,
+        "materia_id": "dpenal",
+        "materia_hint": "NOÇÕES DE DIREITO PENAL COMUM",
+        "contexto": null,
+        "enunciado": "Nos termos do CP, a pena pelo crime de feminicídio é aumentada de um terço até a metade se o crime tiver sido praticado",
+        "alternativas": [
+          "enquanto a vítima estava gestante ou nos três meses posteriores ao parto.",
+          "em descumprimento de medida protetiva de urgência referente ao dever de pagar alimentos provisórios.",
+          "na presença física de terceiros.",
+          "na presença virtual de descendentes do acusado.",
+          "em descumprimento de medida protetiva de urgência referente ao dever de comparecimento do agressor a programas de recuperação e reeducação."
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 13,
+        "materia_id": "dpenal",
+        "materia_hint": "NOÇÕES DE DIREITO PENAL COMUM",
+        "contexto": null,
+        "enunciado": "Caso um indivíduo seja preso em flagrante pela prática de furto a uma residência, ele será isento de pena se tiver cometido o crime em prejuízo de",
+        "alternativas": [
+          "sua namorada, desde que coabite com ela.",
+          "sua mãe, desde que ela tenha sessenta anos ou mais de idade.",
+          "seu irmão, desde que coabite com ele.",
+          "seu filho, desde que coabite com ele.",
+          "seu cônjuge, na constância da sociedade conjugal."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 14,
+        "materia_id": "dpenal",
+        "materia_hint": "NOÇÕES DE DIREITO PENAL COMUM",
+        "contexto": null,
+        "enunciado": "Quando o agente, mediante mais de uma ação ou omissão, pratica dois ou mais crimes, idênticos ou não, aplicam-se cumulativamente as penas privativas de liberdade em que haja incorrido. Nessa hipótese, ocorre",
+        "alternativas": [
+          "crime continuado.",
+          "concurso formal imperfeito.",
+          "concurso formal.",
+          "concurso material.",
+          "crime multitudinário."
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 15,
+        "materia_id": "dpenal",
+        "materia_hint": "NOÇÕES DE DIREITO PENAL COMUM",
+        "contexto": null,
+        "enunciado": "A conduta de funcionário público, fora do exercício de sua função, mas em razão dela, exigir o pagamento de uma vantagem indevida configura o crime de",
+        "alternativas": [
+          "extorsão.",
+          "prevaricação.",
+          "concussão.",
+          "corrupção passiva.",
+          "advocacia administrativa."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 16,
+        "materia_id": "dpenal",
+        "materia_hint": "NOÇÕES DE DIREITO PENAL COMUM",
+        "contexto": null,
+        "enunciado": "Segundo o entendimento jurisprudencial do Superior Tribunal de Justiça (STJ), inserir informação falsa em currículo Lattes configura",
+        "alternativas": [
+          "crime de falsificação de documento particular.",
+          "conduta atípica.",
+          "crime de falsidade ideológica.",
+          "crime de estelionato.",
+          "crime de falsificação de documento público."
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 17,
+        "materia_id": "dpp",
+        "materia_hint": "NOÇÕES DE DIREITO PROCESSUAL PENAL",
+        "contexto": null,
+        "enunciado": "No que se refere à aplicação da lei processual penal no tempo, assinale a opção correta.",
+        "alternativas": [
+          "Nova lei processual penal, mesmo que favorável ao agente de crime, é aplicável aos fatos anteriores a ela, ainda que já haja decisão a respeito desses fatos em sentença condenatória transitada em julgado.",
+          "Nova lei processual penal tem aplicação imediata em processos que já estejam em andamento.",
+          "A lei processual penal não admite interpretação extensiva nem aplicação analógica, por força do princípio da legalidade.",
+          "Nova lei processual penal tem aplicação imediata, o que impõe a necessidade de renovação dos atos praticados de acordo com a lei anterior, para que estejam em conformidade com a nova legislação.",
+          "A lei processual penal será aplicada exclusivamente aos processos iniciados durante sua vigência."
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 18,
+        "materia_id": "dpp",
+        "materia_hint": "NOÇÕES DE DIREITO PROCESSUAL PENAL",
+        "contexto": null,
+        "enunciado": "Assinale a opção correta acerca do processo penal constitucional.",
+        "alternativas": [
+          "Ninguém será considerado culpado até o seu julgamento em segunda instância.",
+          "Permite-se, excepcionalmente, a criação de juízo ou de tribunal especial para julgar crimes graves.",
+          "O princípio da inadmissibilidade das provas ilícitas será afastado quando a prova, ainda que obtida por meios ilícitos, for absolutamente necessária para estabelecer a verdade real dos fatos.",
+          "O princípio do contraditório constitui corolário do devido processo legal.",
+          "Por força do princípio da intranscendência, é terminantemente vedado estender aos sucessores do condenado a obrigação de reparar o dano por ele causado."
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 19,
+        "materia_id": "dpp",
+        "materia_hint": "NOÇÕES DE DIREITO PROCESSUAL PENAL",
+        "contexto": null,
+        "enunciado": "Considerando-se os sistemas processuais, é correto afirmar que uma das características do sistema acusatório é",
+        "alternativas": [
+          "a separação das funções de acusar, defender e julgar, ficando cada qual a cargo de uma pessoa distinta.",
+          "a existência, em regra, de decisões sigilosas.",
+          "o reconhecimento do réu como objeto de direito.",
+          "a neutralidade do juiz.",
+          "a iniciativa probatória de ofício."
+        ],
+        "completa": true,
+        "gabarito": null,
+        "anulada": true
+      },
+      {
+        "numero": 20,
+        "materia_id": "dpp",
+        "materia_hint": "NOÇÕES DE DIREITO PROCESSUAL PENAL",
+        "contexto": null,
+        "enunciado": "Segundo o princípio de vedação da autoincriminação (nemo tenetur se detegere), o acusado",
+        "alternativas": [
+          "é obrigado a fornecer padrões vocais necessários para subsidiar prova pericial de verificação de interlocutor.",
+          "é obrigado a fornecer material para exame grafotécnico, para fins de reconhecimento de escritos por comparação de letra.",
+          "é obrigado a participar da reconstituição do crime a ele imputado.",
+          "não pode mentir, sob pena de perjúrio.",
+          "tem direito ao silêncio, o que não implica direito de falsear a verdade quanto à identidade pessoal."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 21,
+        "materia_id": "dpp",
+        "materia_hint": "NOÇÕES DE DIREITO PROCESSUAL PENAL",
+        "contexto": null,
+        "enunciado": "No tocante ao inquérito policial, julgue os itens seguintes, à luz do Código de Processo Penal (CPP). I Para repressão do crime de tráfico de pessoas, o membro do Ministério Público poderá requisitar diretamente às empresas prestadoras de serviço de telecomunicações que disponibilizem imediatamente os sinais que permitam a localização da vítima do delito em curso. II O policial militar que figure como investigado em inquérito policial cujo objeto seja a investigação de fatos relacionados ao uso de força letal no exercício profissional poderá constituir defensor. III O ofendido, ou seu representante legal, e o indiciado poderão requisitar qualquer diligência, que será realizada pela autoridade policial, em respeito ao princípio da isonomia. Assinale a opção correta.",
+        "alternativas": [
+          "Apenas o item I está certo.",
+          "Apenas o item II está certo.",
+          "Apenas os itens I e III estão certos.",
+          "Apenas os itens II e III estão certos.",
+          "Todos os itens estão certos."
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 22,
+        "materia_id": "dpp",
+        "materia_hint": "NOÇÕES DE DIREITO PROCESSUAL PENAL",
+        "contexto": null,
+        "enunciado": "João estava sendo investigado por um crime, no entanto, devido à falta de indícios suficientes de autoria, o inquérito policial foi arquivado mediante pedido do Ministério Público e determinação da autoridade judiciária competente. Passados dois anos, a polícia civil descobriu uma nova prova relevante que apontava para o possível envolvimento de João no crime em questão. Essa prova consistia em imagens de câmeras de segurança de residências, na vizinhança onde ocorrera o delito, captadas no momento exato da sua prática, mas cuja existência só foi descoberta posteriormente. Com base nessa nova evidência, o delegado responsável pelo caso pretende desarquivar o inquérito policial para retomar as investigações. Considerando a situação hipotética precedente, assinale a opção correta.",
+        "alternativas": [
+          "O inquérito policial não poderá ser reaberto, pois se operou a coisa julgada material.",
+          "A reabertura das investigações poderá decorrer de simples mudança de opinião ou reavaliação da situação, em razão do princípio da verdade real.",
+          "Dada a notícia de prova nova, é possível o desarquivamento do inquérito policial.",
+          "Não poderá haver o desarquivamento do inquérito, uma vez que as imagens foram captadas antes do seu arquivamento.",
+          "O arquivamento do inquérito por falta de justa causa poderia ter sido diretamente determinado pela autoridade policial, sem a necessidade de manifestação do Ministério Público ou do juiz."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 23,
+        "materia_id": "dpp",
+        "materia_hint": "NOÇÕES DE DIREITO PROCESSUAL PENAL",
+        "contexto": null,
+        "enunciado": "O inquérito policial é um procedimento",
+        "alternativas": [
+          "de natureza inquisitiva.",
+          "indispensável.",
+          "público em todos os seus atos.",
+          "passível de ser presidido pelo Ministério Público.",
+          "não oficioso."
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 24,
+        "materia_id": "dpp",
+        "materia_hint": "NOÇÕES DE DIREITO PROCESSUAL PENAL",
+        "contexto": null,
+        "enunciado": "Uma vez instaurado pelo delegado de polícia, o inquérito policial deve ser concluído no prazo de",
+        "alternativas": [
+          "cinco dias, em caso de prisão em flagrante.",
+          "quinze dias, caso o investigado esteja solto.",
+          "dez dias, em caso de prisão preventiva.",
+          "trinta dias, em caso de crime hediondo.",
+          "dez dias, sendo prorrogável por igual período, em caso de prisão em flagrante."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 25,
+        "materia_id": "inst",
+        "materia_hint": "LEGISLAÇÃO INSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "José, aluno-oficial do primeiro ano do curso de formação de oficiais da Polícia Militar de Santa Catarina (PMSC), conheceu Maria, turista espanhola de passagem pelo Brasil. Embora soubesse que o curso exigia a condição de solteiro, José casou-se com Maria às escondidas. Após o casamento, o casal viajou por sete dias. Ao retornar, José informou à corporação que se casara e que estivera em lua de mel no referido período. Nessa situação hipotética, conforme o Estatuto dos Policiais Militares do Estado de Santa Catarina (Lei n.º 6.218/1983), José",
+        "alternativas": [
+          "deveria ter sido considerado desaparecido pela corporação policial militar no período em que se ausentou do curso de formação de oficiais.",
+          "tinha direito ao afastamento total do serviço por motivo de núpcias.",
+          "poderá permanecer, se for do interesse da corporação, na graduação de terceiro-sargento da PMSC, desde que tranque definitivamente sua matrícula no curso de formação de oficiais.",
+          "deve ser excluído da corporação, sem qualquer direito a remuneração ou indenização.",
+          "terá agido corretamente se, por ocasião de seu retorno, tiver apresentado documentação que justificasse sua ausência."
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 26,
+        "materia_id": "inst",
+        "materia_hint": "LEGISLAÇÃO INSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "Em 7/7/2023, sexta-feira, Alberto chegou ao 1.º Batalhão da PMSC para cumprir escala de serviço como guarda do quartel, porém foi preso por estar visivelmente embriagado. No alojamento, começou a furtar dinheiro da carteira de Carlos, que o surpreendeu e passou a agredi-lo. Ato contínuo, Mário tentou impedir as agressões, mas foi agredido seriamente por Carlos. Utilizando-se dos meios necessários, Mário repeliu a injusta agressão de Carlos, momento em que este foi lesionado por Mário. Após os ânimos se acalmarem, Alberto, Carlos e Mário decidiram não comunicar o fato a seus superiores, porém o soldado André, que havia presenciado tudo, comunicou o ocorrido ao seu chefe imediato, por escrito, no dia seguinte, mencionando, inclusive, que Alberto tinha sido seu companheiro de curso de formação policial e que ambos ingressaram na corporação em 1.º/5/2014. Em relação a essa situação hipotética, assinale a opção correta segundo o Regulamento Disciplinar da PMSC e o Estatuto dos Policiais Militares do Estado de Santa Catarina.",
+        "alternativas": [
+          "André não fez a comunicação do fato em conformidade com a forma legal prevista no referido regulamento.",
+          "Mário não deverá ser punido por ter lesionado Carlos na tentativa de conter as agressões, haja vista ter agido em legítima defesa.",
+          "Alberto deverá ser submetido ao Conselho de Disciplina, na forma do referido estatuto.",
+          "Caso se sinta prejudicado e injustiçado, Alberto poderá ajuizar representação, solicitando à autoridade que determinou sua punição disciplinar que reexamine sua decisão e a reconsidere.",
+          "O início do cumprimento da punição disciplinar imposta a Alberto se dará com a publicação da punição disciplinar em boletim da organização policial militar."
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 27,
+        "materia_id": "inst",
+        "materia_hint": "LEGISLAÇÃO INSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "Com base no Decreto-lei n.º 667/1969, que reorganiza as polícias militares e os corpos de bombeiros militares dos estados, dos territórios e do Distrito Federal, assinale a opção correta.",
+        "alternativas": [
+          "A legislação dos regimes próprios de previdência social dos servidores públicos, a partir de 1.º de janeiro de 2025, será aplicada ao sistema de proteção social dos militares dos estados, do Distrito Federal e dos territórios.",
+          "É permitido ao policial militar em serviço ativo fazer parte de firmas comerciais de empresas industriais de qualquer natureza.",
+          "Cumprido o tempo mínimo de 35 anos de serviço, dos quais no mínimo 30 anos sejam de exercício de atividade de natureza militar, o policial terá direito a aposentaria proporcional, por ocasião da transferência para a inatividade remunerada.",
+          "O policial reformado por invalidez decorrente do exercício da função tem direito a remuneração integral, com base na remuneração do posto ou da graduação que possuir por ocasião da transferência para a inatividade remunerada.",
+          "Para fins de recebimento da pensão militar, o valor do benefício da remuneração do militar da ativa ou em inatividade será acrescido da vantagem pessoal nominalmente identificada (VPNI)."
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 28,
+        "materia_id": "inst",
+        "materia_hint": "LEGISLAÇÃO INSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "À luz do Decreto n.º 88.777/1983, que aprova o regulamento para as polícias militares e os corpos de bombeiros militares (R-200), assinale a opção correta.",
+        "alternativas": [
+          "Os anos de serviço correspondem ao tempo mínimo de permanência no posto ou na graduação, nas condições de merecimento e antiguidade.",
+          "Quando se fizer necessário o aproveitamento de seus conhecimentos técnicos e especializados, policiais militares reformados poderão ser designados para o serviço ativo.",
+          "Enquanto permanecer à disposição de outra corporação policial militar, o policial militar não será considerado no exercício de função policial militar.",
+          "A grave perturbação ou subversão da ordem configura-se pelo exercício dinâmico do poder de polícia, no campo da segurança pública, manifestado por atuações predominantemente ostensivas.",
+          "O aprestamento consiste no conjunto de medidas que incluem instrução, adestramento e preparo logístico para tornar uma organização policial militar pronta para emprego imediato."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 29,
+        "materia_id": "inst",
+        "materia_hint": "LEGISLAÇÃO INSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "Assinale a opção correta de acordo com a Lei estadual n.º 6.215/1983, que dispõe acerca da promoção de oficiais da PMSC.",
+        "alternativas": [
+          "A antiguidade no posto é contada a partir da data do ato de promoção, inclusive para os casos de promoção post mortem, por bravura e em ressarcimento de preterição.",
+          "O oficial da PMSC que, agregado, for promovido, mas continuar na mesma situação, preencherá o quadro de vagas a serem consideradas para promoção.",
+          "As exigências para a promoção por ato de bravura abrangem as mesmas da promoção por outro critério.",
+          "A Comissão de Promoção de Oficiais da PMSC tem caráter temporário e é constituída por membros natos e presidida pelo comandante-geral da corporação.",
+          "O oficial que falecer em consequência de ferimento sofrido na manutenção da ordem pública terá direito à promoção post mortem."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 30,
+        "materia_id": "inst",
+        "materia_hint": "LEGISLAÇÃO INSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "Considerando as disposições do Decreto n.º 19.236/1983 a respeito da promoção de oficiais da PMSC, assinale a opção correta.",
+        "alternativas": [
+          "Os oficiais estagiários que não satisfizerem às condições para sua efetivação no primeiro posto serão exonerados por ato do comandante-geral da corporação, mediante proposta do comandante do estagiário.",
+          "Os oficiais habilitados ao acesso por antiguidade serão organizados em ordem crescente de antiguidade e submetidos à aprovação do comandante-geral da corporação.",
+          "O oficial que tenha sido punido com prisão, no posto atual, por transgressão atentatória à dignidade e ao pundonor policial militar será excluído do quadro de acesso por merecimento já organizado ou dele não poderá constar.",
+          "Em relação ao número de vagas para o posto de segundo-tenente da PMSC, será efetuada uma única promoção por antiguidade e uma única por merecimento.",
+          "Considera-se como posto inicial para o ingresso na carreira de oficial da PMSC, no quadro de oficiais policiais militares, o de aspirante a oficial, por promoção do aluno a oficial."
+        ],
+        "completa": true,
+        "gabarito": null,
+        "anulada": true
+      },
+      {
+        "numero": 31,
+        "materia_id": "inst",
+        "materia_hint": "LEGISLAÇÃO INSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "Com relação ao subsídio mensal dos militares de Santa Catarina disposto na Lei Complementar n.º 614/2013, assinale a opção correta.",
+        "alternativas": [
+          "O regime de compensação de horas consiste no registro do quantitativo de horas, excedentes ou insuficientes, em relação ao quantitativo estabelecido para a jornada de trabalho individual do militar estadual.",
+          "O subtenente militar estadual, ao ingressar na inatividade, perceberá proventos correspondentes ao subsídio que possuía enquanto militar da ativa.",
+          "O subsídio dos militares estaduais não exclui o direito à percepção das vantagens pessoais nominalmente identificadas (VPNI), de qualquer origem e natureza.",
+          "A indenização por regime especial de serviço ativo constitui verba de natureza remuneratória e se incorpora ao subsídio, aos proventos e à pensão por morte, não sendo isenta da incidência de contribuição previdenciária.",
+          "A ajuda de custo devida ao militar estadual corresponderá a 75% do respectivo subsídio quando ele não possuir dependentes."
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 32,
+        "materia_id": "inst",
+        "materia_hint": "LEGISLAÇÃO INSTITUCIONAL",
+        "contexto": null,
+        "enunciado": "Em consonância com o Decreto n.º 1.601/2021, que aprova o regulamento da Lei n.º 6.217/1983, acerca da organização básica da PMSC, assinale a opção correta.",
+        "alternativas": [
+          "O planejamento, a coordenação e a direção da execução da polícia ostensiva e da preservação da ordem pública constituem uma das competências da PMSC.",
+          "Os pelotões são frações de tropa com dois ou mais grupos de policiais militares e podem ser incorporados, destacados ou independentes.",
+          "Os órgãos de execução são as organizações policiais militares que desenvolvem as atividades finalísticas da PMSC, podendo ser grandes comandos, unidades e subunidades.",
+          "São órgãos de direção setorial da PMSC a Diretoria de Pessoal, a Divisão de Inteligência, a Divisão Operacional e a Diretoria de Apoio Logístico e Finanças.",
+          "Os Comandos Regionais de Polícia Militar (CRPM) são grandes comandos responsáveis pela polícia ostensiva e pela preservação da ordem pública em circunscrições delimitadas às quais são subordinadas duas ou mais subunidades."
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 33,
+        "materia_id": "port",
+        "materia_hint": "LÍNGUA PORTUGUESA",
+        "contexto": null,
+        "enunciado": "A afirmação que inicia o texto 1A5-I é confirmada, entre outros fatores, por meio da",
+        "alternativas": [
+          "descrição de estudos sobre a aplicabilidade dos algoritmos.",
+          "indicação de que um algoritmo pode ter uma dezena de linhas de programação ou milhões delas.",
+          "informação de dados estatísticos do uso de algoritmos em diversas áreas.",
+          "apresentação de exemplos do uso dos algoritmos em diferentes setores da sociedade.",
+          "definição de que algoritmo é uma sequência de etapas para resolver um problema."
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 34,
+        "materia_id": "port",
+        "materia_hint": "LÍNGUA PORTUGUESA",
+        "contexto": null,
+        "enunciado": "Nos segmentos “atividades cotidianas prosaicas” e “objetos intangíveis” (primeiro período do segundo parágrafo), os vocábulos “prosaicas” e “intangíveis” poderiam ser respectivamente substituídos, sem prejuízo da coerência das ideias do texto 1A5-I, por",
+        "alternativas": [
+          "comuns e incompreensíveis.",
+          "banais e inatacáveis.",
+          "triviais e imprecisos.",
+          "práticas e inalcançáveis.",
+          "vulgares e incontestáveis."
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 35,
+        "materia_id": "port",
+        "materia_hint": "LÍNGUA PORTUGUESA",
+        "contexto": null,
+        "enunciado": "No terceiro período do primeiro parágrafo, o termo “ante” poderia ser substituído, sem prejuízo da correção gramatical e do sentido original do texto 1A5-I, por I diante de. II perante. III face à. Assinale a opção correta.",
+        "alternativas": [
+          "Apenas o item II está certo.",
+          "Apenas o item III está certo.",
+          "Apenas os itens I e II estão certos.",
+          "Apenas os itens I e III estão certos.",
+          "Todos os itens estão certos."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 36,
+        "materia_id": "port",
+        "materia_hint": "LÍNGUA PORTUGUESA",
+        "contexto": null,
+        "enunciado": "No segundo parágrafo do texto 1A5-I, a oração introduzida pelo vocábulo “Embora” exprime, em relação à oração seguinte, circunstância de",
+        "alternativas": [
+          "condição.",
+          "concessão.",
+          "explicação.",
+          "conformidade.",
+          "comparação."
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 37,
+        "materia_id": "port",
+        "materia_hint": "LÍNGUA PORTUGUESA",
+        "contexto": null,
+        "enunciado": "Estariam mantidos os sentidos e a correção gramatical do texto1A5-I caso o travessão empregado no primeiro período do segundo parágrafo fosse substituído por",
+        "alternativas": [
+          "ponto final, pois as orações que seguem o travessão podem constituir um período isolado.",
+          "pelo vocábulo e, pois o travessão, no contexto em questão, é empregado para separar orações coordenadas aditivas.",
+          "ponto e vírgula, pois o travessão, no contexto em que se insere, separa ideias distintas e orações independentes.",
+          "vírgula, pois o travessão separa uma oração de sentido explicativo.",
+          "dois-pontos, pois o travessão introduz uma enumeração em relação à ideia anterior. Texto 1A5-II Um chatbot pode ser resumido em sua tradução — “robô de bate-papo”. Porém, atualmente, o ChatGPT, um tipo de chatbot, tem chamado atenção pela sua capacidade de manter a coesão e a coerência: “Ele funciona como um modelo de linguagem e consegue fazer uma redação com conteúdo e produção de sentido, de modo que não se sabe se aquele texto foi produzido por um humano ou por um robô”, explica o professor Rogério de Almeida da Faculdade de Educação da USP. O professor brinca e pergunta para o chatbot como ele vê a principal preocupação dos acadêmicos com o chat. O próprio ChatGPT pontua cinco questões: a primeira seria a existência de um viés, mediado pelos algoritmos, que pode reproduzir preconceitos; a segunda, ética, relacionada a como o chat seria utilizado; a terceira tem relação com a privacidade, já que ele funciona com o uso de diversos dados; a quarta está relacionada a controle, pois ele é imprevisível e é importante prezar pelo bem-estar das pessoas; a quinta, a transparência de como essa ferramenta funciona. Porém, o especialista não segue a linha de raciocínio dessa inteligência artificial: “Eu vou por outro caminho. O que eu acho que ele nos coloca é uma questão muito interessante daquilo que nós consideramos humano. Porque, de certa forma, a inteligência artificial aprende conosco, ela é treinada com os textos que nós produzimos. Isso nos coloca em xeque em relação à criatividade e ao pensamento crítico”. Internet: <jornal.usp.br> (com adaptações)."
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 38,
+        "materia_id": "port",
+        "materia_hint": "LÍNGUA PORTUGUESA",
+        "contexto": null,
+        "enunciado": "Estariam mantidos os sentidos e a correção gramatical do texto 1A5-II caso se substituísse a expressão “de modo que (último período do primeiro parágrafo) por",
+        "alternativas": [
+          "de forma à que.",
+          "na medida em que.",
+          "desde que.",
+          "ainda que.",
+          "de sorte que."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 39,
+        "materia_id": "port",
+        "materia_hint": "LÍNGUA PORTUGUESA",
+        "contexto": null,
+        "enunciado": "Assinale a opção em que a proposta de reescrita do último período do texto1A5-II preserva os seus sentidos e a correção gramatical.",
+        "alternativas": [
+          "Isso nos coloca no jogo de criatividade e pensamento crítico.",
+          "Isso nos coloca em situação duvidosa no que se refere à criatividade e ao pensamento crítico.",
+          "Isso nos coloca em dúvida a cerca da criatividade e do pensamento crítico.",
+          "O que nos coloca em perigo no que concerne a criatividade e ao pensamento crítico.",
+          "Fato que nos ameaça no tocante a criatividade e o pensamento crítico. Texto 1A5-III o OFÍCIO N 000/ano/siglas do setor Cidade-UF, data. Ao Senhor [Nome] Gerente dos Complexos Reguladores Endereço CEP Cidade/UF Assunto: Solicitação de senha. Senhor Gerente, Tenho o prazer de dirigir-me ao Senhor para solicitar senha de acesso ao sistema SISREG, perfil administrador, objetivando a implantação da Central de Regulação de Consultas e Exames do Município. Essa ação visa à humanização dos serviços, ao controle do fluxo e à otimização na utilização dos recursos. Agradecendo a colaboração, renovo protestos de estima, (espaço para assinatura) [NOME DO SIGNATÁRIO] Secretário Municipal de Saúde"
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 40,
+        "materia_id": "port",
+        "materia_hint": "LÍNGUA PORTUGUESA",
+        "contexto": null,
+        "enunciado": "Considerando que coesão e coerência, segundo o Manual de Redação da Presidência da República, são atributos que favorecem a conexão, a ligação e a harmonia entre os elementos de um texto, é correto afirmar que, no texto 1A5-III, a expressão “Essa ação” (segundo parágrafo do texto do documento) é empregada em relação",
+        "alternativas": [
+          "ao ofício em si.",
+          "à solicitação de senha.",
+          "ao acesso ao sistema SISREG.",
+          "à humanização dos serviços, ao controle do fluxo e à otimização na utilização dos recursos.",
+          "à implantação da Central de Regulação de Consultas e Exames do Município."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 41,
+        "materia_id": "port",
+        "materia_hint": "LÍNGUA PORTUGUESA",
+        "contexto": null,
+        "enunciado": "Com base no Manual de Redação da Presidência da República, julgue os itens a seguir, relativos ao texto 1A5-III. I",
+        "alternativas": [
+          "forma de tratamento empregada no endereçamento do documento é adequada ao cargo ocupado pelo destinatário. II No parágrafo de introdução do documento, a substituição de “Tenho o prazer de dirigir-me ao Senhor para solicitar” por Solicito conferiria maior formalidade ao texto. III Dada a hierarquia das autoridades envolvidas na correspondência apresentada, o fecho adequado para o documento seria o exposto a seguir. Atenciosamente, Assinale a opção correta. A Apenas o item I está certo.",
+          "Apenas o item II está certo.",
+          "Apenas os itens I e III estão certos.",
+          "Apenas os itens II e III estão certos.",
+          "Todos os itens estão certos."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 42,
+        "materia_id": "port",
+        "materia_hint": "LÍNGUA PORTUGUESA",
+        "contexto": null,
+        "enunciado": "Considerem-se os trechos hipotéticos de documentos oficiais apresentados nos itens a seguir. I Com os meus melhores cumprimentos, venho, por meio deste, encaminhar a essa Coordenação o documento em anexo, emitido pela Diretoria de Comunicação – DICOM. II Encaminho a essa Coordenação o documento em anexo, emitido pela Diretoria de Comunicação – DICOM. Levando-se em consideração as características básicas da comunicação oficial, é correto afirmar que a redação do item II se diferencia da redação do item I pela",
+        "alternativas": [
+          "coesão e coerência.",
+          "clareza e formalidade.",
+          "objetividade e concisão.",
+          "precisão e padronização.",
+          "formalidade e impessoalidade."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 43,
+        "materia_id": "info",
+        "materia_hint": "INFORMÁTICA",
+        "contexto": null,
+        "enunciado": "Considerando conceitos relacionados a Internet e intranet, assinale a opção correta.",
+        "alternativas": [
+          "SMTP (Simple Mail Transfer Protocol) é o protocolo padrão de navegação na Internet, responsável pela estruturação do conteúdo e pela apresentação de páginas da Web.",
+          "Nas redes, denomina-se hashtag qualquer conjunto formado por palavra-chave posposta ao sinal tipográfico da cerquilha (#), com o que se identificam conteúdos que se deseja ocultar.",
+          "Intranet é uma rede de equipamentos que permite acesso externo controlado, para negócios específicos ou propósitos educacionais, sendo uma extensão da rede local de uma organização, disponibilizada para usuários externos a ela.",
+          "O protocolo padrão da Internet é o TCP/IP (Transmission Control Protocol/Internet Protocol), responsável por fornecer uma base confiável e eficiente para a comunicação entre dispositivos em redes de computadores.",
+          "O protocolo padrão da Internet é o DHCP (Dynamic Host Configuration Protocol), responsável por fornecer uma base confiável e eficiente para a comunicação entre dispositivos em redes de computadores."
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 44,
+        "materia_id": "info",
+        "materia_hint": "INFORMÁTICA",
+        "contexto": null,
+        "enunciado": "No que se refere ao LibreOffice, assinale a opção correta.",
+        "alternativas": [
+          "O formato de arquivo nativo do LibreOffice é o OpenDocument (ODF), mas no programa também é possível abrir e salvar documentos em outros formatos.",
+          "O LibreOffice funciona em arquitetura específica de hardware e restrita a sistemas operacionais Windows.",
+          "A interface de usuário do LibreOffice, incluindo-se ortografia, hifenização e dicionário de sinônimos, está disponível somente em português, pois é uma suíte construída no Brasil.",
+          "No LibreOffice, não é possível abrir arquivos no formato HTML.",
+          "As ferramentas do LibreOffice não são integradas, então o corretor ortográfico, por exemplo, é exclusivo do LibreOffice Writer."
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 45,
+        "materia_id": "info",
+        "materia_hint": "INFORMÁTICA",
+        "contexto": null,
+        "enunciado": "A partir da figura anterior, que ilustra a caixa de diálogo Salvar como no LibreOffice em um computador hipotético, assinale a opção correta.",
+        "alternativas": [
+          "Nesse computador, os arquivos criados com o LibreOffice Writer só podem ser salvos na pasta Meus documentos.",
+          "Para proteger o Documento 1 e restringir o acesso ao seu conteúdo, deve-se utilizar a opção Salvar com senha.",
+          "Se o usuário clicar na opção Cancelar, o Documento 1 será deletado.",
+          "Nesse computador, os arquivos criados com o LibreOffice Draw serão gravados necessariamente na pasta Imagens.",
+          "A opção Extensão de arquivo automática, marcada na caixa de diálogo, tem a finalidade de autorizar o LibreOffice a salvar documentos automaticamente."
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 46,
+        "materia_id": "info",
+        "materia_hint": "INFORMÁTICA",
+        "contexto": null,
+        "enunciado": "Acerca do Windows 10, assinale a opção correta.",
+        "alternativas": [
+          "Os ícones da Área de Trabalho são dispostos de acordo com a instalação do Windows 10, não sendo possível alterar tal disposição.",
+          "A Cortana, assistente inteligente do Windows 10, responde a perguntas relacionadas ao Windows em qualquer idioma.",
+          "No Windows 10, é denominada Central de Configurações a opção que permite explorar, alterar e renomear arquivos.",
+          "No Windows 10, um item que for copiado ficará armazenado na Área de Trabalho.",
+          "O Windows 10 é um sistema operacional da Microsoft utilizável em desktops, laptops, aparelhos de video game e dispositivos móveis como tablets."
+        ],
+        "completa": true,
+        "gabarito": null,
+        "anulada": true
+      },
+      {
+        "numero": 47,
+        "materia_id": "info",
+        "materia_hint": "INFORMÁTICA",
+        "contexto": null,
+        "enunciado": "Assinale a opção em que é apresentada uma ferramenta de pesquisa na Internet.",
+        "alternativas": [
+          "Explorador de Arquivos do Windows",
+          "LibreOffice Math",
+          "ChatGPT",
+          "LibreOffice Draw",
+          "hiperlink"
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 48,
+        "materia_id": "info",
+        "materia_hint": "INFORMÁTICA",
+        "contexto": null,
+        "enunciado": "No que se refere a ferramentas e aplicativos de navegação, bem como à segurança da informação, assinale a opção correta.",
+        "alternativas": [
+          "Hiperlink é um programa de computador que habilita os usuários a interagir com documentos virtuais na Internet, também conhecidos como páginas da Web.",
+          "Cookies são vírus que afetam arquivos executáveis e que funcionam apenas quando o usuário abre o arquivo infectado.",
+          "Plug-ins são módulos de código instalados no browser que permitem a apresentação de arquivos com formatos diferentes do HTML.",
+          "O uso do software TCP/IP evita a infecção de vírus ao se baixarem arquivos em páginas da Internet.",
+          "O IP de um computador é uma ferramenta de busca que permite acessar informações de vídeos e imagens."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 49,
+        "materia_id": "info",
+        "materia_hint": "INFORMÁTICA",
+        "contexto": null,
+        "enunciado": "Assinale a opção que corresponde a um exemplo correto de endereço de email de um soldado da Polícia Militar do Estado de Santa Catarina, considerando-se que, para que o endereço de email seja viável, o nome do soldado seja usado, sem espaços, no lugar do termo nomesoldado.",
+        "alternativas": [
+          "@nomesoldado.pm.sc.gov.br",
+          "https://www.pm.sc.gov.br@nomesoldado",
+          "pm.sc.gov.br@nomesoldado",
+          "https://www.pm.sc.gov.br/nomesoldado",
+          "nomesoldado@pm.sc.gov.br"
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 50,
+        "materia_id": "info",
+        "materia_hint": "INFORMÁTICA",
+        "contexto": null,
+        "enunciado": "Assinale a opção em que é indicado um tipo de malware projetado para coletar informações relativas à atividade do usuário sem o seu conhecimento ou consentimento.",
+        "alternativas": [
+          "spyware",
+          "cavalo de Troia (trojan)",
+          "adware",
+          "ransomware",
+          "vírus de arquivo"
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 51,
+        "materia_id": "_fora",
+        "materia_hint": "RACIOCÍNIO LÓGICO",
+        "contexto": null,
+        "enunciado": "A partir do texto 1A7-I e considerando que João seja um dos elementos do conjunto V, assinale a opção que apresenta o número de linhas da tabela-verdade da proposição w(João).",
+        "alternativas": [
+          "2",
+          "4",
+          "8",
+          "16",
+          "32"
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 52,
+        "materia_id": "_fora",
+        "materia_hint": "RACIOCÍNIO LÓGICO",
+        "contexto": null,
+        "enunciado": "Tendo em vista o texto 1A7-I e considerando que os símbolos “~”, “˄”, “˅”, “→” e “↔” representem, respectivamente, as expressões “não [...]”, “e”, “ou”, “se [...], então [...]” e “se, e somente se”, e que Mário seja um dos elementos do conjunto C, mas não do conjunto L, assinale a opção em que é apresentada uma proposição verdadeira.",
+        "alternativas": [
+          "c(Mário) ˄ l(Mário)",
+          "c(Mário) ˅ l(Mário)",
+          "c(Mário) → l(Mário)",
+          "c(Mário) ↔ l(Mário)",
+          "~c(Mário) ˅ l(Mário)"
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 53,
+        "materia_id": "_fora",
+        "materia_hint": "RACIOCÍNIO LÓGICO",
+        "contexto": null,
+        "enunciado": "Ainda no que se refere ao texto 1A7-I, para que o conjunto verdade de w(x) coincida com o conjunto V",
+        "alternativas": [
+          "C e L devem esgotar o universo (C ꓴ L = V).",
+          "L e C devem ser disjuntos (L ∩ C = ∅).",
+          "C e L devem coincidir (C = L).",
+          "C deve conter L (L ⸦ C).",
+          "L deve conter C (C ⸦ L)."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 54,
+        "materia_id": "_fora",
+        "materia_hint": "RACIOCÍNIO LÓGICO",
+        "contexto": null,
+        "enunciado": "Tendo o texto 1A7-I como referência e considerando que Priscila seja um dos elementos do conjunto V, assinale a opção que apresenta a proposição obtida a partir da sentença w(x) quando sua variável assume o valor x = Priscila.",
+        "alternativas": [
+          "Priscila confunde crime com liberdade de expressão.",
+          "Priscila confunde liberdade de expressão com crime e Priscila confunde crime com liberdade de expressão.",
+          "Priscila confunde liberdade de expressão com crime.",
+          "Se Priscila confunde crime com liberdade de expressão, então Priscila confunde liberdade de expressão com crime.",
+          "Se Priscila confunde liberdade de expressão com crime, então Priscila confunde crime com liberdade de expressão."
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 55,
+        "materia_id": "_fora",
+        "materia_hint": "RACIOCÍNIO LÓGICO",
+        "contexto": null,
+        "enunciado": "Assinale a opção em que é apresentada uma tautologia.",
+        "alternativas": [
+          "Gosto do trabalho, mas não gosto de trabalhar.",
+          "Conserto o computador se, e somente se, o computador estragar.",
+          "Sou feliz ou não com quem eu sou.",
+          "Não me lembro se molhei ou não a grama.",
+          "Se eu estudar, então serei aprovado, e se eu fui aprovado, então estudei."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 56,
+        "materia_id": "_fora",
+        "materia_hint": "RACIOCÍNIO LÓGICO",
+        "contexto": null,
+        "enunciado": "Assinale a opção que apresenta uma proposição equivalente a Você faltou com a verdade.",
+        "alternativas": [
+          "Você não falou a verdade.",
+          "Você não falou mentira.",
+          "Você faltou com a mentira.",
+          "Você falou a verdade.",
+          "Você não disse mentira."
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 57,
+        "materia_id": "_fora",
+        "materia_hint": "RACIOCÍNIO LÓGICO",
+        "contexto": null,
+        "enunciado": "De 100 candidatos a determinada prova, 65 disseram sentir-se preparados e 80 disseram ter estudado. Nessa situação hipotética, o menor número possível de candidatos que não disseram sentir-se preparados ou ter estudado é igual a",
+        "alternativas": [
+          "15.",
+          "20.",
+          "35.",
+          "45.",
+          "65."
+        ],
+        "completa": true,
+        "gabarito": null,
+        "anulada": true
+      },
+      {
+        "numero": 58,
+        "materia_id": "_fora",
+        "materia_hint": "RACIOCÍNIO LÓGICO",
+        "contexto": null,
+        "enunciado": "O salário líquido de Letícia é calculado de tal forma que do salário bruto são descontados 14% para previdência social e, sobre o valor remanescente, são descontados 27,5% de imposto de renda. Com base na situação hipotética apresentada e considerando que não haja mais descontos, o percentual do salário bruto que corresponde ao salário líquido de Letícia é igual a",
+        "alternativas": [
+          "23,65%.",
+          "41,5%.",
+          "58,5%.",
+          "62,35%.",
+          "72,5%."
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      }
+    ],
+    "anomalias": [],
+    "secoes": [
+      {
+        "linha": 16,
+        "materia_id": "dconst",
+        "texto": "NOÇÕES DE DIREITO CONSTITUCIONAL"
+      },
+      {
+        "linha": 176,
+        "materia_id": "dpenal",
+        "texto": "NOÇÕES DE DIREITO PENAL COMUM"
+      },
+      {
+        "linha": 290,
+        "materia_id": "dpp",
+        "texto": "NOÇÕES DE DIREITO PROCESSUAL PENAL"
+      },
+      {
+        "linha": 437,
+        "materia_id": "inst",
+        "texto": "LEGISLAÇÃO INSTITUCIONAL"
+      },
+      {
+        "linha": 649,
+        "materia_id": "port",
+        "texto": "LÍNGUA PORTUGUESA"
+      },
+      {
+        "linha": 909,
+        "materia_id": "info",
+        "texto": "INFORMÁTICA"
+      },
+      {
+        "linha": 1049,
+        "materia_id": "_fora",
+        "texto": "RACIOCÍNIO LÓGICO"
+      }
+    ],
+    "sem_gabarito": []
+  },
+  {
+    "key": "aocp-pmpe-2024",
+    "tipo": "banca",
+    "ano": 2024,
+    "concurso": "pmpe-2024-soldado",
+    "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+    "total_questoes": 60,
+    "questoes": [
+      {
+        "numero": 1,
+        "materia_id": "port",
+        "materia_hint": "Língua Portuguesa",
+        "contexto": null,
+        "enunciado": "A partir da leitura e do conteúdo apresentado no texto, assinale a alternativa correta.",
+        "alternativas": [
+          "A SpaceX lançou um foguete a bordo da sonda que compreenderá os mistérios do mundo metalizado: o asteroide Psyche.",
+          "Essa missão da Nasa é uma oportunidade singular de ver o núcleo do planeta Terra.",
+          "O asteroide Psyche faz parte do cinturão de asteroides que compõe as órbitas de Marte e Mercúrio.",
+          "A jornada inclui as ações de capturar imagens do asteroide, analisar sua composição e realizar medições de seu campo magnético.",
+          "A comunicação por rádio será substituída pela comunicação a laser nas missões futuras. Tipo 01 – Página 2 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 2,
+        "materia_id": "port",
+        "materia_hint": "Língua Portuguesa",
+        "contexto": null,
+        "enunciado": "“A Nasa lançou, nesta sexta-feira, 13, uma missão ao distante asteroide Psyche, um mundo feito de metal até então não estudado, que os cientistas acreditam que poderia ser o núcleo de um antigo corpo celeste.”. A partir desse trecho, assinale a alternativa correta quanto à tipologia que predomina.",
+        "alternativas": [
+          "O trecho exibe características expositivas, pois se trata de um enunciado que evidencia fenômenos objetivos, isto é, expõe o lançamento da missão e explica o que é o asteroide Psyche.",
+          "O trecho possui características narrativas, pois sequencia o trajeto percorrido pela sonda no espaço, em ordem cronológica.",
+          "O trecho contém características injuntivas, visto que propõe um passo a passo de condução da viagem, de quanto tempo deve durar e de como alcançar seu objetivo.",
+          "O trecho apresenta características descritivas, porque explica a composição e a estética da sonda e do Psyche.",
+          "O trecho mostra características argumentativas, pois apresenta um depoimento que deixa clara a opinião do autor em relação a essa viagem."
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 3,
+        "materia_id": "port",
+        "materia_hint": "Língua Portuguesa",
+        "contexto": null,
+        "enunciado": "Assinale a alternativa que apresenta uma reescrita do excerto a seguir, cujos sentidos e norma-padrão sejam mantidos. “Graças à luz refletida em sua superfície, os cientistas sabem que Psyche é muito densa e feita de metal, além de algum outro material, talvez rochas.”.",
+        "alternativas": [
+          "“Graças à luz refletida em sua superfície, os cientistas sabem que Psyche é muito esparsa e feita de metal, além de algum outro material, talvez rochas.”.",
+          "“Graças à luz refletida em sua superfície, os cientistas sabem que Psyche é muito crassa e feita de metal, além de algum outro material, talvez rochas.”.",
+          "“Graças à clarão refletido em sua superfície, os cientistas sabem que Psyche é muito densa e feita de metal, além de algum outro material, talvez rochas.”.",
+          "“Graças à bruma refletida em sua superfície, os cientistas sabem que Psyche é muito densa e feita de metal, além de algum outro material, talvez rochas.”.",
+          "“Graças à luz refletida em sua superfície, os cientistas sabem que Psyche é muito rarefeita e constituída de metal, além de algum outro material, talvez rochas.”. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 4,
+        "materia_id": "port",
+        "materia_hint": "Língua Portuguesa",
+        "contexto": null,
+        "enunciado": "Em relação aos elementos ortográficos da língua e considerando os termos em destaque, assinale a alternativa correta.",
+        "alternativas": [
+          "Em “A humanidade já visitou mundos feitos de rochas, gelo ou gás.”, acentuam-se as palavras destacadas por serem monossílabos terminados em “a”.",
+          "Em “A Nasa lançou, nesta sexta-feira, [...]”, emprega-se o hífen porque é um composto formado com advérbio, que, com a outra palavra, configura uma unidade sintagmática e semântica.",
+          "Em “A missão a Psyche é [...]”, o acento til é empregado pela mesma regra de uso do acento agudo em “A sonda permanecerá [...]”.",
+          "Em “Esses motores utilizam a eletricidade fornecida pelos painéis solares da sonda para obter íons de um gás nobre [...]”, as duas palavras destacadas são monossílabas.",
+          "Em “A sonda permanecerá em órbita ao redor de Psyche por pouco mais de dois anos para estudá-la [...]”, o acento agudo é empregado por se tratar de verbo terminado em “a” tônico seguido de pronome átono."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 5,
+        "materia_id": "port",
+        "materia_hint": "Língua Portuguesa",
+        "contexto": null,
+        "enunciado": "Assinale a alternativa em que se apresenta uma sentença adaptada do texto, na qual se preserva o uso correto da pontuação.",
+        "alternativas": [
+          "“Alternando entre diversas altitudes, a sonda permanecerá em órbita ao redor de Psyche por pouco mais de dois anos para estudá-la.”.",
+          "“A humanidade já visitou mundos feitos de rochas, gelo ou gás, mas, ‘esta será a primeira vez que o fará em um mundo que tem uma superfície metálica’ [...]”.",
+          "“A Nasa lançou, uma missão ao distante asteroide Psyche, um mundo feito de metal até então não estudado, [...]”.",
+          "“Três instrumentos científicos, serão utilizados: imagens multiespectrais [...]”.",
+          "“A sonda também, utilizará propulsores de efeito Hall para se deslocar, uma novidade nas viagens interplanetárias.”. Tipo 01 – Página 3 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 6,
+        "materia_id": "port",
+        "materia_hint": "Língua Portuguesa",
+        "contexto": null,
+        "enunciado": "Analise o excerto a seguir: “Serão utilizados três instrumentos científicos: imagens multiespectrais para fotografá-lo, espectrômetros para determinar sua composição e magnetômetros para medir seu campo magnético.”. As orações iniciadas pelos destacados expressam valor conectivos",
+        "alternativas": [
+          "temporal.",
+          "modal.",
+          "final.",
+          "condicional.",
+          "comparativo."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 7,
+        "materia_id": "port",
+        "materia_hint": "Língua Portuguesa",
+        "contexto": null,
+        "enunciado": "Assinale a alternativa correta.",
+        "alternativas": [
+          "Em “[...] asteroide Psyche, um mundo feito de metal até então não estudado, que os cientistas acreditam que poderia ser o núcleo de um antigo corpo celeste.”, os dois itens destacados desempenham a mesma função sintática, que consiste em retomar um antecedente.",
+          "Em “Costumo brincar que tem o formato de uma batata, porque as batatas têm vários formatos diferentes, então não estou errada\", a conjunção \"mas\" pode substituir o elemento coesivo destacado sem causar prejuízo de sentido.",
+          "Em “A sonda da Nasa percorrerá cerca de 3,5 bilhões de quilômetros para chegar até lá, provavelmente no verão boreal (hemisfério norte) de 2029.”, o advérbio destacado pode ser substituído, sem alteração de sentido, por “evidentemente”.",
+          "No trecho “Para se deslocar, a sonda também utilizará propulsores de efeito Hall, uma novidade nas viagens interplanetárias.”, o pronome destacado está proclítico ao verbo da oração a que pertence e tem como referente “a sonda”.",
+          "Em “A missão a Psyche é, portanto, ‘nossa única maneira de ver um núcleo’.”, a palavra destacada indica conclusão e pode ser substituída, sem perda de sentido, por “entretanto”. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 8,
+        "materia_id": "port",
+        "materia_hint": "Língua Portuguesa",
+        "contexto": null,
+        "enunciado": "No trecho “[...] a sonda também utilizará propulsores de efeito Hall, uma novidade nas viagens interplanetárias. Esses motores utilizam a eletricidade fornecida pelos painéis solares da sonda para obter íons de um gás nobre (gás xenônio), que são acelerados pela passagem por um campo elétrico.”, os termos destacados referem-se, anaforicamente,",
+        "alternativas": [
+          "aos propulsores de efeito Hall.",
+          "às viagens interplanetárias.",
+          "aos painéis solares da sonda.",
+          "aos íons de um gás nobre.",
+          "a um campo elétrico."
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 9,
+        "materia_id": "port",
+        "materia_hint": "Língua Portuguesa",
+        "contexto": null,
+        "enunciado": "Em relação à concordância verbal e nominal, analise as assertivas e assinale a alternativa que aponta a(s) correta(s). I. II. III. Em “A humanidade já visitou mundos feitos de rochas, gelo ou gás.”, o verbo destacado está na terceira pessoa do singular, concordando com o sujeito “a humanidade”, e refere-se a um evento do passado. Em “Costumo brincar que tem o formato de uma batata, porque as batatas têm vários formatos diferentes, então não estou errada”, os itens destacados tratam-se, respectivamente, de um verbo na terceira pessoa do plural e de um adjetivo uniforme. Em “A missão Psyche também testará um sistema de comunicação a laser, que deverá permitir a transmissão de mais dados do que comunicações por rádio.”, os itens destacados formam uma locução verbal, cujo sujeito é “a missão Psyche” e, por isso, está na terceira pessoa do singular.",
+        "alternativas": [
+          "Apenas I.",
+          "Apenas II.",
+          "Apenas III.",
+          "Apenas I e II.",
+          "Apenas I e III. Tipo 01 – Página 4 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 10,
+        "materia_id": "port",
+        "materia_hint": "Língua Portuguesa",
+        "contexto": null,
+        "enunciado": "De acordo com o Manual de Redação da Presidência da República (2018), os documentos do padrão ofício devem obedecer a regras de formatação específicas. Em relação à apresentação e formatação, informe se é verdadeiro (V) ou falso (F) o que se afirma a seguir e assinale a alternativa com a sequência correta. ( ) Tamanho do papel: A4 (29,7 cm x 21 cm); margem lateral esquerda: no mínimo, 3 cm de largura; margem lateral direita: 1,5 cm; margens superior e inferior: 2 cm. ( ) Os textos devem ser impressos na cor preta, em papel branco, reservando-se, se necessário, a impressão colorida para gráficos e ilustrações. ( ) Para destaques, deve-se utilizar, sem abuso, o negrito. Devem-se evitar destaques com uso de itálico, sublinhado, letras maiúsculas, sombreado, sombra, relevo, bordas ou qualquer outra forma de formatação que afete a sobriedade e a padronização do documento. ( ) Palavras estrangeiras devem ser grafadas em negrito.",
+        "alternativas": [
+          "V – V – V – V.",
+          "V – V – V – F.",
+          "V – V – F – F.",
+          "V – F – V – F.",
+          "F – V – V – F. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 11,
+        "materia_id": "_fora",
+        "materia_hint": "História de Pernambuco",
+        "contexto": null,
+        "enunciado": "A formação de Olinda está relacionada a um fidalgo português que chegou à região em 1534. Esse personagem histórico é",
+        "alternativas": [
+          "Tristão de Mendonça.",
+          "Matias de Albuquerque.",
+          "Tomé de Souza.",
+          "Maurício de Nassau.",
+          "Duarte Coelho."
+        ],
+        "completa": true,
+        "gabarito": null,
+        "anulada": true
+      },
+      {
+        "numero": 12,
+        "materia_id": "_fora",
+        "materia_hint": "História de Pernambuco",
+        "contexto": null,
+        "enunciado": "Assinale a alternativa que apresenta corretamente aspectos relacionados à “Guerra dos Mascates”.",
+        "alternativas": [
+          "A Guerra dos Mascates foi um dos grandes conflitos envolvendo holandeses e portugueses. Esse evento está relacionado à parte final da presença holandesa em Pernambuco e foi um conflito decisivo para a sua expulsão.",
+          "Foi um conflito que ocorreu durante o período regencial e esteve ligado a ideias republicanas e liberais. Na época, a elite pernambucana estava descontente com a forma como o governo imperial estava tratando os negócios locais, com aumento de impostos.",
+          "Foi um conflito relacionado à queda do açúcar brasileiro no começo do século XVIII e, consequentemente, da elite açucareira de Pernambuco, que estava localizada em Olinda, havendo um certo crescimento e prestígio do comércio realizado por lusos em Recife, os quais, inclusive, realizavam empréstimos aos senhores de engenho de Olinda.",
+          "Foi um episódio de confronto armado que ocorreu em 1930 e envolveu um grupo a favor da tomada do poder por Getúlio Vargas e outro grupo que era contrário.",
+          "Refere-se ao conflito, que ocorreu no contexto da Primeira República, entre grupos, aquele a favor da permanência de José Rufino no poder estadual e o que desejava mudanças no panorama político da região. Tipo 01 – Página 5 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 13,
+        "materia_id": "_fora",
+        "materia_hint": "História de Pernambuco",
+        "contexto": null,
+        "enunciado": "Assinale a alternativa que apresenta aspectos referentes ao evento histórico denominado “Confederação do Equador”.",
+        "alternativas": [
+          "Movimento que ocorreu no começo do Primeiro Reinado, em 1824, e que, entre outros pontos, possuía um caráter republicano e contrário à monarquia.",
+          "Movimento que ocorreu no fim da década de 1960 que buscou combater o regime ditatorial civil-militar.",
+          "Foi uma rebelião que aconteceu no período regencial do império e na qual, entre os objetivos dos revoltosos, estava a exigência da coroação imediata de Pedro II.",
+          "Refere-se à revolta que ocorreu na cidade de Olinda, no século XVIII, contrária à elevação de Recife como centro da capitania de Pernambuco.",
+          "Ocorreu já no fim do período imperial e foi uma revolta que tinha como um dos propósitos a instauração da República no Brasil."
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 14,
+        "materia_id": "_fora",
+        "materia_hint": "História de Pernambuco",
+        "contexto": null,
+        "enunciado": "Assinale a alternativa que NÃO corresponde a um patrimônio imaterial de Pernambuco registrado pelo IPHAN.",
+        "alternativas": [
+          "Maracatu Nação.",
+          "Feira de Caruaru.",
+          "Cavalo-Marinho.",
+          "Ofício das paneleiras de goiabeiras.",
+          "Frevo."
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 15,
+        "materia_id": "_fora",
+        "materia_hint": "História de Pernambuco",
+        "contexto": null,
+        "enunciado": "A invasão holandesa na região Nordeste e evidentemente em Pernambuco está relacionada, entre outros pontos, aos interesses comerciais da",
+        "alternativas": [
+          "Companhia das Índias Continentais.",
+          "Companhia das Índias Americanas.",
+          "Companhia das Índias Meridionais.",
+          "Companhia das Índias Ocidentais.",
+          "Companhia das Índias Orientais. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 16,
+        "materia_id": "_fora",
+        "materia_hint": "História de Pernambuco",
+        "contexto": null,
+        "enunciado": "Assinale a alternativa que NÃO corresponde a aspectos gerais dos quilombos do período colonial brasileiro.",
+        "alternativas": [
+          "Os quilombos foram formados principalmente no intuito de realizar ritos religiosos.",
+          "Constituíram lugares de proteção contra os abusos de senhores.",
+          "Ainda que poucos, havia outros grupos além de africanos escravizados.",
+          "Também eram espaços de resistência cultural.",
+          "Havia uma espécie de hierarquia social nos quilombos."
+        ],
+        "completa": true,
+        "gabarito": null,
+        "anulada": true
+      },
+      {
+        "numero": 17,
+        "materia_id": "_fora",
+        "materia_hint": "História de Pernambuco",
+        "contexto": null,
+        "enunciado": "O cenário político brasileiro, no período da Primeira República, foi dominado por oligarquias regionais. Nesse sentido, assinale a alternativa que apresenta corretamente pontos do cenário político de Pernambuco do começo do século XX, especificamente entre os anos de 1904 a 1911.",
+        "alternativas": [
+          "Nesse período, ficou marcada a influência e o poder do Senador e ex-vice-presidente da República Francisco Rosa e Silva, sendo os presidentes/governadores desse período seus aliados.",
+          "A política pernambucana nesse período foi marcada pelo domínio de Miguel Arraes, que foi eleito diversas vezes ao cargo de presidente do estado, cargo equivalente a governador na atualidade.",
+          "O cenário político pernambucano nesse período teve como característica a pluralidade de representantes no poder do estado.",
+          "Nesse período, o governo do estado esteve no controle a família Campos, que exerceu o poder por mais de 40 anos.",
+          "Durante esses anos, o governo de Pernambuco esteve nas mãos de Dantas Barreto, que impôs uma espécie de ditadura no estado. Tipo 01 – Página 6 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 18,
+        "materia_id": "_fora",
+        "materia_hint": "História de Pernambuco",
+        "contexto": null,
+        "enunciado": "Assinale a alternativa correta quanto ao contexto nacional em que ocorreu a Revolução Pernambucana.",
+        "alternativas": [
+          "A Revolução Pernambucana ocorreu nos últimos anos do Segundo Reinado de Pedro II, que já apresentava sinais de desgaste. Os revoltosos pretendiam destituir a monarquia e implantar o modelo republicando de governo.",
+          "Está associada ao contexto do período regencial em que o Império estava fragilizado sem a coroação de um imperador, além de não atender às demandas essenciais da região pernambucana.",
+          "Está associada à chegada da coroa portuguesa ao Brasil fugindo dos franceses. Na colônia, a coroa aumentou impostos e continuou a privilegiar os portugueses que viviam no Brasil. Esse foi um dos fatores para a eclosão da Revolução Pernambucana.",
+          "Esse episódio histórico relaciona-se com o Primeiro Reinado de Pedro I e teve como um dos fatores para sua eclosão a escolha de portugueses para comandar a província de Pernambuco.",
+          "Está associada ao período final da presença holandesa em Pernambuco e teve como um dos fatores para sua eclosão a perseguição contra ritos católicos praticados pelos neerlandeses. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 19,
+        "materia_id": "_fora",
+        "materia_hint": "História de Pernambuco",
+        "contexto": null,
+        "enunciado": "Sobre a “Guerra dos Cabanos”, informe se é verdadeiro (V) ou falso (F) o que se afirma a seguir e assinale a alternativa com a sequência correta. ( ) Ocorreu entre 1832 e 1835 e teve como um dos propósitos dos revoltosos a volta de Pedro I ao trono do Império. O conflito esteve inserido no contexto do período regencial. ( ) Manoel de Carvalho Paes de Andrade, que participou de revoltas como a Revolução Pernambucana e a Confederação do Equador, foi um dos líderes no combate aos revoltosos na Guerra dos Cabanos. ( ) O conflito ocorreu em grande parte no interior de Pernambuco e teve participação plural de grupos sociais, como indígenas, escravizados, pequenos proprietários de terra, entre outros. ( ) Teve como um dos aspectos o caráter messiânico em que o líder da revolta, Antônio Conselheiro, era considerado uma espécie de personagem divino.",
+        "alternativas": [
+          "V – F – V – F.",
+          "F – F – V – V.",
+          "V – V – V – F.",
+          "V – V – F – F.",
+          "F – F – F – V."
+        ],
+        "completa": true,
+        "gabarito": null,
+        "anulada": true
+      },
+      {
+        "numero": 20,
+        "materia_id": "_fora",
+        "materia_hint": "História de Pernambuco",
+        "contexto": null,
+        "enunciado": "Qual personagem histórico participou de forma incisiva de duas importantes revoltas na História de Pernambuco, sendo elas a Revolução Pernambucana e a Confederação do Equador?",
+        "alternativas": [
+          "Vigário Tenório.",
+          "José Luís de Mendonça.",
+          "Padre João Ribeiro.",
+          "Domingos José Martins.",
+          "Frei Caneca. Tipo 01 – Página 7 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 21,
+        "materia_id": "_fora",
+        "materia_hint": "Raciocínio Lógico",
+        "contexto": null,
+        "enunciado": "Reconhecidamente, o trabalho dos cães como apoio às operações policiais tem se mostrado bastante valioso, principalmente quando se trata da utilização de cães farejadores na apreensão de entorpecentes. Um canil, devidamente ajustado à legislação vigente, trata apaixonadamente de cachorros (machos) e cadelas (fêmeas) que, eventualmente, poderão prestar serviço de apoio à Polícia Militar de Pernambuco. Todos os cães têm uma ficha, em um arquivo, em que são catalogadas suas informações mais importantes. Sabe-se que, se uma dessas fichas for sorteada ao acaso, há 20% de chances de o cão ser da raça Pastor Belga. A probabilidade de se escolher uma ficha e ser de uma cadela é de 30%. Se forem separadas apenas as fichas das cadelas, 40% destas serão da raça Pastor Belga. Dessa forma, se uma ficha do arquivo for escolhida ao acaso,",
+        "alternativas": [
+          "a probabilidade de ser uma cadela da raça Pastor Belga é inferior a 10%.",
+          "será possível verificar que, no total, entre cachorros e cadelas, o criador trata de 75 cães.",
+          "a probabilidade de ser um cachorro da raça Pastor Belga é superior a 10%.",
+          "a probabilidade de ser um cachorro que não é da raça Pastor Belga é superior a 60%.",
+          "será possível verificar que há mais cachorros que são da raça Pastor Belga do que cadelas que não são dessa raça."
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 22,
+        "materia_id": "_fora",
+        "materia_hint": "Raciocínio Lógico",
+        "contexto": null,
+        "enunciado": "Se Beth não é bailarina, Carla é cantora. Se Beth é bailarina, Esther não é escritora. Ora, Esther é escritora, então é possível concluir que",
+        "alternativas": [
+          "Beth é bailarina.",
+          "Beth não é bailarina e Carla não é cantora.",
+          "Beth é bailarina ou Esther não é escritora.",
+          "Ou Beth não é bailarina ou Esther é escritora.",
+          "Carla é cantora. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 23,
+        "materia_id": "_fora",
+        "materia_hint": "Raciocínio Lógico",
+        "contexto": null,
+        "enunciado": "Se André é de Alagoas, então César é do Ceará ou Roberto é de Roraima. Se César é do Ceará, então Paula é de Pernambuco. Se Paula é de Pernambuco, então Roberto é de Roraima. Ora, Roberto não é de Roraima, então",
+        "alternativas": [
+          "Paula não é de Pernambuco e César é do Ceará.",
+          "André é de Alagoas e César é do Ceará.",
+          "se André é de Alagoas então César não é do Ceará.",
+          "se André não é de Alagoas então Paula é de Pernambuco.",
+          "André é de Alagoas ou Paula é de Pernambuco."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 24,
+        "materia_id": "_fora",
+        "materia_hint": "Raciocínio Lógico",
+        "contexto": null,
+        "enunciado": "Em uma operação conjunta e simultânea nas favelas do Recife, a Polícia Militar de Pernambuco, a Polícia Civil e a Polícia Federal destacaram parte do seu efetivo para a logística da ação. Sabe-se que, para essa finalidade, foram destacados 8 policiais militares, 6 policiais civis e 5 federais para comporem a equipe com 3 policiais militares, 2 civis e 2 federais. De quantas formas essas equipes de 7 policiais podem ser montadas a partir dos 19 policiais destacados?",
+        "alternativas": [
+          "8400",
+          "81",
+          "50388",
+          "201600",
+          "4385"
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 25,
+        "materia_id": "_fora",
+        "materia_hint": "Raciocínio Lógico",
+        "contexto": null,
+        "enunciado": "Analise as proposições a seguir e assinale a alternativa que apresenta um par de proposições em que uma é a negação da outra. I. II. III. IV. V. Todo homem cozinha bem. Nenhuma mulher cozinha bem. Toda mulher cozinha mal. Pelo menos uma mulher cozinha mal. Toda mulher cozinha bem.",
+        "alternativas": [
+          "III e I.",
+          "II e V.",
+          "II e IV.",
+          "V e III.",
+          "IV e V. Tipo 01 – Página 8 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 26,
+        "materia_id": "_fora",
+        "materia_hint": "Raciocínio Lógico",
+        "contexto": null,
+        "enunciado": "Considere que André, José, Luzia, Maria e Sônia tenham idades duas a duas diferentes. Sabe-se que André é um ano mais velho que Maria; Maria é dois anos mais velha que José; José é um ano mais novo que Sônia; Luzia é dois anos mais nova que José. Dessa forma, admitindo apenas a parte inteira das idades que cada um tem, assinale a alternativa correta.",
+        "alternativas": [
+          "Maria é a mais velha entre os cinco.",
+          "André é cinco anos mais velho que Luzia.",
+          "Sônia é a mais nova entre os cinco.",
+          "André e José têm um ano de diferença.",
+          "Se André é o mais velho, então Luiza não é a mais nova."
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 27,
+        "materia_id": "_fora",
+        "materia_hint": "Raciocínio Lógico",
+        "contexto": null,
+        "enunciado": "Sabe-se que os refrigerantes são mais baratos que os sucos. Não tenho dinheiro suficiente para comprar dois refrigerantes, então",
+        "alternativas": [
+          "não tenho dinheiro suficiente para comprar um refrigerante.",
+          "não tenho dinheiro suficiente para comprar um suco.",
+          "não tenho dinheiro suficiente para comprar dois sucos.",
+          "tenho dinheiro suficiente para comprar um suco.",
+          "tenho dinheiro suficiente para comprar um refrigerante."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 28,
+        "materia_id": "_fora",
+        "materia_hint": "Raciocínio Lógico",
+        "contexto": null,
+        "enunciado": "Se Carlos mentiu sobre sua aprovação no concurso para a Polícia Militar de Pernambuco, então será criticado por sua família nas festas de final de ano. Logo, para a lógica,",
+        "alternativas": [
+          "Carlos será criticado por sua família nas festas de final de ano.",
+          "se Carlos não mentiu sobre sua aprovação no concurso para a Polícia Militar de Pernambuco, então não será criticado por sua família nas festas de final de ano.",
+          "Carlos mentiu sobre sua aprovação no concurso para a Polícia Militar de Pernambuco.",
+          "se Carlos não foi criticado por sua família nas festas de final de ano, então não mentiu sobre sua aprovação no concurso para a Polícia Militar de Pernambuco.",
+          "se Carlos foi criticado por sua família nas festas de final de ano, então mentiu sobre sua aprovação no concurso para a Polícia Militar de Pernambuco. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 29,
+        "materia_id": "_fora",
+        "materia_hint": "Raciocínio Lógico",
+        "contexto": null,
+        "enunciado": "Para um treinamento camuflado, em campo, Alves, Brandão e Cortez estavam indistinguíveis. Sabe-se que cada um portava uma das armas Beretta, Glock e espingarda, entretanto não se sabia quem portava qual arma. Assim que chegaram, foram perguntados sobre quem era quem, e quem estava com a espingarda respondeu “Alves é quem está com a Beretta”. O portador da Beretta falou “Eu sou Brandão”. E quem estava de Glock respondeu “Cortez é quem está com a Beretta”. Sabendo que Alves sempre diz a verdade, Brandão vez ou outra faz uma brincadeira e mente, e Cortez é muito brincalhão e nunca diz a verdade, assinale a alternativa que apresenta, respectivamente, quem estava com a Beretta, com a Glock e com a espingarda.",
+        "alternativas": [
+          "Cortez, Alves, Brandão.",
+          "Alves, Brandão, Cortez.",
+          "Brandão, Cortez, Alves.",
+          "Alves, Cortez, Brandão.",
+          "Cortez, Brandão, Alves."
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 30,
+        "materia_id": "_fora",
+        "materia_hint": "Raciocínio Lógico",
+        "contexto": null,
+        "enunciado": "A partir de uma série de dados, foi estabelecido um conjunto de hipóteses que apontavam para um evento sísmico global. Entretanto tal evento sísmico não ocorreu. Nesse caso, deve-se concluir corretamente que",
+        "alternativas": [
+          "todas as hipóteses do conjunto são falsas.",
+          "pelo menos uma hipótese do conjunto é falsa.",
+          "pelo menos uma hipótese do conjunto é verdadeira.",
+          "a maioria das hipóteses do conjunto é falsa.",
+          "a maioria das hipóteses do conjunto é verdadeira. Tipo 01 – Página 9 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 31,
+        "materia_id": "info",
+        "materia_hint": "Informática",
+        "contexto": null,
+        "enunciado": "Durante uma operação da Polícia Militar de Pernambuco (PMPE), uma equipe de inteligência necessitou utilizar recursos da internet para coletar informações sobre um suspeito. A operação dependia do entendimento correto a respeito do que é a internet e de como ela funciona. Com base nesse cenário, assinale a alternativa correta em relação ao conceito de internet.",
+        "alternativas": [
+          "A internet é uma rede global de computadores que se conectam exclusivamente via satélite, permitindo a comunicação instantânea e o acesso a informações restritas a agências governamentais.",
+          "A internet é uma coleção de redes de computadores interconectadas que utilizam um conjunto padrão de protocolos (TCP/IP) para servir bilhões de usuários em todo o mundo, sendo acessível apenas por computadores pessoais desktop.",
+          "A internet é uma rede mundial de computadores que se conectam por meio de linhas telefônicas, cabos de fibra óptica, transmissões sem fio e outras tecnologias, permitindo a troca de informações e a comunicação em tempo real.",
+          "A internet é um sistema fechado de comunicação usado exclusivamente por organizações militares e de segurança para operações de inteligência e monitoramento.",
+          "A internet é uma rede que conecta apenas computadores pessoais e servidores, sendo utilizada principalmente para entretenimento, e não possui aplicabilidade em operações de inteligência. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 32,
+        "materia_id": "info",
+        "materia_hint": "Informática",
+        "contexto": null,
+        "enunciado": "Em uma operação complexa de vigilância e monitoramento, a PMPE emprega diversas tecnologias associadas à internet. Considerando um cenário em que a precisão e a eficiência tecnológica são cruciais, assinale a alternativa que descreve corretamente um modo de utilização dessas tecnologias para o contexto apresentado.",
+        "alternativas": [
+          "Uso exclusivo de redes sociais para coleta de informações, confiando na precisão dos dados publicamente disponíveis para tomar decisões operacionais críticas.",
+          "Implementação de um sistema de reconhecimento facial integrado a bancos de dados públicos e privados, operando em tempo real para identificar suspeitos em locais estratégicos.",
+          "Dependência de sistemas de GPS para monitoramento de suspeitos, sem a necessidade de outras formas de vigilância ou confirmação de dados.",
+          "Utilização de drones equipados com câmeras de alta definição com armazenamento de imagens em cartão de memória do tipo SD, mas sem a capacidade de transmissão de dados em tempo real.",
+          "Emprego de inteligência artificial (IA) para análise automática de padrões de tráfego na internet, mas sem integração com sistemas de vigilância física. Tipo 01 – Página 10 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 33,
+        "materia_id": "info",
+        "materia_hint": "Informática",
+        "contexto": null,
+        "enunciado": "A PMPE está atualizando seu sistema de segurança cibernética. Durante uma reunião, os oficiais discutem estratégias para proteger suas redes e sistemas de computadores contra ameaças digitais. Com base em conceitos sobre proteção e segurança de computadores, assinale a alternativa que NÃO apresenta uma estratégia a ser adotada.",
+        "alternativas": [
+          "Instalação de firewalls de alta qualidade em todos os computadores, confiando na sua capacidade de bloquear todas as ameaças externas.",
+          "Uso de criptografia de ponta a ponta em comunicações consideradas críticas, enquanto outras comunicações permanecem sem criptografia para facilitar o acesso.",
+          "Implementação de um sistema Enterprise Resource Planning (ERP) que monitora e registra informações que interligam todos os dados e processos de uma organização em um único sistema.",
+          "Software antivírus, atualizando-o regularmente, mas sem investir em outras formas de segurança cibernética.",
+          "Adoção de uma política de segurança que exige autenticação de dois fatores."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 34,
+        "materia_id": "info",
+        "materia_hint": "Informática",
+        "contexto": null,
+        "enunciado": "A PMPE está avaliando diferentes tecnologias para melhorar o armazenamento e a gestão de dados sensíveis. Considerando a necessidade de segurança, acessibilidade e eficiência, qual das seguintes opções é a mais adequada para o armazenamento de dados operacionais e de inteligência?",
+        "alternativas": [
+          "Utilização de drives USB criptografados para armazenamento de dados, com cópias de segurança mantidas em um local físico seguro.",
+          "Implementação de um sistema de armazenamento em nuvem privada, com criptografia de ponta a ponta e acesso restrito a usuários autorizados.",
+          "Uso de discos rígidos externos conectados diretamente aos computadores da rede interna, sem criptografia, para facilitar o acesso rápido aos dados.",
+          "Adoção de um sistema de armazenamento em rede (NAS) sem conexão à internet, limitando o acesso aos dados apenas a dispositivos conectados fisicamente.",
+          "Armazenamento de todos os dados em servidores locais dentro da instituição, para evitar riscos de vazamento de dados fora das políticas de recuperação de dados. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 35,
+        "materia_id": "info",
+        "materia_hint": "Informática",
+        "contexto": null,
+        "enunciado": "Em um ambiente corporativo, um administrador de sistemas precisa otimizar o gerenciamento de arquivos para garantir eficiência, segurança e fácil recuperação. Considerando as práticas de gerenciamento de arquivos, assinale a alternativa que apresenta a melhor abordagem para essa finalidade.",
+        "alternativas": [
+          "Armazenar todos os arquivos em um único servidor centralizado, utilizando um sistema de arquivos que compatibilize com diferentes sistemas operacionais.",
+          "Criptografar todos os arquivos individualmente antes de armazená-los e exigir autenticação de dois fatores para acessar cada arquivo, independentemente de sua importância.",
+          "Usar um sistema de arquivos distribuídos, em que cada departamento tem seu próprio servidor de arquivos, sem redundância ou backups centralizados.",
+          "Implementar um sistema de armazenamento hierárquico, movendo automaticamente arquivos menos acessados para armazenamento de baixo custo e arquivos frequentemente acessados para armazenamento de alto desempenho.",
+          "Manter cópias de todos os arquivos em servidores locais e na nuvem, sem um sistema de versionamento ou controle de mudanças. Tipo 01 – Página 11 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 36,
+        "materia_id": "info",
+        "materia_hint": "Informática",
+        "contexto": null,
+        "enunciado": "Em um ambiente corporativo, um técnico de TI precisa utilizar funcionalidades do Windows 10 em português para otimizar a gestão de sistemas e segurança. Qual das seguintes alternativas apresenta uma funcionalidade correta do Windows 10, em português, adequada para esse propósito?",
+        "alternativas": [
+          "O Windows 10 permite a criação de múltiplas contas de administrador com privilégios irrestritos, permitindo que qualquer usuário com essas contas instale software sem restrições de segurança.",
+          "A funcionalidade \"Bloqueio Dinâmico\" do Windows 10 utiliza reconhecimento facial para bloquear automaticamente o computador quando o usuário se afasta, sem a necessidade de hardware adicional.",
+          "O Windows 10 possui um recurso integrado que permite a execução automática de scripts de manutenção do sistema operacional em todas as máquinas da rede sem a necessidade de software adicional.",
+          "O recurso \"Área Restrita do Windows\" permite executar aplicativos em um ambiente isolado, protegendo o sistema operacional principal de potenciais ameaças de segurança.",
+          "O Windows 10 suporta nativamente a virtualização de sistemas operacionais Linux dentro do ambiente Windows, sem a necessidade de instalar software de terceiros. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 37,
+        "materia_id": "info",
+        "materia_hint": "Informática",
+        "contexto": null,
+        "enunciado": "No uso do Microsoft Word 2019, é importante conhecer as limitações e as funcionalidades que não estão presentes na ferramenta. Assinale a alternativa INCORRETA em relação às capacidades do Microsoft Word 2019 em português.",
+        "alternativas": [
+          "Integrar o Word 2019 com bancos de dados externos para a inserção automática de dados em documentos, como em relatórios ou cartas.",
+          "Não é possível criar gráficos, como gráfico de Gantt ou gráficos de radar, diretamente no Word 2019 sem a ajuda de complementos externos.",
+          "O Word 2019 suporta a edição colaborativa em tempo real, em que múltiplos usuários podem editar o mesmo documento simultaneamente.",
+          "O Word 2019 oferece a funcionalidade ditar, que converte voz em texto, impossibilitando a transcrição automática de áudio para texto dentro do documento.",
+          "O Word 2019 possui a capacidade de converter um documento em página web."
+        ],
+        "completa": true,
+        "gabarito": null,
+        "anulada": true
+      },
+      {
+        "numero": 38,
+        "materia_id": "info",
+        "materia_hint": "Informática",
+        "contexto": null,
+        "enunciado": "Em relação às funcionalidades do Microsoft Excel 2019 em português, informe se é verdadeiro (V) ou falso (F) o que se afirma a seguir e assinale a alternativa com a sequência correta. ( ) O Excel 2019 suporta a criação de macros em VBA (Visual Basic for Applications) para automatizar tarefas repetitivas. ( ) É possível, no Excel 2019, realizar análises preditivas usando a ferramenta integrada de Aprendizado de Máquina. ( ) O Excel 2019 permite a colaboração em tempo real em documentos compartilhados através do OneDrive ou SharePoint. ( ) A funcionalidade de tabelas dinâmicas está disponível no Excel 2019, permitindo a análise de grandes volumes de dados e a criação de modelos de dados complexos.",
+        "alternativas": [
+          "V – F – V – V.",
+          "F – F – V – V.",
+          "V – F – F – V.",
+          "V – F – V – F.",
+          "V – V – V – F. Tipo 01 – Página 12 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 39,
+        "materia_id": "info",
+        "materia_hint": "Informática",
+        "contexto": null,
+        "enunciado": "Assinale a alternativa INCORRETA em relação às funcionalidades da ferramenta Calc do pacote LibreOffice 7 em português.",
+        "alternativas": [
+          "O Calc permite a importação e exportação de dados em formatos como CSV, XLSX e ODS.",
+          "O Calc suporta a utilização de funções de estatística e análise de dados.",
+          "No Calc, é possível criar gráficos dinâmicos que se atualizam automaticamente com a alteração dos dados.",
+          "O Calc oferece um recurso integrado de previsão de séries temporais com base em dados históricos.",
+          "O Calc permite a execução de scripts em linguagens de programação como Python e Java diretamente na planilha."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 40,
+        "materia_id": "info",
+        "materia_hint": "Informática",
+        "contexto": null,
+        "enunciado": "Considerando o LibreOffice Writer português, assinale a alternativa correta. 7 em",
+        "alternativas": [
+          "O Writer não suporta a inserção de campos de formulário em documentos.",
+          "O Writer não permite a integração com bancos de dados externos para a geração de correspondências em massa.",
+          "O Writer não oferece a funcionalidade de controle de alterações durante a revisão de documentos.",
+          "O Writer é incapaz de gerar automaticamente índices e sumários com base em estilos de cabeçalho.",
+          "O Writer permite a criação e edição de documentos em formato PDF diretamente na interface do programa. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": null,
+        "anulada": true
+      },
+      {
+        "numero": 41,
+        "materia_id": "dconst",
+        "materia_hint": "Direito Constitucional",
+        "contexto": null,
+        "enunciado": "Joaquim foi aprovado no concurso para Polícia Militar do Estado de Pernambuco e está frequentando o curso de formação. Durante a aula, vários direitos e deveres individuais e coletivos foram destacados pelo instrutor. Levando em consideração o disposto na Constituição da República Federativa do Brasil e a jurisprudência dominante dos Tribunais Superiores, é correto afirmar que",
+        "alternativas": [
+          "é plena a liberdade de associação para fins lícitos, inclusive a de caráter paramilitar.",
+          "a prática do racismo, da tortura e o tráfico ilícito de entorpecentes e drogas afins constituem crimes inafiançáveis e imprescritíveis, sujeitos à pena de reclusão, nos termos da lei.",
+          "constitui crime inafiançável e imprescritível a ação de grupos armados, civis ou militares, contra a ordem constitucional e o Estado Democrático.",
+          "é reconhecida a instituição do júri, com a organização que lhe der a lei, assegurada a competência para o julgamento dos crimes culposos contra a vida.",
+          "a Constituição da República Federativa do Brasil estendeu aos militares a garantia de remuneração não inferior ao salário mínimo, como o fez para outras categorias de trabalhadores. Tipo 01 – Página 13 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 42,
+        "materia_id": "dconst",
+        "materia_hint": "Direito Constitucional",
+        "contexto": null,
+        "enunciado": "De acordo com o que prevê a Constituição da República Federativa do Brasil acerca da defesa do Estado e das instituições democráticas, é correto afirmar que",
+        "alternativas": [
+          "o Presidente da República pode decretar estado de sítio para preservar ou prontamente restabelecer, em locais restritos e determinados, a ordem pública ou a paz social ameaçadas por grave e iminente instabilidade institucional ou atingidas por calamidades de grandes proporções na natureza.",
+          "no caso de comoção grave de repercussão nacional, o estado de sítio não poderá ser decretado por mais de quinze dias, podendo ser prorrogado, de cada vez, por mais quinze dias.",
+          "para decretar o estado de defesa, o Presidente da República precisa solicitar autorização ao Congresso Nacional.",
+          "o Presidente da República pode decretar o estado de defesa nos casos de declaração de estado de guerra ou resposta à agressão armada estrangeira.",
+          "na vigência do estado de defesa, é vedada a incomunicabilidade do preso."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 43,
+        "materia_id": "dconst",
+        "materia_hint": "Direito Constitucional",
+        "contexto": null,
+        "enunciado": "Assinale a alternativa correta levando em consideração o disposto na Constituição da República Federativa do Brasil.",
+        "alternativas": [
+          "Os membros das Polícias Militares, Corpos de Bombeiros Militares e Forças Armadas, instituições organizadas com base na hierarquia e disciplina, são militares dos Estados, do Distrito Federal e dos Territórios.",
+          "O militar alistável é elegível. Se contar mais de dez anos de serviço, deverá afastar-se da atividade.",
+          "Como garantia prevista no art. 5º, LXVIII, é possível impetrar habeas corpus em relação a punições disciplinares militares.",
+          "O Policial Militar, enquanto em serviço ativo, não pode estar filiado a partidos políticos.",
+          "Ao Policial Militar é vedada a acumulação remunerada com um cargo público de professor, ainda que haja compatibilidade de horários. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 44,
+        "materia_id": "dconst",
+        "materia_hint": "Direito Constitucional",
+        "contexto": null,
+        "enunciado": "Conforme previsto nos quatro primeiros artigos da Constituição da República Federativa do Brasil, assinale a alternativa INCORRETA.",
+        "alternativas": [
+          "Os valores sociais do trabalho e da livre iniciativa são fundamentos da República Federativa do Brasil.",
+          "São Poderes da União, independentes e harmônicos entre si, o Legislativo, o Executivo e o Judiciário.",
+          "Constituem objetivos fundamentais da República Federativa do Brasil a autodeterminação dos povos e a cooperação entre os povos para o progresso da humanidade.",
+          "Construir uma sociedade livre, justa e solidária, bem como garantir o desenvolvimento nacional são objetivos fundamentais da República Federativa do Brasil.",
+          "A não intervenção, a igualdade entre os Estados, a defesa da paz e a solução pacífica dos conflitos são alguns dos princípios pelos quais a República Federativa do Brasil se rege nas suas relações internacionais."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 45,
+        "materia_id": "dconst",
+        "materia_hint": "Direito Constitucional",
+        "contexto": null,
+        "enunciado": "Marcos é Policial Militar no Estado de Pernambuco e foi indagado, por seu cunhado Pedro (Guarda Municipal) e sua irmã Silvia (Policial Civil), por qual motivo não é sindicalizado e não participa de greve. Diante dessa indagação e observado o disposto na Constituição da República Federativa do Brasil e o entendimento dos tribunais superiores, Marcos deve responder corretamente que",
+        "alternativas": [
+          "é assegurado o direito de greve, competindo aos trabalhadores e servidores, urbanos ou rurais, civis ou militares decidir sobre a oportunidade de exercê-lo e sobre os interesses que devem por meio dele defender.",
+          "é livre a sindicalização e o exercício do direito de greve ao Guarda Municipal, mas não ao militar.",
+          "o exercício do direito de greve é permitido aos Policiais Civis e a todos os servidores públicos que atuem diretamente na área de segurança pública, excetuando-se apenas os militares.",
+          "ao militar são proibidas a sindicalização e, também, a greve.",
+          "embora assegurada ao militar a sindicalização, ninguém será obrigado a filiar-se ou a manter-se filiado a sindicato. Tipo 01 – Página 14 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 46,
+        "materia_id": "dconst",
+        "materia_hint": "Direito Constitucional",
+        "contexto": null,
+        "enunciado": "Diante da omissão do Congresso Nacional em editar a competente norma regulamentadora, Juan Carlos, brasileiro nato residente em Palmares/PE, está sendo impedido de exercer determinada prerrogativa inerente à cidadania. Nesse caso, segundo a Constituição Federal, a ação constitucional cabível a ser ajuizada por Juan Carlos é o(a)",
+        "alternativas": [
+          "mandado de segurança.",
+          "mandado de injunção.",
+          "ação popular.",
+          "habeas data.",
+          "ação direta de inconstitucionalidade por omissão."
+        ],
+        "completa": true,
+        "gabarito": "B",
+        "anulada": false
+      },
+      {
+        "numero": 47,
+        "materia_id": "dconst",
+        "materia_hint": "Direito Constitucional",
+        "contexto": null,
+        "enunciado": "Assinale a alternativa correta no que diz respeito à organização do Estado.",
+        "alternativas": [
+          "Observados os demais requisitos constitucionais, a criação, a incorporação, a fusão e o desmembramento de Municípios dependem de consulta prévia às populações envolvidas, mediante referendo.",
+          "São bens dos Estados-membros, dentre outros previstos na Constituição, as terras tradicionalmente ocupadas pelos índios.",
+          "Compete privativamente à União legislar sobre trânsito e transporte, entretanto, lei complementar poderá autorizar os Estados a legislar sobre questões específicas da matéria.",
+          "Os subsídios do Governador, do Vice-Governador e dos Secretários de Estado serão fixados em cada legislatura para a subsequente, por lei de iniciativa do respectivo Poder Executivo.",
+          "As pessoas jurídicas de direito público e as de direito privado prestadoras de serviços públicos responderão pelos danos que seus agentes, nessa qualidade, causarem a terceiros, assegurado o direito de regresso contra o responsável, salvo nos casos de culpa. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 48,
+        "materia_id": "dconst",
+        "materia_hint": "Direito Constitucional",
+        "contexto": null,
+        "enunciado": "Em relação ao processo legislativo, informe se é verdadeiro (V) ou falso (F) o que se afirma a seguir e assinale a alternativa com a sequência correta. De acordo com a Constituição Federal, são legitimados para proporem emenda à Constituição: ( ) o povo, mediante iniciativa popular proposta nos termos da lei; ( ) um quinto, no mínimo, dos membros da Câmara dos Deputados ou do Senado Federal; ( ) a Mesa da Câmara dos Deputados; ( ) o Procurador-Geral da República.",
+        "alternativas": [
+          "V – F – V – V.",
+          "V – V – F – F.",
+          "V – F – V – F.",
+          "F – V – F – V.",
+          "F – F – F – F."
+        ],
+        "completa": true,
+        "gabarito": "E",
+        "anulada": false
+      },
+      {
+        "numero": 49,
+        "materia_id": "dconst",
+        "materia_hint": "Direito Constitucional",
+        "contexto": null,
+        "enunciado": "O Presidente da República do Brasil foi convidado para participar de evento do BRICS, que ocorrerá em Nova Delhi (Índia), para discutir o ingresso de outros países no bloco. Nesse caso, à luz da Constituição da República, considerando que será necessário que o Presidente se ausente do país por vinte dias corridos, é correto afirmar que, para que ele não seja eventualmente penalizado com a perda do cargo, deverá obter licença aprovada pelo(a)",
+        "alternativas": [
+          "Congresso Nacional.",
+          "Câmara dos Deputados.",
+          "Supremo Tribunal Federal.",
+          "Tribunal de Contas da União.",
+          "Controladoria-Geral da União. Tipo 01 – Página 15 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "A",
+        "anulada": false
+      },
+      {
+        "numero": 50,
+        "materia_id": "dconst",
+        "materia_hint": "Direito Constitucional",
+        "contexto": null,
+        "enunciado": "Segundo a Constituição Federal, assinale a alternativa INCORRETA acerca do Poder Judiciário.",
+        "alternativas": [
+          "O Supremo Tribunal Federal e os Tribunais Superiores têm jurisdição em todo o território nacional.",
+          "São órgãos do Poder Judiciário, entre outros, o Conselho Nacional de Justiça e os Tribunais e Juízes Militares.",
+          "O Superior Tribunal de Justiça compõe-se de, no mínimo, trinta e três Ministros.",
+          "Os Ministros do Supremo Tribunal Federal serão nomeados pelo Presidente da República, depois de aprovada a escolha pela maioria absoluta da Câmara dos Deputados.",
+          "As custas e emolumentos serão destinados exclusivamente ao custeio dos serviços afetos às atividades específicas da Justiça. SOLDADO DA POLÍCIA MILITAR"
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      },
+      {
+        "numero": 51,
+        "materia_id": "_fora",
+        "materia_hint": "Direitos Humanos e Legislação",
+        "contexto": null,
+        "enunciado": "Com base na Lei Estadual nº 6.783/1974 (Estatuto dos Militares do Estado de Pernambuco), assinale a alternativa correta.",
+        "alternativas": [
+          "Os Policiais Militares da reserva remunerada estão dispensados, definitivamente, da prestação de serviço na ativa, mas continuam a perceber remuneração do Estado de Pernambuco.",
+          "A disciplina, como base institucional da Polícia Militar, é a ordenação de autoridade em níveis diferentes, dentro da estrutura da Polícia Militar.",
+          "Função policial-militar é o exercício das obrigações inerentes ao cargo policial-militar.",
+          "No concurso de crime militar e da transgressão disciplinar, serão aplicadas ambas as penalidades, de forma cumulativa.",
+          "São permitidas quaisquer manifestações coletivas, tanto sobre atos de superiores quanto as de caráter reivindicatório."
+        ],
+        "completa": true,
+        "gabarito": "C",
+        "anulada": false
+      },
+      {
+        "numero": 52,
+        "materia_id": "_fora",
+        "materia_hint": "Direitos Humanos e Legislação",
+        "contexto": null,
+        "enunciado": "Tiago e Lucas estão frequentando o curso de formação da Polícia Militar, e, quando abordada a temática “direitos humanos”, Lucas fez uma afirmação que Tiago entendeu estar equivocada. Levando em consideração o enunciado, assinale a alternativa INCORRETA que corresponde à afirmação de Lucas.",
+        "alternativas": [
+          "A proteção dos direitos humanos é mais ampla do que a dos chamados direitos fundamentais. rol de direitos humanos não é exaustivo/exaurível. (C) Os tratados e convenções internacionais sobre direitos humanos que forem aprovados, em cada Casa do Congresso Nacional, em dois turnos, por três quintos dos votos dos respectivos membros, serão equivalentes às emendas constitucionais. (D) De acordo com a doutrina, há duas gerações/dimensões dos direitos humanos. (E) Imprescritibilidade e universalidade são características/especificidades dos direitos humanos.",
+          "O Tipo 01 – Página 16 PMPE 53 Mário é Policial Militar no Estado do Pernambuco e, durante o cumprimento de mandado judicial de busca e apreensão, foi desacatado por Joaquim, vereador na cidade. De acordo com a jurisprudência dominante do Supremo Tribunal Federal, é correto afirmar que o crime de desacato (art. 331 do Código Penal) (A) é inconstitucional, pois a liberdade de expressão é um direito fundamental absoluto. (B) foi recepcionado pela Constituição da República Federativa do Brasil.",
+          "não é compatível com a Constituição da República Federativa do Brasil, pois configura tratamento privilegiado ao agente estatal.",
+          "não se aplica aos vereadores, pois a liberdade de expressão política dos parlamentares é absoluta.",
+          "tem como bem jurídico diretamente tutelado a honra do funcionário público, e não a própria Administração Pública. 54 Observado o disposto na Lei nº 13.869/2019 (Lei do Abuso de Autoridade), assinale a alternativa INCORRETA. (A) Caracteriza o crime de violência institucional a conduta de submeter a vítima de infração penal ou a testemunha de crimes violentos a procedimentos desnecessários, repetitivos ou invasivos, que a leve a reviver, sem estrita necessidade, a situação de violência ou outras situações potencialmente geradoras de sofrimento ou estigmatização. (B) É considerado crime deixar de, injustificadamente, comunicar prisão em flagrante à autoridade judiciária no prazo legal. (C) As condutas descritas na Lei do Abuso de Autoridade constituem crime quando praticadas pelo agente com a finalidade específica de prejudicar outrem ou beneficiar a si mesmo ou a terceiro, ou, ainda, por mero capricho ou satisfação pessoal. (D) Os crimes previstos na Lei são de ação penal pública incondicionada, não se admitindo a propositura de ação privada se a ação penal pública não for intentada no prazo legal. (E) A divergência na interpretação de lei ou na avaliação de fatos e provas não configura abuso de autoridade. SOLDADO DA POLÍCIA MILITAR 55 Com base na Lei nº 11.340/2006 (Lei Maria da Penha), assinale a alternativa correta. (A) As medidas protetivas de urgência não poderão ser concedidas sem a tipificação penal da violência, do ajuizamento de ação penal ou cível, da existência de inquérito policial ou do registro de boletim de ocorrência. (B) As medidas protetivas de urgência vigorarão enquanto persistir risco à integridade física, psicológica, sexual, patrimonial ou moral da ofendida ou de seus dependentes. (C) Não é cabível, no inquérito policial, a prisão preventiva do agressor mediante representação da autoridade policial. (D) As medidas protetivas de urgência não poderão ser concedidas sem audiência das partes e de manifestação do Ministério Público. (E) Por falta de previsão legal e considerando o princípio da separação de Poderes, o juiz não poderá conceder à ofendida, como medida protetiva de urgência, o auxílio-aluguel. Tipo 01 – Página 17 PMPE 56 De acordo com a Declaração Universal dos Direitos Humanos (ONU – 1948), analise as assertivas e assinale a alternativa que aponta as corretas. I. Todo ser humano tem direito à liberdade de opinião e expressão; esse direito inclui a liberdade de, sem interferência, ter opiniões e de procurar, receber e transmitir informações e ideias por quaisquer meios e independentemente de fronteiras. II. Todo ser humano acusado de um ato delituoso tem o direito de ser presumido inocente até que a sua culpabilidade tenha sido provada de acordo com a lei, em julgamento público no qual lhe tenham sido asseguradas todas as garantias necessárias à sua defesa. III. No exercício de seus direitos e liberdades, todo ser humano estará sujeito apenas às limitações determinadas pela lei, exclusivamente com o fim de assegurar o devido reconhecimento e respeito dos direitos e liberdades de outrem e de satisfazer as justas exigências da moral, da ordem pública e do bem-estar de uma sociedade democrática. IV. Todo ser humano vítima de perseguição, inclusive aquela legitimamente motivada por crimes de direito comum, tem o direito de procurar e de gozar asilo em outros países. (A) Apenas I e II. (B) Apenas II e IV. (C) Apenas III e IV. (D) Apenas I, II e III. (E) Apenas I, III e IV. 57 Como ultrapassou um ano contínuo de licença para tratamento de saúde própria, Miguel Angel, policial militar da ativa, permanece sem número na sua escala hierárquica. Nessa hipótese, de acordo com o Estatuto dos Militares do Estado de Pernambuco (Lei Estadual nº 6.783/1974), tal situação é denominada (A) reversão. (B) agregação. (C) extravio. (D) deserção. (E) excedente. SOLDADO DA POLÍCIA MILITAR 58 Joana foi contratada para exercer a função de cuidadora de José, pessoa idosa. No entanto, irada com as dificuldades enfrentadas na função, Joana passou a submeter José, mediante o uso de violência, a intenso sofrimento físico, como meio de lhe aplicar castigo pessoal pela prática de determinados atos. Nesse caso, segundo a doutrina, é correto afirmar que a conduta de Joana constitui, especificamente, crime de (A) tortura-punitiva. (B) tortura-crime. (C) tortura-preconceito. (D) tortura-confissão. (E) tortura-imprópria. 59 Sobre a Lei de Drogas (Lei nº 11.343/2006), assinale a alternativa correta. (A) Promover a construção e a socialização do conhecimento sobre drogas no país é um dos princípios do Sistema Nacional de Políticas Públicas sobre Drogas – Sisnad. (B) Oferecida a denúncia, o juiz, se não a rejeitar liminarmente, recebê-la-á e ordenará a citação do acusado para apresentar resposta à acusação, por escrito, no prazo de 10 dias. (C) O processo e o julgamento do crime de tráfico de drogas, quando caracterizada a transnacionalidade do delito, é de competência da Justiça Estadual. (D) Nos termos do entendimento do STF, o tráfico privilegiado deve ser considerado crime equiparado a hediondo. (E) A majorante do tráfico transnacional de drogas configura-se com a prova da destinação internacional das drogas, ainda que não consumada a transposição de fronteiras. 60 De acordo com a Lei nº 8.072/1990, considerados crimes hediondos, EXCETO são (A) genocídio. (B) extorsão mediante sequestro. (C) tráfico de pessoas. (D) roubo circunstanciado pelo emprego de arma de fogo. (E) comércio ilegal de armas de fogo. Tipo 01 – Página 18 PMPE"
+        ],
+        "completa": true,
+        "gabarito": "D",
+        "anulada": false
+      }
+    ],
+    "anomalias": [],
+    "secoes": [
+      {
+        "linha": 146,
+        "materia_id": "port",
+        "texto": "Língua Portuguesa"
+      },
+      {
+        "linha": 531,
+        "materia_id": "_fora",
+        "texto": "História de Pernambuco"
+      },
+      {
+        "linha": 777,
+        "materia_id": "_fora",
+        "texto": "Raciocínio Lógico"
+      },
+      {
+        "linha": 995,
+        "materia_id": "info",
+        "texto": "Informática"
+      },
+      {
+        "linha": 1333,
+        "materia_id": "dconst",
+        "texto": "Direito Constitucional"
+      },
+      {
+        "linha": 1626,
+        "materia_id": "_fora",
+        "texto": "Direitos Humanos e Legislação"
+      },
+      {
+        "linha": 2003,
+        "materia_id": "_fora",
+        "texto": "Redação"
+      }
+    ],
+    "sem_gabarito": []
+  }
+]
