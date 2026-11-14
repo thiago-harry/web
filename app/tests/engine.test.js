@@ -361,3 +361,21 @@ test("teto de novos sobe com o ritmo necessário (30 assuntos em 21 semanas)", (
   assert.equal(r.resumo.assuntos_nao_iniciados.length, 0);
   assert.ok(r.cronograma.some((w) => w.teto_novos > 2));
 });
+
+test("exceções por data substituem as horas do dia da semana", () => {
+  const pack = loadFixture();
+  const base = { ...SPEC_AVAILABILITY, data_prova: "2027-03-01" };
+  const plain = generate({ pack, disponibilidade: base });
+  const dia = plain.cronograma[1].dias.find((d) => d.capacidade_min > 0).data;
+  const quarta = plain.cronograma[1].dias.find((d) => d.dia_semana === "qua").data; // quarta tem 0h
+  const r = generate({ pack, disponibilidade: { ...base, excecoes: { [dia]: 0, [quarta]: 3 } } });
+  const find = (res, iso) => res.cronograma.flatMap((w) => w.dias).find((d) => d.data === iso);
+  assert.equal(find(r, dia).capacidade_min, 0);
+  assert.equal(find(r, dia).blocos.length, 0);
+  assert.equal(find(r, quarta).capacidade_min, 180);
+  assert.equal(r.capacidade.horas_brutas, plain.capacidade.horas_brutas - find(plain, dia).capacidade_min / 60 + 3);
+  assertScheduleInvariants(r);
+  const bad = generate({ pack, disponibilidade: { ...base, excecoes: { "2027-02-30": 1, [dia]: 30 } } });
+  assert.equal(bad.ok, false);
+  assert.equal(bad.erros.length, 2);
+});

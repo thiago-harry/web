@@ -34,8 +34,9 @@ Pages é necessária.
 | 1 · Dossiê | Edital 2026 + prova PMSC 2023 (Cebraspe) + prova AOCP PM-PE 2024 | Prioridade P = (0,35·cargo + 0,20·banca + 0,45·edital) · (1+lacuna) · M; níveis 1–5 |
 | Top 80% | Pontos esperados por assunto ÷ horas no nível do aluno | Assuntos em ordem de pontos por hora até somar 80% da prova |
 | 2 · Nivelamento | Fraco/Médio/Forte por matéria + simulado de 40 questões (reais + geradas por IA, marcadas) | Lacuna por assunto (autoavaliação e simulado com encolhimento) |
-| 3 · Prazo | Horas por dia (Normal/Hard/Super hard/personalizado), data do edital ou simulada | Capacidade do engine (folga 10%, reta final, revisões, simulados) e data mínima para cobrir top 80% / edital |
-| 4 · Agenda | Escopo top 80% ou edital completo | Engine aloca semanas; teoria vira videoaula (proporção pelo tipo do assunto) + leitura; depois exercícios; revisões 1/7/21/60 dias |
+| Reajustar | Botão no fim do nivelamento | Aplica o nivelamento ao plano e calcula a **carga sugerida**: menor carga (seg–sex x, sáb 1,5x, dom folga; teto 6h/9h/6h) que cobre 100% do top 80% até a prova |
+| 3 · Carga | Sugestão, Normal/Hard/Super hard ou horas por dia; data do edital ou simulada | Capacidade do engine (folga 10%, reta final, revisões, simulados); **% do top 80% coberto** ao vivo e diferença contra a sugestão |
+| 4 · Agenda | Escopo top 80% ou edital completo; −/+ 30 min em qualquer dia | Engine aloca semanas (exceções por data); teoria começa com videoaula e segue com leitura; depois exercícios; revisões 1/7/21/60 dias |
 | 5 · Resultado | — | Curva de pontos cobertos por hora: genérico (ordem do edital, carga igual) × personalizado |
 
 Exporta **PDF** (parâmetros, prioridades, comparativo, semanas com caixa "Feito", lista de videoaulas) e
