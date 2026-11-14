@@ -379,3 +379,17 @@ test("exceções por data substituem as horas do dia da semana", () => {
   assert.equal(bad.ok, false);
   assert.equal(bad.erros.length, 2);
 });
+
+test("concluídos fora do plano: sem conteúdo novo, mas com revisões a partir do início", () => {
+  const pack = loadFixture();
+  const [done, ...rest] = pack.assuntos;
+  const scoped = { ...pack, assuntos: rest.map((a) => ({ ...a, prereq: a.prereq.filter((p) => p !== done.id) })), nivelamento: { ...pack.nivelamento, itens: pack.nivelamento.itens.filter((i) => i.assunto_id !== done.id) } };
+  const disponibilidade = { ...SPEC_AVAILABILITY, data_prova: "2027-03-01" };
+  const r = generate({ pack: scoped, disponibilidade, options: { allocate: { concluidos: [{ id: done.id, materia_id: done.materia_id, nome: done.nome, data: "2026-11-10" }] } } });
+  assertScheduleInvariants(r);
+  const blocks = blocksOf(r).filter((b) => b.assunto_id === done.id);
+  assert.ok(blocks.length > 0, "assunto concluído recebe revisões");
+  assert.ok(blocks.every((b) => b.atividade === "revisao"));
+  assert.ok(blocks.every((b) => b.data >= "2026-11-16"), "revisões vencidas antes do início são descartadas");
+  assert.deepEqual([...new Set(blocks.map((b) => b.intervalo_dias))].sort((a, b) => a - b), [7, 21, 60]);
+});

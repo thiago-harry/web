@@ -54,12 +54,12 @@ export function nivelamentoInput(pack, strengths, quizScore) {
 
 /* ---------------- engine call ---------------- */
 
-export function buildPlan({ pack, nivelamento, hours, start, exam, excecoes = {} }) {
+export function buildPlan({ pack, nivelamento, hours, start, exam, excecoes = {}, concluidos = [] }) {
   return generate({
     pack,
     nivelamento,
     disponibilidade: { horas_por_dia_semana: hours, data_inicio: start, data_prova: exam, bloco_min_minutos: 30, bloco_max_minutos: 90, excecoes },
-    options: { allocate: { leftover: "second_pass", accept_cut: true } },
+    options: { allocate: { leftover: "second_pass", accept_cut: true, concluidos } },
   });
 }
 
@@ -195,6 +195,83 @@ export function capacity(pack, hours, start, exam, nTopics = pack.assuntos.lengt
 
 export const contentHours = (pack, hours, start, exam, nTopics, excecoes) => capacity(pack, hours, start, exam, nTopics, excecoes).content;
 
+/* ---------------- progress (what the student already studied) ---------------- */
+
+export const CONTENT_ACTIVITIES = new Set(["videoaula", "leitura", "exercicios"]);
+export const blockKey = (data, b, i) => `${data}|${b.assunto?.id ?? "simulado"}|${b.atividade}|${i}`;
+
+/** Studied minutes (content only) and last study date per topic, from log entries. */
+export function progressOf(entries) {
+  const out = {};
+  for (const e of entries) {
+    if (!e.assunto_id || !CONTENT_ACTIVITIES.has(e.atividade)) continue;
+    const p = (out[e.assunto_id] ??= { min: 0, video: 0, theory: 0, last: e.data });
+    p.min += e.minutos;
+    if (e.atividade === "videoaula") p.video += e.minutos;
+    if (e.atividade !== "exercicios") p.theory += e.minutos;
+    if (e.data > p.last) p.last = e.data;
+  }
+  return out;
+}
+
+/**
+ * The pack the engine should plan after progress: topics in `keep`, loads reduced by what was studied,
+ * finished topics (≥ 95% of the hours this student needs) moved to `finished` (revisions only).
+ */
+export function remainingPack(pack, scores, keep, progress) {
+  const finished = [];
+  const left = [];
+  for (const a of pack.assuntos) {
+    if (!keep.has(a.id)) continue;
+    const p = progress[a.id];
+    const r = p ? Math.max(0, 1 - p.min / 60 / neededHours(a, scores.byId[a.id])) : 1;
+    if (r <= 0.05) finished.push({ id: a.id, materia_id: a.materia_id, nome: a.nome, data: p.last });
+    else left.push({ ...a, carga_horaria_base: r < 1 ? Math.max(0.5, Math.round(a.carga_horaria_base * r * 4) / 4) : a.carga_horaria_base });
+  }
+  const ids = new Set(left.map((a) => a.id));
+  return {
+    pack: {
+      ...pack,
+      assuntos: left.map((a) => ({ ...a, prereq: a.prereq.filter((x) => ids.has(x)) })),
+      nivelamento: { ...pack.nivelamento, itens: pack.nivelamento.itens.filter((it) => ids.has(it.assunto_id)) },
+    },
+    finished,
+  };
+}
+
+/**
+ * Share of the top 80% covered by what was already studied plus `contentH` hours of new content
+ * spent on what is left, best return first (points-weighted).
+ */
+export function coverageNow(par, cmp, contentH, progress = {}) {
+  let studiedPts = 0;
+  let studiedH = 0;
+  let credited = 0;
+  let left = contentH;
+  for (const x of par.items) {
+    if (!x.inTop) continue;
+    const done = Math.min(x.horas, (progress[x.id]?.min ?? 0) / 60);
+    studiedPts += (x.pts * done) / x.horas;
+    studiedH += done;
+    const rem = x.horas - done;
+    if (rem > 0 && left > 0) {
+      const alloc = Math.min(rem, left);
+      credited += (x.pts * alloc) / x.horas;
+      left -= alloc;
+    }
+  }
+  const cov = Math.min(1, (studiedPts + credited) / par.topPts);
+  const share = par.total > 0 ? par.topPts / par.total : 1;
+  return {
+    cov,
+    pts: cov * par.topPts,
+    hours: Math.min(par.topHours, studiedH + contentH),
+    studiedH,
+    remainingH: Math.max(0, par.topHours - studiedH),
+    examPct: Math.max(coverageAt(cmp.personalized, contentH + studiedH), cov * share),
+  };
+}
+
 /** Share of the top 80% that `contentH` hours of new content cover (points-weighted, best return first). */
 export function topCoverage(par, cmp, contentH) {
   const share = par.total > 0 ? par.topPts / par.total : 1;
@@ -214,14 +291,14 @@ export const weeklyOf = (hours) => DAY_KEYS.reduce((s, k) => s + (hours[k] ?? 0)
  * whose content hours cover the whole top 80% by `exam`. When even the cap falls short, returns the cap
  * with feasible = false and the coverage it reaches.
  */
-export function suggestLoad({ pack, par, cmp, start, exam, nTopics, excecoes = {} }) {
+export function suggestLoad({ pack, par, cmp, start, exam, nTopics, excecoes = {}, progress = {} }) {
   const candidates = [];
   for (let x = 0.5; x <= LOAD_CAP.weekday + 1e-9; x += 0.5) candidates.push(loadPattern(x, 0));
   for (let dom = 1; dom <= LOAD_CAP.dom; dom += 1) candidates.push(loadPattern(LOAD_CAP.weekday, dom));
   let pick = null;
   for (const hours of candidates) {
     const cap = capacity(pack, hours, start, exam, nTopics, excecoes);
-    const cov = topCoverage(par, cmp, cap.content);
+    const cov = coverageNow(par, cmp, cap.content, progress);
     pick = { hours, weekly: weeklyOf(hours), raw: cap.raw, content: cap.content, cov: cov.cov, feasible: cov.cov >= 0.999 };
     if (pick.feasible) break;
   }
@@ -266,7 +343,7 @@ function videoFor(assunto) {
 }
 
 /** Engine blocks -> display blocks with exact times; first-pass theory starts with videoaula, then leitura. */
-export function displayWeeks(result, pack, { inicio = "19:00", inicioFds = "09:00" } = {}) {
+export function displayWeeks(result, pack, { inicio = "19:00", inicioFds = "09:00", studied = {} } = {}) {
   if (!result?.cronograma) return [];
   const byId = Object.fromEntries(pack.assuntos.map((a) => [a.id, a]));
   // Video budget per topic: a share of its first-pass theory, watched first; the rest is reading.
@@ -277,7 +354,10 @@ export function displayWeeks(result, pack, { inicio = "19:00", inicioFds = "09:0
   const videoLeft = {};
   for (const [id, min] of Object.entries(theory)) {
     const ratio = AULA_RATIO[byId[id]?.tipo] ?? 0.5;
-    videoLeft[id] = min >= 30 ? Math.max(15, Math.round((min * ratio) / 15) * 15) : 0;
+    const done = studied[id];
+    // video already watched counts against the topic's video share (planned theory + theory already done)
+    const total = min + (done?.theory ?? 0);
+    videoLeft[id] = total >= 30 ? Math.max(0, Math.max(15, Math.round((total * ratio) / 15) * 15) - (done?.video ?? 0)) : 0;
   }
   return result.cronograma.map((w) => ({
     ...w,

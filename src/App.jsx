@@ -43,6 +43,7 @@ const EXAM_OFFICIAL = pack.concurso.data_prova;
 const TOTAL_Q = pack.estrutura_prova.total_questoes;
 const N_ASSUNTOS = pack.assuntos.length;
 const QUIZ_N = 40;
+const HARD_WEEKLY = plan.weeklyOf(plan.MODES.hard.hours);
 
 const SHORT = {
   dconst: "D. Constitucional",
@@ -93,6 +94,8 @@ const DEFAULTS = {
   aluno: "",
   applied: null, // leveling snapshot used by the plan: { strengths, q: { attempt, answers } | null }
   excecoes: {}, // per-date hours the student added or removed in the agenda
+  log: {}, // blocks the student marked as studied: key -> { data, assunto_id, materia_id, atividade, minutos, consolidated }
+  planStart: null, // the agenda runs from this date; "Reorganizar" moves it to today
 };
 
 /* ───────────────────────────── Formatação ───────────────────────────── */
@@ -140,10 +143,18 @@ const APP_CSS = `
 .cg-fill-g { fill: var(--s2); }
 .cg-sw-p { background: var(--s1); }
 .cg-sw-g { background: repeating-linear-gradient(90deg, var(--s2) 0 6px, transparent 6px 9px); }
+.cg-sw-g-solid { background: var(--s2); }
 .cg-ref { stroke: var(--muted); }
 .cg-cross { stroke: var(--ink-2); }
 .cg-area { fill: var(--accent); opacity: .08; }
 .cg-tip { background: var(--surface); border: 1px solid var(--line-strong); box-shadow: 0 4px 16px rgba(0,0,0,.12); }
+.cg-check { border: 1.5px solid var(--line-strong); background: var(--surface); color: var(--on-accent); }
+.cg-check:hover { border-color: var(--good); }
+.cg-check[aria-pressed="true"] { background: var(--good); border-color: var(--good); color: var(--surface); }
+.cg-block[data-done] { background: var(--good-soft); border-color: transparent; }
+.cg-block[data-done] p { opacity: .75; }
+.cg-block[data-late] { border-style: dashed; border-color: var(--hi); }
+[data-today] { box-shadow: inset 0 0 0 2px var(--accent); }
 .cg-progress { background: var(--track); }
 .cg-progress > span { background: var(--accent); }
 `;
@@ -474,6 +485,119 @@ function ParetoChart({ items, topCount }) {
       ) : null}
       <figcaption className="mt-1 text-xs cg-muted">Assuntos em ordem de pontos por hora de estudo (eixo horizontal) × % acumulado da prova.</figcaption>
     </figure>
+  );
+}
+
+/* ───────────────────────────── Resultado no topo ───────────────────────────── */
+
+function CompareBars({ title, hint, rows, max, fmt }) {
+  return (
+    <div className="min-w-0">
+      <p className="text-sm font-bold">{title}</p>
+      <p className="text-xs cg-muted">{hint}</p>
+      <ul className="mt-3 flex flex-col gap-2.5">
+        {rows.map((r) => (
+          <li key={r.label} className="grid grid-cols-[7.5rem_1fr_auto] items-center gap-3">
+            <span className={`text-sm ${r.mine ? "font-bold" : "cg-ink2"}`}>{r.label}</span>
+            <span className="cg-track h-3 overflow-hidden rounded-full" aria-hidden="true">
+              <span className={`${r.mine ? "cg-sw-p" : "cg-sw-g-solid"} block h-full`} style={{ width: `${Math.max(2, (r.value / max) * 100)}%`, borderRadius: "0 4px 4px 0" }} />
+            </span>
+            <span className={`text-sm cg-num ${r.mine ? "font-extrabold" : "font-semibold cg-ink2"}`}>{fmt(r.value)}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function ResultHero({ examISO, simulated, daysLeft, contentH, weekly, modeLabel, nums, cov, applied }) {
+  const qP = Math.round(nums.persAt * TOTAL_Q);
+  const qG = Math.round(nums.genAt * TOTAL_Q);
+  const gain = qP - qG;
+  const saved = nums.gen80 ? Math.max(0, nums.gen80 - nums.pers80) : 0;
+  return (
+    <div className="cg-surface rounded-2xl border cg-line p-4 md:p-6">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <p className="cg-eyebrow">Genérico × personalizado</p>
+        <p className="text-xs cg-ink2 cg-num">
+          Prova em <b className="cg-ink">{fmtDMY(examISO)}</b> ({simulated ? "simulada" : "edital"}) · faltam {daysLeft} dias · {fmtH(weekly)}/semana ({modeLabel})
+        </p>
+      </div>
+      <p className="mt-2 max-w-3xl text-xl font-extrabold leading-snug tracking-tight md:text-2xl">
+        {gain >= 3 ? (
+          <>
+            Com as mesmas {fmtHr(contentH)} de estudo até a prova, seu cronograma alcança <span className="cg-accent-ink">{qP} questões</span>. O genérico, {qG}.
+          </>
+        ) : (
+          <>
+            Para dominar 80% da prova, seu cronograma precisa de <span className="cg-accent-ink">{fmtHr(nums.pers80)}</span>. O genérico, {fmtHr(nums.gen80 ?? 0)}.
+          </>
+        )}
+      </p>
+      <div className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <CompareBars
+          title="Questões no seu alcance até a prova"
+          hint={`De ${TOTAL_Q}. Maior é melhor.`}
+          max={TOTAL_Q}
+          fmt={(v) => `${v}`}
+          rows={[
+            { label: "Seu cronograma", value: qP, mine: true },
+            { label: "Genérico", value: qG },
+          ]}
+        />
+        <CompareBars
+          title="Horas para dominar 80% da prova"
+          hint="Menor é melhor."
+          max={Math.max(nums.gen80 ?? 0, nums.pers80)}
+          fmt={(v) => fmtHr(v)}
+          rows={[
+            { label: "Seu cronograma", value: nums.pers80, mine: true },
+            { label: "Genérico", value: nums.gen80 ?? 0 },
+          ]}
+        />
+      </div>
+      <div className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-xl border cg-line cg-hairlines sm:grid-cols-3">
+        <div className="cg-surface p-3">
+          <p className="text-2xl font-extrabold cg-num">{gain > 0 ? `+${gain}` : "0"}</p>
+          <p className="text-xs cg-ink2">questões a mais no alcance até a prova</p>
+        </div>
+        <div className="cg-surface p-3">
+          <p className="text-2xl font-extrabold cg-num">−{fmtHr(saved)}</p>
+          <p className="text-xs cg-ink2">de estudo para chegar a 80% da prova</p>
+        </div>
+        <div className="cg-surface p-3">
+          <p className={`text-2xl font-extrabold cg-num ${cov.cov >= 0.999 ? "cg-good" : ""}`}>{fmtPct(cov.cov)}</p>
+          <p className="text-xs cg-ink2">do top 80% coberto na sua agenda</p>
+        </div>
+      </div>
+      {!applied ? (
+        <p className="mt-3 text-xs cg-ink2">
+          Números sem nivelamento.{" "}
+          <a href="#nivelamento" className="cg-link font-semibold">
+            Faça o nivelamento
+          </a>{" "}
+          para ajustar ao seu nível.
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function Steps({ items }) {
+  return (
+    <ol className="grid grid-cols-2 gap-2 lg:grid-cols-4" aria-label="Passos">
+      {items.map((it, i) => (
+        <li key={it.href}>
+          <a href={it.href} className="cg-surface flex h-full items-start gap-2.5 rounded-xl border cg-line p-3 hover:shadow-sm">
+            <span className={`${it.done ? "cg-good-bg" : it.warn ? "cg-pill-final" : "cg-sunken"} grid h-6 w-6 shrink-0 place-items-center rounded-full text-xs font-bold`}>{it.done ? "✓" : i + 1}</span>
+            <span className="min-w-0">
+              <span className="block text-sm font-bold">{it.title}</span>
+              <span className="block text-xs cg-ink2">{it.status}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
   );
 }
 
@@ -879,9 +1003,10 @@ function ApplyBar({ applied, pending, marked, quizDone, onApply }) {
   );
 }
 
-function SuggestionCard({ suggestion, examISO, inUse, onUse, dates, onSimDate }) {
+function SuggestionCard({ suggestion, examISO, mode, covHard, onUse, dates, onSimDate }) {
+  const fits = suggestion.feasible && suggestion.weekly <= HARD_WEEKLY;
   const h = suggestion.hours;
-  const days = [
+  const chips = [
     ["Seg–Sex", h.seg],
     ["Sáb", h.sab],
     ["Dom", h.dom],
@@ -890,39 +1015,66 @@ function SuggestionCard({ suggestion, examISO, inUse, onUse, dates, onSimDate })
     <Card className="lg:col-span-2">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0 max-w-2xl">
-          <p className="cg-eyebrow">Sugestão para o seu nível</p>
-          <p className="mt-1 text-lg font-extrabold tracking-tight">
-            {suggestion.feasible ? `Para cobrir o top 80% até ${fmtDMY(examISO)}: ` : `Até ${fmtDMY(examISO)} não dá para cobrir o top 80%. Carga máxima: `}
-            <span className="cg-num">{fmtH(suggestion.weekly)} por semana</span>
-          </p>
-          <ul className="mt-2 flex flex-wrap gap-2" aria-label="Carga sugerida por dia">
-            {days.map(([label, v]) => (
-              <li key={label} className="cg-sunken rounded-md px-2.5 py-1 text-xs">
-                <span className="cg-ink2">{label} </span>
-                <b className="cg-num">{v ? fmtH(v) : "folga"}</b>
-              </li>
-            ))}
-          </ul>
+          <p className="cg-eyebrow">{fits ? "Carga sugerida" : "Carga padrão: Hard"}</p>
+          {fits ? (
+            <p className="mt-1 text-lg font-extrabold tracking-tight">
+              <span className="cg-num">{fmtH(suggestion.weekly)} por semana</span> cobrem todo o top 80% até {fmtDMY(examISO)}.
+            </p>
+          ) : (
+            <p className="mt-1 text-lg font-extrabold tracking-tight">
+              <span className="cg-num">{fmtH(HARD_WEEKLY)} por semana</span> cobrem {fmtPct(covHard)} do top 80% até {fmtDMY(examISO)}.
+            </p>
+          )}
+          {fits ? (
+            <ul className="mt-2 flex flex-wrap gap-2" aria-label="Carga sugerida por dia">
+              {chips.map(([label, v]) => (
+                <li key={label} className="cg-sunken rounded-md px-2.5 py-1 text-xs">
+                  <span className="cg-ink2">{label} </span>
+                  <b className="cg-num">{v ? fmtH(v) : "folga"}</b>
+                </li>
+              ))}
+            </ul>
+          ) : null}
           <p className="mt-2 text-sm cg-ink2">
-            {suggestion.feasible
-              ? `${fmtHr(suggestion.raw)} até a prova, ${fmtHr(suggestion.content)} para conteúdo novo; o resto vai para revisões, simulados e reta final.`
-              : `Com essa carga você cobre ${fmtPct(suggestion.cov)} do top 80%.${dates.top ? ` ${inUse ? "Com ela" : "Com a sua carga atual"}, o top 80% fica completo em ${fmtDMY(dates.top)}.` : ""}`}
+            {fits
+              ? `O resto do tempo vai para revisões, simulados e reta final.`
+              : suggestion.feasible
+                ? `Referência: para cobrir 100% seriam necessárias ${fmtH(suggestion.weekly)} por semana.`
+                : `Referência: nem a carga máxima (${fmtH(suggestion.weekly)} por semana) cobre tudo até essa data; chegaria a ${fmtPct(suggestion.cov)}.`}
+            {!fits && dates.top ? ` Com a carga atual, o top 80% fica completo em ${fmtDMY(dates.top)}.` : ""}
           </p>
         </div>
         <div className="flex flex-col items-start gap-2">
-          {inUse ? (
-            <span className="cg-good-bg rounded-md px-2.5 py-1 text-xs font-bold">Em uso na agenda</span>
+          {fits ? (
+            mode === "sugestao" ? (
+              <span className="cg-good-bg rounded-md px-2.5 py-1 text-xs font-bold">Em uso na agenda</span>
+            ) : (
+              <button type="button" onClick={() => onUse("sugestao")} className="cg-btn-primary inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-bold">
+                <CalendarCheck className="h-4 w-4" aria-hidden="true" />
+                Usar sugestão
+              </button>
+            )
           ) : (
-            <button type="button" onClick={onUse} className="cg-btn-primary inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-bold">
-              <CalendarCheck className="h-4 w-4" aria-hidden="true" />
-              Usar sugestão
-            </button>
+            <>
+              {mode === "hard" ? (
+                <span className="cg-good-bg rounded-md px-2.5 py-1 text-xs font-bold">Hard em uso na agenda</span>
+              ) : (
+                <button type="button" onClick={() => onUse("hard")} className="cg-btn-primary inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-bold">
+                  Voltar ao Hard
+                </button>
+              )}
+              {mode !== "sugestao" ? (
+                <button type="button" onClick={() => onUse("sugestao")} className="cg-btn-ghost inline-flex h-9 items-center rounded-lg px-3 text-xs font-semibold">
+                  Testar {fmtH(suggestion.weekly)}/semana
+                </button>
+              ) : null}
+              {dates.top ? (
+                <button type="button" onClick={() => onSimDate(dates.top)} className="cg-btn-ghost inline-flex h-9 items-center rounded-lg px-3 text-xs font-semibold">
+                  Simular prova em {fmtDMY(dates.top)}
+                </button>
+              ) : null}
+            </>
           )}
-          {!suggestion.feasible && dates.top ? (
-            <button type="button" onClick={() => onSimDate(dates.top)} className="cg-btn-ghost inline-flex h-9 items-center rounded-lg px-3 text-xs font-semibold">
-              Simular prova em {fmtDMY(dates.top)}
-            </button>
-          ) : null}
         </div>
       </div>
     </Card>
@@ -930,7 +1082,7 @@ function SuggestionCard({ suggestion, examISO, inUse, onUse, dates, onSimDate })
 }
 
 /** Live answer to "how much of the top 80% does my schedule cover?". */
-function CoverageBar({ cov, topPts, needH, weekly, raw, suggestion, manual, onUndoManual, sticky = false }) {
+function CoverageBar({ cov, topPts, needH, weekly, raw, suggestion, refLabel = "sugestão", manual, onUndoManual, sticky = false }) {
   const done = cov.cov >= 0.999;
   const dW = suggestion ? weekly - suggestion.weekly : 0;
   const dRaw = suggestion ? raw - suggestion.raw : 0;
@@ -958,19 +1110,19 @@ function CoverageBar({ cov, topPts, needH, weekly, raw, suggestion, manual, onUn
         <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 border-t cg-line pt-2 text-xs cg-ink2">
           {suggestion ? (
             <span className="cg-num">
-              Sua carga <b className="cg-ink">{fmtH(weekly)}/sem</b> · sugestão {fmtH(suggestion.weekly)}/sem
+              Sua carga <b className="cg-ink">{fmtH(weekly)}/sem</b> · {refLabel} {fmtH(suggestion.weekly)}/sem
               {Math.abs(dRaw) >= 0.5 ? (
                 <>
                   {" "}
                   ·{" "}
-                  <b className={dRaw < 0 ? "cg-error" : "cg-good"}>
+                  <b className={refLabel !== "sugestão" ? "cg-ink" : dRaw < 0 ? "cg-error" : "cg-good"}>
                     {sign(dRaw)}
                     {fmtH(Math.abs(dRaw))} até a prova
                   </b>{" "}
                   {Math.abs(dW) >= 0.5 ? `(${sign(dW)}${fmtH(Math.abs(dW))}/sem)` : "(ajustes por dia)"}
                 </>
               ) : (
-                " · igual à sugestão"
+                ` · igual à ${refLabel}`
               )}
             </span>
           ) : null}
@@ -1016,19 +1168,19 @@ function HourSlider({ day, value, onChange }) {
   );
 }
 
-function TimePanel({ state, set, setHour, hours, weekly, cap, need, cov, dates, topCount, suggestion, coverageBar }) {
+function TimePanel({ state, set, setHour, hours, weekly, cap, need, cov, covHard, dates, topCount, suggestion, coverageBar }) {
   const examISO = state.simulate && state.simDate ? state.simDate : EXAM_OFFICIAL;
   const minSim = plan.addDaysISO(TODAY, 14);
   const weeks = Math.max(2, Math.round(plan.diffDaysISO(TODAY, examISO) / 7));
-  const full = (x) => (x >= 0.999 ? "cg-good" : "cg-error");
   return (
     <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
       {suggestion ? (
         <SuggestionCard
           suggestion={suggestion}
           examISO={examISO}
-          inUse={state.mode === "sugestao"}
-          onUse={() => set({ mode: "sugestao" })}
+          mode={state.mode}
+          covHard={covHard}
+          onUse={(m) => set(m === "hard" ? { mode: m, hours: { ...plan.MODES.hard.hours } } : { mode: m })}
           dates={dates}
           onSimDate={(iso) => set({ simulate: true, simDate: iso })}
         />
@@ -1044,7 +1196,7 @@ function TimePanel({ state, set, setHour, hours, weekly, cap, need, cov, dates, 
               v === "sugestao" ? set({ mode: v }) : v === "custom" ? set({ mode: v, hours: { ...hours } }) : set({ mode: v, hours: { ...plan.MODES[v].hours } })
             }
             options={[
-              ...(suggestion ? [{ value: "sugestao", label: "Sugestão" }] : []),
+              ...(suggestion ? [{ value: "sugestao", label: suggestion.feasible && suggestion.weekly <= HARD_WEEKLY ? "Sugestão" : `Ref. ${fmtH(suggestion.weekly)}` }] : []),
               ...Object.entries(plan.MODES).map(([k, m]) => ({ value: k, label: m.label })),
               { value: "custom", label: "Personalizado" },
             ]}
@@ -1125,34 +1277,20 @@ function TimePanel({ state, set, setHour, hours, weekly, cap, need, cov, dates, 
           </div>
         ) : null}
 
-        <dl className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-lg border cg-line cg-hairlines text-sm">
-          <div className="cg-surface p-3">
-            <dt className="text-xs cg-ink2">Até a prova</dt>
-            <dd className="font-bold cg-num">
-              {weeks} semanas · {fmtHr(cap.raw)}
-            </dd>
-          </div>
-          <div className="cg-surface p-3">
-            <dt className="text-xs cg-ink2">Para conteúdo novo</dt>
-            <dd className="font-bold cg-num">{fmtHr(cap.content)}</dd>
-          </div>
-          <div className="cg-surface p-3">
-            <dt className="text-xs cg-ink2">Top 80% precisa</dt>
-            <dd className="font-bold cg-num">
-              {fmtHr(need.top)} · <span className={full(cov.cov)}>cobre {fmtPct(cov.cov)}</span>
-            </dd>
-          </div>
-          <div className="cg-surface p-3">
-            <dt className="text-xs cg-ink2">Edital completo precisa</dt>
-            <dd className="font-bold cg-num">
-              {fmtHr(need.all)} · <span className={full(cov.examPct)}>cobre {fmtPct(Math.min(1, cov.examPct))}</span>
-            </dd>
-          </div>
-        </dl>
-        <p className="mt-3 text-sm cg-ink2">
-          No seu ritmo, o top 80% fica pronto em <b className="cg-ink">{dates.top ? fmtDMY(dates.top) : "mais de 3 anos"}</b> e o edital completo em{" "}
-          <b className="cg-ink">{dates.all ? fmtDMY(dates.all) : "mais de 3 anos"}</b>.
+        <p className="mt-4 text-sm cg-ink2 cg-num">
+          Até a prova: <b className="cg-ink">{weeks} semanas</b> · {fmtHr(cap.raw)} de estudo, {fmtHr(cap.content)} para conteúdo novo.
         </p>
+        <p className="mt-3 text-xs font-semibold cg-ink2">No seu ritmo ({fmtH(weekly)}/semana), fica pronto em:</p>
+        <ul className="mt-1.5 grid grid-cols-2 gap-2 text-sm">
+          <li className="cg-sunken rounded-lg px-3 py-2">
+            <span className="block text-xs cg-ink2">Top 80% · {fmtHr(need.top)}</span>
+            <b className="cg-num">{dates.top ? fmtDMY(dates.top) : "mais de 3 anos"}</b>
+          </li>
+          <li className="cg-sunken rounded-lg px-3 py-2">
+            <span className="block text-xs cg-ink2">Edital completo · {fmtHr(need.all)}</span>
+            <b className="cg-num">{dates.all ? fmtDMY(dates.all) : "mais de 3 anos"}</b>
+          </li>
+        </ul>
         <div className="mt-4 flex flex-wrap items-center gap-3 border-t cg-line pt-3">
           <p className="text-xs font-semibold cg-ink2">Escopo da agenda</p>
           <Segmented
@@ -1172,16 +1310,26 @@ function TimePanel({ state, set, setHour, hours, weekly, cap, need, cov, dates, 
 
 /* ───────────────────────────── 4 · Cronograma ───────────────────────────── */
 
-function BlockCard({ b }) {
+function BlockCard({ b, done, late, onToggle }) {
   const a = ACT[b.atividade];
   const mat = b.materia_id ? MAT[b.materia_id] : null;
+  const what = b.assunto ? b.assunto.nome : "simulado completo";
   return (
-    <article className="cg-block rounded-lg p-2.5" data-act={b.atividade}>
+    <article className="cg-block rounded-lg p-2.5" data-act={b.atividade} data-done={done || undefined} data-late={late || undefined}>
       <div className="flex items-center justify-between gap-2 cg-mono text-xs cg-num">
-        <span className="cg-ink2">
+        <span className="inline-flex items-center gap-1.5 whitespace-nowrap cg-ink2">
+          <button
+            type="button"
+            onClick={onToggle}
+            aria-pressed={done}
+            aria-label={`${done ? "Desmarcar" : "Marcar como estudado"}: ${a.label} de ${what}`}
+            className="cg-check grid h-5 w-5 shrink-0 place-items-center rounded-full text-[11px] font-bold"
+          >
+            {done ? "✓" : ""}
+          </button>
           {plan.fmtClock(b.start)}–{plan.fmtClock(b.end)}
         </span>
-        <span className="font-semibold">{plan.fmtMin(b.minutos)}</span>
+        {late ? <span className="cg-error text-[11px] font-semibold">atrasado</span> : null}
       </div>
       {mat ? (
         <p className="mt-1.5 flex items-center gap-1.5 text-sm font-bold leading-snug">
@@ -1192,11 +1340,14 @@ function BlockCard({ b }) {
         <p className="mt-1.5 text-sm font-bold">Prova completa</p>
       )}
       <p className="mt-0.5 text-xs leading-snug cg-ink2">{b.assunto ? b.assunto.nome : `${TOTAL_Q} questões no tempo de prova`}</p>
-      <div className="mt-2 flex items-center justify-between gap-2">
-        <p className={`cg-act-${b.atividade} inline-flex items-center gap-1 text-xs font-semibold`}>
+      <div className="mt-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
+        <p className={`cg-act-${b.atividade} inline-flex items-center gap-1 whitespace-nowrap text-xs font-semibold`}>
           <a.Icon className="h-3.5 w-3.5" aria-hidden="true" />
           {a.label}
-          {b.atividade === "revisao" && b.intervalo_dias ? <span className="font-normal cg-muted">· {b.intervalo_dias}d</span> : null}
+          <span className="font-normal cg-muted cg-num">
+            · {plan.fmtMin(b.minutos)}
+            {b.atividade === "revisao" && b.intervalo_dias ? ` · ${b.intervalo_dias}d` : ""}
+          </span>
         </p>
         {b.video ? <VideoLink m={b.video} compact /> : null}
       </div>
@@ -1204,11 +1355,14 @@ function BlockCard({ b }) {
   );
 }
 
-function DayColumn({ d, edited, onAdjust, onReset }) {
+function DayColumn({ d, edited, onAdjust, onReset, isDone, onToggle }) {
   const total = d.blocks.reduce((s, b) => s + b.minutos, 0);
   const label = `${plan.DAY_LABEL[d.dia_semana]} ${fmtDM(d.data)}`;
+  const today = d.data === TODAY;
+  const past = d.data < TODAY;
+  const doneN = d.blocks.filter((b, i) => isDone(b, i)).length;
   return (
-    <div className="cg-sunken flex min-w-0 flex-col gap-2 rounded-xl p-2" data-edited={edited || undefined}>
+    <div className="cg-sunken flex min-w-0 flex-col gap-2 rounded-xl p-2" data-edited={edited || undefined} data-today={today || undefined}>
       <div className="flex items-center justify-between gap-1 px-1 pt-0.5">
         <p className="min-w-0 truncate whitespace-nowrap text-sm font-bold">
           {plan.DAY_LABEL[d.dia_semana]} <span className="cg-mono text-xs font-normal cg-muted">{fmtDM(d.data)}</span>
@@ -1236,8 +1390,14 @@ function DayColumn({ d, edited, onAdjust, onReset }) {
           {d.capacidade_min ? "Livre" : "Folga"}
         </div>
       ) : null}
+      {d.blocks.length || today ? (
+        <p className="px-1 text-[11px] cg-muted cg-num">
+          {today ? <b className="cg-accent-ink">Hoje · </b> : null}
+          {d.blocks.length ? `${doneN}/${d.blocks.length} estudados` : ""}
+        </p>
+      ) : null}
       {d.blocks.map((b, i) => (
-        <BlockCard key={i} b={b} />
+        <BlockCard key={i} b={b} done={isDone(b, i)} late={past && !isDone(b, i)} onToggle={() => onToggle(b, i)} />
       ))}
       {d.blocks.length > 0 && d.capacidade_min - total >= 15 ? (
         <div className="rounded-lg border border-dashed cg-line px-2.5 py-2 text-xs cg-muted">
@@ -1248,7 +1408,7 @@ function DayColumn({ d, edited, onAdjust, onReset }) {
   );
 }
 
-function SchedulePanel({ weeks, week, setWeek, result, examISO, dates, onSimTop, exportBar, coverageBar, dayProps }) {
+function SchedulePanel({ weeks, week, setWeek, result, examISO, dates, onSimTop, exportBar, coverageBar, dayProps, progressPanel }) {
   if (!weeks.length) return null;
   const w = weeks[Math.min(week, weeks.length) - 1];
   const totals = Object.fromEntries(ACT_KEYS.map((k) => [k, 0]));
@@ -1259,7 +1419,7 @@ function SchedulePanel({ weeks, week, setWeek, result, examISO, dates, onSimTop,
       <SectionHead
         step="4 · Cronograma"
         title="Sua agenda, semana a semana"
-        desc="Cada assunto começa com videoaula, segue com leitura e depois exercícios. Use − e + em cada dia para tirar ou incluir tempo: a agenda e a cobertura do top 80% se recalculam na hora."
+        desc="Cada assunto começa com videoaula, segue com leitura e depois exercícios. Marque ✓ no que estudar; use − e + para tirar ou incluir tempo em um dia."
         right={
           <div className="flex items-center gap-2">
             <button type="button" onClick={() => setWeek(week - 1)} disabled={week <= 1} aria-label="Semana anterior" className="cg-btn-ghost grid h-9 w-9 place-items-center rounded-lg">
@@ -1281,6 +1441,7 @@ function SchedulePanel({ weeks, week, setWeek, result, examISO, dates, onSimTop,
         }
       />
       {coverageBar}
+      {progressPanel}
       {result.cobertura_parcial ? (
         <div role="status" className="cg-warn flex flex-wrap items-center justify-between gap-3 rounded-lg px-4 py-3 text-sm">
           <span className="inline-flex items-start gap-2">
@@ -1318,6 +1479,45 @@ function SchedulePanel({ weeks, week, setWeek, result, examISO, dates, onSimTop,
   );
 }
 
+function ProgressPanel({ info, onReorganize }) {
+  const { studied, overdue, pendingLog, finished, planStart, reorganized } = info;
+  const urgent = overdue.n > 0 || pendingLog > 0;
+  return (
+    <div className={`${overdue.n ? "cg-warn" : "cg-surface border cg-line"} flex flex-wrap items-center justify-between gap-3 rounded-xl px-4 py-3`}>
+      <div className="min-w-0 max-w-3xl">
+        <p className="text-sm font-bold">Seu progresso</p>
+        <p className="text-sm cg-ink2 cg-num">
+          {studied.n ? (
+            <>
+              Estudado: <b className="cg-ink">{plan.fmtMin(studied.min)}</b> em {studied.n} bloco{studied.n === 1 ? "" : "s"}
+              {finished ? ` · ${finished} assunto${finished === 1 ? "" : "s"} concluído${finished === 1 ? "" : "s"}` : ""}
+            </>
+          ) : (
+            "Marque ✓ em cada bloco que estudar, mesmo que não tenha feito o dia todo."
+          )}
+          {overdue.n ? (
+            <>
+              {" "}
+              · <b className="cg-error">{overdue.n} bloco{overdue.n === 1 ? "" : "s"} atrasado{overdue.n === 1 ? "" : "s"}</b> ({plan.fmtMin(overdue.min)})
+            </>
+          ) : null}
+        </p>
+        <p className="text-xs cg-muted">
+          Reorganizar tira da agenda o que você já estudou e redistribui o que falta de hoje até a prova.{reorganized ? ` Agenda atual desde ${fmtDMY(planStart)}.` : ""}
+        </p>
+      </div>
+      <button
+        type="button"
+        onClick={onReorganize}
+        className={`${urgent ? "cg-btn-primary" : "cg-btn-ghost"} inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-bold`}
+      >
+        <RotateCcw className="h-4 w-4" aria-hidden="true" />
+        Reorganizar agenda
+      </button>
+    </div>
+  );
+}
+
 function ExportBar({ aluno, setAluno, onPdf, onIcs, busy, error, summary }) {
   return (
     <div className="cg-surface flex flex-wrap items-end gap-3 rounded-xl border cg-line p-3">
@@ -1346,21 +1546,32 @@ function ExportBar({ aluno, setAluno, onPdf, onIcs, busy, error, summary }) {
 
 /* ───────────────────────────── 5 · Resultado ───────────────────────────── */
 
-function ComparePanel({ cmp, contentH, nums }) {
-  const saved = nums.gen80 && nums.pers80 ? nums.gen80 - nums.pers80 : null;
+function ComparePanel({ cmp, contentH }) {
+  const reasons = [
+    { Icon: Target, title: "Começa pelo que mais rende", text: "Assuntos em ordem de pontos esperados por hora. O genérico segue a ordem do edital, do primeiro ao último." },
+    { Icon: Sparkles, title: "Tempo onde você precisa", text: "Matéria fraca ganha mais horas, matéria forte perde. O genérico dá a mesma carga para todo mundo." },
+    { Icon: Repeat, title: "Revisão e simulado no calendário", text: "Revisões em 1, 7, 21 e 60 dias e simulados periódicos já reservados, sem roubar o conteúdo novo." },
+  ];
   return (
     <section id="comparativo" className="cg-anchor flex flex-col gap-4">
-      <SectionHead
-        step="5 · Resultado"
-        title="Genérico × personalizado"
-        desc="Mesmas horas, ordem e dosagem diferentes. O genérico segue o edital do começo ao fim com a mesma carga para todos; o seu começa pelo que rende mais pontos por hora e dá mais tempo ao que você domina menos."
-      />
-      <div className="cg-hairlines grid grid-cols-1 gap-px overflow-hidden rounded-xl border cg-line sm:grid-cols-3">
-        <StatTile label={`Pontos cobertos com ${fmtHr(contentH)}`} value={`${fmtPct(nums.persAt)} × ${fmtPct(nums.genAt)}`} sub="Seu cronograma × genérico, até a prova" />
-        <StatTile label="Horas para chegar a 80%" value={`${fmtHr(nums.pers80 ?? 0)} × ${fmtHr(nums.gen80 ?? 0)}`} sub={saved ? `${fmtHr(saved)} a menos de estudo` : "—"} />
-        <StatTile label="Ganho até a prova" value={`+${Math.max(0, Math.round((nums.persAt - nums.genAt) * 100))} p.p.`} sub={`≈ ${nf1.format((Math.max(0, nums.persAt - nums.genAt) * TOTAL_Q))} questões a mais no alcance`} />
+      <SectionHead step="5 · Resultado" title="Por que o seu cronograma rende mais" desc="As mesmas horas, em outra ordem e outra dosagem." />
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        {reasons.map(({ Icon, title, text }, i) => (
+          <Card key={title}>
+            <p className="flex items-center gap-2 text-sm font-bold">
+              <span className="cg-brand grid h-7 w-7 shrink-0 place-items-center rounded-md text-xs" aria-hidden="true">
+                {i + 1}
+              </span>
+              <Icon className="h-4 w-4 cg-ink2" aria-hidden="true" />
+              {title}
+            </p>
+            <p className="mt-2 text-sm cg-ink2">{text}</p>
+          </Card>
+        ))}
       </div>
       <Card>
+        <p className="mb-1 text-sm font-bold">Questões no alcance a cada hora de estudo</p>
+        <p className="mb-3 text-xs cg-ink2">Passe o mouse ou o dedo na curva para comparar em qualquer ponto. A linha vertical marca as suas horas de conteúdo novo até a prova.</p>
         <CompareChart cmp={cmp} contentH={contentH} />
       </Card>
     </section>
@@ -1386,8 +1597,8 @@ function MethodNotes() {
 
 export default function App() {
   const [state, setState] = useState(loadState);
-  const [expanded, setExpanded] = useState(() => new Set(["dconst"]));
-  const [week, setWeekState] = useState(1);
+  const [expanded, setExpanded] = useState(() => new Set());
+  const [week, setWeekState] = useState(null); // null = the week that contains today
   const [busy, setBusy] = useState(false);
   const [exportError, setExportError] = useState(null);
   const quizRef = useRef(null);
@@ -1432,39 +1643,59 @@ export default function App() {
 
   // time
   const examISO = state.simulate && state.simDate ? state.simDate : EXAM_OFFICIAL;
+  const start = state.planStart && state.planStart <= TODAY && state.planStart < examISO ? state.planStart : TODAY;
   const nTopics = state.scope === "top80" ? par.topCount : N_ASSUNTOS;
-  const excecoes = useMemo(() => Object.fromEntries(Object.entries(state.excecoes ?? {}).filter(([iso]) => iso >= TODAY && iso < examISO)), [state.excecoes, examISO]);
+  const excecoes = useMemo(() => Object.fromEntries(Object.entries(state.excecoes ?? {}).filter(([iso]) => iso >= start && iso < examISO)), [state.excecoes, start, examISO]);
+  // progress: consolidated entries (before the last reorganization) shape the plan; the others are checkmarks on it
+  const logKey = JSON.stringify(state.log ?? {});
+  const progress = useMemo(() => plan.progressOf(Object.values(state.log ?? {}).filter((e) => e.consolidated)), [logKey]);
+  const progressAll = useMemo(() => plan.progressOf(Object.values(state.log ?? {})), [logKey]);
   const suggestion = useMemo(
-    () => (state.applied ? plan.suggestLoad({ pack, par, cmp, start: TODAY, exam: examISO, nTopics }) : null),
-    [appliedKey, par, cmp, examISO, nTopics]
+    () => (state.applied ? plan.suggestLoad({ pack, par, cmp, start, exam: examISO, nTopics, progress }) : null),
+    [appliedKey, par, cmp, start, examISO, nTopics, progress]
   );
-  const mode = state.mode === "sugestao" && !suggestion ? "custom" : state.mode;
-  const hours = mode === "sugestao" ? suggestion.hours : state.hours;
+  // "auto" (after Reajustar): the suggestion when it fits in Hard, otherwise Hard; the suggestion stays as reference
+  const autoMode = suggestion && suggestion.feasible && suggestion.weekly <= HARD_WEEKLY ? "sugestao" : "hard";
+  const mode = state.mode === "auto" ? autoMode : state.mode === "sugestao" && !suggestion ? "custom" : state.mode;
+  const hours = mode === "sugestao" ? suggestion.hours : state.mode === "auto" ? plan.MODES.hard.hours : state.hours;
   const weekly = plan.weeklyOf(hours);
   const setHour = (d, v) => setState((s) => ({ ...s, mode: "custom", hours: { ...hours, [d]: v } }));
-  const scoped = useMemo(() => (state.scope === "top80" ? plan.scopePack(pack, par.top) : pack), [state.scope, par]);
+  const remaining = useMemo(
+    () => plan.remainingPack(pack, scores, state.scope === "top80" ? par.top : new Set(pack.assuntos.map((a) => a.id)), progress),
+    [scores, state.scope, par, progress]
+  );
   const hasHours = weekly > 0 || Object.values(excecoes).some((v) => v > 0);
   const result = useMemo(
     () =>
-      hasHours
-        ? plan.buildPlan({ pack: scoped, nivelamento, hours, start: TODAY, exam: examISO, excecoes })
-        : { ok: false, erros: [{ message: "Sem horas na semana" }] },
-    [scoped, nivelamento, hours, examISO, excecoes, hasHours, weekly]
+      !hasHours
+        ? { ok: false, erros: [{ message: "Sem horas na semana" }] }
+        : !remaining.pack.assuntos.length
+          ? { ok: false, erros: [{ message: "todos os assuntos do escopo já foram estudados" }] }
+          : plan.buildPlan({ pack: remaining.pack, nivelamento, hours, start, exam: examISO, excecoes, concluidos: remaining.finished }),
+    [remaining, nivelamento, hours, start, examISO, excecoes, hasHours, weekly]
   );
-  const weeks = useMemo(() => (result.ok && result.cronograma ? plan.displayWeeks(result, pack, { inicio: state.inicio, inicioFds: state.inicioFds }) : []), [result, state.inicio, state.inicioFds]);
-  const dates = useMemo(
-    () => ({
-      top: plan.dateToCover(pack, hours, TODAY, par.topHours, par.topCount),
-      all: plan.dateToCover(pack, hours, TODAY, par.totalHours, N_ASSUNTOS),
-    }),
-    [hours, par]
+  const weeks = useMemo(
+    () => (result.ok && result.cronograma ? plan.displayWeeks(result, pack, { inicio: state.inicio, inicioFds: state.inicioFds, studied: progress }) : []),
+    [result, state.inicio, state.inicioFds, progress]
   );
+  const studiedAllH = Object.values(progressAll).reduce((s2, p) => s2 + p.min, 0) / 60;
+  const dates = useMemo(() => {
+    const topLeft = plan.coverageNow(par, cmp, 0, progressAll).remainingH;
+    return {
+      top: topLeft > 0 ? plan.dateToCover(pack, hours, TODAY, topLeft, par.topCount) : TODAY,
+      all: plan.dateToCover(pack, hours, TODAY, Math.max(1, par.totalHours - studiedAllH), N_ASSUNTOS),
+    };
+  }, [hours, par, cmp, progressAll, studiedAllH]);
   const cap = {
     raw: result.ok ? result.capacidade.horas_brutas : 0,
     content: result.ok ? result.capacidade.horas_para_conteudo : 0,
   };
   const need = { top: par.topHours, all: par.totalHours };
-  const cov = plan.topCoverage(par, cmp, cap.content);
+  const cov = plan.coverageNow(par, cmp, cap.content, progress);
+  const covHard = useMemo(
+    () => plan.coverageNow(par, cmp, plan.contentHours(pack, plan.MODES.hard.hours, start, examISO, nTopics, excecoes), progress).cov,
+    [par, cmp, start, examISO, nTopics, excecoes, progress]
+  );
   // minutes the student added/removed on specific dates, against the weekday hours
   const manual = { add: 0, del: 0 };
   for (const [iso, h] of Object.entries(excecoes)) {
@@ -1488,10 +1719,36 @@ export default function App() {
       delete ex[iso];
       return { ...s, excecoes: ex };
     });
+  // studied blocks
+  const logged = state.log ?? {};
+  const isDone = (key) => Boolean(logged[key] && !logged[key].consolidated);
+  const toggleDone = (key, d, b) =>
+    setState((s) => {
+      const log = { ...(s.log ?? {}) };
+      if (log[key] && !log[key].consolidated) delete log[key];
+      else log[key] = { data: d.data, assunto_id: b.assunto?.id ?? null, materia_id: b.materia_id ?? null, atividade: b.atividade, minutos: b.minutos, consolidated: false };
+      return { ...s, log };
+    });
+  const consolidate = (s) => Object.fromEntries(Object.entries(s.log ?? {}).map(([k, e]) => [k, { ...e, consolidated: true }]));
+  const reorganize = () => {
+    setState((s) => ({ ...s, log: consolidate(s), planStart: TODAY }));
+    requestAnimationFrame(() => document.getElementById("cronograma")?.scrollIntoView({ block: "start" }));
+  };
   const applyLevel = () => {
-    set({ applied: levelNow, mode: "sugestao" });
+    setState((s) => ({ ...s, applied: levelNow, mode: "auto", log: consolidate(s), planStart: TODAY }));
     requestAnimationFrame(() => document.getElementById("prazo")?.scrollIntoView({ block: "start" }));
   };
+  let overdue = { n: 0, min: 0 };
+  let pendingLog = 0;
+  for (const w of weeks)
+    for (const d of w.dias)
+      d.blocks.forEach((b, i) => {
+        const k = plan.blockKey(d.data, b, i);
+        if (isDone(k)) pendingLog += 1;
+        else if (d.data < TODAY) overdue = { n: overdue.n + 1, min: overdue.min + b.minutos };
+      });
+  const studied = Object.values(logged).reduce((acc, e) => ({ n: acc.n + 1, min: acc.min + e.minutos }), { n: 0, min: 0 });
+  const progressInfo = { studied, overdue, pendingLog, finished: remaining.finished.length, planStart: start, reorganized: Boolean(state.planStart) };
   const coverageProps = {
     cov,
     topPts: par.topPts,
@@ -1499,6 +1756,7 @@ export default function App() {
     weekly,
     raw: cap.raw,
     suggestion,
+    refLabel: suggestion && suggestion.feasible && suggestion.weekly <= HARD_WEEKLY ? "sugestão" : "referência",
     manual,
     onUndoManual: () => set({ excecoes: {} }),
   };
@@ -1508,9 +1766,10 @@ export default function App() {
     gen80: plan.hoursTo(cmp.generic, plan.PARETO_TARGET),
     pers80: par.topHours,
   };
-  const currentWeek = Math.min(Math.max(1, week), Math.max(1, weeks.length));
+  const todayWeek = Math.max(1, weeks.findIndex((w) => w.inicio <= TODAY && TODAY <= w.fim) + 1);
+  const currentWeek = Math.min(Math.max(1, week ?? todayWeek), Math.max(1, weeks.length));
   const setWeek = (w) => setWeekState(Math.min(Math.max(1, w), weeks.length));
-  useEffect(() => setWeekState(1), [examISO, state.scope]);
+  useEffect(() => setWeekState(null), [examISO, state.scope, start]);
 
   const toggleExpand = (id) =>
     setExpanded((s) => {
@@ -1609,16 +1868,31 @@ export default function App() {
             </div>
             <span className="cg-mono rounded-md border cg-line px-2 py-1 text-xs cg-muted">Edital real · curado em {fmtDMY(pack.concurso.curado_em)}</span>
           </div>
-          <div className="cg-hairlines grid grid-cols-2 gap-px overflow-hidden rounded-xl border cg-line lg:grid-cols-4">
-            <StatTile label="Dias até a prova" value={daysLeft} sub={`${fmtDMY(examISO)}${state.simulate ? " (simulada)" : " (edital)"}`} />
-            <StatTile label="Top 80% da prova" value={`${par.topCount} assuntos`} sub={`de ${N_ASSUNTOS} · ${fmtHr(par.topHours)} no seu nível`} />
-            <StatTile label="Top 80% coberto" value={fmtPct(cov.cov)} sub={`com ${fmtH(weekly)}/semana até a prova · precisa ${fmtHr(need.top)} de conteúdo`} />
-            <StatTile
-              label="Economia vs. genérico"
-              value={nums.gen80 ? `−${fmtHr(Math.max(0, nums.gen80 - nums.pers80))}` : "—"}
-              sub={`para cobrir 80% da prova: ${fmtHr(nums.pers80)} × ${fmtHr(nums.gen80 ?? 0)}`}
-            />
-          </div>
+          <ResultHero
+            examISO={examISO}
+            simulated={state.simulate}
+            daysLeft={daysLeft}
+            contentH={cap.content}
+            weekly={weekly}
+            modeLabel={modeLabel}
+            nums={nums}
+            cov={cov}
+            applied={Boolean(state.applied)}
+          />
+          <Steps
+            items={[
+              { href: "#dossie", title: "Dossiê da prova", status: `${N_ASSUNTOS} assuntos · top 80% = ${par.topCount}`, done: true },
+              {
+                href: "#nivelamento",
+                title: "Seu nível",
+                status: !state.applied ? "pendente" : pending ? "alterado: reajuste" : "aplicado",
+                done: Boolean(state.applied) && !pending,
+                warn: Boolean(state.applied) && pending,
+              },
+              { href: "#prazo", title: "Carga horária", status: `${fmtH(weekly)}/semana · ${modeLabel}`, done: Boolean(state.applied) },
+              { href: "#cronograma", title: "Agenda", status: weeks.length ? `${weeks.length} semanas · top 80% ${fmtPct(cov.cov)}` : "sem horas", done: Boolean(state.applied) && cov.cov >= 0.999 },
+            ]}
+          />
         </div>
 
         <section id="dossie" className="cg-anchor flex flex-col gap-4">
@@ -1687,6 +1961,7 @@ export default function App() {
             cap={cap}
             need={need}
             cov={{ ...cov, examPct: state.scope === "top80" ? Math.min(cov.examPct, par.topPts / par.total) : cov.examPct }}
+            covHard={covHard}
             dates={dates}
             topCount={par.topCount}
             suggestion={suggestion}
@@ -1704,7 +1979,14 @@ export default function App() {
             dates={dates}
             onSimTop={() => set({ simulate: true, simDate: dates.top })}
             coverageBar={<CoverageBar {...coverageProps} sticky />}
-            dayProps={(d) => ({ edited: d.data in excecoes, onAdjust: (delta) => adjustDay(d.data, delta), onReset: () => resetDay(d.data) })}
+            dayProps={(d) => ({
+              edited: d.data in excecoes,
+              onAdjust: (delta) => adjustDay(d.data, delta),
+              onReset: () => resetDay(d.data),
+              isDone: (b, i) => isDone(plan.blockKey(d.data, b, i)),
+              onToggle: (b, i) => toggleDone(plan.blockKey(d.data, b, i), d, b),
+            })}
+            progressPanel={<ProgressPanel info={progressInfo} onReorganize={reorganize} />}
             exportBar={
               <ExportBar
                 aluno={state.aluno}
@@ -1726,7 +2008,7 @@ export default function App() {
           </section>
         )}
 
-        <ComparePanel cmp={cmp} contentH={cap.content} nums={nums} />
+        <ComparePanel cmp={cmp} contentH={cap.content} />
 
         <MethodNotes />
       </main>
