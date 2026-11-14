@@ -1,5 +1,5 @@
 /**
- * Cronograma Inteligente · Mentoria 2G
+ * Cronograma Personalizado para Você
  * MVP de validação interna. Arquivo único: React 18 + Tailwind CSS + lucide-react.
  *
  * Fluxo de cálculo:
@@ -604,8 +604,8 @@ async function exportSchedulePdf({ snap, today, aluno }) {
   const margin = { left: M, right: M, top: 16, bottom: 16 };
   doc.setProperties({
     title: `Cronograma Estratégico${nome ? ` - ${pdfText(nome)}` : ""}`,
-    author: "Mentoria 2G",
-    creator: "Cronograma Inteligente 2G",
+    author: "Cronograma Personalizado para Você",
+    creator: "Cronograma Personalizado para Você",
   });
 
   // Bolinha da disciplina dentro da célula (célula com raw.disc).
@@ -653,14 +653,19 @@ async function exportSchedulePdf({ snap, today, aluno }) {
   // Cabeçalho
   doc.setFillColor(...C.accent);
   doc.roundedRect(M, 12, 11, 11, 1.5, 1.5, "F");
-  doc.setTextColor(255, 255, 255);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
-  doc.text("2G", M + 5.5, 19.1, { align: "center" });
+  // calendar icon in white
+  doc.setDrawColor(255, 255, 255);
+  doc.setLineWidth(0.45);
+  doc.roundedRect(M + 2.6, 15, 5.8, 5.6, 0.6, 0.6, "S");
+  doc.line(M + 2.6, 16.9, M + 8.4, 16.9);
+  doc.line(M + 4.2, 14.1, M + 4.2, 15.6);
+  doc.line(M + 6.8, 14.1, M + 6.8, 15.6);
+  doc.line(M + 4.1, 18.8, M + 5.1, 19.7);
+  doc.line(M + 5.1, 19.7, M + 6.9, 17.9);
   doc.setTextColor(...C.muted);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8.5);
-  doc.text("Mentoria 2G", M + 14, 15.6);
+  doc.text(pdfText("Cronograma Personalizado para Você"), M + 14, 15.6);
   doc.text(`Gerado em ${fmtDMY(now)}`, W - M, 15.6, { align: "right" });
   doc.setTextColor(...C.ink);
   doc.setFont("helvetica", "bold");
@@ -835,7 +840,7 @@ async function exportSchedulePdf({ snap, today, aluno }) {
   // Rodapé
   const pages = doc.getNumberOfPages();
   const footer = pdfText(
-    `Mentoria 2G · Cronograma Inteligente${nome ? ` · ${nome}` : ""}${EXAM.exemplo ? " · edital-modelo (dados de exemplo)" : ""}`
+    `Cronograma Personalizado para Você${nome ? ` · ${nome}` : ""}${EXAM.exemplo ? " · edital-modelo (dados de exemplo)" : ""}`
   );
   for (let i = 1; i <= pages; i++) {
     doc.setPage(i);
@@ -846,7 +851,7 @@ async function exportSchedulePdf({ snap, today, aluno }) {
     doc.text(`Página ${i} de ${pages}`, W - M, H - 8, { align: "right" });
   }
 
-  doc.save(`cronograma-2g${nome ? `-${slugify(nome)}` : ""}-${toISO(now)}.pdf`);
+  doc.save(`cronograma${nome ? `-${slugify(nome)}` : ""}-${toISO(now)}.pdf`);
 }
 
 /* ───────────────────────────── Estado inicial ───────────────────────────── */
@@ -1656,11 +1661,10 @@ export default function App() {
       <header className="cg-header cg-surface border-b cg-line">
         <div className="cg-gutter cg-wrap flex items-center gap-4 py-3">
           <div className="flex min-w-0 items-center gap-2.5">
-            <span className="cg-brand grid h-9 w-9 shrink-0 place-items-center rounded-md text-sm font-extrabold tracking-tight">2G</span>
-            <div className="min-w-0 leading-tight">
-              <p className="text-xs cg-muted">Mentoria 2G</p>
-              <p className="truncate text-sm font-bold">Cronograma Inteligente</p>
-            </div>
+            <span className="cg-brand grid h-9 w-9 shrink-0 place-items-center rounded-md" aria-hidden="true">
+              <CalendarCheck className="h-5 w-5" />
+            </span>
+            <p className="min-w-0 truncate text-sm font-extrabold tracking-tight md:text-base">Cronograma Personalizado para Você</p>
           </div>
           <nav className="cg-nav ml-auto hidden items-center gap-1 md:flex" aria-label="Seções">
             {nav.map(([href, label]) => (
