@@ -1,4 +1,4 @@
-# Cronograma Inteligente · Mentoria 2G
+# Cronograma Personalizado para Você
 
 MVP de validação interna do gerador de cronograma de estudos. SPA em React 18 + Tailwind CSS + lucide-react.
 Todo o produto está em **`src/App.jsx`** (arquivo único); o resto é scaffold Vite para rodar.

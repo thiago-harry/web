@@ -53,7 +53,7 @@ jobs:
             rm -rf "site/$d"; mkdir -p "site/$d"; cp -r app/index.html app/src app/packs "site/$d/"
           done
 
-      - name: Root page opens the app (the pitch is retired; its files stay in git history)
+      - name: Root page opens the MVP (the pitch is retired; its files stay in git history)
         run: |
           set -euo pipefail
           cat > site/docs/index.html <<'HTML'
@@ -64,11 +64,11 @@ jobs:
               <meta name="viewport" content="width=device-width, initial-scale=1.0" />
               <meta name="robots" content="noindex, nofollow" />
               <title>Cronograma Personalizado para Você</title>
-              <meta http-equiv="refresh" content="0; url=./app/" />
-              <link rel="canonical" href="./app/" />
-              <script>location.replace("./app/" + location.hash);</script>
+              <meta http-equiv="refresh" content="0; url=./mvp/" />
+              <link rel="canonical" href="./mvp/" />
+              <script>location.replace("./mvp/" + location.hash);</script>
             </head>
-            <body><p><a href="./app/">Abrir o Cronograma Personalizado para Você</a></p></body>
+            <body><p><a href="./mvp/">Abrir o Cronograma Personalizado para Você</a></p></body>
           </html>
           HTML
           sed -i 's/^          //' site/docs/index.html
