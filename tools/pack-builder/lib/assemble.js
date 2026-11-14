@@ -3,6 +3,7 @@ import { half } from "./text.js";
 
 export const ASSEMBLE_DEFAULTS = Object.freeze({
   confiancaMinima: 0.6, // items below this stay out of nivelamento.itens and go to the review
+  confiancaIncidencia: 0.5, // classifications below this do not count toward incidence (e.g. laws dropped from the edital)
   cargaPadrao: (a) => half(Math.min(24, Math.max(2, 2 + 2 * a.edital_profundidade + 0.5 * (a.subitens ?? 0)))),
 });
 
@@ -16,7 +17,7 @@ const LETTER_INDEX = { A: 0, B: 1, C: 2, D: 3, E: 4 };
  * classification: { "<key>#<numero>": { assunto_id, confianca, desatualizada } }
  * overrides.assuntos: { [id]: { nome?, carga_horaria_base?, tipo?, prereq?, volatil?, edital_profundidade? } }
  */
-export function assemblePack({ config, assuntos, provas, classification = {}, overrides = {}, options = {} }) {
+export function assemblePack({ config, assuntos, provas, classification = {}, overrides = {}, extraItems = [], options = {} }) {
   const cfg = { ...ASSEMBLE_DEFAULTS, ...options };
   const materias = config.estrutura_prova.materias.map((m) => ({
     id: m.id,
@@ -36,7 +37,7 @@ export function assemblePack({ config, assuntos, provas, classification = {}, ov
     const counts = new Map();
     for (const q of p.questoes) {
       const key = `${p.key}#${q.numero}`;
-      if (q.anulada) continue;
+      if (q.anulada || q.materia_id === "_fora") continue;
       if (q.gabarito === null || q.gabarito === undefined) review.sem_gabarito.push(key);
       const c = classification[key];
       if (!c || !c.assunto_id) {
@@ -45,6 +46,10 @@ export function assemblePack({ config, assuntos, provas, classification = {}, ov
       }
       if (!inc.has(c.assunto_id)) {
         review.avisos.push(`${key}: assunto ${c.assunto_id} não existe no rascunho`);
+        continue;
+      }
+      if (c.confianca < cfg.confiancaIncidencia) {
+        review.baixa_confianca.push({ questao: key, assunto_id: c.assunto_id, confianca: c.confianca, motivo: `${c.motivo} (fora da incidência)` });
         continue;
       }
       const slot = inc.get(c.assunto_id)[p.tipo];
@@ -64,6 +69,7 @@ export function assemblePack({ config, assuntos, provas, classification = {}, ov
           fonte: p.fonte,
           ano: p.ano,
           desatualizada: Boolean(c.desatualizada),
+          origem: "prova",
         });
       }
     }
@@ -75,6 +81,16 @@ export function assemblePack({ config, assuntos, provas, classification = {}, ov
       esperado: Object.fromEntries(materias.map((m) => [m.id, m.questoes])),
     });
     for (const a of p.anomalias ?? []) review.anomalias.push({ prova: p.key, ...a });
+  }
+
+  const known = new Set(assuntos.map((a) => a.id));
+  for (const it of extraItems) {
+    if (!known.has(it.assunto_id)) {
+      review.avisos.push(`item extra ${it.id}: assunto ${it.assunto_id} não existe`);
+      continue;
+    }
+    itens.push({ origem: "gerada_ia", ...it });
+    review.geradas = (review.geradas ?? 0) + 1;
   }
 
   const assuntosOut = assuntos.map((a) => {
@@ -99,6 +115,7 @@ export function assemblePack({ config, assuntos, provas, classification = {}, ov
       prereq: o.prereq ?? [],
       tipo,
       volatil: Boolean(o.volatil),
+      ...(o.materiais?.length ? { materiais: o.materiais } : {}),
     };
   });
 
@@ -129,7 +146,7 @@ export function assemblePack({ config, assuntos, provas, classification = {}, ov
 /** Markdown review report for the curator. */
 export function renderReview(review, pack) {
   const lines = [`# Revisão do pack ${pack.concurso.id}`, ""];
-  lines.push(`- Assuntos: ${pack.assuntos.length} · itens de nivelamento: ${pack.nivelamento.itens.length}`);
+  lines.push(`- Assuntos: ${pack.assuntos.length} · itens de nivelamento: ${pack.nivelamento.itens.length} (${review.geradas ?? 0} gerados por IA, a revisar)`);
   lines.push(`- Provas do cargo: ${pack.provas_historico.map((p) => p.ano).join(", ") || "—"} · provas da banca: ${pack.provas_banca.map((p) => p.concurso).join(", ") || "—"}`, "");
   lines.push("## Contagem por prova (parseado × esperado por matéria)");
   for (const c of review.contagem) {

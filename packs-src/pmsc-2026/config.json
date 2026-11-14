@@ -1,0 +1,205 @@
+{
+  "pack_version": "0.1.0",
+  "status": "rascunho",
+  "descricao": "Soldado QPPM · Instituto AOCP · prova objetiva com 60 questões. Caso de estudo: dossiê montado a partir do edital 002/CCP/2026, da prova PMSC 2023 (Cebraspe) e de prova AOCP de Soldado (PM-PE 2024).",
+  "concurso": {
+    "id": "pmsc-2026-soldado",
+    "nome": "PMSC 2026 · Soldado",
+    "orgao": "Polícia Militar de Santa Catarina",
+    "banca": "Instituto AOCP",
+    "cargo": "Soldado do Quadro de Praças Policial Militar (QPPM)",
+    "data_prova": "2026-12-13",
+    "fonte_edital": "https://arquivos.qconcursos.com/regulamento/arquivo/102537/pm-sc-2026-soldado-edital-n-2-edital.pdf",
+    "curado_em": "2026-11-14"
+  },
+  "estrutura_prova": {
+    "total_questoes": 60,
+    "tipo": "multipla_escolha_5",
+    "penalidade_erro": false,
+    "nota_corte_estimada": 0.5,
+    "materias": [
+      {
+        "id": "dconst",
+        "nome": "Direito Constitucional",
+        "aliases": [
+          "NOÇÕES DE DIREITO CONSTITUCIONAL",
+          "DIREITO CONSTITUCIONAL"
+        ],
+        "questoes": 8,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null,
+        "tipo_default": "lei_seca"
+      },
+      {
+        "id": "dpenal",
+        "nome": "Direito Penal Comum",
+        "aliases": [
+          "NOÇÕES DE DIREITO PENAL COMUM",
+          "NOÇÕES DE DIREITO PENAL",
+          "DIREITO PENAL COMUM",
+          "DIREITO PENAL"
+        ],
+        "questoes": 6,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null,
+        "tipo_default": "lei_seca"
+      },
+      {
+        "id": "dpp",
+        "nome": "Direito Processual Penal Comum",
+        "aliases": [
+          "NOÇÕES DE DIREITO PROCESSUAL PENAL",
+          "DIREITO PROCESSUAL PENAL COMUM",
+          "DIREITO PROCESSUAL PENAL"
+        ],
+        "questoes": 6,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null,
+        "tipo_default": "lei_seca"
+      },
+      {
+        "id": "dpm",
+        "nome": "Direito Penal Militar",
+        "aliases": [
+          "DIREITO PENAL MILITAR",
+          "NOÇÕES DE DIREITO PENAL MILITAR"
+        ],
+        "questoes": 6,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null,
+        "tipo_default": "lei_seca"
+      },
+      {
+        "id": "legesp",
+        "nome": "Legislação Especial",
+        "aliases": [
+          "LEGISLAÇÃO ESPECIAL",
+          "LEGISLAÇÃO PENAL ESPECIAL",
+          "LEGISLAÇÃO PENAL EXTRAVAGANTE"
+        ],
+        "questoes": 6,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null,
+        "tipo_default": "lei_seca"
+      },
+      {
+        "id": "transito",
+        "nome": "Legislação de Trânsito",
+        "aliases": [
+          "LEGISLAÇÃO DE TRÂNSITO",
+          "NOÇÕES DE LEGISLAÇÃO DE TRÂNSITO"
+        ],
+        "questoes": 5,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null,
+        "tipo_default": "lei_seca"
+      },
+      {
+        "id": "inst",
+        "nome": "Legislação Institucional",
+        "aliases": [
+          "LEGISLAÇÃO INSTITUCIONAL"
+        ],
+        "questoes": 10,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null,
+        "tipo_default": "memorizacao"
+      },
+      {
+        "id": "port",
+        "nome": "Língua Portuguesa",
+        "aliases": [
+          "LÍNGUA PORTUGUESA",
+          "PORTUGUÊS"
+        ],
+        "questoes": 8,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null,
+        "tipo_default": "pratica"
+      },
+      {
+        "id": "info",
+        "nome": "Informática",
+        "aliases": [
+          "NOÇÕES DE INFORMÁTICA",
+          "INFORMÁTICA"
+        ],
+        "questoes": 5,
+        "peso": 1,
+        "eliminatoria": false,
+        "min_acertos": null,
+        "tipo_default": "pratica"
+      }
+    ]
+  },
+  "secoes_ignoradas": [
+    "RACIOCÍNIO LÓGICO",
+    "RACIOCÍNIO LÓGICO MATEMÁTICO",
+    "MATEMÁTICA",
+    "DIREITOS HUMANOS E LEGISLAÇÃO",
+    "DIREITOS HUMANOS",
+    "HISTÓRIA",
+    "GEOGRAFIA",
+    "ATUALIDADES",
+    "CONHECIMENTOS GERAIS",
+    "REDAÇÃO"
+  ],
+  "edital": {
+    "pdf": "input/edital.pdf",
+    "url": "https://arquivos.qconcursos.com/regulamento/arquivo/102537/pm-sc-2026-soldado-edital-n-2-edital.pdf",
+    "secao_inicio": "Área de conhecimento: Direito",
+    "secao_fim": "ANEXO III"
+  },
+  "provas": [
+    {
+      "key": "pmsc-2023",
+      "tipo": "cargo",
+      "ano": 2023,
+      "colunas": 2,
+      "total_questoes": 58,
+      "caderno": "input/pmsc2023-prova.pdf",
+      "caderno_url": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF",
+      "gabarito": "input/pmsc2023-gabarito.pdf",
+      "gabarito_url": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/Gab_Definitivo_862_PMSC_SOLDADO_001_01.PDF",
+      "fonte": "https://cdn.cebraspe.org.br/concursos/PM_SC_23_SOLDADO/arquivos/862_PMSC_SOLDADO_001_01.PDF"
+    },
+    {
+      "key": "aocp-pmpe-2024",
+      "tipo": "banca",
+      "concurso": "pmpe-2024-soldado",
+      "ano": 2024,
+      "colunas": 2,
+      "total_questoes": 60,
+      "caderno": "input/pmpe2024-prova.pdf",
+      "caderno_url": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf",
+      "gabarito": "gabaritos/pmpe2024.txt",
+      "gabarito_url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-gabarito.pdf",
+      "fonte": "https://arquivos.qconcursos.com/prova/arquivo_prova/155091/instituto-aocp-2024-pm-pe-soldado-da-policia-militar-prova.pdf"
+    }
+  ],
+  "notas_banca": {
+    "estilo": [
+      "AOCP: enunciados longos com 5 alternativas",
+      "cobra literalidade de lei e assinale a INCORRETA com frequência"
+    ],
+    "formato_questao": "múltipla escolha, 5 alternativas, 1 correta",
+    "ratio_teoria_questoes_sugerido": null,
+    "recomendacoes_estudo": [
+      "priorizar lei seca e questões da AOCP"
+    ]
+  },
+  "classificacao": {
+    "modelo": "claude-opus-5-5",
+    "lote": 10,
+    "effort": "medium",
+    "confianca_minima": 0.6
+  }
+}

@@ -1,0 +1,446 @@
+{
+  "pmsc-2023#1": {
+    "assunto_id": "dconst.principios_fundamentais",
+    "confianca": 0.7,
+    "desatualizada": false,
+    "motivo": "princípios fundamentais, nacionalidade e organização"
+  },
+  "pmsc-2023#2": {
+    "assunto_id": "dconst.teoria_constituicao",
+    "confianca": 0.85,
+    "desatualizada": false,
+    "motivo": "eficácia das normas constitucionais"
+  },
+  "pmsc-2023#4": {
+    "assunto_id": "dconst.direitos_garantias",
+    "confianca": 0.85,
+    "desatualizada": false,
+    "motivo": "partidos políticos (art. 17)"
+  },
+  "pmsc-2023#5": {
+    "assunto_id": "dconst.organizacao_estado",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "estados-membros"
+  },
+  "pmsc-2023#6": {
+    "assunto_id": "dconst.organizacao_estado",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "municípios"
+  },
+  "pmsc-2023#7": {
+    "assunto_id": "dconst.organizacao_estado",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "administração pública (art. 37)"
+  },
+  "pmsc-2023#8": {
+    "assunto_id": "dconst.organizacao_estado",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "servidores públicos"
+  },
+  "pmsc-2023#9": {
+    "assunto_id": "dpenal.lei_penal",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "aplicação da lei penal"
+  },
+  "pmsc-2023#10": {
+    "assunto_id": "dpenal.teoria_crime",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "tentativa"
+  },
+  "pmsc-2023#11": {
+    "assunto_id": "dpenal.teoria_crime",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "concurso de pessoas"
+  },
+  "pmsc-2023#12": {
+    "assunto_id": "dpenal.crimes_pessoa",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "feminicídio"
+  },
+  "pmsc-2023#13": {
+    "assunto_id": "dpenal.crimes_patrimonio",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "escusas absolutórias no furto"
+  },
+  "pmsc-2023#14": {
+    "assunto_id": "dpenal.penas",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "concurso material"
+  },
+  "pmsc-2023#15": {
+    "assunto_id": "dpenal.crimes_adm_publica",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "concussão"
+  },
+  "pmsc-2023#16": {
+    "assunto_id": "dpenal.crimes_fe_publica",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "falsidade ideológica"
+  },
+  "pmsc-2023#17": {
+    "assunto_id": "dpp.nocoes",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "lei processual no tempo"
+  },
+  "pmsc-2023#18": {
+    "assunto_id": "dpp.nocoes",
+    "confianca": 0.85,
+    "desatualizada": false,
+    "motivo": "princípios constitucionais do processo"
+  },
+  "pmsc-2023#20": {
+    "assunto_id": "dpp.nocoes",
+    "confianca": 0.7,
+    "desatualizada": false,
+    "motivo": "nemo tenetur (princípio)"
+  },
+  "pmsc-2023#21": {
+    "assunto_id": "dpp.inquerito",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "inquérito policial"
+  },
+  "pmsc-2023#22": {
+    "assunto_id": "dpp.inquerito",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "arquivamento do inquérito"
+  },
+  "pmsc-2023#23": {
+    "assunto_id": "dpp.inquerito",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "natureza do inquérito"
+  },
+  "pmsc-2023#24": {
+    "assunto_id": "dpp.inquerito",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "prazo do inquérito"
+  },
+  "pmsc-2023#25": {
+    "assunto_id": "inst.estatuto_pmsc",
+    "confianca": 0.7,
+    "desatualizada": false,
+    "motivo": "situação de aluno-oficial no Estatuto"
+  },
+  "pmsc-2023#26": {
+    "assunto_id": "inst.pad",
+    "confianca": 0.5,
+    "desatualizada": false,
+    "motivo": "apuração disciplinar; tema próximo, lei diferente"
+  },
+  "pmsc-2023#27": {
+    "assunto_id": "inst.lei_organica_nacional",
+    "confianca": 0.5,
+    "desatualizada": false,
+    "motivo": "DL 667/1969, antecessor da Lei 14.751/2023"
+  },
+  "pmsc-2023#28": {
+    "assunto_id": "inst.lei_organica_nacional",
+    "confianca": 0.4,
+    "desatualizada": false,
+    "motivo": "R-200, fora do edital 2026"
+  },
+  "pmsc-2023#29": {
+    "assunto_id": "inst.promocao_pracas",
+    "confianca": 0.4,
+    "desatualizada": false,
+    "motivo": "promoção de oficiais (2023), edital 2026 cobra praças"
+  },
+  "pmsc-2023#31": {
+    "assunto_id": "inst.remuneracao",
+    "confianca": 0.5,
+    "desatualizada": false,
+    "motivo": "LC 614/2013 (subsídio), edital 2026 cobra LC 765/2020"
+  },
+  "pmsc-2023#32": {
+    "assunto_id": "inst.organizacao_basica",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "Decreto 1.601/2021"
+  },
+  "pmsc-2023#33": {
+    "assunto_id": "port.interpretacao",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "compreensão do texto"
+  },
+  "pmsc-2023#34": {
+    "assunto_id": "port.semantica",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "sentido de vocábulos"
+  },
+  "pmsc-2023#35": {
+    "assunto_id": "port.semantica",
+    "confianca": 0.7,
+    "desatualizada": false,
+    "motivo": "substituição de termo"
+  },
+  "pmsc-2023#36": {
+    "assunto_id": "port.sintaxe",
+    "confianca": 0.8,
+    "desatualizada": false,
+    "motivo": "oração concessiva"
+  },
+  "pmsc-2023#37": {
+    "assunto_id": "port.pontuacao",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "travessão"
+  },
+  "pmsc-2023#38": {
+    "assunto_id": "port.coesao",
+    "confianca": 0.8,
+    "desatualizada": false,
+    "motivo": "conector de consequência"
+  },
+  "pmsc-2023#39": {
+    "assunto_id": "port.reescrita",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "reescrita"
+  },
+  "pmsc-2023#40": {
+    "assunto_id": "port.coesao",
+    "confianca": 0.6,
+    "desatualizada": false,
+    "motivo": "coesão e coerência (Manual de Redação)"
+  },
+  "pmsc-2023#41": {
+    "assunto_id": null,
+    "confianca": 0,
+    "desatualizada": false,
+    "motivo": "redação oficial (forma de tratamento), fora do edital 2026"
+  },
+  "pmsc-2023#42": {
+    "assunto_id": null,
+    "confianca": 0,
+    "desatualizada": false,
+    "motivo": "redação oficial (atributos), fora do edital 2026"
+  },
+  "pmsc-2023#43": {
+    "assunto_id": "info.navegadores_email",
+    "confianca": 0.6,
+    "desatualizada": false,
+    "motivo": "internet, intranet e protocolos"
+  },
+  "pmsc-2023#44": {
+    "assunto_id": "info.libreoffice",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "LibreOffice"
+  },
+  "pmsc-2023#45": {
+    "assunto_id": "info.libreoffice",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "LibreOffice: Salvar como"
+  },
+  "pmsc-2023#47": {
+    "assunto_id": "info.navegadores_email",
+    "confianca": 0.8,
+    "desatualizada": false,
+    "motivo": "ferramenta de pesquisa na internet"
+  },
+  "pmsc-2023#48": {
+    "assunto_id": "info.seguranca",
+    "confianca": 0.7,
+    "desatualizada": false,
+    "motivo": "navegação e segurança"
+  },
+  "pmsc-2023#49": {
+    "assunto_id": "info.navegadores_email",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "endereço de e-mail"
+  },
+  "pmsc-2023#50": {
+    "assunto_id": "info.seguranca",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "malware (spyware)"
+  },
+  "aocp-pmpe-2024#1": {
+    "assunto_id": "port.interpretacao",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "compreensão do texto"
+  },
+  "aocp-pmpe-2024#2": {
+    "assunto_id": "port.interpretacao",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "tipologia textual"
+  },
+  "aocp-pmpe-2024#3": {
+    "assunto_id": "port.reescrita",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "reescrita"
+  },
+  "aocp-pmpe-2024#4": {
+    "assunto_id": "port.morfologia",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "ortografia e acentuação"
+  },
+  "aocp-pmpe-2024#5": {
+    "assunto_id": "port.pontuacao",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "pontuação"
+  },
+  "aocp-pmpe-2024#6": {
+    "assunto_id": "port.sintaxe",
+    "confianca": 0.7,
+    "desatualizada": false,
+    "motivo": "valor circunstancial"
+  },
+  "aocp-pmpe-2024#7": {
+    "assunto_id": "port.morfologia",
+    "confianca": 0.4,
+    "desatualizada": false,
+    "motivo": "alternativas sobre temas variados"
+  },
+  "aocp-pmpe-2024#8": {
+    "assunto_id": "port.coesao",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "referência coesiva"
+  },
+  "aocp-pmpe-2024#9": {
+    "assunto_id": "port.concordancia",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "concordância"
+  },
+  "aocp-pmpe-2024#10": {
+    "assunto_id": null,
+    "confianca": 0,
+    "desatualizada": false,
+    "motivo": "redação oficial, fora do edital 2026"
+  },
+  "aocp-pmpe-2024#31": {
+    "assunto_id": "info.navegadores_email",
+    "confianca": 0.6,
+    "desatualizada": false,
+    "motivo": "conceito de internet"
+  },
+  "aocp-pmpe-2024#32": {
+    "assunto_id": "info.hardware_software",
+    "confianca": 0.5,
+    "desatualizada": false,
+    "motivo": "tecnologias associadas à internet"
+  },
+  "aocp-pmpe-2024#33": {
+    "assunto_id": "info.seguranca",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "segurança cibernética"
+  },
+  "aocp-pmpe-2024#34": {
+    "assunto_id": "info.nuvem_lgpd",
+    "confianca": 0.7,
+    "desatualizada": false,
+    "motivo": "armazenamento de dados sensíveis"
+  },
+  "aocp-pmpe-2024#35": {
+    "assunto_id": "info.hardware_software",
+    "confianca": 0.5,
+    "desatualizada": false,
+    "motivo": "gerenciamento de arquivos"
+  },
+  "aocp-pmpe-2024#36": {
+    "assunto_id": "info.windows11",
+    "confianca": 0.7,
+    "desatualizada": false,
+    "motivo": "Windows 10 (edital 2026 cobra Windows 11)"
+  },
+  "aocp-pmpe-2024#38": {
+    "assunto_id": "info.libreoffice",
+    "confianca": 0.5,
+    "desatualizada": false,
+    "motivo": "Excel 2019 (edital 2026 cobra LibreOffice Calc)"
+  },
+  "aocp-pmpe-2024#39": {
+    "assunto_id": "info.libreoffice",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "LibreOffice Calc"
+  },
+  "aocp-pmpe-2024#41": {
+    "assunto_id": "dconst.direitos_garantias",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "direitos individuais"
+  },
+  "aocp-pmpe-2024#42": {
+    "assunto_id": "dconst.seguranca_publica",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "defesa do Estado"
+  },
+  "aocp-pmpe-2024#43": {
+    "assunto_id": "dconst.organizacao_estado",
+    "confianca": 0.6,
+    "desatualizada": false,
+    "motivo": "militares dos estados"
+  },
+  "aocp-pmpe-2024#44": {
+    "assunto_id": "dconst.principios_fundamentais",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "arts. 1º a 4º"
+  },
+  "aocp-pmpe-2024#45": {
+    "assunto_id": "dconst.organizacao_estado",
+    "confianca": 0.6,
+    "desatualizada": false,
+    "motivo": "sindicalização e greve de militares"
+  },
+  "aocp-pmpe-2024#46": {
+    "assunto_id": "dconst.direitos_garantias",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "mandado de injunção"
+  },
+  "aocp-pmpe-2024#47": {
+    "assunto_id": "dconst.organizacao_estado",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "organização do Estado"
+  },
+  "aocp-pmpe-2024#48": {
+    "assunto_id": "dconst.poderes",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "processo legislativo"
+  },
+  "aocp-pmpe-2024#49": {
+    "assunto_id": "dconst.poderes",
+    "confianca": 0.9,
+    "desatualizada": false,
+    "motivo": "Poder Executivo: ausência do país"
+  },
+  "aocp-pmpe-2024#50": {
+    "assunto_id": "dconst.poderes",
+    "confianca": 0.95,
+    "desatualizada": false,
+    "motivo": "Poder Judiciário"
+  }
+}

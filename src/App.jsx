@@ -1,899 +1,162 @@
 /**
- * Cronograma Personalizado para Você
- * MVP de validação interna. Arquivo único: React 18 + Tailwind CSS + lucide-react.
+ * Cronograma Personalizado para Você · caso de estudo PMSC 2026 (Soldado).
  *
- * Fluxo de cálculo:
- *  Fase 1  pontos esperados do assunto = pontos da disciplina × incidência histórica na banca
- *          → prioridade 1–5 por faixa; prioridade 1 = descarte sugerido.
- *  Fase 2  demanda da disciplina = Σ prioridades dos assuntos ativos × fator de nível.
- *  Fase 3  horas da disciplina = horas líquidas até a prova × participação na demanda,
- *          fatiadas em blocos de 30 min por semana (com arrasto de arredondamento entre semanas).
+ *  Dossiê      edital 2026 + prova PMSC 2023 (cargo) + prova AOCP PM-PE 2024 (banca) -> prioridade por assunto
+ *  Top 80%     assuntos em ordem de pontos esperados até somar 80% da prova
+ *  Nivelamento matéria fraca/média/forte + simulado de 40 questões (reais e geradas por IA, marcadas)
+ *  Prazo       horas por dia, data da prova (real ou simulada) -> capacidade
+ *  Cronograma  engine determinístico (app/src/engine) -> blocos de videoaula, leitura, exercícios, revisão, simulado
+ *  Resultado   genérico × personalizado
  *
- * Os dados do edital e da banca são de exemplo.
+ * Toda a lógica vive em ./plan.js e no engine; este arquivo só desenha.
  */
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
-  ArrowDownRight,
-  ArrowUpRight,
   BookOpen,
   CalendarCheck,
+  CalendarPlus,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  ClipboardCheck,
   Coffee,
-  ExternalLink,
   FileDown,
-  Flag,
-  ListChecks,
-  Minus,
+  PencilLine,
+  PlayCircle,
   Repeat,
   RotateCcw,
+  Search,
+  Sparkles,
+  Target,
   TriangleAlert,
 } from "lucide-react";
+import pack from "../app/packs/pmsc-2026-soldado.json";
+import { CSS, EXTRA_CSS } from "./theme.js";
+import * as plan from "./plan.js";
 
-/* ───────────────────────────── Tokens de tema ───────────────────────────── */
+/* ───────────────────────────── Dados fixos ───────────────────────────── */
 
-const DARK_TOKENS = `
-  --bg: #0b0f17; --surface: #121826; --sunken: #182031; --track: #222c40;
-  --ink: #e7ebf3; --ink-2: #aeb7c8; --muted: #8b94a7;
-  --line: #243047; --line-strong: #34415c;
-  --accent: #8da6ff; --accent-hover: #a7bbff; --on-accent: #0b1020; --accent-soft: #1b2648; --accent-ink: #a3b7ff;
-  --mark: #5e5212; --knob: #e7ebf3;
-  --hi: #ff8f86; --hi-soft: #3b1b1e; --md: #f0b455; --md-soft: #33270f; --lo: #a9b2c4; --lo-soft: #1f2737;
-  --warn-soft: #2b2310; --warn-line: #6e5622;
-  --bar: #3987e5; --mix-t: #9ec5f4; --mix-q: #5598e7; --mix-r: #256abf;
-  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9;
-  color-scheme: dark;
-`;
+const APP_NAME = "Cronograma Personalizado para Você";
+const STORE_KEY = `cpv:${pack.concurso.id}:v1`;
+const TODAY = plan.todayISO();
+const EXAM_OFFICIAL = pack.concurso.data_prova;
+const TOTAL_Q = pack.estrutura_prova.total_questoes;
+const N_ASSUNTOS = pack.assuntos.length;
+const QUIZ_N = 40;
 
-const CSS = `
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;700;800&display=swap");
+const SHORT = {
+  dconst: "D. Constitucional",
+  dpenal: "D. Penal",
+  dpp: "Proc. Penal",
+  dpm: "Penal Militar",
+  legesp: "Leg. Especial",
+  transito: "Trânsito",
+  inst: "Leg. Institucional",
+  port: "Português",
+  info: "Informática",
+};
+// Validated categorical order (light). Dark steps live in theme.js (--s1…--s9).
+const HEX = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948", "#0e93a8"];
+const MAT = Object.fromEntries(
+  pack.estrutura_prova.materias.map((m, i) => [m.id, { ...m, curto: SHORT[m.id] ?? m.nome, cor: `var(--s${i + 1})`, hex: HEX[i] }])
+);
+const MAT_NAMES = Object.fromEntries(pack.estrutura_prova.materias.map((m) => [m.id, m.nome]));
 
-/* Layout: barra fixa no topo + coluna única de painéis (resumo → Fase 1 → Fase 2 → Fase 3 → Roteiro). */
-:root {
-  --bg: #f3f5f9; --surface: #ffffff; --sunken: #eef1f6; --track: #e2e7ef;
-  --ink: #0f1729; --ink-2: #465068; --muted: #636c82;
-  --line: #dde2ea; --line-strong: #c2c9d6;
-  --accent: #1d3fa8; --accent-hover: #16338c; --on-accent: #ffffff; --accent-soft: #e6ebf9; --accent-ink: #1d3fa8;
-  --mark: #ffe45e; --knob: #ffffff;
-  --hi: #b02424; --hi-soft: #fbe9e8; --md: #8a5208; --md-soft: #fcf0dc; --lo: #4b556c; --lo-soft: #edf0f5;
-  --warn-soft: #fdf3dd; --warn-line: #e6c06d;
-  --bar: #2a78d6; --mix-t: #184f95; --mix-q: #3987e5; --mix-r: #86b6ef;
-  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #6250d6;
-  --font-sans: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-}
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { ${DARK_TOKENS} } }
-:root[data-theme="dark"] { ${DARK_TOKENS} }
-
-body { margin: 0; background: var(--bg); color: var(--ink); }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 50; background: var(--surface); pointer-events: none; }
-
-.cg-app { font-family: var(--font-sans); background: var(--bg); color: var(--ink); line-height: 1.5; -webkit-font-smoothing: antialiased; }
-.cg-app h1, .cg-app h2, .cg-app h3 { text-wrap: balance; }
-.cg-mono { font-family: var(--font-mono); }
-.cg-num { font-variant-numeric: tabular-nums; }
-.cg-eyebrow { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-.cg-gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-@media (min-width: 768px) { .cg-gutter { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); } }
-.cg-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; }
-.cg-anchor { scroll-margin-top: 84px; }
-.cg-wrap { max-width: 1440px; margin-left: auto; margin-right: auto; }
-
-.cg-surface { background: var(--surface); }
-.cg-sunken { background: var(--sunken); }
-.cg-track { background: var(--track); }
-.cg-hairlines { background: var(--line); }
-.cg-ink { color: var(--ink); }
-.cg-ink2 { color: var(--ink-2); }
-.cg-muted { color: var(--muted); }
-.cg-accent-ink { color: var(--accent-ink); }
-.cg-error { color: var(--hi); }
-.cg-line { border-color: var(--line); }
-.cg-rows > * + * { border-top: 1px solid var(--line); }
-.cg-row-hover:hover { background: var(--sunken); }
-
-.cg-brand { background: var(--accent); color: var(--on-accent); }
-.cg-nav a { color: var(--ink-2); }
-.cg-nav a:hover { color: var(--ink); background: var(--sunken); }
-
-.cg-btn-primary { background: var(--accent); color: var(--on-accent); }
-.cg-btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
-.cg-btn-primary:disabled { background: var(--line-strong); color: var(--ink-2); cursor: not-allowed; }
-.cg-btn-ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); }
-.cg-btn-ghost:hover:not(:disabled) { background: var(--sunken); }
-.cg-btn-ghost:disabled { opacity: .4; cursor: not-allowed; }
-
-.cg-seg { background: var(--sunken); border: 1px solid var(--line); }
-.cg-seg-opt { color: var(--ink-2); }
-.cg-seg-opt:hover { color: var(--ink); background: var(--surface); }
-.cg-seg-opt[aria-checked="true"] { background: var(--accent); color: var(--on-accent); }
-
-.cg-input { background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); }
-.cg-input[aria-invalid="true"] { border-color: var(--hi); }
-
-.cg-switch { background: var(--line-strong); }
-.cg-switch[aria-checked="true"] { background: var(--accent); }
-.cg-knob { background: var(--knob); }
-
-.cg-pri-hi { background: var(--hi-soft); color: var(--hi); }
-.cg-pri-md { background: var(--md-soft); color: var(--md); }
-.cg-pri-lo { background: var(--lo-soft); color: var(--lo); }
-.cg-bubble { border: 1.5px solid var(--line-strong); }
-.cg-bubble-on { background: var(--accent); border-color: var(--accent); }
-.cg-mark { background: linear-gradient(transparent 50%, var(--mark) 50%, var(--mark) 94%, transparent 94%); padding: 0 .12em; }
-.cg-pill-base { background: var(--accent-soft); color: var(--accent-ink); }
-.cg-pill-final { background: var(--hi-soft); color: var(--hi); }
-.cg-warn { background: var(--warn-soft); border: 1px solid var(--warn-line); color: var(--ink); }
-.cg-warn-icon { color: var(--md); }
-.cg-exam { background: var(--accent-soft); color: var(--accent-ink); }
-
-.cg-app :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-@media (prefers-reduced-motion: reduce) {
-  .cg-app *, .cg-app *::before, .cg-app *::after { transition: none !important; animation: none !important; }
-}
-`;
-
-/* ───────────────────────────── Dados de exemplo ─────────────────────────── */
-
-const EXAM = {
-  cargo: "Analista Administrativo",
-  banca: "Banca-modelo",
-  provas: 6,
-  periodo: "2019–2025",
-  exemplo: true,
+const FONTES = {
+  cargo: { nome: "PMSC 2023 · Soldado", banca: "Cebraspe", questoes: pack.provas_historico[0]?.total_questoes, url: pack.provas_historico[0]?.fonte },
+  banca: { nome: "PM-PE 2024 · Soldado", banca: "Instituto AOCP", questoes: pack.provas_banca?.[0]?.total_questoes, url: pack.provas_banca?.[0]?.fonte },
 };
 
-const SITE_URL = "https://thiago-harry.github.io/web/mvp/";
-// Na prévia publicada no claude.ai (build com __ARTIFACT__ definido) downloads são bloqueados.
-const CAN_DOWNLOAD = typeof __ARTIFACT__ === "undefined";
+// Student-independent view of the exam (no leveling): dossiê and top 80%.
+const BASE_SCORES = plan.score({ pack });
+const BASE_PTS = plan.expectedPoints(pack, BASE_SCORES);
 
-// [assunto, incidência % nas provas anteriores da banca, dentro da disciplina]
-const RAW_DISCIPLINES = [
-  {
-    id: "port", nome: "Língua Portuguesa", curto: "Português", bloco: "Básica", questoes: 15, peso: 1, simulado: 82,
-    assuntos: [
-      ["Interpretação e compreensão de texto", 30], ["Concordância verbal e nominal", 14], ["Pontuação", 13],
-      ["Regência e crase", 12], ["Classes de palavras", 12], ["Sintaxe da oração e do período", 11],
-      ["Ortografia e acentuação", 8],
-    ],
-  },
-  {
-    id: "rlm", nome: "Raciocínio Lógico-Matemático", curto: "RLM", bloco: "Básica", questoes: 8, peso: 1, simulado: 58,
-    assuntos: [
-      ["Proposições e conectivos", 24], ["Equivalências e negações", 20], ["Porcentagem, razão e proporção", 18],
-      ["Análise combinatória", 14], ["Probabilidade", 12], ["Sequências e padrões", 7], ["Geometria básica", 5],
-    ],
-  },
-  {
-    id: "info", nome: "Noções de Informática", curto: "Informática", bloco: "Básica", questoes: 6, peso: 1, simulado: 71,
-    assuntos: [
-      ["Segurança da informação", 28], ["Planilhas eletrônicas", 22], ["Redes e internet", 20],
-      ["Editores de texto", 12], ["Sistemas operacionais", 10], ["Hardware", 8],
-    ],
-  },
-  {
-    id: "dcon", nome: "Direito Constitucional", curto: "D. Constitucional", bloco: "Específica", questoes: 10, peso: 2, simulado: 63,
-    assuntos: [
-      ["Direitos e garantias fundamentais", 26], ["Administração Pública (arts. 37 a 41)", 18],
-      ["Organização do Estado", 16], ["Poder Legislativo", 12], ["Poder Judiciário", 10], ["Poder Executivo", 9],
-      ["Controle de constitucionalidade", 6], ["Princípios fundamentais", 3],
-    ],
-  },
-  {
-    id: "dadm", nome: "Direito Administrativo", curto: "D. Administrativo", bloco: "Específica", questoes: 15, peso: 2, simulado: 38,
-    assuntos: [
-      ["Licitações e contratos (Lei 14.133/2021)", 22], ["Atos administrativos", 20],
-      ["Agentes públicos e Lei 8.112/1990", 16], ["Poderes administrativos", 10], ["Organização administrativa", 10],
-      ["Improbidade administrativa", 9], ["Responsabilidade civil do Estado", 7], ["Controle da Administração", 6],
-    ],
-  },
-  {
-    id: "afo", nome: "Administração Financeira e Orçamentária", curto: "AFO", bloco: "Específica", questoes: 8, peso: 2, simulado: 31,
-    assuntos: [
-      ["Ciclo orçamentário (PPA, LDO, LOA)", 22], ["Princípios orçamentários", 18], ["Despesa pública", 18],
-      ["Receita pública", 16], ["Créditos adicionais", 12], ["Lei de Responsabilidade Fiscal", 10],
-      ["Restos a pagar e despesas de exercícios anteriores", 4],
-    ],
-  },
-  {
-    id: "admp", nome: "Administração Pública", curto: "Adm. Pública", bloco: "Específica", questoes: 8, peso: 2, simulado: 54,
-    assuntos: [
-      ["Gestão de pessoas", 20], ["Modelos de administração pública", 18], ["Planejamento estratégico", 16],
-      ["Gestão de processos", 14], ["Governança e accountability", 14], ["Gestão de projetos", 10],
-      ["Comportamento organizacional", 8],
-    ],
-  },
-];
-
-// Mesmas cores dos tokens --s1…--s7 (tema claro), usadas no PDF.
-const SERIES_LIGHT = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6"];
-
-const DISCIPLINES = RAW_DISCIPLINES.map((d, i) => ({
-  ...d,
-  cor: `var(--s${i + 1})`,
-  hex: SERIES_LIGHT[i],
-  assuntos: d.assuntos.map(([nome, incidencia], j) => ({ id: `${d.id}-${j + 1}`, nome, incidencia })),
-}));
-const DISC_BY_ID = Object.fromEntries(DISCIPLINES.map((d) => [d.id, d]));
-const TOTAL_PONTOS = DISCIPLINES.reduce((s, d) => s + d.questoes * d.peso, 0);
-const TOTAL_QUESTOES = DISCIPLINES.reduce((s, d) => s + d.questoes, 0);
-const MAX_INCIDENCIA = Math.max(...DISCIPLINES.flatMap((d) => d.assuntos.map((a) => a.incidencia)));
-const MAX_SHARE = Math.max(...DISCIPLINES.map((d) => (d.questoes * d.peso) / TOTAL_PONTOS));
-
-/* ───────────────────────────── Regras de negócio ────────────────────────── */
-
-const LEVELS = [
-  { id: "ini", label: "Iniciante", fator: 1.6, mix: { T: 0.45, Q: 0.35, R: 0.2 } },
-  { id: "int", label: "Intermediário", fator: 1.0, mix: { T: 0.3, Q: 0.45, R: 0.25 } },
-  { id: "ava", label: "Avançado", fator: 0.5, mix: { T: 0.1, Q: 0.7, R: 0.2 } },
-];
-const LEVEL_BY_ID = Object.fromEntries(LEVELS.map((l) => [l.id, l]));
-const BASE_LEVEL = "int"; // referência "sem nivelamento"
-
-const TYPES = {
-  T: { label: "Teoria", Icon: BookOpen, color: "var(--mix-t)" },
-  Q: { label: "Questões", Icon: ListChecks, color: "var(--mix-q)" },
-  R: { label: "Revisão", Icon: Repeat, color: "var(--mix-r)" },
+const ACT = {
+  videoaula: { label: "Videoaula", Icon: PlayCircle },
+  leitura: { label: "Leitura", Icon: BookOpen },
+  exercicios: { label: "Exercícios", Icon: PencilLine },
+  revisao: { label: "Revisão", Icon: Repeat },
+  simulado: { label: "Simulado", Icon: ClipboardCheck },
 };
-const TYPE_KEYS = ["T", "Q", "R"];
+const ACT_KEYS = Object.keys(ACT);
 
-const SLOT_MIN = 30;
-const RETA_FINAL_DIAS = 14; // nas duas últimas semanas, 70% da teoria migra para questões e revisão
-const MAX_DIAS = 1095;
-const DIAS_SEMANA = [
-  { value: 5, label: "5", hint: "Seg–Sex" },
-  { value: 6, label: "6", hint: "Seg–Sáb" },
-  { value: 7, label: "7", hint: "Todos" },
-];
-
-const prioridadeDisciplina = (pct) => (pct >= 20 ? 5 : pct >= 15 ? 4 : pct >= 10 ? 3 : pct >= 6 ? 2 : 1);
-const prioridadeAssunto = (pts) => (pts >= 4 ? 5 : pts >= 2.5 ? 4 : pts >= 1.5 ? 3 : pts >= 0.8 ? 2 : 1);
-const faixa = (p) => (p >= 4 ? "hi" : p === 3 ? "md" : "lo");
-const FAIXA_LABEL = { hi: "Alta", md: "Média", lo: "Baixa" };
-const levelFromScore = (s) => (s >= 75 ? "ava" : s >= 50 ? "int" : "ini");
-
-function computeDossier(included) {
-  return DISCIPLINES.map((d) => {
-    const pontos = d.questoes * d.peso;
-    const share = pontos / TOTAL_PONTOS;
-    const topics = d.assuntos
-      .map((a) => {
-        const esperado = (pontos * a.incidencia) / 100;
-        return { ...a, discId: d.id, esperado, prioridade: prioridadeAssunto(esperado), ativo: included ? !!included[a.id] : true };
-      })
-      .sort((a, b) => b.esperado - a.esperado);
-    const ativos = topics.filter((t) => t.ativo);
-    return {
-      ...d,
-      pontos,
-      share,
-      prioridade: prioridadeDisciplina(share * 100),
-      topics,
-      ativos: ativos.length,
-      top3: topics.slice(0, 3).reduce((s, t) => s + t.incidencia, 0) / 100,
-    };
-  });
-}
-
-function computeCoverage(dossier) {
-  const all = dossier.flatMap((d) => d.topics);
-  const ativos = all.filter((t) => t.ativo);
-  const pontos = ativos.reduce((s, t) => s + t.esperado, 0);
-  return { total: all.length, ativos: ativos.length, descartados: all.length - ativos.length, share: pontos / TOTAL_PONTOS };
-}
-
-function computePlan(dossier, levels, totalHours) {
-  const rows = dossier.map((d) => {
-    const somaP = d.topics.filter((t) => t.ativo).reduce((s, t) => s + t.prioridade, 0);
-    return {
-      id: d.id,
-      somaP,
-      demanda: somaP * LEVEL_BY_ID[levels[d.id]].fator,
-      demandaBase: somaP * LEVEL_BY_ID[BASE_LEVEL].fator,
-    };
-  });
-  const total = rows.reduce((s, r) => s + r.demanda, 0);
-  const totalBase = rows.reduce((s, r) => s + r.demandaBase, 0);
-  const byId = {};
-  for (const r of rows) {
-    const share = total > 0 ? r.demanda / total : 0;
-    const shareBase = totalBase > 0 ? r.demandaBase / totalBase : 0;
-    byId[r.id] = { ...r, share, horas: totalHours * share, horasBase: totalHours * shareBase, delta: totalHours * (share - shareBase) };
-  }
-  const list = Object.values(byId);
-  return {
-    byId,
-    totalDemanda: total,
-    realocado: list.reduce((s, r) => s + Math.max(0, r.delta), 0),
-    maxHoras: Math.max(0, ...list.map((r) => r.horas)),
-  };
-}
-
-function mixFor(levelId, retaFinal) {
-  const m = LEVEL_BY_ID[levelId].mix;
-  if (!retaFinal) return m;
-  const moved = m.T * 0.7;
-  return { T: m.T - moved, Q: m.Q + moved / 2, R: m.R + moved / 2 };
-}
-
-/* ───────────────────────────── Datas e formatos ─────────────────────────── */
-
-const pad = (n) => String(n).padStart(2, "0");
-const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
-const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
-const diffDays = (a, b) => Math.round((startOfDay(b) - startOfDay(a)) / 86400000);
-const toISO = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-const parseISO = (s) => {
-  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || "");
-  if (!m) return null;
-  const d = new Date(+m[1], +m[2] - 1, +m[3]);
-  return d.getMonth() === +m[2] - 1 ? d : null;
-};
-const parseTime = (s) => {
-  const m = /^(\d{2}):(\d{2})/.exec(s || "");
-  if (!m || +m[1] > 23 || +m[2] > 59) return null;
-  return +m[1] * 60 + +m[2];
-};
-const isStudyDay = (date, dpw) => {
-  const w = date.getDay();
-  if (dpw >= 7) return true;
-  if (dpw === 6) return w !== 0;
-  return w !== 0 && w !== 6;
+const DEFAULTS = {
+  strengths: {},
+  quiz: null, // { attempt, answers: {id: idx}, done, idx }
+  mode: "normal",
+  hours: { ...plan.MODES.normal.hours },
+  inicio: "19:00",
+  inicioFds: "09:00",
+  simulate: false,
+  simDate: null,
+  scope: "top80",
+  aluno: "",
 };
 
-const WEEKDAYS = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+/* ───────────────────────────── Formatação ───────────────────────────── */
+
 const nf1 = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
 const fmtH = (h) => `${nf1.format(Math.round(h * 10) / 10)}h`;
-const fmtPct = (x, digits = 1) => `${new Intl.NumberFormat("pt-BR", { maximumFractionDigits: digits }).format(x * 100)}%`;
-const fmtDM = (d) => `${pad(d.getDate())}/${pad(d.getMonth() + 1)}`;
-const fmtDMY = (d) => `${fmtDM(d)}/${d.getFullYear()}`;
-const fmtClock = (min) => {
-  const m = ((min % 1440) + 1440) % 1440;
-  return `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
-};
-const fmtSlots = (slots) => {
-  const min = slots * SLOT_MIN;
-  const h = Math.floor(min / 60);
-  const r = min % 60;
-  if (!h) return `${r}min`;
-  return r ? `${h}h${pad(r)}` : `${h}h`;
-};
+const fmtHr = (h) => `${Math.round(h)}h`;
+const fmtPct = (x) => `${Math.round(x * 100)}%`;
+const fmtDMY = (iso) => (iso ? iso.split("-").reverse().join("/") : "—");
+const fmtDM = (iso) => `${iso.slice(8, 10)}/${iso.slice(5, 7)}`;
 
-/* ───────────────────────────── Prazo e carga ────────────────────────────── */
-
-function computeTimebox({ examDate, hoursPerDay, daysPerWeek, startTime }, today) {
-  const errors = {};
-  const exam = parseISO(examDate);
-  const h = Number(String(hoursPerDay).replace(",", "."));
-  const startMin = parseTime(startTime);
-
-  if (!exam) errors.examDate = "Informe uma data válida.";
-  else {
-    const n = diffDays(today, exam);
-    if (n <= 0) errors.examDate = "A prova precisa ser depois de hoje.";
-    else if (n > MAX_DIAS) errors.examDate = "Horizonte máximo de 3 anos.";
-  }
-  if (!Number.isFinite(h) || h < 0.5 || h > 14) errors.hoursPerDay = "Use entre 0,5h e 14h por dia.";
-  else if (Math.abs(h * 2 - Math.round(h * 2)) > 1e-9) errors.hoursPerDay = "Use múltiplos de 30 min (ex.: 2,5).";
-  if (startMin === null) errors.startTime = "Informe um horário válido.";
-  if (Object.keys(errors).length) return { ok: false, errors };
-
-  const daysUntil = diffDays(today, exam);
-  let studyDays = 0;
-  for (let i = 0; i < daysUntil; i++) if (isStudyDay(addDays(today, i), daysPerWeek)) studyDays++;
-  if (!studyDays) return { ok: false, errors: { examDate: "Não há dia de estudo antes da prova." } };
-
-  return {
-    ok: true,
-    errors,
-    exam,
-    daysUntil,
-    studyDays,
-    daysPerWeek,
-    hoursPerDay: h,
-    slotsPerDay: Math.round(h * 2),
-    totalHours: studyDays * h,
-    weeks: Math.ceil((daysUntil + 1) / 7),
-    startMin,
-    retaFinal: addDays(exam, -RETA_FINAL_DIAS),
-  };
+function itemSource(it) {
+  if (it.origem === "gerada_ia") return { label: "Gerada por IA", ia: true };
+  const n = /q(\d+)$/.exec(it.id)?.[1];
+  if (it.id.startsWith("pmsc")) return { label: `Prova PMSC ${it.ano ?? ""} · Cebraspe${n ? ` · Q${n}` : ""}` };
+  return { label: `Prova PM-PE ${it.ano ?? ""} · AOCP${n ? ` · Q${n}` : ""}` };
 }
 
-/* ───────────────────────────── Gerador do roteiro ───────────────────────── */
-
-// Distribui `total` slots entre direitos fracionários em passos de `step` (blocos de 1h quando possível).
-function allocateInSteps(entitlement, total, step) {
-  const out = entitlement.map(() => 0);
-  let remaining = total;
-  while (remaining > 0 && out.length) {
-    const s = Math.min(step, remaining);
-    let best = 0;
-    for (let i = 1; i < out.length; i++) if (entitlement[i] - out[i] > entitlement[best] - out[best]) best = i;
-    out[best] += s;
-    remaining -= s;
-  }
-  return out;
-}
-
-// Divide n slots em blocos de no máximo `max` slots, com tamanhos equilibrados.
-function chunk(n, max) {
-  if (n <= 0) return [];
-  const k = Math.ceil(n / max);
-  const base = Math.floor(n / k);
-  const rem = n % k;
-  return Array.from({ length: k }, (_, i) => base + (i < rem ? 1 : 0));
-}
-
-// Rodízio ponderado suave: assuntos aparecem na proporção da prioridade, intercalados.
-function nextTopic(state, topics) {
-  let total = 0;
-  let best = null;
-  for (const t of topics) {
-    state[t.id] = (state[t.id] || 0) + t.prioridade;
-    total += t.prioridade;
-    if (!best || state[t.id] > state[best.id]) best = t;
-  }
-  state[best.id] -= total;
-  return best;
-}
-
-// Preenche cada dia escolhendo a disciplina mais atrasada em relação à sua cota proporcional da semana.
-function distribute(days, queues, rank, startMin) {
-  const ids = Object.keys(queues);
-  const total = Object.fromEntries(ids.map((id) => [id, queues[id].reduce((s, b) => s + b.slots, 0)]));
-  const capTotal = days.reduce((s, d) => s + d.cap, 0);
-  const placed = Object.fromEntries(ids.map((id) => [id, 0]));
-  let cum = 0;
-  for (const day of days) {
-    if (!day.cap) continue;
-    cum += day.cap;
-    let rem = day.cap;
-    let cursor = startMin;
-    const used = new Set();
-    const deficit = (id) => (total[id] * cum) / capTotal - placed[id];
-    while (rem > 0) {
-      const pending = ids.filter((id) => queues[id].length > 0);
-      if (!pending.length) break;
-      const fresh = pending.filter((id) => !used.has(id));
-      let pool = fresh.length ? fresh : pending;
-      const fits = pool.filter((id) => queues[id][0].slots <= rem);
-      if (fits.length) pool = fits;
-      pool.sort((a, b) => deficit(b) - deficit(a) || rank[a] - rank[b]);
-      const id = pool[0];
-      const head = queues[id][0];
-      const take = Math.min(head.slots, rem);
-      if (take === head.slots) queues[id].shift();
-      else head.slots -= take;
-      const last = day.blocks[day.blocks.length - 1];
-      if (last && last.discId === id && last.type === head.type && last.topic.id === head.topic.id) {
-        last.slots += take;
-        last.end += take * SLOT_MIN;
-      } else {
-        day.blocks.push({ discId: id, type: head.type, topic: head.topic, slots: take, start: cursor, end: cursor + take * SLOT_MIN });
-      }
-      cursor += take * SLOT_MIN;
-      rem -= take;
-      placed[id] += take;
-      used.add(id);
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (raw) {
+      const s = { ...DEFAULTS, ...JSON.parse(raw) };
+      if (s.simDate && s.simDate <= TODAY) s.simDate = null;
+      return s;
     }
+  } catch {
+    /* storage unavailable */
   }
+  return { ...DEFAULTS };
 }
 
-// Simula as semanas 1..to (o arrasto de arredondamento e o rodízio dependem das anteriores)
-// e devolve as semanas from..to já distribuídas nos dias.
-function buildWeeks({ dossier, plan, levels, tb, from, to, today }) {
-  const discs = dossier
-    .filter((d) => plan.byId[d.id].share > 0)
-    .map((d) => ({
-      id: d.id,
-      share: plan.byId[d.id].share,
-      active: d.topics.filter((t) => t.ativo).sort((a, b) => b.prioridade - a.prioridade || b.esperado - a.esperado),
-    }));
-  const rank = Object.fromEntries([...discs].sort((a, b) => b.share - a.share).map((x, i) => [x.id, i]));
-  const maxBlock = Math.max(1, Math.min(4, Math.ceil(tb.slotsPerDay / 2)));
-  const step = Math.min(2, maxBlock);
-  const state = Object.fromEntries(
-    discs.map((x) => [x.id, { carry: 0, typeCarry: [0, 0, 0], rrT: {}, rrQ: {}, rrR: {}, studied: new Map(), tick: 0 }])
-  );
+/* ───────────────────────────── Peças de UI ───────────────────────────── */
 
-  const out = [];
-  for (let w = 1; w <= to; w++) {
-    const weekStart = addDays(today, (w - 1) * 7);
-    const days = Array.from({ length: 7 }, (_, i) => {
-      const date = addDays(weekStart, i);
-      const toExam = diffDays(date, tb.exam);
-      const status = toExam < 0 ? "after" : toExam === 0 ? "exam" : isStudyDay(date, tb.daysPerWeek) ? "study" : "rest";
-      return { date, status, cap: status === "study" ? tb.slotsPerDay : 0, blocks: [] };
-    });
-    const capacity = days.reduce((s, d) => s + d.cap, 0);
-    const retaFinal = diffDays(weekStart, tb.exam) <= RETA_FINAL_DIAS;
-
-    const entitlement = discs.map((x) => capacity * x.share + state[x.id].carry);
-    const alloc = allocateInSteps(entitlement, capacity, step);
-    const queues = {};
-
-    discs.forEach((x, i) => {
-      const s = state[x.id];
-      s.carry = entitlement[i] - alloc[i];
-      queues[x.id] = [];
-      const n = alloc[i];
-      if (!n) return;
-      const mix = mixFor(levels[x.id], retaFinal);
-      const typeEnt = TYPE_KEYS.map((k, j) => n * mix[k] + s.typeCarry[j]);
-      const [nT, nQ, nR] = allocateInSteps(typeEnt, n, step);
-      s.typeCarry = typeEnt.map((v, j) => v - [nT, nQ, nR][j]);
-      const theory = [];
-      for (const size of chunk(nT, maxBlock)) {
-        const topic = nextTopic(s.rrT, x.active);
-        theory.push(topic);
-        queues[x.id].push({ type: "T", slots: size, topic });
-      }
-      chunk(nQ, maxBlock).forEach((size, j) => {
-        const topic = theory.length ? theory[j % theory.length] : nextTopic(s.rrQ, x.active);
-        queues[x.id].push({ type: "Q", slots: size, topic });
-      });
-      chunk(nR, maxBlock).forEach((size, j) => {
-        const pool = [...s.studied.values()];
-        let topic;
-        if (pool.length) {
-          pool.sort((a, b) => a.last - b.last || b.topic.prioridade - a.topic.prioridade);
-          pool[0].last = ++s.tick;
-          topic = pool[0].topic;
-        } else if (theory.length) topic = theory[j % theory.length];
-        else topic = nextTopic(s.rrR, x.active);
-        queues[x.id].push({ type: "R", slots: size, topic });
-      });
-      for (const t of theory) if (!s.studied.has(t.id)) s.studied.set(t.id, { topic: t, last: 0 });
-    });
-
-    if (w >= from) {
-      distribute(days, queues, rank, tb.startMin);
-      const totals = discs
-        .map((x, i) => ({ id: x.id, slots: alloc[i] }))
-        .filter((t) => t.slots > 0)
-        .sort((a, b) => b.slots - a.slots || rank[a.id] - rank[b.id]);
-      out.push({
-        week: w,
-        days,
-        weekStart,
-        weekEnd: addDays(weekStart, 6),
-        retaFinal,
-        capacity,
-        totals,
-        blocks: days.reduce((s, d) => s + d.blocks.length, 0),
-      });
-    }
-  }
-  return out;
-}
-
-const buildWeek = ({ week, ...rest }) => buildWeeks({ ...rest, from: week, to: week })[0] ?? null;
-
-/* ───────────────────────────── Exportação PDF ───────────────────────────── */
-
-const PDF_COLORS = {
-  ink: [15, 23, 41],
-  ink2: [70, 80, 104],
-  muted: [99, 108, 130],
-  line: [214, 220, 229],
-  sunken: [242, 244, 248],
-  accent: [29, 63, 168],
-  accentSoft: [230, 235, 249],
-};
-const hexToRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
-// Fontes padrão do PDF cobrem Latin-1: troca símbolos fora dessa faixa.
-const pdfText = (v) =>
-  String(v).replace(/[–—−]/g, "-").replace(/≥/g, ">=").replace(/≤/g, "<=").replace(/→/g, "->").replace(/[“”]/g, '"');
-const slugify = (v) =>
-  v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-const DIAS_LABEL = { 5: "5 (seg a sex)", 6: "6 (seg a sáb)", 7: "7 (todos os dias)" };
-
-async function exportSchedulePdf({ snap, today, aluno }) {
-  const [{ jsPDF }, { autoTable }] = await Promise.all([import("jspdf"), import("jspdf-autotable")]);
-  const { c, d: dossier, t: tb, p: plan } = snap;
-  const C = PDF_COLORS;
-  const weeks = buildWeeks({ dossier, plan, levels: c.levels, tb, from: 1, to: tb.weeks, today });
-  const nome = aluno.trim();
-  const now = new Date();
-
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
-  const W = doc.internal.pageSize.getWidth();
-  const H = doc.internal.pageSize.getHeight();
-  const M = 14;
-  const margin = { left: M, right: M, top: 16, bottom: 16 };
-  doc.setProperties({
-    title: `Cronograma Estratégico${nome ? ` - ${pdfText(nome)}` : ""}`,
-    author: "Cronograma Personalizado para Você",
-    creator: "Cronograma Personalizado para Você",
-  });
-
-  // Bolinha da disciplina dentro da célula (célula com raw.disc).
-  const discCell = (id, content) => ({ content: pdfText(content), disc: id });
-  const padDisc = { top: 1.8, bottom: 1.8, left: 5.2, right: 1.8 };
-  const hooks = {
-    didParseCell: (data) => {
-      if (data.section === "body" && data.cell.raw?.disc) data.cell.styles.cellPadding = padDisc;
-    },
-    didDrawCell: (data) => {
-      if (data.section !== "body") return;
-      const raw = data.cell.raw;
-      const cy = data.cell.y + data.cell.height / 2;
-      if (raw?.disc) {
-        doc.setFillColor(...hexToRgb(DISC_BY_ID[raw.disc].hex));
-        doc.circle(data.cell.x + 2.6, cy, 1.1, "F");
-      }
-      if (raw?.check) {
-        const cx = data.cell.x + data.cell.width / 2;
-        doc.setDrawColor(...C.ink2);
-        doc.setLineWidth(0.3);
-        doc.rect(cx - 1.75, cy - 1.75, 3.5, 3.5);
-      }
-    },
-  };
-  // Título de seção; `need` = altura mínima (mm) que precisa caber abaixo dele na mesma página.
-  const section = (title, sub, need = 30) => {
-    let y = doc.lastAutoTable.finalY + 9;
-    if (y + 8 + need > H - margin.bottom) {
-      doc.addPage();
-      y = 18;
-    }
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(11.5);
-    doc.setTextColor(...C.ink);
-    doc.text(pdfText(title), M, y);
-    if (!sub) return y + 3;
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(8.5);
-    doc.setTextColor(...C.muted);
-    doc.text(pdfText(sub), M, y + 4.5);
-    return y + 7;
-  };
-
-  // Cabeçalho
-  doc.setFillColor(...C.accent);
-  doc.roundedRect(M, 12, 11, 11, 1.5, 1.5, "F");
-  // calendar icon in white
-  doc.setDrawColor(255, 255, 255);
-  doc.setLineWidth(0.45);
-  doc.roundedRect(M + 2.6, 15, 5.8, 5.6, 0.6, 0.6, "S");
-  doc.line(M + 2.6, 16.9, M + 8.4, 16.9);
-  doc.line(M + 4.2, 14.1, M + 4.2, 15.6);
-  doc.line(M + 6.8, 14.1, M + 6.8, 15.6);
-  doc.line(M + 4.1, 18.8, M + 5.1, 19.7);
-  doc.line(M + 5.1, 19.7, M + 6.9, 17.9);
-  doc.setTextColor(...C.muted);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(8.5);
-  doc.text(pdfText("Cronograma Personalizado para Você"), M + 14, 15.6);
-  doc.text(`Gerado em ${fmtDMY(now)}`, W - M, 15.6, { align: "right" });
-  doc.setTextColor(...C.ink);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(16);
-  doc.text("Cronograma Estratégico", M + 14, 21.8);
-
-  let y = 32;
-  doc.setFontSize(10.5);
-  doc.text("Aluno:", M, y);
-  doc.setFont("helvetica", "normal");
-  if (nome) doc.text(pdfText(nome), M + 13.5, y);
-  else {
-    doc.setDrawColor(...C.line);
-    doc.setLineWidth(0.3);
-    doc.line(M + 13.5, y + 0.8, M + 105, y + 0.8);
-  }
-  doc.setFontSize(9);
-  doc.setTextColor(...C.ink2);
-  doc.text(pdfText(`${EXAM.cargo} · ${EXAM.banca} · ${TOTAL_QUESTOES} questões · ${TOTAL_PONTOS} pontos`), M, y + 5.5);
-
-  // Parâmetros
-  autoTable(doc, {
-    startY: y + 9,
-    margin,
-    theme: "plain",
-    styles: { fontSize: 9, cellPadding: { top: 1.7, bottom: 1.7, left: 3, right: 3 }, textColor: C.ink, fillColor: C.sunken },
-    columnStyles: { 0: { textColor: C.muted, cellWidth: 36 }, 1: { fontStyle: "bold" }, 2: { textColor: C.muted, cellWidth: 46 }, 3: { fontStyle: "bold" } },
-    body: [
-      ["Data da prova", fmtDMY(tb.exam), "Horas líquidas até a prova", fmtH(tb.totalHours)],
-      ["Dias até a prova", String(tb.daysUntil), "Semanas de estudo", String(tb.weeks)],
-      ["Horas por dia", fmtH(tb.hoursPerDay), "Dias de estudo por semana", DIAS_LABEL[tb.daysPerWeek]],
-      ["Início dos estudos", fmtClock(tb.startMin), "Reta final a partir de", fmtDMY(tb.retaFinal)],
-    ],
-  });
-
-  // Distribuição por disciplina
-  y = section(
-    "Distribuição de horas por disciplina",
-    "Prioridade do edital × histórico da banca, ajustada pelo nível do simulado. Mix = % de teoria, questões e revisão."
-  );
-  const dist = dossier
-    .filter((d) => plan.byId[d.id].horas > 0)
-    .sort((a, b) => plan.byId[b.id].horas - plan.byId[a.id].horas)
-    .map((d) => {
-      const r = plan.byId[d.id];
-      const lvl = LEVEL_BY_ID[c.levels[d.id]];
-      return [
-        discCell(d.id, d.nome),
-        `${FAIXA_LABEL[faixa(d.prioridade)]} (P${d.prioridade})`,
-        lvl.label,
-        `${d.simulado}%`,
-        fmtH(r.horas),
-        fmtPct(r.share, 0),
-        `${Math.round(lvl.mix.T * 100)} / ${Math.round(lvl.mix.Q * 100)} / ${Math.round(lvl.mix.R * 100)}`,
-      ];
-    });
-  autoTable(doc, {
-    startY: y,
-    margin,
-    theme: "grid",
-    head: [["Disciplina", "Prioridade", "Nível", "Simulado", "Horas", "% horas", "Mix T / Q / R"]],
-    body: dist,
-    styles: { fontSize: 8.5, cellPadding: 1.8, lineColor: C.line, lineWidth: 0.2, textColor: C.ink, valign: "middle" },
-    headStyles: { fillColor: C.sunken, textColor: C.ink2, fontStyle: "bold", fontSize: 8 },
-    columnStyles: {
-      1: { cellWidth: 23 },
-      2: { cellWidth: 24 },
-      3: { cellWidth: 18, halign: "right" },
-      4: { cellWidth: 17, halign: "right", fontStyle: "bold" },
-      5: { cellWidth: 17, halign: "right" },
-      6: { cellWidth: 26, halign: "center" },
-    },
-    ...hooks,
-  });
-
-  // Descarte estratégico
-  const descartados = dossier.flatMap((d) => d.topics.filter((t) => !t.ativo).map((t) => ({ d, t })));
-  if (descartados.length) {
-    const pts = descartados.reduce((s, x) => s + x.t.esperado, 0);
-    y = section(
-      "Assuntos fora do cronograma (descarte estratégico)",
-      `${descartados.length} assuntos de baixa incidência na banca, ${fmtPct(pts / TOTAL_PONTOS)} dos pontos esperados da prova.`
-    );
-    autoTable(doc, {
-      startY: y,
-      margin,
-      theme: "grid",
-      head: [["Disciplina", "Assunto", "Incidência", "Pontos esperados"]],
-      body: descartados.map(({ d, t }) => [discCell(d.id, d.curto), pdfText(t.nome), `${t.incidencia}%`, nf1.format(t.esperado)]),
-      styles: { fontSize: 8.5, cellPadding: 1.8, lineColor: C.line, lineWidth: 0.2, textColor: C.ink2, valign: "middle" },
-      headStyles: { fillColor: C.sunken, textColor: C.ink2, fontStyle: "bold", fontSize: 8 },
-      columnStyles: { 0: { cellWidth: 40 }, 2: { halign: "right", cellWidth: 22 }, 3: { halign: "right", cellWidth: 30 } },
-      ...hooks,
-    });
-  }
-
-  // Roteiro semana a semana
-  const weekBody = (wk) => {
-    const body = [];
-    for (const day of wk.days) {
-      if (day.status === "after") continue;
-      const label = { content: `${WEEKDAYS[day.date.getDay()]} ${fmtDM(day.date)}`, styles: { fontStyle: "bold", valign: "top" } };
-      if (day.status === "rest") {
-        body.push([label, { content: "Descanso", colSpan: 6, styles: { textColor: C.muted, fontStyle: "italic" } }]);
-      } else if (day.status === "exam") {
-        body.push([label, { content: "Dia da prova", colSpan: 6, styles: { textColor: C.accent, fontStyle: "bold", fillColor: C.accentSoft } }]);
-      } else {
-        day.blocks.forEach((b, j) => {
-          const row = j === 0 ? [{ ...label, rowSpan: day.blocks.length }] : [];
-          row.push(
-            `${fmtClock(b.start)}-${fmtClock(b.end)}`,
-            discCell(b.discId, DISC_BY_ID[b.discId].curto),
-            pdfText(b.topic.nome),
-            TYPES[b.type].label,
-            fmtSlots(b.slots),
-            { content: "", check: true }
-          );
-          body.push(row);
-        });
-      }
-    }
-    return body;
-  };
-  const bodies = weeks.map(weekBody);
-  const usable = H - margin.top - margin.bottom;
-  const estHeight = (body) => Math.min(usable, 16 + body.length * 6.8); // cabeçalho + linhas, com folga
-
-  y = section(
-    "Roteiro semana a semana",
-    "Marque a caixa ao concluir cada bloco. Revisões retomam assuntos estudados em semanas anteriores.",
-    bodies.length ? estHeight(bodies[0]) : 30
-  );
-  weeks.forEach((wk, i) => {
-    let startY = y;
-    if (i > 0) {
-      startY = doc.lastAutoTable.finalY + 7;
-      if (startY + estHeight(bodies[i]) > H - margin.bottom) {
-        doc.addPage();
-        startY = margin.top + 2;
-      }
-    }
-    const title = [
-      `Semana ${wk.week} de ${tb.weeks}`,
-      `${fmtDM(wk.weekStart)} a ${fmtDM(wk.weekEnd)}`,
-      wk.retaFinal ? "Reta final" : "Fase base",
-      fmtSlots(wk.capacity),
-    ].join("  ·  ");
-    autoTable(doc, {
-      startY,
-      margin,
-      theme: "grid",
-      rowPageBreak: "avoid",
-      head: [
-        [{ content: title, colSpan: 7, styles: { fillColor: C.accent, textColor: [255, 255, 255], fontStyle: "bold", fontSize: 9.5, halign: "left" } }],
-        ["Dia", "Horário", "Disciplina", "Assunto", "Tipo", "Duração", "Feito"],
-      ],
-      body: bodies[i],
-      styles: { fontSize: 8.5, cellPadding: 1.6, lineColor: C.line, lineWidth: 0.2, textColor: C.ink, valign: "middle" },
-      headStyles: { fillColor: C.sunken, textColor: C.ink2, fontStyle: "bold", fontSize: 8 },
-      columnStyles: {
-        0: { cellWidth: 19 },
-        1: { cellWidth: 21 },
-        2: { cellWidth: 34 },
-        4: { cellWidth: 18 },
-        5: { cellWidth: 15 },
-        6: { cellWidth: 11, halign: "center" },
-      },
-      ...hooks,
-    });
-  });
-
-  // Rodapé
-  const pages = doc.getNumberOfPages();
-  const footer = pdfText(
-    `Cronograma Personalizado para Você${nome ? ` · ${nome}` : ""}${EXAM.exemplo ? " · edital-modelo (dados de exemplo)" : ""}`
-  );
-  for (let i = 1; i <= pages; i++) {
-    doc.setPage(i);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(7.5);
-    doc.setTextColor(...C.muted);
-    doc.text(footer, M, H - 8);
-    doc.text(`Página ${i} de ${pages}`, W - M, H - 8, { align: "right" });
-  }
-
-  doc.save(`cronograma${nome ? `-${slugify(nome)}` : ""}-${toISO(now)}.pdf`);
-}
-
-/* ───────────────────────────── Estado inicial ───────────────────────────── */
-
-const BASE_DOSSIER = computeDossier(null);
-const SUGGESTED_INCLUDED = Object.fromEntries(BASE_DOSSIER.flatMap((d) => d.topics.map((t) => [t.id, t.prioridade >= 2])));
-const DIAGNOSTIC_LEVELS = Object.fromEntries(DISCIPLINES.map((d) => [d.id, levelFromScore(d.simulado)]));
-
-function makeDefaults() {
-  return {
-    levels: DIAGNOSTIC_LEVELS,
-    included: SUGGESTED_INCLUDED,
-    examDate: toISO(addDays(startOfDay(new Date()), 120)),
-    hoursPerDay: "3",
-    daysPerWeek: 6,
-    startTime: "19:00",
-  };
-}
-
-/* ───────────────────────────── Componentes de UI ────────────────────────── */
+const APP_CSS = `
+.cg-alt[data-state="right"] { background: var(--good-soft); border-color: var(--good); }
+.cg-alt[data-state="right"] .cg-alt-letter { background: var(--good); color: var(--surface); }
+.cg-alt[data-state="wrong"] { border-color: var(--hi); }
+.cg-alt[data-state="wrong"] .cg-alt-letter { background: var(--hi); color: var(--surface); }
+.cg-ia { background: var(--warn-soft); color: var(--ink); border: 1px solid var(--warn-line); }
+.cg-series-p { stroke: var(--s1); }
+.cg-series-g { stroke: var(--s2); }
+.cg-fill-p { fill: var(--s1); }
+.cg-fill-g { fill: var(--s2); }
+.cg-sw-p { background: var(--s1); }
+.cg-sw-g { background: repeating-linear-gradient(90deg, var(--s2) 0 6px, transparent 6px 9px); }
+.cg-ref { stroke: var(--muted); }
+.cg-cross { stroke: var(--ink-2); }
+.cg-area { fill: var(--accent); opacity: .08; }
+.cg-tip { background: var(--surface); border: 1px solid var(--line-strong); box-shadow: 0 4px 16px rgba(0,0,0,.12); }
+.cg-progress { background: var(--track); }
+.cg-progress > span { background: var(--accent); }
+`;
 
 function Dot({ color, size = "h-2.5 w-2.5" }) {
   return <span aria-hidden="true" className={`${size} inline-block shrink-0 rounded-full`} style={{ background: color }} />;
 }
 
-function PriorityTag({ p }) {
-  const f = faixa(p);
+function Bubbles({ value, label = "Prioridade" }) {
   return (
-    <span className={`cg-pri-${f} inline-flex items-center rounded px-1.5 py-0.5 text-xs font-bold`}>{FAIXA_LABEL[f]}</span>
-  );
-}
-
-// Prioridade 1–5 desenhada como bolhas de cartão-resposta.
-function Bubbles({ value }) {
-  return (
-    <span className="inline-flex items-center gap-1.5" role="img" aria-label={`Prioridade ${value} de 5`}>
+    <span className="inline-flex items-center gap-1.5" role="img" aria-label={`${label} ${value} de 5`}>
       <span className="inline-flex items-center gap-0.5">
         {[1, 2, 3, 4, 5].map((i) => (
           <span key={i} className={`h-2.5 w-2.5 rounded-full cg-bubble ${i <= value ? "cg-bubble-on" : ""}`} />
         ))}
       </span>
-      <span className="cg-mono text-xs font-semibold cg-ink2">P{value}</span>
     </span>
   );
 }
@@ -913,10 +176,9 @@ function Switch({ checked, onChange, label }) {
   );
 }
 
-function Segmented({ label, options, value, onChange, size = "sm" }) {
-  const pad = size === "sm" ? "px-2.5 py-1.5 text-xs" : "px-3 py-2 text-sm";
+function Segmented({ label, options, value, onChange }) {
   return (
-    <div role="radiogroup" aria-label={label} className="cg-seg inline-flex max-w-full rounded-lg p-0.5">
+    <div role="radiogroup" aria-label={label} className="cg-seg inline-flex max-w-full flex-wrap rounded-lg p-0.5">
       {options.map((o) => (
         <button
           key={o.value}
@@ -924,7 +186,7 @@ function Segmented({ label, options, value, onChange, size = "sm" }) {
           role="radio"
           aria-checked={o.value === value}
           onClick={() => onChange(o.value)}
-          className={`cg-seg-opt ${pad} whitespace-nowrap rounded-md font-semibold transition-colors`}
+          className="cg-seg-opt whitespace-nowrap rounded-md px-3 py-1.5 text-xs font-semibold transition-colors"
         >
           {o.label}
           {o.hint ? <span className="ml-1 font-normal opacity-75">{o.hint}</span> : null}
@@ -947,674 +209,1084 @@ function SectionHead({ step, title, desc, right }) {
   );
 }
 
-function Delta({ value }) {
-  if (Math.abs(value) < 0.05) {
-    return (
-      <span className="inline-flex w-20 shrink-0 items-center justify-end gap-0.5 text-xs cg-muted cg-num">
-        <Minus className="h-3.5 w-3.5" aria-hidden="true" />
-        0h
-      </span>
-    );
-  }
-  const up = value > 0;
-  const Icon = up ? ArrowUpRight : ArrowDownRight;
-  return (
-    <span className={`inline-flex w-20 shrink-0 items-center justify-end gap-0.5 text-xs font-semibold cg-num ${up ? "cg-accent-ink" : "cg-ink2"}`}>
-      <Icon className="h-3.5 w-3.5" aria-hidden="true" />
-      {up ? "+" : "−"}
-      {fmtH(Math.abs(value))}
-    </span>
-  );
-}
-
-function MixBar({ mix, horas }) {
-  const label = TYPE_KEYS.map((k) => `${TYPES[k].label} ${fmtPct(mix[k], 0)}`).join(", ");
-  return (
-    <div className="min-w-0">
-      <div className="flex h-2 gap-0.5 overflow-hidden rounded-full" role="img" aria-label={label}>
-        {TYPE_KEYS.map((k) =>
-          mix[k] > 0 ? (
-            <span
-              key={k}
-              title={`${TYPES[k].label}: ${fmtPct(mix[k], 0)} · ${fmtH(horas * mix[k])}`}
-              style={{ width: `${mix[k] * 100}%`, background: TYPES[k].color }}
-            />
-          ) : null
-        )}
-      </div>
-      <p className="mt-1 cg-mono text-xs cg-muted cg-num">
-        T {Math.round(mix.T * 100)} · Q {Math.round(mix.Q * 100)} · R {Math.round(mix.R * 100)}
-      </p>
-    </div>
-  );
-}
-
 function StatTile({ label, value, sub }) {
   return (
     <div className="cg-surface flex min-w-0 flex-col gap-1 p-4">
       <p className="text-xs font-semibold cg-ink2">{label}</p>
-      <p className="text-2xl font-extrabold tracking-tight md:text-3xl">{value}</p>
+      <p className="text-2xl font-extrabold tracking-tight md:text-3xl cg-num">{value}</p>
       <p className="text-xs cg-muted">{sub}</p>
     </div>
   );
 }
 
-function Field({ id, label, error, hint, children }) {
+function Card({ children, className = "" }) {
+  return <div className={`cg-surface rounded-xl border cg-line p-4 md:p-5 ${className}`}>{children}</div>;
+}
+
+function VideoLink({ m, compact = false }) {
+  if (!m) return null;
+  const isVideo = m.tipo === "video";
+  const Icon = isVideo ? PlayCircle : Search;
   return (
-    <div className="flex min-w-0 flex-col gap-1.5">
-      <label htmlFor={id} className="text-xs font-semibold cg-ink2">
-        {label}
-      </label>
-      {children}
-      {error ? (
-        <p id={`${id}-erro`} className="text-xs font-medium cg-error">
-          {error}
-        </p>
-      ) : hint ? (
-        <p className="text-xs cg-muted">{hint}</p>
+    <a
+      href={m.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="cg-link inline-flex items-center gap-1 text-xs font-semibold"
+      title={isVideo ? `${m.titulo}${m.canal ? ` · ${m.canal}` : ""}` : m.titulo}
+    >
+      <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+      {compact ? (isVideo ? "Abrir" : "Buscar") : isVideo ? "Assistir aula" : "Buscar aula"}
+    </a>
+  );
+}
+
+const videoOf = (a) => a.materiais?.find((m) => m.tipo === "video") ?? a.materiais?.find((m) => m.tipo === "busca_video") ?? null;
+
+/* ───────────────────────────── Gráficos ───────────────────────────── */
+
+const niceStep = (max) => {
+  const raw = max / 5;
+  const p = 10 ** Math.floor(Math.log10(raw));
+  return [1, 2, 2.5, 5, 10].map((k) => k * p).find((s) => s >= raw);
+};
+
+/** Real pixel width of a container, so chart text stays 11px at any size. */
+function useWidth(fallback = 640) {
+  const ref = useRef(null);
+  const [w, setW] = useState(fallback);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof ResizeObserver === "undefined") return undefined;
+    const ro = new ResizeObserver(([e]) => setW(Math.max(280, Math.round(e.contentRect.width))));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return [ref, w];
+}
+
+function useHover() {
+  const [hover, setHover] = useState(null);
+  const onMove = (e, toValue) => {
+    const svg = e.currentTarget;
+    const r = svg.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width) * svg.viewBox.baseVal.width;
+    setHover(toValue(x, (e.clientX - r.left) / r.width));
+  };
+  return [hover, onMove, () => setHover(null)];
+}
+
+/** Coverage (% of expected points) by hours of study, generic vs personalized. */
+function CompareChart({ cmp, contentH }) {
+  const [box, W] = useWidth();
+  const Hh = W < 500 ? 220 : 280;
+  const pad = { l: 40, r: 12, t: 14, b: 30 };
+  const xMaxRaw = Math.max(cmp.generic.at(-1).h, cmp.personalized.at(-1).h);
+  const step = niceStep(xMaxRaw * (W < 500 ? 1.6 : 1));
+  const xMax = Math.ceil(xMaxRaw / step) * step;
+  const sx = (h) => pad.l + (h / xMax) * (W - pad.l - pad.r);
+  const sy = (p) => pad.t + (1 - p) * (Hh - pad.t - pad.b);
+  const path = (pts) => pts.map((p, i) => `${i ? "L" : "M"}${sx(p.h).toFixed(1)},${sy(p.pct).toFixed(1)}`).join("");
+  const [hover, onMove, onLeave] = useHover();
+  const toValue = (x) => {
+    const h = Math.min(xMax, Math.max(0, ((x - pad.l) / (W - pad.l - pad.r)) * xMax));
+    return { h, p: plan.coverageAt(cmp.personalized, h), g: plan.coverageAt(cmp.generic, h) };
+  };
+  // direct labels where the two lines are furthest apart
+  let best = { h: xMax / 3, gap: -1 };
+  for (let h = step / 2; h < xMax; h += step / 4) {
+    const gap = plan.coverageAt(cmp.personalized, h) - plan.coverageAt(cmp.generic, h);
+    if (gap > best.gap) best = { h, gap };
+  }
+  const showMarker = contentH > 0 && contentH < xMax;
+  const ticksX = [];
+  for (let h = 0; h <= xMax + 1e-9; h += step) ticksX.push(h);
+  return (
+    <figure className="relative m-0" ref={box}>
+      <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs cg-ink2" aria-hidden="true">
+        <span className="inline-flex items-center gap-1.5">
+          <span className="cg-sw-p inline-block h-0.5 w-5 rounded" /> Seu cronograma
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <span className="cg-sw-g inline-block h-0.5 w-5 rounded" /> Cronograma genérico
+        </span>
+      </div>
+      <svg
+        viewBox={`0 0 ${W} ${Hh}`}
+        className="block h-auto w-full touch-none select-none"
+        role="img"
+        aria-label="Pontos esperados cobertos por horas de estudo: cronograma personalizado contra genérico"
+        width={W}
+        height={Hh}
+        onPointerMove={(e) => onMove(e, toValue)}
+        onPointerLeave={onLeave}
+      >
+        {[0, 0.2, 0.4, 0.6, 0.8, 1].map((p) => (
+          <g key={p}>
+            <line x1={pad.l} x2={W - pad.r} y1={sy(p)} y2={sy(p)} className="cg-chart-grid" strokeWidth="1" />
+            <text x={pad.l - 8} y={sy(p) + 4} textAnchor="end" className="cg-chart-text">
+              {Math.round(p * 100)}%
+            </text>
+          </g>
+        ))}
+        {ticksX.map((h, i) => (
+          <text key={h} x={sx(h)} y={Hh - pad.b + 16} textAnchor={i === ticksX.length - 1 ? "end" : i === 0 ? "start" : "middle"} className="cg-chart-text">
+            {h}h
+          </text>
+        ))}
+        <line x1={pad.l} x2={W - pad.r} y1={sy(0)} y2={sy(0)} className="cg-chart-axis" strokeWidth="1" />
+        <line x1={pad.l} x2={W - pad.r} y1={sy(0.8)} y2={sy(0.8)} className="cg-ref" strokeWidth="1" strokeDasharray="4 4" />
+        {showMarker ? (
+          <g>
+            <line x1={sx(contentH)} x2={sx(contentH)} y1={pad.t} y2={sy(0)} className="cg-cross" strokeWidth="1.5" />
+            <text x={sx(contentH) + 6} y={sy(0) - 8} className="cg-chart-text">
+              até a prova: {fmtHr(contentH)}
+            </text>
+          </g>
+        ) : null}
+        <path d={path(cmp.generic)} fill="none" className="cg-series-g" strokeWidth="2" strokeDasharray="6 3" strokeLinejoin="round" />
+        <path d={path(cmp.personalized)} fill="none" className="cg-series-p" strokeWidth="2" strokeLinejoin="round" />
+        <text x={sx(best.h) - 6} y={sy(plan.coverageAt(cmp.personalized, best.h)) - 8} textAnchor="end" className="cg-chart-text cg-chart-ink" fontWeight="600">
+          Seu cronograma
+        </text>
+        <text x={sx(best.h) + 6} y={sy(plan.coverageAt(cmp.generic, best.h)) + 16} className="cg-chart-text cg-chart-ink" fontWeight="600">
+          Genérico
+        </text>
+        {hover ? (
+          <g>
+            <line x1={sx(hover.h)} x2={sx(hover.h)} y1={pad.t} y2={sy(0)} className="cg-cross" strokeWidth="1" strokeDasharray="2 3" />
+            <circle cx={sx(hover.h)} cy={sy(hover.g)} r="4.5" className="cg-fill-g" stroke="var(--surface)" strokeWidth="2" />
+            <circle cx={sx(hover.h)} cy={sy(hover.p)} r="4.5" className="cg-fill-p" stroke="var(--surface)" strokeWidth="2" />
+          </g>
+        ) : null}
+      </svg>
+      {hover ? (
+        <div
+          className="cg-tip pointer-events-none absolute top-8 z-10 rounded-lg px-3 py-2 text-xs"
+          style={{ left: Math.min(W - 170, sx(hover.h) + 12) }}
+          role="status"
+        >
+          <p className="font-bold cg-num">{fmtHr(hover.h)} de estudo</p>
+          <p className="cg-num">
+            <span className="cg-sw-p mr-1.5 inline-block h-0.5 w-3 align-middle" />
+            Seu: <b>{fmtPct(hover.p)}</b>
+          </p>
+          <p className="cg-num">
+            <span className="cg-sw-g mr-1.5 inline-block h-0.5 w-3 align-middle" />
+            Genérico: <b>{fmtPct(hover.g)}</b>
+          </p>
+        </div>
       ) : null}
+      <details className="mt-2 text-xs cg-ink2">
+        <summary className="cursor-pointer font-semibold">Ver em tabela</summary>
+        <table className="mt-2 w-full max-w-md text-left cg-num">
+          <thead>
+            <tr className="cg-muted">
+              <th className="py-1 font-semibold">Cobertura</th>
+              <th className="py-1 text-right font-semibold">Seu</th>
+              <th className="py-1 text-right font-semibold">Genérico</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[0.25, 0.5, 0.8, 1].map((p) => (
+              <tr key={p} className="border-t cg-line">
+                <td className="py-1">{fmtPct(p)} dos pontos</td>
+                <td className="py-1 text-right">{fmtHr(plan.hoursTo(cmp.personalized, p) ?? 0)}</td>
+                <td className="py-1 text-right">{fmtHr(plan.hoursTo(cmp.generic, p) ?? 0)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </details>
+    </figure>
+  );
+}
+
+/** Cumulative share of the exam by topic, in order of expected points. */
+function ParetoChart({ items, topCount }) {
+  const [box, W] = useWidth();
+  const Hh = W < 500 ? 200 : 240;
+  const pad = { l: 40, r: 12, t: 12, b: 30 };
+  const n = items.length;
+  const sx = (i) => pad.l + (i / n) * (W - pad.l - pad.r);
+  const sy = (p) => pad.t + (1 - p) * (Hh - pad.t - pad.b);
+  const d = `M${sx(0)},${sy(0)}` + items.map((x, i) => `L${sx(i + 1).toFixed(1)},${sy(x.cumPct).toFixed(1)}`).join("");
+  const area = `${d}`;
+  const [hover, onMove, onLeave] = useHover();
+  const toValue = (x) => {
+    const i = Math.min(n, Math.max(1, Math.round(((x - pad.l) / (W - pad.l - pad.r)) * n)));
+    return { i, item: items[i - 1] };
+  };
+  const topClip = `M${sx(0)},${sy(0)}` + items.slice(0, topCount).map((x, i) => `L${sx(i + 1).toFixed(1)},${sy(x.cumPct).toFixed(1)}`).join("") + `L${sx(topCount)},${sy(0)}Z`;
+  return (
+    <figure className="relative m-0" ref={box}>
+      <svg
+        viewBox={`0 0 ${W} ${Hh}`}
+        className="block h-auto w-full touch-none select-none"
+        role="img"
+        aria-label={`Curva acumulada: os ${topCount} primeiros assuntos somam 80% dos pontos esperados`}
+        width={W}
+        height={Hh}
+        onPointerMove={(e) => onMove(e, toValue)}
+        onPointerLeave={onLeave}
+      >
+        {[0, 0.2, 0.4, 0.6, 0.8, 1].map((p) => (
+          <g key={p}>
+            <line x1={pad.l} x2={W - pad.r} y1={sy(p)} y2={sy(p)} className="cg-chart-grid" strokeWidth="1" />
+            <text x={pad.l - 8} y={sy(p) + 4} textAnchor="end" className="cg-chart-text">
+              {Math.round(p * 100)}%
+            </text>
+          </g>
+        ))}
+        {(W < 500 ? [1, 25, 50, n] : [1, 15, 30, 45, 60, n]).map((i) => (
+          <text key={i} x={sx(i)} y={Hh - pad.b + 16} textAnchor="middle" className="cg-chart-text">
+            {i}
+          </text>
+        ))}
+        <path d={topClip} className="cg-area" />
+        <line x1={pad.l} x2={W - pad.r} y1={sy(0.8)} y2={sy(0.8)} className="cg-ref" strokeWidth="1" strokeDasharray="4 4" />
+        <line x1={sx(topCount)} x2={sx(topCount)} y1={sy(0.8)} y2={sy(0)} className="cg-ref" strokeWidth="1" strokeDasharray="4 4" />
+        <text x={sx(topCount) + 6} y={sy(0.8) + 14} className="cg-chart-text cg-chart-ink" fontWeight="600">
+          {topCount} assuntos = 80%
+        </text>
+        <path d={area} fill="none" className="cg-series-p" strokeWidth="2" strokeLinejoin="round" />
+        <line x1={pad.l} x2={W - pad.r} y1={sy(0)} y2={sy(0)} className="cg-chart-axis" strokeWidth="1" />
+        {hover ? (
+          <g>
+            <line x1={sx(hover.i)} x2={sx(hover.i)} y1={pad.t} y2={sy(0)} className="cg-cross" strokeWidth="1" strokeDasharray="2 3" />
+            <circle cx={sx(hover.i)} cy={sy(hover.item.cumPct)} r="4.5" className="cg-fill-p" stroke="var(--surface)" strokeWidth="2" />
+          </g>
+        ) : null}
+      </svg>
+      {hover ? (
+        <div className="cg-tip pointer-events-none absolute top-2 z-10 w-56 rounded-lg px-3 py-2 text-xs" style={{ left: Math.max(0, Math.min(W - 230, sx(hover.i) + 12)) }} role="status">
+          <p className="font-bold">
+            {hover.i}º · {hover.item.assunto.nome}
+          </p>
+          <p className="cg-ink2">{MAT[hover.item.assunto.materia_id].curto}</p>
+          <p className="cg-num">
+            Acumulado: <b>{fmtPct(hover.item.cumPct)}</b> · {nf1.format(hover.item.pts)} pts
+          </p>
+        </div>
+      ) : null}
+      <figcaption className="mt-1 text-xs cg-muted">Assuntos em ordem de pontos por hora de estudo (eixo horizontal) × % acumulado da prova.</figcaption>
+    </figure>
+  );
+}
+
+/* ───────────────────────────── 1 · Dossiê ───────────────────────────── */
+
+function DossierCards() {
+  const notas = pack.notas_banca ?? {};
+  return (
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+      <Card>
+        <p className="cg-eyebrow">Dossiê da banca</p>
+        <h3 className="mt-1 text-lg font-extrabold tracking-tight">{pack.concurso.banca}</h3>
+        <ul className="mt-3 flex flex-col gap-2 text-sm">
+          <li>
+            <span className="cg-ink2">Prova de referência: </span>
+            <a className="cg-link font-semibold" href={FONTES.banca.url} target="_blank" rel="noopener noreferrer">
+              {FONTES.banca.nome}
+            </a>
+            <span className="cg-muted"> · {FONTES.banca.questoes} questões</span>
+          </li>
+          <li>
+            <span className="cg-ink2">Formato: </span>
+            {notas.formato_questao ?? "múltipla escolha"}
+          </li>
+          {(notas.estilo ?? []).concat(notas.recomendacoes_estudo ?? []).map((s) => (
+            <li key={s} className="cg-ink2">
+              · {s}
+            </li>
+          ))}
+        </ul>
+      </Card>
+      <Card>
+        <p className="cg-eyebrow">Dossiê do cargo</p>
+        <h3 className="mt-1 text-lg font-extrabold tracking-tight">{pack.concurso.cargo}</h3>
+        <ul className="mt-3 flex flex-col gap-2 text-sm">
+          <li>
+            <span className="cg-ink2">Edital 2026: </span>
+            <a className="cg-link font-semibold" href={pack.concurso.fonte_edital} target="_blank" rel="noopener noreferrer">
+              {TOTAL_Q} questões objetivas, {pack.estrutura_prova.materias.length} matérias
+            </a>
+          </li>
+          <li>
+            <span className="cg-ink2">Prova anterior: </span>
+            <a className="cg-link font-semibold" href={FONTES.cargo.url} target="_blank" rel="noopener noreferrer">
+              {FONTES.cargo.nome}
+            </a>
+            <span className="cg-muted">
+              {" "}
+              · {FONTES.cargo.banca} · {FONTES.cargo.questoes} questões
+            </span>
+          </li>
+          <li>
+            <span className="cg-ink2">Nota de corte estimada: </span>
+            {fmtPct(pack.estrutura_prova.nota_corte_estimada ?? 0.5)} · sem penalidade por erro
+          </li>
+          <li className="cg-ink2">· Considera só a prova objetiva (sem redação e sem TAF)</li>
+        </ul>
+      </Card>
     </div>
   );
 }
 
-/* ── Fase 1 ── */
-
-function DossierPanel({ dossier, coverage, expanded, onToggleExpand, onToggleTopic, onReset }) {
+function DossierTable({ topSet, expanded, onToggle }) {
+  const mats = BASE_SCORES.materiaRanking.map((id) => BASE_SCORES.materias[id]);
+  const maxShare = Math.max(...mats.map((m) => m.share_prova));
   return (
-    <section id="dossie" className="cg-anchor flex flex-col gap-4">
-      <SectionHead
-        step="Fase 1 · Inteligência de dados"
-        title="Dossiê da Banca"
-        desc="Edital cruzado com o histórico da banca. Pontos esperados do assunto = pontos da disciplina × incidência. Prioridade 1 entra como descarte sugerido."
-        right={
-          <>
-            <p className="text-sm cg-ink2">
-              <b className="cg-ink">{coverage.descartados}</b> assuntos descartados · custo de{" "}
-              <b className="cg-ink">{fmtPct(1 - coverage.share)}</b> dos pontos
-            </p>
-            <button type="button" onClick={onReset} className="cg-btn-ghost inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-xs font-semibold">
-              <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
-              Restaurar sugestão
-            </button>
-          </>
-        }
-      />
-      <div className="cg-surface overflow-x-auto rounded-xl border cg-line">
-        <table className="w-full border-collapse text-sm" style={{ minWidth: 880 }}>
-          <thead>
-            <tr className="text-left text-xs cg-muted">
-              <th className="px-4 py-2.5 font-semibold" style={{ width: "30%" }}>Disciplina</th>
-              <th className="px-3 py-2.5 text-right font-semibold">Questões</th>
-              <th className="px-3 py-2.5 text-right font-semibold">Peso</th>
-              <th className="px-3 py-2.5 text-right font-semibold">Pontos</th>
-              <th className="px-3 py-2.5 font-semibold">% da prova</th>
-              <th className="px-3 py-2.5 font-semibold">Prioridade</th>
-              <th className="px-4 py-2.5 text-right font-semibold">Assuntos ativos</th>
-            </tr>
-          </thead>
-          <tbody>
-            {dossier.map((d) => {
-              const open = expanded.has(d.id);
-              return (
-                <React.Fragment key={d.id}>
-                  <tr className="cg-row-hover border-t cg-line">
-                    <td className="px-4 py-3">
-                      <button
-                        type="button"
-                        onClick={() => onToggleExpand(d.id)}
-                        aria-expanded={open}
-                        aria-controls={`assuntos-${d.id}`}
-                        className="flex items-center gap-2.5 rounded text-left"
-                      >
-                        <ChevronDown className={`h-4 w-4 shrink-0 cg-muted transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true" />
-                        <Dot color={d.cor} />
-                        <span className="min-w-0">
-                          <span className="block font-semibold leading-snug">{d.nome}</span>
-                          <span className="block text-xs cg-muted">{d.bloco}</span>
-                        </span>
-                      </button>
-                    </td>
-                    <td className="px-3 py-3 text-right cg-num">{d.questoes}</td>
-                    <td className="px-3 py-3 text-right cg-num cg-ink2">×{d.peso}</td>
-                    <td className="px-3 py-3 text-right font-bold cg-num">{d.pontos}</td>
-                    <td className="px-3 py-3">
-                      <div className="flex items-center gap-2">
-                        <div className="cg-track h-2 w-24 overflow-hidden rounded-full">
-                          <div className="h-full" style={{ width: `${(d.share / MAX_SHARE) * 100}%`, background: "var(--bar)", borderRadius: "0 4px 4px 0" }} />
-                        </div>
-                        <span className="w-12 text-xs cg-num cg-ink2">{fmtPct(d.share)}</span>
+    <div className="cg-surface overflow-x-auto rounded-xl border cg-line">
+      <table className="w-full border-collapse text-sm" style={{ minWidth: 860 }}>
+        <thead>
+          <tr className="text-left text-xs cg-muted">
+            <th className="px-4 py-2.5 font-semibold" style={{ width: "30%" }}>
+              Matéria
+            </th>
+            <th className="px-3 py-2.5 text-right font-semibold">Questões</th>
+            <th className="px-3 py-2.5 font-semibold">% da prova</th>
+            <th className="px-3 py-2.5 font-semibold">Prioridade</th>
+            <th className="px-3 py-2.5 text-right font-semibold">No top 80%</th>
+            <th className="px-4 py-2.5 text-right font-semibold">Horas-base</th>
+          </tr>
+        </thead>
+        <tbody>
+          {mats.map((m) => {
+            const open = expanded.has(m.id);
+            const assuntos = pack.assuntos.filter((a) => a.materia_id === m.id).sort((x, y) => BASE_PTS[y.id] - BASE_PTS[x.id]);
+            const inTop = assuntos.filter((a) => topSet.has(a.id)).length;
+            return (
+              <React.Fragment key={m.id}>
+                <tr className="cg-row-hover border-t cg-line">
+                  <td className="px-4 py-3">
+                    <button type="button" onClick={() => onToggle(m.id)} aria-expanded={open} aria-controls={`assuntos-${m.id}`} className="flex items-center gap-2.5 rounded text-left">
+                      <ChevronDown className={`h-4 w-4 shrink-0 cg-muted transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true" />
+                      <Dot color={MAT[m.id].cor} />
+                      <span className="font-semibold leading-snug">{m.nome}</span>
+                    </button>
+                  </td>
+                  <td className="px-3 py-3 text-right cg-num">{m.questoes}</td>
+                  <td className="px-3 py-3">
+                    <div className="flex items-center gap-2">
+                      <div className="cg-track h-2 w-24 overflow-hidden rounded-full">
+                        <div className="h-full" style={{ width: `${(m.share_prova / maxShare) * 100}%`, background: "var(--bar)", borderRadius: "0 4px 4px 0" }} />
                       </div>
-                    </td>
-                    <td className="px-3 py-3">
-                      <div className="flex items-center gap-2.5">
-                        <PriorityTag p={d.prioridade} />
-                        <Bubbles value={d.prioridade} />
-                      </div>
-                    </td>
-                    <td className="px-4 py-3 text-right cg-num">
-                      <b>{d.ativos}</b>
-                      <span className="cg-muted">/{d.topics.length}</span>
-                    </td>
-                  </tr>
-                  {open ? (
-                    <tr id={`assuntos-${d.id}`}>
-                      <td colSpan={7} className="cg-sunken border-t cg-line px-4 py-3">
-                        <div className="mb-2 flex flex-wrap items-center justify-between gap-2 text-xs cg-muted">
-                          <span>
-                            Incidência por assunto nas últimas {EXAM.provas} provas · {d.pontos} pontos em jogo
-                          </span>
-                          <span>3 assuntos concentram {fmtPct(d.top3, 0)} das questões</span>
-                        </div>
-                        <ul className="cg-rows">
-                          {d.topics.map((t) => (
-                            <li key={t.id} className="grid grid-cols-12 items-center gap-3 py-2">
+                      <span className="w-10 text-xs cg-num cg-ink2">{fmtPct(m.share_prova)}</span>
+                    </div>
+                  </td>
+                  <td className="px-3 py-3">
+                    <Bubbles value={m.nivel} />
+                  </td>
+                  <td className="px-3 py-3 text-right cg-num">
+                    <b>{inTop}</b>
+                    <span className="cg-muted">/{assuntos.length}</span>
+                  </td>
+                  <td className="px-4 py-3 text-right cg-num cg-ink2">{fmtH(m.horas_base)}</td>
+                </tr>
+                {open ? (
+                  <tr id={`assuntos-${m.id}`}>
+                    <td colSpan={6} className="cg-sunken border-t cg-line px-4 py-2">
+                      <ul className="cg-rows">
+                        {assuntos.map((a) => {
+                          const sc = BASE_SCORES.byId[a.id];
+                          const cargo = a.incidencia_cargo.reduce((s, x) => s + x.questoes, 0);
+                          const banca = a.incidencia_banca.reduce((s, x) => s + x.questoes, 0);
+                          return (
+                            <li key={a.id} className="grid grid-cols-12 items-center gap-3 py-2">
                               <div className="col-span-5 min-w-0">
-                                <p className={`text-sm leading-snug ${t.ativo ? "font-medium" : "cg-muted line-through"}`}>{t.nome}</p>
-                                {t.prioridade === 1 ? <p className="cg-mono text-xs cg-muted">descarte sugerido</p> : null}
+                                <p className="text-sm font-medium leading-snug">
+                                  {a.nome}
+                                  {topSet.has(a.id) ? <span className="cg-pill-base ml-2 rounded px-1.5 py-0.5 align-middle text-[10px] font-bold">TOP 80%</span> : null}
+                                </p>
+                                <p className="cg-mono text-xs cg-muted">
+                                  PMSC 2023: {cargo}q · AOCP 2024: {banca}q · edital {"●".repeat(a.edital_profundidade)}
+                                  {a.volatil ? " · lei alterada" : ""}
+                                </p>
                               </div>
-                              <div className="col-span-3 flex items-center gap-2">
-                                <div className="cg-track h-1.5 flex-1 overflow-hidden rounded-full">
-                                  <div
-                                    className="h-full"
-                                    style={{ width: `${(t.incidencia / MAX_INCIDENCIA) * 100}%`, background: d.cor, borderRadius: "0 4px 4px 0" }}
-                                  />
-                                </div>
-                                <span className="w-9 text-right text-xs cg-num cg-ink2">{t.incidencia}%</span>
+                              <div className="col-span-2">
+                                <Bubbles value={sc.nivel} />
                               </div>
-                              <div className="col-span-1 text-right text-xs cg-num cg-ink2">{nf1.format(t.esperado)} pts</div>
-                              <div className="col-span-2 flex items-center gap-2">
-                                <Bubbles value={t.prioridade} />
-                              </div>
-                              <div className="col-span-1 flex items-center justify-end gap-2">
-                                <Switch checked={t.ativo} onChange={(v) => onToggleTopic(t.id, v)} label={`Incluir ${t.nome} no cronograma`} />
+                              <div className="col-span-2 text-right text-xs cg-num cg-ink2">{nf1.format(BASE_PTS[a.id])} pts</div>
+                              <div className="col-span-1 text-right text-xs cg-num cg-ink2">{fmtH(a.carga_horaria_base)}</div>
+                              <div className="col-span-2 text-right">
+                                <VideoLink m={videoOf(a)} />
                               </div>
                             </li>
-                          ))}
-                        </ul>
-                      </td>
-                    </tr>
-                  ) : null}
-                </React.Fragment>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    </section>
-  );
-}
-
-/* ── Fase 2 ── */
-
-function LevelPanel({ dossier, plan, levels, onLevel, onReset, hasHours }) {
-  return (
-    <section id="nivelamento" className="cg-anchor flex flex-col gap-4">
-      <SectionHead
-        step="Fase 2 · Nivelamento e personalização"
-        title="Nivelamento"
-        desc="Nível inicial vem do simulado diagnóstico (≥ 75% Avançado · 50–74% Intermediário · < 50% Iniciante). Ajuste e as horas recalculam na hora."
-        right={
-          <button type="button" onClick={onReset} className="cg-btn-ghost inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-xs font-semibold">
-            <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
-            Restaurar diagnóstico
-          </button>
-        }
-      />
-      <div className="cg-surface overflow-hidden rounded-xl border cg-line">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b cg-line px-4 py-3">
-          <p className="text-sm cg-ink2">
-            <b className="cg-mark cg-ink">{hasHours ? fmtH(plan.realocado) : "—"} realocadas</b> de disciplinas dominadas para lacunas de alta
-            prioridade, comparado a um plano sem nivelamento.
-          </p>
-          <ul className="flex flex-wrap items-center gap-3 text-xs cg-ink2" aria-label="Legenda do mix de estudo">
-            {TYPE_KEYS.map((k) => (
-              <li key={k} className="inline-flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-sm" style={{ background: TYPES[k].color }} aria-hidden="true" />
-                {k} · {TYPES[k].label}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="hidden grid-cols-12 gap-4 border-b cg-line px-4 py-2 text-xs font-semibold cg-muted lg:grid">
-          <span className="col-span-3">Disciplina</span>
-          <span className="col-span-4">Simulado e nível</span>
-          <span className="col-span-3">Horas até a prova · vs. sem nivelamento</span>
-          <span className="col-span-2">Mix de estudo (%)</span>
-        </div>
-        <ul className="cg-rows">
-          {dossier.map((d) => {
-            const r = plan.byId[d.id];
-            const lvl = levels[d.id];
-            const ajustado = lvl !== levelFromScore(d.simulado);
-            const semAssuntos = r.somaP === 0;
-            return (
-              <li key={d.id} className="grid grid-cols-1 gap-3 px-4 py-3 lg:grid-cols-12 lg:items-center lg:gap-4">
-                <div className="flex min-w-0 items-center gap-2 lg:col-span-3">
-                  <Dot color={d.cor} />
-                  <span className="min-w-0 text-sm font-semibold leading-snug">{d.nome}</span>
-                  <PriorityTag p={d.prioridade} />
-                </div>
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 lg:col-span-4">
-                  <span className="w-24 shrink-0 cg-mono text-xs cg-num">
-                    <span className="cg-muted">Simul.</span> <b>{d.simulado}%</b>
-                    {ajustado ? <span className="block cg-muted">ajustado</span> : null}
-                  </span>
-                  <Segmented
-                    label={`Nível em ${d.nome}`}
-                    options={LEVELS.map((l) => ({ value: l.id, label: l.label }))}
-                    value={lvl}
-                    onChange={(v) => onLevel(d.id, v)}
-                  />
-                </div>
-                <div className="flex items-center gap-3 lg:col-span-3">
-                  <div className="cg-track h-2 min-w-0 flex-1 overflow-hidden rounded-full">
-                    <div
-                      className="h-full transition-all"
-                      style={{ width: `${plan.maxHoras ? (r.horas / plan.maxHoras) * 100 : 0}%`, background: "var(--bar)", borderRadius: "0 4px 4px 0" }}
-                    />
-                  </div>
-                  <span className="w-14 shrink-0 text-right text-sm font-bold cg-num">{hasHours ? fmtH(r.horas) : "—"}</span>
-                  {hasHours ? <Delta value={r.delta} /> : <span className="w-20" />}
-                </div>
-                <div className="lg:col-span-2">
-                  {semAssuntos ? (
-                    <p className="text-xs cg-muted">Sem assuntos ativos</p>
-                  ) : (
-                    <MixBar mix={LEVEL_BY_ID[lvl].mix} horas={r.horas} />
-                  )}
-                </div>
-              </li>
+                          );
+                        })}
+                      </ul>
+                    </td>
+                  </tr>
+                ) : null}
+              </React.Fragment>
             );
           })}
-        </ul>
-      </div>
-    </section>
+        </tbody>
+      </table>
+    </div>
   );
 }
 
-/* ── Fase 3 ── */
-
-function TimeboxPanel({ today, form, setForm, tb, canGenerate, genError, onGenerate }) {
-  const set = (k) => (e) => setForm(k, e.target.value);
+function TopPanel({ par }) {
+  const rows = pack.estrutura_prova.materias
+    .map((m) => {
+      const items = par.items.filter((x) => x.inTop && x.assunto.materia_id === m.id);
+      return { m, n: items.length, total: pack.assuntos.filter((a) => a.materia_id === m.id).length, horas: items.reduce((s, x) => s + x.horas, 0), pts: items.reduce((s, x) => s + x.pts, 0) };
+    })
+    .sort((a, b) => b.pts - a.pts);
   return (
-    <section id="prazo" className="cg-anchor flex flex-col gap-4">
-      <SectionHead
-        step="Fase 3 · Otimização de prazo e carga horária"
-        title="Prazo e carga horária"
-        desc="Horas líquidas até a prova divididas por prioridade × nível, em blocos de 30 min."
-      />
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          onGenerate();
-        }}
-        className="cg-surface grid gap-5 rounded-xl border cg-line p-4 lg:grid-cols-3 lg:p-5"
-        noValidate
-      >
-        <div className="grid content-start gap-4 sm:grid-cols-2 lg:col-span-2">
-          <Field id="exam-date" label="Data da prova" error={tb.errors.examDate}>
-            <input
-              id="exam-date"
-              type="date"
-              min={toISO(addDays(today, 1))}
-              value={form.examDate}
-              onChange={set("examDate")}
-              aria-invalid={!!tb.errors.examDate}
-              aria-describedby={tb.errors.examDate ? "exam-date-erro" : undefined}
-              className="cg-input h-10 w-full rounded-lg px-3 text-sm cg-num"
-            />
-          </Field>
-          <Field id="hours-day" label="Horas disponíveis por dia" error={tb.errors.hoursPerDay} hint="Múltiplos de 0,5h">
-            <input
-              id="hours-day"
-              type="number"
-              inputMode="decimal"
-              min="0.5"
-              max="14"
-              step="0.5"
-              value={form.hoursPerDay}
-              onChange={set("hoursPerDay")}
-              aria-invalid={!!tb.errors.hoursPerDay}
-              aria-describedby={tb.errors.hoursPerDay ? "hours-day-erro" : undefined}
-              className="cg-input h-10 w-full rounded-lg px-3 text-sm cg-num"
-            />
-          </Field>
-          <fieldset className="flex min-w-0 flex-col gap-1.5">
-            <legend className="mb-1.5 text-xs font-semibold cg-ink2">Dias de estudo por semana</legend>
-            <Segmented
-              label="Dias de estudo por semana"
-              size="md"
-              options={DIAS_SEMANA}
-              value={form.daysPerWeek}
-              onChange={(v) => setForm("daysPerWeek", v)}
-            />
-          </fieldset>
-          <Field id="start-time" label="Início dos estudos" error={tb.errors.startTime} hint="Horário do primeiro bloco do dia">
-            <input
-              id="start-time"
-              type="time"
-              value={form.startTime}
-              onChange={set("startTime")}
-              aria-invalid={!!tb.errors.startTime}
-              aria-describedby={tb.errors.startTime ? "start-time-erro" : undefined}
-              className="cg-input h-10 w-full rounded-lg px-3 text-sm cg-num"
-            />
-          </Field>
+    <div className="grid grid-cols-1 gap-3 lg:grid-cols-5">
+      <Card className="lg:col-span-3">
+        <ParetoChart items={par.items} topCount={par.topCount} />
+      </Card>
+      <Card className="lg:col-span-2">
+        <p className="text-xs font-semibold cg-ink2">Matérias críticas no top 80%</p>
+        <ul className="cg-rows mt-2">
+          {rows.map((r) => (
+            <li key={r.m.id} className="flex items-center gap-3 py-2 text-sm">
+              <Dot color={MAT[r.m.id].cor} />
+              <span className="min-w-0 flex-1 truncate font-medium">{MAT[r.m.id].curto}</span>
+              <span className="w-14 text-right text-xs cg-num cg-ink2">
+                {r.n}/{r.total}
+              </span>
+              <span className="w-16 text-right text-xs cg-num cg-ink2">{nf1.format(r.pts)} pts</span>
+              <span className="w-12 text-right text-xs font-semibold cg-num">{fmtHr(r.horas)}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-2 text-xs cg-muted">assuntos no top · pontos esperados · horas no seu nível</p>
+      </Card>
+    </div>
+  );
+}
+
+/* ───────────────────────────── 2 · Nivelamento ───────────────────────────── */
+
+function StrengthGrid({ strengths, onSet, quizByMateria }) {
+  return (
+    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      {pack.estrutura_prova.materias.map((m) => {
+        const q = quizByMateria?.[m.id];
+        return (
+          <div key={m.id} className="cg-surface flex flex-col gap-2 rounded-xl border cg-line p-3">
+            <div className="flex items-center gap-2">
+              <Dot color={MAT[m.id].cor} />
+              <p className="min-w-0 flex-1 truncate text-sm font-semibold">{m.nome}</p>
+              {q ? (
+                <span className="cg-mono text-xs cg-ink2 cg-num" title="Acertos no simulado">
+                  {q.acertos}/{q.respondidas}
+                </span>
+              ) : null}
+            </div>
+            <div className="flex gap-1.5" role="group" aria-label={`Seu nível em ${m.nome}`}>
+              {plan.STRENGTHS.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  aria-pressed={strengths[m.id] === s.id}
+                  onClick={() => onSet(m.id, strengths[m.id] === s.id ? null : s.id)}
+                  className="cg-chip flex-1 rounded-md px-2 py-1.5 text-xs font-semibold"
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function QuizPanel({ quiz, items, score, onStart, onAnswer, onGo, onFinish, onReset }) {
+  const [reviewing, setReviewing] = useState(false);
+  if (!quiz) {
+    const ia = pack.nivelamento.itens.filter((i) => i.origem === "gerada_ia").length;
+    return (
+      <Card className="flex flex-wrap items-center justify-between gap-4">
+        <div className="min-w-0 max-w-xl">
+          <p className="text-sm font-bold">Simulado de nivelamento · {QUIZ_N} questões</p>
+          <p className="mt-1 text-sm cg-ink2">
+            Questões reais da PMSC 2023 e da AOCP (PM-PE 2024), mais {ia} geradas por IA para matérias sem prova anterior. Cada questão mostra a origem. O resultado ajusta as horas por assunto.
+          </p>
         </div>
-        <div className="cg-sunken flex flex-col justify-between gap-4 rounded-lg p-4">
-          <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
-            <div>
-              <dt className="text-xs cg-muted">Dias de estudo</dt>
-              <dd className="font-bold cg-num">{tb.ok ? tb.studyDays : "—"}</dd>
-            </div>
-            <div>
-              <dt className="text-xs cg-muted">Horas por semana</dt>
-              <dd className="font-bold cg-num">{tb.ok ? fmtH(tb.hoursPerDay * tb.daysPerWeek) : "—"}</dd>
-            </div>
-            <div>
-              <dt className="text-xs cg-muted">Semanas até a prova</dt>
-              <dd className="font-bold cg-num">{tb.ok ? tb.weeks : "—"}</dd>
-            </div>
-            <div>
-              <dt className="text-xs cg-muted">Reta final desde</dt>
-              <dd className="font-bold cg-num">{tb.ok ? fmtDM(tb.retaFinal) : "—"}</dd>
-            </div>
-          </dl>
-          <div className="flex flex-col gap-2">
-            <button
-              type="submit"
-              disabled={!canGenerate}
-              className="cg-btn-primary inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg px-4 text-sm font-bold transition-colors"
-            >
-              <CalendarCheck className="h-4 w-4" aria-hidden="true" />
-              Gerar Cronograma Estratégico
+        <button type="button" onClick={onStart} className="cg-btn-primary inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-bold">
+          <ClipboardCheck className="h-4 w-4" aria-hidden="true" />
+          Fazer simulado
+        </button>
+      </Card>
+    );
+  }
+  const done = quiz.done;
+  if (done && !reviewing) {
+    const byMat = {};
+    for (const it of items) {
+      const m = pack.assuntos.find((a) => a.id === it.assunto_id).materia_id;
+      const slot = (byMat[m] ??= { n: 0, ok: 0 });
+      if (Number.isInteger(quiz.answers[it.id])) {
+        slot.n += 1;
+        if (quiz.answers[it.id] === it.gabarito) slot.ok += 1;
+      }
+    }
+    return (
+      <Card>
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="text-xs font-semibold cg-ink2">Resultado do simulado</p>
+            <p className="text-3xl font-extrabold tracking-tight cg-num">
+              {score.total.acertos}/{score.total.respondidas}
+              <span className="ml-2 text-base font-semibold cg-ink2">{score.total.respondidas ? fmtPct(score.total.acertos / score.total.respondidas) : "—"}</span>
+            </p>
+            <p className="text-xs cg-muted">{QUIZ_N - score.total.respondidas} sem resposta (não contam)</p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <button type="button" onClick={() => setReviewing(true)} className="cg-btn-ghost inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-xs font-semibold">
+              Revisar respostas
             </button>
-            {genError ? <p className="text-xs font-medium cg-error">{genError}</p> : null}
+            <button type="button" onClick={onStart} className="cg-btn-ghost inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-xs font-semibold">
+              <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
+              Novo simulado
+            </button>
+            <button type="button" onClick={onReset} className="cg-btn-ghost inline-flex h-9 items-center rounded-lg px-3 text-xs font-semibold">
+              Descartar
+            </button>
           </div>
         </div>
-      </form>
-    </section>
+        <ul className="mt-4 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2 lg:grid-cols-3">
+          {pack.estrutura_prova.materias
+            .filter((m) => byMat[m.id]?.n)
+            .map((m) => {
+              const r = byMat[m.id];
+              return (
+                <li key={m.id} className="flex items-center gap-2 text-sm">
+                  <Dot color={MAT[m.id].cor} />
+                  <span className="min-w-0 flex-1 truncate">{MAT[m.id].curto}</span>
+                  <div className="cg-track h-1.5 w-20 overflow-hidden rounded-full">
+                    <div className="h-full" style={{ width: `${(r.ok / r.n) * 100}%`, background: MAT[m.id].cor }} />
+                  </div>
+                  <span className="w-10 text-right text-xs cg-num cg-ink2">
+                    {r.ok}/{r.n}
+                  </span>
+                </li>
+              );
+            })}
+        </ul>
+      </Card>
+    );
+  }
+  const idx = Math.min(quiz.idx ?? 0, items.length - 1);
+  const it = items[idx];
+  const src = itemSource(it);
+  const assunto = pack.assuntos.find((a) => a.id === it.assunto_id);
+  const answered = Object.keys(quiz.answers).filter((k) => items.some((x) => x.id === k)).length;
+  const chosen = quiz.answers[it.id];
+  return (
+    <Card>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="text-xs font-semibold cg-ink2 cg-num">
+          {reviewing ? "Revisão · " : ""}Questão {idx + 1} de {items.length} · {answered} respondidas
+        </p>
+        <div className="flex items-center gap-2">
+          <span className={`${src.ia ? "cg-ia" : "cg-pill-base"} inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs font-semibold`}>
+            {src.ia ? <Sparkles className="h-3 w-3" aria-hidden="true" /> : null}
+            {src.label}
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-xs cg-ink2">
+            <Dot color={MAT[assunto.materia_id].cor} size="h-2 w-2" />
+            {MAT[assunto.materia_id].curto}
+          </span>
+        </div>
+      </div>
+      <div className="cg-progress mt-2 h-1.5 overflow-hidden rounded-full">
+        <span className="block h-full" style={{ width: `${((idx + 1) / items.length) * 100}%` }} />
+      </div>
+      <p className="mt-4 whitespace-pre-line text-sm leading-relaxed md:text-base">{it.enunciado}</p>
+      <div className="mt-3 flex flex-col gap-2" role={reviewing ? undefined : "radiogroup"} aria-label="Alternativas">
+        {it.alternativas.map((alt, i) => {
+          const state = reviewing ? (i === it.gabarito ? "right" : i === chosen ? "wrong" : undefined) : undefined;
+          return (
+            <button
+              key={i}
+              type="button"
+              disabled={reviewing}
+              aria-pressed={!reviewing && chosen === i}
+              data-state={state}
+              onClick={() => onAnswer(it.id, i)}
+              className="cg-alt flex items-start gap-3 rounded-lg px-3 py-2.5 text-left text-sm"
+            >
+              <span className="cg-alt-letter grid h-6 w-6 shrink-0 place-items-center rounded-full text-xs font-bold">{"ABCDE"[i]}</span>
+              <span className="min-w-0 pt-0.5">{alt}</span>
+            </button>
+          );
+        })}
+      </div>
+      {reviewing ? (
+        <p className="mt-2 text-xs cg-ink2">
+          Gabarito: <b>{"ABCDE"[it.gabarito]}</b>
+          {Number.isInteger(chosen) ? (chosen === it.gabarito ? " · você acertou" : ` · você marcou ${"ABCDE"[chosen]}`) : " · sem resposta"} · assunto: {assunto.nome}
+        </p>
+      ) : null}
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
+        <button type="button" disabled={idx === 0} onClick={() => onGo(idx - 1)} className="cg-btn-ghost inline-flex h-9 items-center gap-1 rounded-lg px-3 text-xs font-semibold">
+          <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+          Anterior
+        </button>
+        <div className="flex gap-2">
+          {reviewing ? (
+            <button type="button" onClick={() => setReviewing(false)} className="cg-btn-ghost inline-flex h-9 items-center rounded-lg px-3 text-xs font-semibold">
+              Fechar revisão
+            </button>
+          ) : (
+            <button type="button" onClick={onFinish} className="cg-btn-ghost inline-flex h-9 items-center rounded-lg px-3 text-xs font-semibold">
+              Finalizar ({answered}/{items.length})
+            </button>
+          )}
+          <button
+            type="button"
+            disabled={idx >= items.length - 1}
+            onClick={() => onGo(idx + 1)}
+            className="cg-btn-primary inline-flex h-9 items-center gap-1 rounded-lg px-3 text-xs font-bold"
+          >
+            {!reviewing && !Number.isInteger(chosen) ? "Pular" : "Próxima"}
+            <ChevronRight className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+    </Card>
   );
 }
 
-/* ── Roteiro ── */
+/* ───────────────────────────── 3 · Prazo ───────────────────────────── */
 
-function BlockCard({ block }) {
-  const d = DISC_BY_ID[block.discId];
-  const type = TYPES[block.type];
+function HourSlider({ day, value, onChange }) {
+  const max = 10;
   return (
-    <article className="cg-surface rounded-lg border cg-line p-2.5" data-disc={block.discId} data-slots={block.slots}>
+    <div className="grid grid-cols-[3rem_1fr_3.5rem] items-center gap-3">
+      <label htmlFor={`h-${day}`} className="text-sm font-semibold">
+        {plan.DAY_LABEL[day]}
+      </label>
+      <div className="cg-slider-track">
+        <span className="cg-slider-fill" style={{ width: `${(value / max) * 100}%` }} />
+        <input
+          id={`h-${day}`}
+          type="range"
+          min="0"
+          max={max}
+          step="0.5"
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+          aria-valuetext={`${nf1.format(value)} horas`}
+        />
+      </div>
+      <span className="text-right text-sm font-bold cg-num">{value ? fmtH(value) : "folga"}</span>
+    </div>
+  );
+}
+
+function TimePanel({ state, set, setHour, weekly, cap, need, dates, topCount }) {
+  const examISO = state.simulate && state.simDate ? state.simDate : EXAM_OFFICIAL;
+  const minSim = plan.addDaysISO(TODAY, 14);
+  const weeks = Math.max(2, Math.round(plan.diffDaysISO(TODAY, examISO) / 7));
+  const fit = (h) => (h > 0 ? Math.min(1, cap.content / h) : 1);
+  return (
+    <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+      <Card>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-sm font-bold">Horas por dia</p>
+          <Segmented
+            label="Ritmo"
+            value={state.mode}
+            onChange={(v) => (v === "custom" ? set({ mode: v }) : set({ mode: v, hours: { ...plan.MODES[v].hours } }))}
+            options={[...Object.entries(plan.MODES).map(([k, m]) => ({ value: k, label: m.label })), { value: "custom", label: "Personalizado" }]}
+          />
+        </div>
+        <div className="mt-4 flex flex-col gap-1.5">
+          {plan.DAY_KEYS.map((d) => (
+            <HourSlider key={d} day={d} value={state.hours[d] ?? 0} onChange={(v) => setHour(d, v)} />
+          ))}
+        </div>
+        <div className="mt-4 flex flex-wrap items-end justify-between gap-3 border-t cg-line pt-3">
+          <p className="text-sm cg-ink2">
+            <b className="cg-ink cg-num text-lg">{fmtH(weekly)}</b> por semana
+          </p>
+          <div className="flex gap-3">
+            <label className="flex flex-col gap-1 text-xs font-semibold cg-ink2">
+              Começa (seg–sex)
+              <input type="time" value={state.inicio} onChange={(e) => set({ inicio: e.target.value || "19:00" })} className="cg-input h-9 rounded-lg px-2 text-sm" />
+            </label>
+            <label className="flex flex-col gap-1 text-xs font-semibold cg-ink2">
+              Começa (sáb–dom)
+              <input type="time" value={state.inicioFds} onChange={(e) => set({ inicioFds: e.target.value || "09:00" })} className="cg-input h-9 rounded-lg px-2 text-sm" />
+            </label>
+          </div>
+        </div>
+      </Card>
+
+      <Card>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-sm font-bold">Data da prova</p>
+            <p className="text-xs cg-ink2">
+              Edital: <b className="cg-num">{fmtDMY(EXAM_OFFICIAL)}</b>
+            </p>
+          </div>
+          <label className="inline-flex items-center gap-2 text-xs font-semibold">
+            Simular outra data
+            <Switch checked={state.simulate} onChange={(v) => set({ simulate: v, simDate: state.simDate ?? dates.top ?? plan.addDaysISO(TODAY, 180) })} label="Simular outra data da prova" />
+          </label>
+        </div>
+        {state.simulate ? (
+          <div className="mt-3 flex flex-col gap-2">
+            <div className="grid grid-cols-[1fr_auto] items-center gap-3">
+              <div className="cg-slider-track">
+                <span className="cg-slider-fill" style={{ width: `${((Math.min(weeks, 104) - 2) / 102) * 100}%` }} />
+                <input
+                  type="range"
+                  min="2"
+                  max="104"
+                  step="1"
+                  value={Math.min(weeks, 104)}
+                  onChange={(e) => set({ simDate: plan.addDaysISO(TODAY, Number(e.target.value) * 7) })}
+                  aria-label="Semanas até a prova simulada"
+                  aria-valuetext={`${weeks} semanas`}
+                />
+              </div>
+              <input
+                type="date"
+                min={minSim}
+                value={state.simDate ?? ""}
+                onChange={(e) => e.target.value && e.target.value >= minSim && set({ simDate: e.target.value })}
+                className="cg-input h-9 rounded-lg px-2 text-sm"
+                aria-label="Data simulada da prova"
+              />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {dates.top ? (
+                <button type="button" onClick={() => set({ simDate: dates.top })} className="cg-chip rounded-md px-2.5 py-1 text-xs font-semibold" aria-pressed={state.simDate === dates.top}>
+                  Top 80% pronto: {fmtDMY(dates.top)}
+                </button>
+              ) : null}
+              {dates.all ? (
+                <button type="button" onClick={() => set({ simDate: dates.all })} className="cg-chip rounded-md px-2.5 py-1 text-xs font-semibold" aria-pressed={state.simDate === dates.all}>
+                  Edital completo: {fmtDMY(dates.all)}
+                </button>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
+
+        <dl className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-lg border cg-line cg-hairlines text-sm">
+          <div className="cg-surface p-3">
+            <dt className="text-xs cg-ink2">Até a prova</dt>
+            <dd className="font-bold cg-num">
+              {weeks} semanas · {fmtHr(cap.raw)}
+            </dd>
+          </div>
+          <div className="cg-surface p-3">
+            <dt className="text-xs cg-ink2">Para conteúdo novo</dt>
+            <dd className="font-bold cg-num">{fmtHr(cap.content)}</dd>
+          </div>
+          <div className="cg-surface p-3">
+            <dt className="text-xs cg-ink2">Top 80% precisa</dt>
+            <dd className="font-bold cg-num">
+              {fmtHr(need.top)} · <span className={fit(need.top) >= 1 ? "cg-good" : "cg-error"}>cabe {fmtPct(fit(need.top))}</span>
+            </dd>
+          </div>
+          <div className="cg-surface p-3">
+            <dt className="text-xs cg-ink2">Edital completo precisa</dt>
+            <dd className="font-bold cg-num">
+              {fmtHr(need.all)} · <span className={fit(need.all) >= 1 ? "cg-good" : "cg-error"}>cabe {fmtPct(fit(need.all))}</span>
+            </dd>
+          </div>
+        </dl>
+        <p className="mt-3 text-sm cg-ink2">
+          No seu ritmo, o top 80% fica pronto em <b className="cg-ink">{dates.top ? fmtDMY(dates.top) : "mais de 3 anos"}</b> e o edital completo em{" "}
+          <b className="cg-ink">{dates.all ? fmtDMY(dates.all) : "mais de 3 anos"}</b>.
+        </p>
+        <div className="mt-4 flex flex-wrap items-center gap-3 border-t cg-line pt-3">
+          <p className="text-xs font-semibold cg-ink2">Escopo da agenda</p>
+          <Segmented
+            label="Escopo da agenda"
+            value={state.scope}
+            onChange={(v) => set({ scope: v })}
+            options={[
+              { value: "top80", label: "Top 80%", hint: `${topCount} assuntos` },
+              { value: "all", label: "Edital completo", hint: `${N_ASSUNTOS}` },
+            ]}
+          />
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+/* ───────────────────────────── 4 · Cronograma ───────────────────────────── */
+
+function BlockCard({ b }) {
+  const a = ACT[b.atividade];
+  const mat = b.materia_id ? MAT[b.materia_id] : null;
+  return (
+    <article className="cg-block rounded-lg p-2.5" data-act={b.atividade}>
       <div className="flex items-center justify-between gap-2 cg-mono text-xs cg-num">
         <span className="cg-ink2">
-          {fmtClock(block.start)}–{fmtClock(block.end)}
+          {plan.fmtClock(b.start)}–{plan.fmtClock(b.end)}
         </span>
-        <span className="font-semibold">{fmtSlots(block.slots)}</span>
+        <span className="font-semibold">{plan.fmtMin(b.minutos)}</span>
       </div>
-      <p className="mt-1.5 flex items-center gap-1.5 text-sm font-bold leading-snug">
-        <Dot color={d.cor} size="h-2 w-2" />
-        <span className="min-w-0">{d.curto}</span>
-      </p>
-      <p className="mt-0.5 text-xs leading-snug cg-ink2">{block.topic.nome}</p>
-      <p className="mt-2 inline-flex items-center gap-1 text-xs font-semibold cg-muted">
-        <type.Icon className="h-3.5 w-3.5" aria-hidden="true" />
-        {type.label}
-      </p>
+      {mat ? (
+        <p className="mt-1.5 flex items-center gap-1.5 text-sm font-bold leading-snug">
+          <Dot color={mat.cor} size="h-2 w-2" />
+          <span className="min-w-0">{mat.curto}</span>
+        </p>
+      ) : (
+        <p className="mt-1.5 text-sm font-bold">Prova completa</p>
+      )}
+      <p className="mt-0.5 text-xs leading-snug cg-ink2">{b.assunto ? b.assunto.nome : `${TOTAL_Q} questões no tempo de prova`}</p>
+      <div className="mt-2 flex items-center justify-between gap-2">
+        <p className={`cg-act-${b.atividade} inline-flex items-center gap-1 text-xs font-semibold`}>
+          <a.Icon className="h-3.5 w-3.5" aria-hidden="true" />
+          {a.label}
+          {b.atividade === "revisao" && b.intervalo_dias ? <span className="font-normal cg-muted">· {b.intervalo_dias}d</span> : null}
+        </p>
+        {b.video ? <VideoLink m={b.video} compact /> : null}
+      </div>
     </article>
   );
 }
 
-function DayColumn({ day }) {
-  const dow = day.date.getDay();
+function DayColumn({ d }) {
+  const total = d.blocks.reduce((s, b) => s + b.minutos, 0);
   return (
-    <div className="cg-sunken flex min-w-0 flex-col gap-2 rounded-xl p-2" data-day-status={day.status} data-day-cap={day.cap}>
+    <div className="cg-sunken flex min-w-0 flex-col gap-2 rounded-xl p-2">
       <div className="flex items-baseline justify-between gap-2 px-1 pt-0.5">
         <p className="text-sm font-bold">
-          {WEEKDAYS[dow]} <span className="cg-mono text-xs font-normal cg-muted">{fmtDM(day.date)}</span>
+          {plan.DAY_LABEL[d.dia_semana]} <span className="cg-mono text-xs font-normal cg-muted">{fmtDM(d.data)}</span>
         </p>
-        {day.status === "study" ? <span className="cg-mono text-xs font-semibold cg-ink2">{fmtSlots(day.cap)}</span> : null}
+        {total ? <span className="cg-mono text-xs font-semibold cg-ink2">{plan.fmtMin(total)}</span> : null}
       </div>
-      {day.status === "rest" ? (
+      {!d.blocks.length ? (
         <div className="flex items-center gap-2 rounded-lg border border-dashed cg-line px-3 py-4 text-xs cg-muted">
           <Coffee className="h-4 w-4" aria-hidden="true" />
-          Descanso
+          {d.capacidade_min ? "Livre" : "Folga"}
         </div>
       ) : null}
-      {day.status === "exam" ? (
-        <div className="cg-exam flex items-center gap-2 rounded-lg px-3 py-4 text-xs font-bold">
-          <Flag className="h-4 w-4" aria-hidden="true" />
-          Dia da prova
-        </div>
-      ) : null}
-      {day.status === "after" ? <div className="rounded-lg border border-dashed cg-line px-3 py-4 text-xs cg-muted">Após a prova</div> : null}
-      {day.blocks.map((b, i) => (
-        <BlockCard key={i} block={b} />
+      {d.blocks.map((b, i) => (
+        <BlockCard key={i} b={b} />
       ))}
+      {d.blocks.length && d.capacidade_min - total >= 15 ? (
+        <div className="rounded-lg border border-dashed cg-line px-2.5 py-2 text-xs cg-muted">
+          <span className="cg-mono cg-num">{plan.fmtMin(d.capacidade_min - total)}</span> de margem para imprevistos
+        </div>
+      ) : null}
     </div>
   );
 }
 
-function RoadmapPanel({ sectionRef, schedule, snapInfo, week, setWeek, stale, canGenerate, onGenerate, exportBar }) {
-  if (!schedule) return null;
-  const { weeks } = snapInfo;
+function SchedulePanel({ weeks, week, setWeek, result, examISO, dates, onSimTop, exportBar }) {
+  if (!weeks.length) return null;
+  const w = weeks[Math.min(week, weeks.length) - 1];
+  const totals = Object.fromEntries(ACT_KEYS.map((k) => [k, 0]));
+  for (const d of w.dias) for (const b of d.blocks) totals[b.atividade] += b.minutos;
+  const days = w.dias;
   return (
-    <section id="roteiro" ref={sectionRef} className="cg-anchor flex flex-col gap-4">
+    <section id="cronograma" className="cg-anchor flex flex-col gap-4">
       <SectionHead
-        step="Fase 3 · Entrega"
-        title="Roteiro da Semana"
-        desc={`Gerado às ${fmtClock(snapInfo.at.getHours() * 60 + snapInfo.at.getMinutes())}. Revisões puxam assuntos estudados em semanas anteriores.`}
+        step="4 · Cronograma"
+        title="Sua agenda, semana a semana"
+        desc="Cada assunto vira videoaula + leitura (proporção pelo tipo do assunto) e depois exercícios. Revisões em 1, 7, 21 e 60 dias; simulados completos a cada 4 semanas."
         right={
           <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setWeek(week - 1)}
-              disabled={week <= 1}
-              aria-label="Semana anterior"
-              className="cg-btn-ghost grid h-9 w-9 place-items-center rounded-lg"
-            >
+            <button type="button" onClick={() => setWeek(week - 1)} disabled={week <= 1} aria-label="Semana anterior" className="cg-btn-ghost grid h-9 w-9 place-items-center rounded-lg">
               <ChevronLeft className="h-4 w-4" aria-hidden="true" />
             </button>
             <div className="min-w-32 text-center" aria-live="polite">
               <p className="text-sm font-bold cg-num">
-                Semana {week} de {weeks}
+                Semana {w.numero} de {weeks.length}
               </p>
               <p className="cg-mono text-xs cg-muted cg-num">
-                {fmtDM(schedule.weekStart)} – {fmtDM(schedule.weekEnd)}
+                {fmtDM(w.inicio)} – {fmtDM(w.fim)}
               </p>
             </div>
-            <button
-              type="button"
-              onClick={() => setWeek(week + 1)}
-              disabled={week >= weeks}
-              aria-label="Próxima semana"
-              className="cg-btn-ghost grid h-9 w-9 place-items-center rounded-lg"
-            >
+            <button type="button" onClick={() => setWeek(week + 1)} disabled={week >= weeks.length} aria-label="Próxima semana" className="cg-btn-ghost grid h-9 w-9 place-items-center rounded-lg">
               <ChevronRight className="h-4 w-4" aria-hidden="true" />
             </button>
-            <span className={`${schedule.retaFinal ? "cg-pill-final" : "cg-pill-base"} rounded-md px-2 py-1 text-xs font-bold`}>
-              {schedule.retaFinal ? "Reta final" : "Fase base"}
-            </span>
+            <span className={`${w.reta_final ? "cg-pill-final" : "cg-pill-base"} rounded-md px-2 py-1 text-xs font-bold`}>{w.reta_final ? "Reta final" : "Fase base"}</span>
           </div>
         }
       />
-
-      {stale ? (
+      {result.cobertura_parcial ? (
         <div role="status" className="cg-warn flex flex-wrap items-center justify-between gap-3 rounded-lg px-4 py-3 text-sm">
-          <span className="inline-flex items-center gap-2">
-            <TriangleAlert className="cg-warn-icon h-4 w-4 shrink-0" aria-hidden="true" />
-            Parâmetros alterados desde a última geração. O roteiro abaixo ainda usa os valores anteriores.
+          <span className="inline-flex items-start gap-2">
+            <TriangleAlert className="cg-warn-icon mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+            <span>
+              Até {fmtDMY(examISO)} não cabe tudo: <b>{result.assuntos_cortados.length}</b> assuntos de menor prioridade ficaram fora (faltam {fmtHr(result.deficit_horas)}). O restante recebe o mínimo e a ordem segue o que mais cai.
+            </span>
           </span>
-          <button
-            type="button"
-            onClick={onGenerate}
-            disabled={!canGenerate}
-            className="cg-btn-primary inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-xs font-bold"
-          >
-            <CalendarCheck className="h-3.5 w-3.5" aria-hidden="true" />
-            Gerar novamente
-          </button>
+          {dates.top ? (
+            <button type="button" onClick={onSimTop} className="cg-btn-primary inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-xs font-bold">
+              Simular prova em {fmtDMY(dates.top)}
+            </button>
+          ) : null}
         </div>
       ) : null}
-
       {exportBar}
-
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <p className="text-sm cg-ink2">
-          <b className="cg-ink cg-num">{fmtSlots(schedule.capacity)}</b> na semana · <b className="cg-ink cg-num">{schedule.blocks}</b> blocos
-        </p>
-        <ul className="flex flex-wrap gap-2" aria-label="Horas por disciplina nesta semana">
-          {schedule.totals.map((t) => {
-            const d = DISC_BY_ID[t.id];
-            return (
-              <li key={t.id} className="cg-surface inline-flex items-center gap-1.5 rounded-md border cg-line px-2 py-1 text-xs" data-total-disc={t.id} data-total-slots={t.slots}>
-                <Dot color={d.cor} size="h-2 w-2" />
-                <span className="font-semibold">{d.curto}</span>
-                <span className="cg-mono cg-ink2 cg-num">{fmtSlots(t.slots)}</span>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-
+      <ul className="flex flex-wrap gap-2" aria-label="Tempo por atividade nesta semana">
+        {ACT_KEYS.filter((k) => totals[k]).map((k) => {
+          const A = ACT[k];
+          return (
+            <li key={k} className="cg-surface inline-flex items-center gap-1.5 rounded-md border cg-line px-2 py-1 text-xs">
+              <A.Icon className={`cg-act-${k} h-3.5 w-3.5`} aria-hidden="true" />
+              <span className="font-semibold">{A.label}</span>
+              <span className="cg-mono cg-ink2 cg-num">{plan.fmtMin(totals[k])}</span>
+            </li>
+          );
+        })}
+      </ul>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
-        {schedule.days.map((day) => (
-          <DayColumn key={toISO(day.date)} day={day} />
+        {days.map((d) => (
+          <DayColumn key={d.data} d={d} />
         ))}
       </div>
     </section>
   );
 }
 
-function ExportBar({ aluno, setAluno, onExport, exporting, error, stale, summary }) {
-  const label = exporting ? "Gerando PDF…" : "Exportar cronograma completo (PDF)";
+function ExportBar({ aluno, setAluno, onPdf, onIcs, busy, error, summary }) {
   return (
     <div className="cg-surface flex flex-wrap items-end gap-3 rounded-xl border cg-line p-3">
       <div className="flex min-w-0 flex-1 flex-col gap-1.5" style={{ minWidth: 200 }}>
         <label htmlFor="aluno" className="text-xs font-semibold cg-ink2">
           Nome do aluno no PDF (opcional)
         </label>
-        <input
-          id="aluno"
-          type="text"
-          value={aluno}
-          onChange={(e) => setAluno(e.target.value)}
-          maxLength={80}
-          autoComplete="off"
-          placeholder="Deixe vazio para preencher à mão"
-          className="cg-input h-10 w-full rounded-lg px-3 text-sm"
-        />
+        <input id="aluno" type="text" value={aluno} onChange={(e) => setAluno(e.target.value)} maxLength={80} placeholder="Ex.: Maria Souza" className="cg-input h-10 rounded-lg px-3 text-sm" />
       </div>
-      {CAN_DOWNLOAD ? (
-        <button
-          type="button"
-          onClick={onExport}
-          disabled={stale || exporting}
-          className="cg-btn-primary inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-bold transition-colors"
-        >
-          <FileDown className="h-4 w-4" aria-hidden="true" />
-          {label}
-        </button>
-      ) : (
-        <a
-          href={SITE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="cg-btn-primary inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-bold transition-colors"
-        >
-          <ExternalLink className="h-4 w-4" aria-hidden="true" />
-          Exportar PDF no site
-        </a>
-      )}
-      <p className="w-full text-xs cg-muted" aria-live="polite">
-        {error ? (
-          <span className="font-medium cg-error">{error}</span>
-        ) : !CAN_DOWNLOAD ? (
-          "Esta prévia não permite downloads. O PDF é gerado no site."
-        ) : stale ? (
-          "Gere o roteiro novamente para exportar a versão com os parâmetros atuais."
-        ) : (
-          summary
-        )}
-      </p>
+      <div className="flex flex-col gap-1">
+        <div className="flex flex-wrap gap-2">
+          <button type="button" onClick={onPdf} disabled={busy} className="cg-btn-primary inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-bold">
+            <FileDown className="h-4 w-4" aria-hidden="true" />
+            {busy ? "Gerando PDF…" : "PDF completo"}
+          </button>
+          <button type="button" onClick={onIcs} className="cg-btn-ghost inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-bold">
+            <CalendarPlus className="h-4 w-4" aria-hidden="true" />
+            Google Agenda (.ics)
+          </button>
+        </div>
+        <p className="text-xs cg-muted">{error ? <span className="cg-error">{error}</span> : summary}</p>
+      </div>
     </div>
   );
 }
 
-function MethodNotes() {
-  const items = [
-    ["Prioridade do assunto", "Faixa de pontos esperados: ≥ 4 → P5 · ≥ 2,5 → P4 · ≥ 1,5 → P3 · ≥ 0,8 → P2 · abaixo → P1."],
-    ["Horas por disciplina", "Horas líquidas × (Σ prioridades dos assuntos ativos × fator de nível) ÷ soma de todas as disciplinas."],
-    ["Fator de nível", "Iniciante 1,6 · Intermediário 1,0 · Avançado 0,5. Avançado também reduz teoria e revisão no mix."],
-    ["Blocos", "Slots de 30 min, alocados em passos de 1h e blocos de até 2h. Sobras de arredondamento passam para a semana seguinte. Reta final: 70% da teoria vira questões e revisão."],
-  ];
+/* ───────────────────────────── 5 · Resultado ───────────────────────────── */
+
+function ComparePanel({ cmp, contentH, nums }) {
+  const saved = nums.gen80 && nums.pers80 ? nums.gen80 - nums.pers80 : null;
   return (
-    <section aria-labelledby="metodo" className="border-t cg-line pt-6">
-      <h2 id="metodo" className="cg-eyebrow">
-        Como o cálculo funciona
-      </h2>
-      <dl className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {items.map(([k, v]) => (
-          <div key={k} className="min-w-0">
-            <dt className="text-sm font-bold">{k}</dt>
-            <dd className="mt-0.5 text-xs leading-relaxed cg-ink2">{v}</dd>
-          </div>
-        ))}
-      </dl>
+    <section id="comparativo" className="cg-anchor flex flex-col gap-4">
+      <SectionHead
+        step="5 · Resultado"
+        title="Genérico × personalizado"
+        desc="Mesmas horas, ordem e dosagem diferentes. O genérico segue o edital do começo ao fim com a mesma carga para todos; o seu começa pelo que rende mais pontos por hora e dá mais tempo ao que você domina menos."
+      />
+      <div className="cg-hairlines grid grid-cols-1 gap-px overflow-hidden rounded-xl border cg-line sm:grid-cols-3">
+        <StatTile label={`Pontos cobertos com ${fmtHr(contentH)}`} value={`${fmtPct(nums.persAt)} × ${fmtPct(nums.genAt)}`} sub="Seu cronograma × genérico, até a prova" />
+        <StatTile label="Horas para chegar a 80%" value={`${fmtHr(nums.pers80 ?? 0)} × ${fmtHr(nums.gen80 ?? 0)}`} sub={saved ? `${fmtHr(saved)} a menos de estudo` : "—"} />
+        <StatTile label="Ganho até a prova" value={`+${Math.max(0, Math.round((nums.persAt - nums.genAt) * 100))} p.p.`} sub={`≈ ${nf1.format((Math.max(0, nums.persAt - nums.genAt) * TOTAL_Q))} questões a mais no alcance`} />
+      </div>
+      <Card>
+        <CompareChart cmp={cmp} contentH={contentH} />
+      </Card>
     </section>
   );
 }
 
-/* ───────────────────────────── App ──────────────────────────────────────── */
+function MethodNotes() {
+  return (
+    <section className="flex flex-col gap-2 text-xs cg-muted">
+      <p className="cg-eyebrow">Como calculamos</p>
+      <ul className="flex max-w-3xl list-disc flex-col gap-1 pl-4">
+        <li>Prioridade do assunto = 35% prova anterior do cargo + 20% última prova da banca + 45% peso no edital, ampliada pela sua lacuna (nivelamento) e por lei alterada recentemente.</li>
+        <li>Pontos esperados = pontos da matéria divididos entre os assuntos pela prioridade. Top 80% = assuntos em ordem de pontos por hora de estudo até somar 80% da prova (menor carga para 80%).</li>
+        <li>Penal Militar, Legislação Especial e Trânsito não têm prova anterior no histórico usado: a prioridade vem só do edital.</li>
+        <li>Capacidade: 10% de folga, reta final nos últimos 15% dos dias, revisões e simulados reservados antes do conteúdo novo.</li>
+        <li>Caso de estudo com dados públicos (edital e provas oficiais). Questões geradas por IA estão marcadas. Confira datas no edital.</li>
+      </ul>
+    </section>
+  );
+}
+
+/* ───────────────────────────── App ───────────────────────────── */
 
 export default function App() {
-  const [today] = useState(() => startOfDay(new Date()));
-  const [defaults] = useState(makeDefaults);
-  const [levels, setLevels] = useState(defaults.levels);
-  const [included, setIncluded] = useState(defaults.included);
-  const [form, setFormState] = useState({
-    examDate: defaults.examDate,
-    hoursPerDay: defaults.hoursPerDay,
-    daysPerWeek: defaults.daysPerWeek,
-    startTime: defaults.startTime,
-  });
-  const [expanded, setExpanded] = useState(() => new Set(["dadm"]));
-  const [snapshot, setSnapshot] = useState(() => ({ config: defaults, at: new Date() }));
+  const [state, setState] = useState(loadState);
+  const [expanded, setExpanded] = useState(() => new Set(["dconst"]));
   const [week, setWeekState] = useState(1);
-  const [aluno, setAluno] = useState("");
-  const [exporting, setExporting] = useState(false);
+  const [busy, setBusy] = useState(false);
   const [exportError, setExportError] = useState(null);
-  const roadmapRef = useRef(null);
+  const quizRef = useRef(null);
 
-  const config = useMemo(() => ({ levels, included, ...form }), [levels, included, form]);
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+    } catch {
+      /* storage unavailable */
+    }
+  }, [state]);
 
-  // Estado ao vivo (Fases 1–3)
-  const dossier = useMemo(() => computeDossier(included), [included]);
-  const coverage = useMemo(() => computeCoverage(dossier), [dossier]);
-  const tb = useMemo(() => computeTimebox(form, today), [form, today]);
-  const plan = useMemo(() => computePlan(dossier, levels, tb.ok ? tb.totalHours : 0), [dossier, levels, tb]);
+  const set = (patch) => setState((s) => ({ ...s, ...patch }));
+  const setHour = (d, v) => setState((s) => ({ ...s, mode: "custom", hours: { ...s.hours, [d]: v } }));
 
-  // Roteiro gerado (congelado no último clique em "Gerar")
-  const snap = useMemo(() => {
-    const c = snapshot.config;
-    const t = computeTimebox(c, today);
-    if (!t.ok) return null;
-    const d = computeDossier(c.included);
-    const p = computePlan(d, c.levels, t.totalHours);
-    if (!p.totalDemanda) return null;
-    return { c, d, t, p, at: snapshot.at };
-  }, [snapshot, today]);
-  const weeks = snap ? snap.t.weeks : 1;
-  const currentWeek = Math.min(Math.max(1, week), weeks);
-  const schedule = useMemo(
-    () => (snap ? buildWeek({ dossier: snap.d, plan: snap.p, levels: snap.c.levels, tb: snap.t, week: currentWeek, today }) : null),
-    [snap, currentWeek, today]
+  // leveling
+  const quizItems = useMemo(() => (state.quiz ? plan.sampleQuiz(pack, { n: QUIZ_N, seed: `${pack.concurso.id}|${state.quiz.attempt}` }).itens : null), [state.quiz?.attempt]);
+  const quizScore = useMemo(() => (state.quiz?.done && quizItems ? plan.scoreQuiz(quizItems, state.quiz.answers) : null), [state.quiz?.done, state.quiz?.answers, quizItems]);
+  const quizByMateria = useMemo(() => {
+    if (!quizScore) return null;
+    const out = {};
+    for (const [id, r] of Object.entries(quizScore.porAssunto)) {
+      const m = pack.assuntos.find((a) => a.id === id).materia_id;
+      const slot = (out[m] ??= { acertos: 0, respondidas: 0 });
+      slot.acertos += r.acertos;
+      slot.respondidas += r.respondidas;
+    }
+    return out;
+  }, [quizScore]);
+  const nivelamento = useMemo(() => plan.nivelamentoInput(pack, state.strengths, quizScore), [state.strengths, quizScore]);
+  const scores = useMemo(() => plan.score({ pack, nivelamento }), [nivelamento]);
+  const par = useMemo(() => plan.pareto(pack, scores), [scores]);
+  const cmp = useMemo(() => plan.compare(pack, scores), [scores]);
+
+  // time
+  const examISO = state.simulate && state.simDate ? state.simDate : EXAM_OFFICIAL;
+  const weekly = plan.DAY_KEYS.reduce((s, k) => s + (state.hours[k] ?? 0), 0);
+  const scoped = useMemo(() => (state.scope === "top80" ? plan.scopePack(pack, par.top) : pack), [state.scope, par]);
+  const result = useMemo(
+    () => (weekly > 0 ? plan.buildPlan({ pack: scoped, nivelamento, hours: state.hours, start: TODAY, exam: examISO }) : { ok: false, erros: [{ message: "Sem horas na semana" }] }),
+    [scoped, nivelamento, state.hours, examISO, weekly]
   );
+  const weeks = useMemo(() => (result.ok && result.cronograma ? plan.displayWeeks(result, pack, { inicio: state.inicio, inicioFds: state.inicioFds }) : []), [result, state.inicio, state.inicioFds]);
+  const dates = useMemo(
+    () => ({
+      top: plan.dateToCover(pack, state.hours, TODAY, par.topHours, par.topCount),
+      all: plan.dateToCover(pack, state.hours, TODAY, par.totalHours, N_ASSUNTOS),
+    }),
+    [state.hours, par]
+  );
+  const cap = {
+    raw: result.ok ? result.capacidade.horas_brutas : 0,
+    content: result.ok ? result.capacidade.horas_para_conteudo : 0,
+  };
+  const need = { top: par.topHours, all: par.totalHours };
+  const nums = {
+    genAt: plan.coverageAt(cmp.generic, cap.content),
+    persAt: plan.coverageAt(cmp.personalized, cap.content),
+    gen80: plan.hoursTo(cmp.generic, plan.PARETO_TARGET),
+    pers80: par.topHours,
+  };
+  const currentWeek = Math.min(Math.max(1, week), Math.max(1, weeks.length));
+  const setWeek = (w) => setWeekState(Math.min(Math.max(1, w), weeks.length));
+  useEffect(() => setWeekState(1), [examISO, state.scope]);
 
-  const stale = JSON.stringify(snapshot.config) !== JSON.stringify(config);
-  const genError = !tb.ok ? "Corrija os campos destacados." : !plan.totalDemanda ? "Nenhum assunto ativo na Fase 1." : null;
-  const canGenerate = !genError;
-
-  const setForm = (k, v) => setFormState((f) => ({ ...f, [k]: v }));
-  const setWeek = (w) => setWeekState(Math.min(Math.max(1, w), weeks));
   const toggleExpand = (id) =>
     setExpanded((s) => {
       const n = new Set(s);
@@ -1622,41 +1294,65 @@ export default function App() {
       else n.add(id);
       return n;
     });
-  const toggleTopic = (id, v) => setIncluded((s) => ({ ...s, [id]: v }));
-  const setLevel = (id, v) => setLevels((s) => ({ ...s, [id]: v }));
 
-  const generate = () => {
-    if (!canGenerate) return;
-    setSnapshot({ config, at: new Date() });
-    setWeekState(1);
-    const reduce = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    requestAnimationFrame(() => roadmapRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }));
+  const quizActions = {
+    onStart: () => {
+      set({ quiz: { attempt: (state.quiz?.attempt ?? 0) + 1, answers: {}, done: false, idx: 0 } });
+      requestAnimationFrame(() => quizRef.current?.scrollIntoView({ block: "start" }));
+    },
+    onAnswer: (id, i) => setState((s) => ({ ...s, quiz: { ...s.quiz, answers: { ...s.quiz.answers, [id]: i } } })),
+    onGo: (idx) => setState((s) => ({ ...s, quiz: { ...s.quiz, idx } })),
+    onFinish: () => setState((s) => ({ ...s, quiz: { ...s.quiz, done: true, idx: 0 } })),
+    onReset: () => set({ quiz: null }),
   };
 
+  const materiasInfo = Object.fromEntries(Object.values(MAT).map((m) => [m.id, { nome: m.nome, curto: m.curto, hex: m.hex }]));
+  const scopeLabel = state.scope === "top80" ? `Top 80% (${par.topCount} de ${N_ASSUNTOS} assuntos)` : `Edital completo (${N_ASSUNTOS} assuntos)`;
+  const modeLabel = state.mode === "custom" ? "Personalizado" : plan.MODES[state.mode].label;
+
   const exportPdf = async () => {
-    if (!snap || stale || exporting) return;
-    setExporting(true);
+    if (busy || !weeks.length) return;
+    setBusy(true);
     setExportError(null);
     try {
-      if (typeof __ARTIFACT__ === "undefined") await exportSchedulePdf({ snap, today, aluno });
+      const { exportPdf: run } = await import("./pdf.js");
+      await run({
+        appName: APP_NAME,
+        pack,
+        weeks,
+        materias: materiasInfo,
+        info: { examISO, simulated: state.simulate, modeLabel, weeklyH: weekly, rawH: cap.raw, contentH: cap.content, scopeLabel, startISO: TODAY, todayISO: TODAY },
+        top: par.items.filter((x) => x.inTop).map((x, i) => ({ rank: i + 1, materia_id: x.assunto.materia_id, nome: x.assunto.nome, nivel: BASE_SCORES.byId[x.id].nivel, pts: x.pts, horas: x.horas })),
+        cmp: nums,
+        aluno: state.aluno,
+      });
     } catch (err) {
       console.error(err);
       setExportError("Não foi possível gerar o PDF. Tente novamente.");
     } finally {
-      setExporting(false);
+      setBusy(false);
     }
+  };
+  const exportIcs = () => {
+    if (!weeks.length) return;
+    const ics = plan.toICS({ weeks, pack, materias: MAT_NAMES, appName: APP_NAME });
+    plan.download(`cronograma-${pack.concurso.id}.ics`, ics, "text/calendar");
   };
 
   const nav = [
-    ["#dossie", "1 · Dossiê"],
-    ["#nivelamento", "2 · Nivelamento"],
-    ["#prazo", "3 · Prazo e carga"],
-    ["#roteiro", "Roteiro"],
+    ["#dossie", "Dossiê"],
+    ["#top80", "Top 80%"],
+    ["#nivelamento", "Nivelamento"],
+    ["#prazo", "Prazo"],
+    ["#cronograma", "Agenda"],
+    ["#comparativo", "Resultado"],
   ];
+  const daysLeft = plan.diffDaysISO(TODAY, examISO);
+  const totalBlocks = weeks.reduce((s, w) => s + w.dias.reduce((t, d) => t + d.blocks.length, 0), 0);
 
   return (
     <div className="cg-app min-h-screen">
-      <style>{CSS}</style>
+      <style>{CSS + EXTRA_CSS + APP_CSS}</style>
 
       <header className="cg-header cg-surface border-b cg-line">
         <div className="cg-gutter cg-wrap flex items-center gap-4 py-3">
@@ -1664,7 +1360,7 @@ export default function App() {
             <span className="cg-brand grid h-9 w-9 shrink-0 place-items-center rounded-md" aria-hidden="true">
               <CalendarCheck className="h-5 w-5" />
             </span>
-            <p className="min-w-0 truncate text-sm font-extrabold tracking-tight md:text-base">Cronograma Personalizado para Você</p>
+            <p className="min-w-0 truncate text-sm font-extrabold tracking-tight md:text-base">{APP_NAME}</p>
           </div>
           <nav className="cg-nav ml-auto hidden items-center gap-1 md:flex" aria-label="Seções">
             {nav.map(([href, label]) => (
@@ -1680,72 +1376,120 @@ export default function App() {
         <div className="flex flex-col gap-4">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div className="min-w-0">
-              <p className="cg-eyebrow">Edital-modelo · {EXAM.banca}</p>
-              <h1 className="mt-1 text-2xl font-extrabold tracking-tight md:text-3xl">{EXAM.cargo}</h1>
+              <p className="cg-eyebrow">Caso de estudo · {pack.concurso.banca}</p>
+              <h1 className="mt-1 text-2xl font-extrabold tracking-tight md:text-3xl">{pack.concurso.nome}</h1>
               <p className="mt-1 text-sm cg-ink2">
-                {TOTAL_QUESTOES} questões · {TOTAL_PONTOS} pontos · histórico de {EXAM.provas} provas ({EXAM.periodo})
+                {pack.concurso.orgao} · {TOTAL_Q} questões · {pack.estrutura_prova.materias.length} matérias · {N_ASSUNTOS} assuntos
               </p>
             </div>
-            <span className="cg-mono rounded-md border cg-line px-2 py-1 text-xs cg-muted">Dados de exemplo</span>
+            <span className="cg-mono rounded-md border cg-line px-2 py-1 text-xs cg-muted">Edital real · curado em {fmtDMY(pack.concurso.curado_em)}</span>
           </div>
           <div className="cg-hairlines grid grid-cols-2 gap-px overflow-hidden rounded-xl border cg-line lg:grid-cols-4">
-            <StatTile label="Dias até a prova" value={tb.ok ? tb.daysUntil : "—"} sub={tb.ok ? `Prova em ${fmtDMY(tb.exam)}` : "Data inválida"} />
+            <StatTile label="Dias até a prova" value={daysLeft} sub={`${fmtDMY(examISO)}${state.simulate ? " (simulada)" : " (edital)"}`} />
+            <StatTile label="Top 80% da prova" value={`${par.topCount} assuntos`} sub={`de ${N_ASSUNTOS} · ${fmtHr(par.topHours)} no seu nível`} />
             <StatTile
-              label="Horas líquidas"
-              value={tb.ok ? fmtH(tb.totalHours) : "—"}
-              sub={tb.ok ? `${tb.studyDays} dias de estudo × ${fmtH(tb.hoursPerDay)}` : "Revise a Fase 3"}
+              label="Cabe até a prova"
+              value={fmtPct(Math.min(1, cap.content / Math.max(1, state.scope === "top80" ? need.top : need.all)))}
+              sub={`${fmtHr(cap.content)} de conteúdo · ${state.scope === "top80" ? "top 80%" : "edital"} pede ${fmtHr(state.scope === "top80" ? need.top : need.all)}`}
             />
-            <StatTile label="Pontos esperados cobertos" value={fmtPct(coverage.share)} sub={`${coverage.ativos} de ${coverage.total} assuntos ativos`} />
-            <StatTile label="Horas realocadas" value={tb.ok ? fmtH(plan.realocado) : "—"} sub="Pelo nivelamento, para lacunas de alta prioridade" />
+            <StatTile
+              label="Economia vs. genérico"
+              value={nums.gen80 ? `−${fmtHr(Math.max(0, nums.gen80 - nums.pers80))}` : "—"}
+              sub={`para cobrir 80% da prova: ${fmtHr(nums.pers80)} × ${fmtHr(nums.gen80 ?? 0)}`}
+            />
           </div>
         </div>
 
-        <DossierPanel
-          dossier={dossier}
-          coverage={coverage}
-          expanded={expanded}
-          onToggleExpand={toggleExpand}
-          onToggleTopic={toggleTopic}
-          onReset={() => setIncluded(SUGGESTED_INCLUDED)}
-        />
+        <section id="dossie" className="cg-anchor flex flex-col gap-4">
+          <SectionHead step="1 · Dossiê" title="O que mais cai nesta prova" desc="Edital 2026 cruzado com a prova anterior do cargo e com a prova mais recente da banca para o mesmo cargo." />
+          <DossierCards />
+          <DossierTable topSet={par.top} expanded={expanded} onToggle={toggleExpand} />
+        </section>
 
-        <LevelPanel
-          dossier={dossier}
-          plan={plan}
-          levels={levels}
-          onLevel={setLevel}
-          onReset={() => setLevels(DIAGNOSTIC_LEVELS)}
-          hasHours={tb.ok}
-        />
+        <section id="top80" className="cg-anchor flex flex-col gap-4">
+          <SectionHead
+            step="Painel"
+            title="Top 80% da prova"
+            desc={`Os ${par.topCount} assuntos com melhor retorno (pontos esperados por hora de estudo no seu nível) somam 80% da prova. A agenda cobre esses primeiro.`}
+            right={
+              <p className="inline-flex items-center gap-1.5 text-sm cg-ink2">
+                <Target className="h-4 w-4" aria-hidden="true" />
+                <b className="cg-ink cg-num">{nf1.format(par.topPts)}</b> de {TOTAL_Q} pontos
+              </p>
+            }
+          />
+          <TopPanel par={par} />
+        </section>
 
-        <TimeboxPanel today={today} form={form} setForm={setForm} tb={tb} canGenerate={canGenerate} genError={genError} onGenerate={generate} />
+        <section id="nivelamento" className="cg-anchor flex flex-col gap-4" ref={quizRef}>
+          <SectionHead
+            step="2 · Nivelamento"
+            title="Seu ponto de partida"
+            desc="Marque cada matéria (opcional) e faça o simulado. Matéria fraca recebe mais horas; forte, menos. Sem marcação, vale o peso da prova."
+            right={
+              Object.keys(state.strengths).length ? (
+                <button type="button" onClick={() => set({ strengths: {} })} className="cg-btn-ghost inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-xs font-semibold">
+                  <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
+                  Limpar marcações
+                </button>
+              ) : null
+            }
+          />
+          <StrengthGrid
+            strengths={state.strengths}
+            quizByMateria={quizByMateria}
+            onSet={(id, v) =>
+              setState((s) => {
+                const next = { ...s.strengths };
+                if (v) next[id] = v;
+                else delete next[id];
+                return { ...s, strengths: next };
+              })
+            }
+          />
+          <QuizPanel quiz={state.quiz} items={quizItems} score={quizScore} {...quizActions} />
+        </section>
 
-        {snap ? (
-          <RoadmapPanel
-            sectionRef={roadmapRef}
-            schedule={schedule}
-            snapInfo={{ weeks, at: snap.at }}
+        <section id="prazo" className="cg-anchor flex flex-col gap-4">
+          <SectionHead step="3 · Prazo e carga" title="Seu tempo até a prova" desc="Ajuste as horas de cada dia. Simule outra data para ver quanto tempo levaria para estudar o top 80% ou o edital inteiro." />
+          <TimePanel state={state} set={set} setHour={setHour} weekly={weekly} cap={cap} need={need} dates={dates} topCount={par.topCount} />
+        </section>
+
+        {result.ok && weeks.length ? (
+          <SchedulePanel
+            weeks={weeks}
             week={currentWeek}
             setWeek={setWeek}
-            stale={stale}
-            canGenerate={canGenerate}
-            onGenerate={generate}
+            result={result}
+            examISO={examISO}
+            dates={dates}
+            onSimTop={() => set({ simulate: true, simDate: dates.top })}
             exportBar={
               <ExportBar
-                aluno={aluno}
-                setAluno={setAluno}
-                onExport={exportPdf}
-                exporting={exporting}
+                aluno={state.aluno}
+                setAluno={(v) => set({ aluno: v })}
+                onPdf={exportPdf}
+                onIcs={exportIcs}
+                busy={busy}
                 error={exportError}
-                stale={stale}
-                summary={`${weeks} semanas · ${fmtH(snap.t.totalHours)} · todas as semanas em um arquivo A4`}
+                summary={`${weeks.length} semanas · ${totalBlocks} blocos · .ics: Google Agenda › Configurações › Importar e exportar`}
               />
             }
           />
-        ) : null}
+        ) : (
+          <section id="cronograma" className="cg-anchor">
+            <div role="status" className="cg-warn flex items-center gap-2 rounded-lg px-4 py-3 text-sm">
+              <TriangleAlert className="cg-warn-icon h-4 w-4 shrink-0" aria-hidden="true" />
+              {weekly <= 0 ? "Defina ao menos um dia com horas de estudo." : `Não foi possível montar a agenda: ${result.erros?.[0]?.message ?? "verifique a data"}.`}
+            </div>
+          </section>
+        )}
+
+        <ComparePanel cmp={cmp} contentH={cap.content} nums={nums} />
 
         <MethodNotes />
       </main>
     </div>
   );
 }
+

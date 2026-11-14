@@ -50,7 +50,10 @@ export function parseEdital(text, { materias = [] } = {}) {
 
   for (const m of out.values()) {
     // sub-items written inline ("1. Ato: 1.1 conceito; 1.2 atributos") go to their own lines
-    const joined = m.bruto.join("\n").replace(/\s+(?=\d{1,2}(?:\.\d{1,2}){1,3}\.?\s+[A-Za-zÀ-ÿ(])/g, "\n");
+    const joined = m.bruto
+      .join("\n")
+      .replace(/\s+(?=\d{1,2}(?:\.\d{1,2}){1,3}\.?\s+[A-Za-zÀ-ÿ(])/g, "\n") // inline sub-items
+      .replace(/(?<=[.;:)])\s+(?=\d{1,2}\.\s+[A-ZÀ-Ý])/g, "\n"); // inline top-level items: "… final. 2. Poder Constituinte"
     const numbered = [];
     for (const line of joined.split("\n")) {
       const it = ITEM.exec(line);

@@ -4,6 +4,7 @@ import { collapse, materiaMatcher } from "./text.js";
 
 const Q_START = /^\s*(?:QUEST[ÃA]O\s+)?(\d{1,3})\s*(?:[.)\-–]|º|ª)?(?:\s+(.*))?$/i;
 const ALT_START = /^\s*\(?([A-E])[).\-–]\s*(.*)$/;
+const ALT_BARE = /^\s*([A-E])\s+(\S.*)$/; // Cebraspe style: "A Os entes da Federação…"
 const ATTENTION = /^\s*(Aten[çc][ãa]o|Instru[çc][õo]es?|Texto\s+(?:para|I|II|III|1|2|3))\b/i;
 const RANGE = /(\d{1,3})\s*(?:a|e|at[ée])\s*(\d{1,3})/i;
 const NOISE = [
@@ -15,6 +16,12 @@ const NOISE = [
   /^\s*https?:\/\//i,
   /tipo\s+\d{3}/i,
   /^\s*[A-Z]{2,6}\d{0,4}-[A-Za-zÀ-ÿ.\- ]{3,40}\s*$/, // e.g. "TRT4-Téc.Jud.-Adm."
+  /^\s*\d{6}_\d{2}N\d+/, // Cebraspe page header
+  /CEBRASPE\s+[–-]/i,
+  /^\s*INSTITUTO AOCP\s*$/i,
+  /^\s*BLOCO\s+[IVX]+\s*$/i,
+  /^\s*Espa[çc]o livre\s*$/i,
+  /^\s*RASCUNHO\s*$/i,
 ];
 
 function isNoise(line) {
@@ -28,7 +35,9 @@ function isNoise(line) {
  *   secoes: [{ linha, materia_id, texto }]
  * }
  */
-export function parseProva(text, { materias = [] } = {}) {
+export function parseProva(text, { materias = [], noise = [] } = {}) {
+  const extraNoise = noise.map((n) => (n instanceof RegExp ? n : new RegExp(n, "i")));
+  const bareAlts = (text.match(/^\s*\([A-E]\)/gm) ?? []).length < 10; // no "(A)" markers -> bare letters
   const match = materiaMatcher(materias);
   const lines = text.split("\n");
   const questoes = [];
@@ -62,10 +71,16 @@ export function parseProva(text, { materias = [] } = {}) {
   for (let i = 0; i < lines.length; i++) {
     const raw = lines[i];
     const line = raw.replace(/\f/g, "").trimEnd();
-    if (isNoise(line)) continue;
+    if (isNoise(line) || extraNoise.some((re) => re.test(line))) continue;
 
     // matéria header
     const mid = match(line);
+    if (mid && cur && cur.alternativas.length === 0) {
+      // a "question" with no alternatives before a header was page furniture (e.g. a number on the cover)
+      expected = cur.numero;
+      cur = null;
+      curAlt = null;
+    }
     if (mid && (!cur || curAlt === "E" || cur.alternativas.length === 5)) {
       finish();
       materiaId = mid;
@@ -93,9 +108,12 @@ export function parseProva(text, { materias = [] } = {}) {
     // question start
     // a new question may start when the previous one is complete, or (recovery) when the
     // previous one has no alternatives yet and the line is a clean "N." / "N)" start
-    const qs = Q_START.exec(line);
-    const cleanStart = /^\s*(?:QUEST[ÃA]O\s+)?\d{1,3}\s*(?:[.)]|º|ª)(?:\s|$)/i.test(line);
-    if (qs && Number(qs[1]) === expected && (!cur || cur.alternativas.length >= 4 || (cur.alternativas.length === 0 && cleanStart))) {
+    // "Questão N" may come glued to page furniture ("OBJETIVA -Questão 4")
+    const glued = /(?:^|[\s\-–])QUEST[ÃA]O\s+(\d{1,3})\s*$/i.exec(line);
+    const qs = Q_START.exec(line) ?? (glued ? [line, glued[1], ""] : null);
+    const cleanStart = Boolean(glued) || /^\s*(?:QUEST[ÃA]O\s+)?\d{1,3}\s*(?:[.)]|º|ª)(?:\s|$)/i.test(line);
+    const sectionKnown = materias.length === 0 || materiaId !== null; // with matérias configured, questions start after the first header
+    if (qs && sectionKnown && Number(qs[1]) === expected && (!cur || cur.alternativas.length >= 4 || (cur.alternativas.length === 0 && cleanStart))) {
       finish();
       cur = { numero: expected, materia_id: materiaId, materia_hint: materiaHint, contexto: null, enunciado: qs[2] ?? "", alternativas: [], completa: false };
       if (contextLines) {
@@ -108,7 +126,8 @@ export function parseProva(text, { materias = [] } = {}) {
     }
 
     // alternative start
-    const as = ALT_START.exec(line);
+    // bare letters only after the stem has some text (the first stem line may start with "A ")
+    const as = ALT_START.exec(line) ?? (bareAlts && cur && cur.enunciado.trim() ? ALT_BARE.exec(line) : null);
     if (cur && as) {
       const letter = as[1];
       const next = curAlt === null ? "A" : String.fromCharCode(curAlt.charCodeAt(0) + 1);
