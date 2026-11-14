@@ -235,6 +235,13 @@ function nav(route) {
   );
 }
 
+function brandMark() {
+  const span = h("span", { class: "brand-mark", "aria-hidden": "true" });
+  span.innerHTML =
+    '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/><path d="m9 15 2 2 4-4"/></svg>';
+  return span;
+}
+
 function render() {
   const root = document.getElementById("app");
   const focusKey = document.activeElement?.dataset?.focus ?? null;
@@ -245,7 +252,17 @@ function render() {
   const header = h(
     "header",
     { class: "top" },
-    h("div", { class: "wrap top-inner" }, h("div", { class: "brand" }, h("span", { class: "brand-mark" }, "2G"), h("div", {}, h("div", { class: "brand-small" }, t.app.brand), h("div", { class: "brand-name" }, t.app.nome, app.packMeta ? h("span", { class: "brand-pack"}, ` · ${app.packMeta.nome}`) : null))), nav(route))
+    h(
+      "div",
+      { class: "wrap top-inner" },
+      h(
+        "div",
+        { class: "brand" },
+        brandMark(),
+        h("div", {}, h("div", { class: "brand-name" }, t.app.nome), app.packMeta ? h("div", { class: "brand-pack" }, app.packMeta.nome) : null)
+      ),
+      nav(route)
+    )
   );
   root.append(header);
 

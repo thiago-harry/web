@@ -1,8 +1,7 @@
 // Every UI string lives here. Engine "motivo" templates live in engine/explain.js.
 export const t = {
   app: {
-    brand: "Mentoria 2G",
-    nome: "Cronograma Direcionado",
+    nome: "Cronograma Personalizado para Você",
     rodape: "Geração 100% local no seu navegador. Nada é enviado a servidores.",
     sintetico: "Dados sintéticos",
     carregando: "Carregando…",
