@@ -31,6 +31,7 @@ export const ALLOCATION_DEFAULTS = Object.freeze({
   mock_minutes_per_question: 3, // NOT IN SPEC: mock duration = questions × 3 min, capped by the day
   leftover: "free", // NOT IN SPEC: "free" keeps spare capacity empty; "second_pass" fills it at ratio_next_pass
   accept_cut: false, // when capacity is insufficient, also build the schedule without the cut topics
+  concluidos: [], // topics the student already finished outside this plan: [{ id, materia_id, nome, data }] -> revisions only
 });
 
 const cmpId = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
@@ -342,6 +343,15 @@ function fillCalendar({ pack, scores, cal, budgets, order, cfg, input, mocks }) 
   const isReady = (id) => !isOpen(id) && assuntos[id].prereq.every((p) => !(p in st) || isOpen(p));
   const activeWithWork = () => opened.filter((id) => left(st[id]) > 0);
   const revQueue = new RevisionQueue();
+  // finished before this plan: no new content, but their spaced revisions still count (only those not yet past)
+  const finished = {};
+  for (const c of cfg.concluidos ?? []) {
+    const closedAt = parseDate(c?.data);
+    if (!c?.id || !c.materia_id || assuntos[c.id] || closedAt === null) continue;
+    finished[c.id] = { id: c.id, materia_id: c.materia_id, nome: c.nome ?? c.id };
+    revQueue.add(finished[c.id], closedAt, cal.exam, cfg.revision_intervals);
+  }
+  revQueue.items = revQueue.items.filter((it) => !finished[it.assunto_id] || it.due >= cal.start);
   const rr = new WeightedRoundRobin();
   const rr2 = new WeightedRoundRobin();
   const weeksOut = [];
@@ -419,7 +429,7 @@ function fillCalendar({ pack, scores, cal, budgets, order, cfg, input, mocks }) 
       while (due.length && revUsed + cfg.revision_minutes <= revCap && remaining >= cfg.revision_minutes) {
         const item = due.find((it) => it.materia_id !== lastMat);
         if (!item) break; // same matéria as the previous block: leave it for the next day
-        const a = assuntos[item.assunto_id];
+        const a = assuntos[item.assunto_id] ?? finished[item.assunto_id];
         push({
           assunto_id: a.id,
           materia_id: a.materia_id,
@@ -428,7 +438,7 @@ function fillCalendar({ pack, scores, cal, budgets, order, cfg, input, mocks }) 
           intervalo_dias: item.intervalo_dias,
           ...explainRevision({ assunto: a, intervaloDias: item.intervalo_dias, closedAt: toISO(item.closedAt) }),
         });
-        st[a.id].rev_count += 1;
+        if (st[a.id]) st[a.id].rev_count += 1;
         revUsed += cfg.revision_minutes;
         revQueue.remove(item);
         due = revQueue.due(day.date);
