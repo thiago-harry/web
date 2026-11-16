@@ -21,6 +21,17 @@
       "data_prova": "2026-12-13",
       "status": "rascunho",
       "descricao": "Soldado QPPM · Instituto AOCP · prova objetiva com 60 questões. Caso de estudo: dossiê montado a partir do edital 002/CCP/2026, da prova PMSC 2023 (Cebraspe) e de prova AOCP de Soldado (PM-PE 2024)."
+    },
+    {
+      "id": "inss-tecnico-pre",
+      "arquivo": "inss-tecnico-pre.json",
+      "nome": "INSS · Técnico do Seguro Social",
+      "orgao": "Instituto Nacional do Seguro Social",
+      "banca": "Cebraspe (provável)",
+      "cargo": "Técnico do Seguro Social",
+      "data_prova": "2027-07-18",
+      "status": "pre-edital",
+      "descricao": "Técnico do Seguro Social · pré-edital. Conteúdo e estrutura do edital nº 1/2022 (Cebraspe, 120 itens certo/errado); histórico das provas de 2016 e 2022. Atualizar quando o novo edital sair."
     }
   ]
 }

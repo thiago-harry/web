@@ -37,6 +37,8 @@ export const PACK_SCHEMA = {
         data_prova: { type: "string", pattern: DATE_PATTERN },
         fonte_edital: { type: "string" },
         curado_em: { type: "string", pattern: DATE_PATTERN },
+        data_prova_estimada: { type: "boolean" },
+        situacao: { type: "string", enum: ["pre_edital", "edital_publicado"] },
       },
     },
     estrutura_prova: {
@@ -46,6 +48,7 @@ export const PACK_SCHEMA = {
       properties: {
         total_questoes: { type: "integer", minimum: 1 },
         tipo: { type: "string", enum: EXAM_TYPES },
+        duracao_minutos: { type: "integer", minimum: 30, maximum: 600 },
         penalidade_erro: { type: "boolean" },
         nota_corte_estimada: { type: "number", minimum: 0, maximum: 1 },
         materias: {
@@ -77,6 +80,7 @@ export const PACK_SCHEMA = {
       properties: {
         modo: { type: "string", enum: LEVELING_MODES },
         itens: { type: "array", items: { $ref: "#/$defs/item_simulado" } },
+        textos: { type: "object", additionalProperties: { type: "string", minLength: 1 } },
       },
     },
     notas_banca: {
@@ -177,6 +181,7 @@ export const PACK_SCHEMA = {
         ano: { type: "integer", minimum: 1990, maximum: 2100 },
         desatualizada: { type: "boolean" },
         origem: { type: "string", enum: ["prova", "gerada_ia"] },
+        contexto_id: { type: "string", minLength: 1 },
       },
     },
     material: {
@@ -389,6 +394,7 @@ function semanticChecks(pack, errors, warnings) {
 
   pack.nivelamento.itens.forEach((it, i) => {
     if (!assuntoIds.has(it.assunto_id)) errors.push({ path: `/nivelamento/itens/${i}/assunto_id`, message: `assunto desconhecido: ${it.assunto_id}` });
+    if (it.contexto_id && !(it.contexto_id in (pack.nivelamento.textos ?? {}))) errors.push({ path: `/nivelamento/itens/${i}/contexto_id`, message: `texto de apoio desconhecido: ${it.contexto_id}` });
     if (it.gabarito >= it.alternativas.length) errors.push({ path: `/nivelamento/itens/${i}/gabarito`, message: "índice fora das alternativas" });
   });
   if (pack.nivelamento.modo !== "autoavaliacao" && pack.nivelamento.itens.length === 0) {

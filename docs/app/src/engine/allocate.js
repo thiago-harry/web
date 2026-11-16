@@ -132,7 +132,7 @@ export function buildCalendar(input, cfg) {
 /* ------------------------------------------------------------------ */
 
 /** Which weeks get a full mock exam, on which day and for how long. Map numero -> { dayIndex, minutes }. */
-export function planMocks(cal, cfg, input, examQuestoes) {
+export function planMocks(cal, cfg, input, examQuestoes, examMinutes = null) {
   const { blocoMin } = input;
   const plan = new Map();
   let since = 0;
@@ -142,7 +142,8 @@ export function planMocks(cal, cfg, input, examQuestoes) {
     if (since < cadence) continue;
     const best = week.days.reduce((b, d) => (d.cap_min > (b ? b.cap_min : 0) ? d : b), null);
     if (!best) continue;
-    const minutes = Math.min(best.cap_min, Math.max(blocoMin, roundTo(examQuestoes * cfg.mock_minutes_per_question, blocoMin)), week.usable_min);
+    const full = examMinutes ?? examQuestoes * cfg.mock_minutes_per_question; // real exam length when the pack has it
+    const minutes = Math.min(best.cap_min, Math.max(blocoMin, roundTo(full, blocoMin)), week.usable_min);
     if (minutes < blocoMin) continue;
     plan.set(week.numero, { dayIndex: best.index, minutes, final: best.final });
     since = 0;
@@ -604,7 +605,7 @@ export function allocate({ pack, scores, disponibilidade, options = {} }) {
   if (!input.ok) return { ok: false, etapa: "disponibilidade", erros: input.erros };
 
   const cal = buildCalendar(input, cfg);
-  const mocks = planMocks(cal, cfg, input, pack.estrutura_prova.total_questoes);
+  const mocks = planMocks(cal, cfg, input, pack.estrutura_prova.total_questoes, pack.estrutura_prova.duracao_minutos ?? null);
   const reserves = estimateReserves(cal, cfg, input, mocks, pack.assuntos.length);
   const budgets = computeBudgets(pack, scores, reserves.content_min / 60, cfg, input);
   const capacidade = {

@@ -62,6 +62,16 @@
         "curado_em": {
           "type": "string",
           "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "data_prova_estimada": {
+          "type": "boolean"
+        },
+        "situacao": {
+          "type": "string",
+          "enum": [
+            "pre_edital",
+            "edital_publicado"
+          ]
         }
       }
     },
@@ -87,6 +97,11 @@
             "multipla_escolha_5",
             "certo_errado"
           ]
+        },
+        "duracao_minutos": {
+          "type": "integer",
+          "minimum": 30,
+          "maximum": 600
         },
         "penalidade_erro": {
           "type": "boolean"
@@ -180,6 +195,13 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/item_simulado"
+          }
+        },
+        "textos": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
           }
         }
       }
@@ -448,6 +470,10 @@
             "prova",
             "gerada_ia"
           ]
+        },
+        "contexto_id": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
