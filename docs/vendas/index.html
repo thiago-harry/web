@@ -6,16 +6,17 @@
 <title>Cronograma INSS Técnico · Cronograma Personalizado para Você</title>
 <meta name="description" content="Cronograma para o concurso do INSS (Técnico do Seguro Social) que começa pelo que mais cai na prova, no seu tempo e no seu nível. Baseado no edital de 2022 e nas provas do Cebraspe." />
 <meta name="robots" content="noindex" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231d3fa8'/%3E%3Cpath d='M7 9h10M8 5v3M16 5v3M6 8.5a1.5 1.5 0 0 1 1.5-1.5h9A1.5 1.5 0 0 1 18 8.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 16.5zM9.5 13.5l1.8 1.8 3.3-3.3' stroke='white' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%234338ca'/%3E%3Cpath d='M7 9h10M8 5v3M16 5v3M6 8.5a1.5 1.5 0 0 1 1.5-1.5h9A1.5 1.5 0 0 1 18 8.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 16.5zM9.5 13.5l1.8 1.8 3.3-3.3' stroke='white' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #f3f5f9; --surface: #ffffff; --sunken: #eef1f6; --ink: #0f1729; --ink-2: #465068; --muted: #636c82;
-    --line: #e2e7ef; --accent: #1d3fa8; --accent-hover: #16338c; --accent-soft: #e6ebf9; --good: #0a6b3a; --good-soft: #e3f3ea;
-    --warn-soft: #fdf3dd; --warn-line: #e6c06d; --orange: #eb6834;
-    --radius: 16px; --shadow: 0 10px 30px rgba(15, 23, 41, .08), 0 2px 6px rgba(15, 23, 41, .05);
+    /* paleta Índigo e âmbar: mesmos valores do tema claro em src/palette.js */
+    --bg: #f4f4f9; --surface: #ffffff; --sunken: #ebebf5; --ink: #15132b; --ink-2: #4a4866; --muted: #64627e;
+    --line: #e0dfec; --accent: #4338ca; --accent-hover: #3730a3; --accent-soft: #e9e7fc; --mark: #ffd166;
+    --good: #0a6b3a; --good-soft: #e3f3ea; --warn-soft: #fdf3dd; --warn-line: #e6c06d;
+    --radius: 16px; --shadow: 0 10px 30px rgba(21, 19, 43, .08), 0 2px 6px rgba(21, 19, 43, .05);
     --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   }
@@ -33,7 +34,7 @@
   p { margin: 0; }
   .lead { font-size: clamp(17px, 2vw, 20px); color: var(--ink-2); }
   .muted { color: var(--muted); }
-  .accent { color: var(--accent); }
+  .accent { color: var(--accent); background: linear-gradient(transparent 64%, var(--mark) 64%, var(--mark) 90%, transparent 90%); padding: 0 .06em; }
   section { padding: 72px 0; }
   .center { text-align: center; }
   .stack > * + * { margin-top: 16px; }
@@ -71,7 +72,7 @@
   .hero .tag { display: inline-flex; gap: 8px; align-items: center; background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 13px; padding: 6px 12px; border-radius: 999px; }
   .hero .note { font-size: 13px; color: var(--muted); }
   .shot { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-  .phone { width: min(320px, 78vw); margin: 0 auto; border-radius: 38px; padding: 12px; background: #0f1729; box-shadow: var(--shadow); }
+  .phone { width: min(320px, 78vw); margin: 0 auto; border-radius: 38px; padding: 12px; background: var(--ink); box-shadow: var(--shadow); }
   .phone img { border-radius: 28px; }
   .hero-visual .shot { padding: 12px 8px 4px; }
   .hero-visual figcaption { font-size: 13px; color: var(--muted); margin-top: 10px; }
@@ -188,7 +189,7 @@
             <p class="note">Funciona no navegador, no computador e no celular. Sem instalar nada.</p>
           </div>
           <figure class="hero-visual" style="margin: 0">
-            <div class="shot"><img src="img/vantagem-resumo.webp" width="1000" height="643" alt="Com as mesmas horas até a prova, o cronograma personalizado alcança 97 itens contra 57 do genérico e chega a 80% da prova em 205 horas contra 323" /></div>
+            <div class="shot"><img src="img/vantagem-resumo.webp" width="1000" height="686" alt="Com as mesmas horas até a prova, o cronograma personalizado alcança 97 itens contra 57 do genérico e chega a 80% da prova em 205 horas contra 323" /></div>
             <figcaption>Exemplo real da ferramenta: 10h por semana, Português forte, Seguridade Social fraca.</figcaption>
           </figure>
         </div>
@@ -284,7 +285,7 @@
                 <li>PDF completo para imprimir</li>
               </ul>
             </div>
-            <div class="shot"><img src="img/progresso.webp" width="1500" height="1082" alt="Agenda com dois blocos marcados como estudados, quatro blocos atrasados e o botão Reorganizar agenda" loading="lazy" /></div>
+            <div class="shot"><img src="img/progresso.webp" width="1500" height="1076" alt="Agenda com dois blocos marcados como estudados, quatro blocos atrasados e o botão Reorganizar agenda" loading="lazy" /></div>
           </div>
         </div>
       </div>
