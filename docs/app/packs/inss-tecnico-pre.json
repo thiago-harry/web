@@ -241,7 +241,9 @@
       "incidencia_cargo": [],
       "incidencia_banca": [],
       "carga_horaria_base": 3,
-      "prereq": [],
+      "prereq": [
+        "port.regencia"
+      ],
       "tipo": "pratica",
       "volatil": false,
       "materiais": [
@@ -261,7 +263,9 @@
       "incidencia_cargo": [],
       "incidencia_banca": [],
       "carga_horaria_base": 8,
-      "prereq": [],
+      "prereq": [
+        "port.classes"
+      ],
       "tipo": "pratica",
       "volatil": false,
       "materiais": [
@@ -290,7 +294,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 5,
-      "prereq": [],
+      "prereq": [
+        "port.sintaxe"
+      ],
       "tipo": "pratica",
       "volatil": false,
       "materiais": [
@@ -319,7 +325,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 5,
-      "prereq": [],
+      "prereq": [
+        "port.sintaxe"
+      ],
       "tipo": "pratica",
       "volatil": false,
       "materiais": [
@@ -344,7 +352,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 5,
-      "prereq": [],
+      "prereq": [
+        "port.sintaxe"
+      ],
       "tipo": "pratica",
       "volatil": false,
       "materiais": [
@@ -470,7 +480,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 3,
-      "prereq": [],
+      "prereq": [
+        "etica.decreto1171"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -581,7 +593,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 3,
-      "prereq": [],
+      "prereq": [
+        "dconst.nacionalidade"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -601,7 +615,9 @@
       "incidencia_cargo": [],
       "incidencia_banca": [],
       "carga_horaria_base": 4,
-      "prereq": [],
+      "prereq": [
+        "dconst.direitos_individuais"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -691,7 +707,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 4,
-      "prereq": [],
+      "prereq": [
+        "dadm.estado_governo"
+      ],
       "tipo": "doutrina",
       "volatil": false,
       "materiais": [
@@ -716,7 +734,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 5,
-      "prereq": [],
+      "prereq": [
+        "dadm.estado_governo"
+      ],
       "tipo": "doutrina",
       "volatil": false,
       "materiais": [
@@ -736,7 +756,9 @@
       "incidencia_cargo": [],
       "incidencia_banca": [],
       "carga_horaria_base": 3,
-      "prereq": [],
+      "prereq": [
+        "dadm.organizacao"
+      ],
       "tipo": "doutrina",
       "volatil": false,
       "materiais": [
@@ -765,7 +787,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 6,
-      "prereq": [],
+      "prereq": [
+        "dadm.agentes"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -839,7 +863,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 4,
-      "prereq": [],
+      "prereq": [
+        "dadm.fontes_principios"
+      ],
       "tipo": "doutrina",
       "volatil": false,
       "materiais": [
@@ -868,7 +894,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 7,
-      "prereq": [],
+      "prereq": [
+        "dadm.poderes"
+      ],
       "tipo": "doutrina",
       "volatil": false,
       "materiais": [
@@ -897,7 +925,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 4,
-      "prereq": [],
+      "prereq": [
+        "dadm.organizacao"
+      ],
       "tipo": "doutrina",
       "volatil": false,
       "materiais": [
@@ -929,7 +959,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 5,
-      "prereq": [],
+      "prereq": [
+        "dadm.atos"
+      ],
       "tipo": "doutrina",
       "volatil": false,
       "materiais": [
@@ -954,7 +986,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 5,
-      "prereq": [],
+      "prereq": [
+        "dadm.fontes_principios"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -979,7 +1013,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 6,
-      "prereq": [],
+      "prereq": [
+        "dadm.atos"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -1122,7 +1158,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 4,
-      "prereq": [],
+      "prereq": [
+        "info.internet"
+      ],
       "tipo": "pratica",
       "volatil": false,
       "materiais": [
@@ -1308,7 +1346,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 5,
-      "prereq": [],
+      "prereq": [
+        "seg.origem_conceito"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -1416,7 +1456,10 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 7,
-      "prereq": [],
+      "prereq": [
+        "seg.principios",
+        "seg.empresa"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -1453,7 +1496,8 @@
       "incidencia_banca": [],
       "carga_horaria_base": 6,
       "prereq": [
-        "seg.financiamento"
+        "seg.financiamento",
+        "rgps.segurados_obrigatorios"
       ],
       "tipo": "lei_seca",
       "volatil": false,
@@ -1528,7 +1572,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 3,
-      "prereq": [],
+      "prereq": [
+        "seg.arrecadacao"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -1564,7 +1610,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 3,
-      "prereq": [],
+      "prereq": [
+        "seg.arrecadacao"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -1636,7 +1684,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 3,
-      "prereq": [],
+      "prereq": [
+        "rgps.segurados_obrigatorios"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -1672,7 +1722,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 4,
-      "prereq": [],
+      "prereq": [
+        "rgps.segurados_obrigatorios"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -1721,7 +1773,9 @@
       "incidencia_cargo": [],
       "incidencia_banca": [],
       "carga_horaria_base": 5,
-      "prereq": [],
+      "prereq": [
+        "rgps.segurados_obrigatorios"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -1746,7 +1800,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 5,
-      "prereq": [],
+      "prereq": [
+        "rgps.filiacao_inscricao"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -1820,7 +1876,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 6,
-      "prereq": [],
+      "prereq": [
+        "rgps.carencia"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -1845,7 +1903,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 5,
-      "prereq": [],
+      "prereq": [
+        "benef.incapacidade"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -1871,7 +1931,8 @@
       "incidencia_banca": [],
       "carga_horaria_base": 7,
       "prereq": [
-        "rgps.dependentes"
+        "rgps.dependentes",
+        "rgps.qualidade_segurado"
       ],
       "tipo": "lei_seca",
       "volatil": false,
@@ -1897,7 +1958,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 5,
-      "prereq": [],
+      "prereq": [
+        "rgps.carencia"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -1917,7 +1980,9 @@
       "incidencia_cargo": [],
       "incidencia_banca": [],
       "carga_horaria_base": 5,
-      "prereq": [],
+      "prereq": [
+        "benef.aposentadorias"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -1967,7 +2032,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 3,
-      "prereq": [],
+      "prereq": [
+        "benef.aposentadorias"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -2164,7 +2231,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 4,
-      "prereq": [],
+      "prereq": [
+        "dadm.processo"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -2189,7 +2258,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 5,
-      "prereq": [],
+      "prereq": [
+        "benef.aposentadorias"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [
@@ -2225,7 +2296,9 @@
       ],
       "incidencia_banca": [],
       "carga_horaria_base": 8,
-      "prereq": [],
+      "prereq": [
+        "rgps.filiacao_inscricao"
+      ],
       "tipo": "lei_seca",
       "volatil": false,
       "materiais": [

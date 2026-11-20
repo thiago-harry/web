@@ -4,7 +4,8 @@
 //   1. capacity  = study minutes until the exam, minus a 10% buffer per week
 //   2. budgets   = capacity × P/ΣP per topic, clamped to [0.5, 2] × carga_horaria_base,
 //                  surplus redistributed until it converges
-//   3. order     = topological by prereq, ties by P desc
+//   3. order     = topological by prereq, ties by P desc, then edital order; a topic
+//                  opens only after the theory of its prerequisites is finished
 //   4. fill      = day by day; revisions first (≤ 15% of the week), mock exams on
 //                  cadence, then study blocks; final stretch = no new topics
 //
@@ -269,7 +270,9 @@ export function topoOrder(pack, scores, budgetById) {
       children.get(p).push(id);
     }
   }
-  const rank = (a, b) => scores.byId[b].P - scores.byId[a].P || cmpId(a, b);
+  // ties (same P) follow the edital, which lists each matéria from the basics to the advanced topics
+  const editalPos = new Map(pack.assuntos.map((a, i) => [a.id, i]));
+  const rank = (a, b) => scores.byId[b].P - scores.byId[a].P || editalPos.get(a) - editalPos.get(b);
   const ready = ids.filter((id) => indeg.get(id) === 0).sort(rank);
   const out = [];
   while (ready.length) {
@@ -341,7 +344,9 @@ function fillCalendar({ pack, scores, cal, budgets, order, cfg, input, mocks }) 
   const left = (s) => s.t_target - s.t_done + (s.q_target - s.q_done);
   const opened = [];
   const isOpen = (id) => st[id].opened !== null;
-  const isReady = (id) => !isOpen(id) && assuntos[id].prereq.every((p) => !(p in st) || isOpen(p));
+  // a topic opens only once the theory of each prerequisite in the plan is finished (basics before advanced)
+  const theoryDone = (id) => isOpen(id) && st[id].t_done >= st[id].t_target;
+  const isReady = (id) => !isOpen(id) && assuntos[id].prereq.every((p) => !(p in st) || theoryDone(p));
   const activeWithWork = () => opened.filter((id) => left(st[id]) > 0);
   const revQueue = new RevisionQueue();
   // finished before this plan: no new content, but their spaced revisions still count (only those not yet past)
